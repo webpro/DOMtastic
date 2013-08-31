@@ -235,11 +235,11 @@
     };
 
     Node.prototype.undelegate = function(selector, eventName, fn) {
-        var handlers = getEventHandlers.apply(this, arguments);
-        handlers.forEach(function(handler) {
+        var id = getEventId.apply(this, arguments);
+        this._handlers[id].forEach(function(handler) {
             this.off(eventName, handler);
         }.bind(this));
-        this._handlers[getEventId.apply(this, arguments)] = null;
+        this._handlers[id] = null;
         return this;
     };
 
@@ -268,11 +268,6 @@
         this._handlers[id] = this._handlers[id] || [];
         this._handlers[id].push(proxyFn);
         return proxyFn;
-    };
-
-    var getEventHandlers = function(selector, eventName, fn) {
-        var id = getEventId.apply(this, arguments);
-        return this._handlers[id];
     };
 
     var eventHandlerId = 0;
