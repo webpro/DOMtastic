@@ -186,7 +186,17 @@
         return this;
     };
 
+    // Chainable shorthand for `removeEventListener`.
+    // Delegates to `undelegate` if that signature is used.
+    //
+    //     element.off('click', callback);
+
     Node.prototype.off = function(eventName, fn, useCapture) {
+
+        if(typeof fn === 'string' && typeof useCapture === 'function') {
+            return this.undelegate.apply(this, arguments)
+        }
+
         this.removeEventListener(eventName, fn, useCapture || false);
         return this;
     };
@@ -234,6 +244,14 @@
         var args = arguments;
         this.forEach(function(element) {
             element.delegate.apply(element, args);
+        });
+        return this;
+    };
+
+    NodeList.prototype.undelegate = function() {
+        var args = arguments;
+        this.forEach(function(element) {
+            element.undelegate.apply(element, args);
         });
         return this;
     };
