@@ -18,12 +18,10 @@ describe('selectors', function() {
         expect(elements.length).toBe(5);
     });
 
-    it('should return the document element', function() {
-        expect($(document)).toBe(document);
-    });
-
-    it('should return the window element', function() {
+    it('should return the provided element', function() {
         expect($(window)).toBe(window);
+        expect($(document)).toBe(document);
+        expect($(document.body)).toBe(document.body);
     });
 
     it('should provide a chainable API', function() {
