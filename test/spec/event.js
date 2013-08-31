@@ -48,15 +48,15 @@ describe('events', function() {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should de-attach an event handler from an element', function() {
+    it('should detach an event handler from an element', function() {
         var element = document.body;
-        element.on('foo', spy);
-        element.off('foo', spy);
-        element.trigger('foo');
+        element.on('EVENT-detach', spy);
+        element.off('EVENT-detach', spy);
+        element.trigger('EVENT-detach');
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should de-attach event handlers from multiple elements', function() {
+    it('should detach event handlers from multiple elements', function() {
         var elements = $('#testFragment li');
         elements.on('EVENT-detach-multi', spy);
         elements.off('EVENT-detach-multi', spy);
@@ -66,8 +66,8 @@ describe('events', function() {
 
     it('should receive a delegated event from a child element', function() {
         var element = document.body;
-        element.delegate('li', 'testEvent1', spy);
-        $('.fourth').trigger('testEvent1');
+        element.delegate('li', 'EVENT-delegated', spy);
+        $('.fourth').trigger('EVENT-delegated');
         expect(spy).toHaveBeenCalled();
     });
 
@@ -78,15 +78,15 @@ describe('events', function() {
         expect(spy.calls.count()).toBe(5);
     });
 
-    it('should de-attach a delegated event handler from an element', function() {
+    it('should detach a delegated event handler from an element', function() {
         var element = document.body;
-        element.delegate('li', 'testEvent2', spy);
-        element.undelegate('li', 'testEvent2', spy);
+        element.delegate('li', 'EVENT-delegated-detach', spy);
+        element.undelegate('li', 'EVENT-delegated-detach', spy);
         $('.fourth').trigger('testEvent2');
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should de-attach a delegated event handler from multiple elements', function() {
+    it('should detach a delegated event handler from multiple elements', function() {
         var elements = $('#testFragment li');
         elements.delegate('li', 'EVENT-delegated-detach-multi', spy);
         elements.undelegate('li', 'EVENT-delegated-detach-multi', spy);
@@ -96,44 +96,44 @@ describe('events', function() {
 
     it('should forward request to `delegate` if that signature was used', function() {
         var element = document.body;
-        element.on('li', 'testEvent3', spy);
-        $('.fourth').trigger('testEvent3');
+        element.on('li', 'EVENT-on-delegate', spy);
+        $('.fourth').trigger('EVENT-on-delegate');
         expect(spy).toHaveBeenCalled();
     });
 
     it('should have the correct `event.target` and `event.currentTarget`', function() {
         var element = $('.fourth'), eventTarget, eventCurrentTarget;
-        document.body.delegate('li', 'testEvent4', function(event) {
+        document.body.delegate('li', 'EVENT-target-currentTarget', function(event) {
             eventTarget = event.target;
             eventCurrentTarget = event.currentTarget;
         });
-        element.trigger('testEvent4');
+        element.trigger('EVENT-target-currentTarget');
         expect(eventTarget).toBe(element[0]);
         expect(eventCurrentTarget).toBe(document.body);
     });
 
     it('should receive delegated events from child elements', function() {
         var element = document.body;
-        element.delegate('li', 'testEvent5', spy);
-        $('.two').trigger('testEvent5');
-        $('.three').trigger('testEvent5');
-        $('.fourth').trigger('testEvent5');
+        element.delegate('li', 'EVENT-delegated-children', spy);
+        $('.two').trigger('EVENT-delegated-children');
+        $('.three').trigger('EVENT-delegated-children');
+        $('.fourth').trigger('EVENT-delegated-children');
         expect(spy.calls.count()).toBe(3);
     });
 
     it('should remove all delegated handlers when un-delegating event handlers', function() {
         var element = document.body;
-        element.delegate('li', 'testEvent6', spy);
-        element.delegate('li', 'testEvent6', spy);
-        element.delegate('li', 'testEvent6', spy);
-        element.undelegate('li', 'testEvent6', spy);
-        $('.two').trigger('testEvent6');
+        element.delegate('li', 'EVENT-undelegate', spy);
+        element.delegate('li', 'EVENT-undelegate', spy);
+        element.delegate('li', 'EVENT-undelegate', spy);
+        element.undelegate('li', 'EVENT-undelegate', spy);
+        $('.two').trigger('EVENT-undelegate');
         expect(spy.calls.count()).toBe(0);
     });
 
     it('should provide a chainable API', function() {
-        document.body.on('testEvent7', spy).off('testEvent7', spy).delegate('.two', 'testEvent7', spy).undelegate('.two', 'testEvent7', spy);
-        $('.two').trigger('testEvent7');
+        document.body.on('EVENT-chainable', spy).off('EVENT-chainable', spy).delegate('.two', 'EVENT-chainable', spy).undelegate('.two', 'EVENT-chainable', spy);
+        $('.two').trigger('EVENT-chainable');
         expect(spy.calls.count()).toBe(0);
     });
 
