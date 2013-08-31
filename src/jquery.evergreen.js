@@ -237,6 +237,7 @@
         handlers.forEach(function(handler) {
             this.off(eventName, handler);
         }.bind(this));
+        this._handlers[getEventId.apply(this, arguments)] = null;
         return this;
     };
 
