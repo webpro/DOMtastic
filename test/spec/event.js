@@ -101,6 +101,14 @@ describe('events', function() {
         expect(spy).toHaveBeenCalled();
     });
 
+    it('should forward request to `undelegate` if that signature was used', function() {
+        var element = document.body;
+        element.on('li', 'EVENT-off-undelegate', spy);
+        element.off('li', 'EVENT-off-undelegate', spy);
+        $('.fourth').trigger('EVENT-on-delegate');
+        expect(spy).not.toHaveBeenCalled();
+    });
+
     it('should have the correct `event.target` and `event.currentTarget`', function() {
         var element = $('.fourth'), eventTarget, eventCurrentTarget;
         document.body.delegate('li', 'EVENT-target-currentTarget', function(event) {
