@@ -7,6 +7,8 @@
 //
 // The native `Node` and `NodeList` objects are extended to fill up the chainable API, like `forEach`, `addClass`, `append`, `on`.
 // Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
+//
+// It's under 5KB after minification (<1.5KB gzipped).
 
 (function(global) {
 
