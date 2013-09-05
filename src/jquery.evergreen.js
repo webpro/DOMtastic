@@ -82,7 +82,7 @@
     // Augment with every, filter, forEach, some, map
 
     ['every', 'filter', 'forEach', 'some', 'map'].forEach(function(fn) {
-        NodeList.prototype[fn] = [][fn];
+        NodeList.prototype[fn] = NodeList.prototype[fn] || [][fn];
     });
 
     //  Aliasing `each` for `forEach`.
@@ -91,7 +91,7 @@
 
     // Convert `NodeList` to `Array`.
 
-    NodeList.prototype.toArray = function() {
+    NodeList.prototype.toArray = NodeList.prototype.toArray || function() {
         return Array.prototype.slice.call(this);
     };
 
@@ -104,12 +104,12 @@
 
     ['add', 'remove', 'toggle'].forEach(function(fn) {
 
-        Node.prototype[fn + 'Class'] = function(value) {
+        Node.prototype[fn + 'Class'] = Node.prototype[fn + 'Class'] || function(value) {
             this.classList[fn](value)
             return this;
         };
 
-        NodeList.prototype[fn + 'Class'] = function(value) {
+        NodeList.prototype[fn + 'Class'] = NodeList.prototype[fn + 'Class'] || function(value) {
             this.forEach(function(element) {
                 element.classList[fn](value)
             });
@@ -121,9 +121,9 @@
     //
     //     $('.myElement').hasClass('myClass');
 
-    Node.prototype.hasClass = Node.prototype.contains;
+    Node.prototype.hasClass = Node.prototype.hasClass || Node.prototype.contains;
 
-    NodeList.prototype.hasClass = NodeList.prototype.contains = function(value) {
+    NodeList.prototype.hasClass = NodeList.prototype.contains || function(value) {
         return this.some(function(element) {
             return element.classList.contains(value)
         }, false);
@@ -134,7 +134,7 @@
     //
     //     $('.myElement').append('<span>more</span>');
 
-    Node.prototype.append = function(element) {
+    Node.prototype.append = Node.prototype.append || function(element) {
 
         element = typeof element !== 'string' ? element : $(element);
 
@@ -147,13 +147,13 @@
         return this;
     };
 
-    Node.prototype.before = function(element) {
+    Node.prototype.before = Node.prototype.before || function(element) {
         element = typeof element !== 'string' ? element : $(element);
         this.parentNode.insertBefore(element, this);
         return this;
     };
 
-    Node.prototype.after = function(element) {
+    Node.prototype.after = Node.prototype.after || function(element) {
         element = typeof element !== 'string' ? element : $(element);
         this.parentNode.insertBefore(element, this.nextSibling);
         return this;
@@ -163,7 +163,7 @@
     // The method is only applied to the first element in NodeList.
 
     ['append', 'before', 'after'].forEach(function(fn) {
-        NodeList.prototype[fn] = function(element) {
+        NodeList.prototype[fn] = NodeList.prototype[fn] || function(element) {
             this[0][fn](element);
             return this;
         };
@@ -178,7 +178,7 @@
     //     element.on('click', callback);
     //     element.trigger('click');
 
-    Node.prototype.on = function(eventName, fn, useCapture) {
+    Node.prototype.on = Node.prototype.on || function(eventName, fn, useCapture) {
 
         if(typeof fn === 'string' && typeof useCapture === 'function') {
             return this.delegate.apply(this, arguments)
@@ -193,7 +193,7 @@
     //
     //     element.off('click', callback);
 
-    Node.prototype.off = function(eventName, fn, useCapture) {
+    Node.prototype.off = Node.prototype.off || function(eventName, fn, useCapture) {
 
         if(typeof fn === 'string' && typeof useCapture === 'function') {
             return this.undelegate.apply(this, arguments)
@@ -212,13 +212,13 @@
     //
     //     container.undelegate('.children', 'click', handler);
 
-    Node.prototype.delegate = function(selector, eventName, fn) {
+    Node.prototype.delegate = Node.prototype.delegate || function(selector, eventName, fn) {
         var handler = createEventHandler.apply(this, arguments);
         this.on(eventName, handler);
         return this;
     };
 
-    Node.prototype.undelegate = function(selector, eventName, fn) {
+    Node.prototype.undelegate = Node.prototype.undelegate || function(selector, eventName, fn) {
         var id = getEventId.apply(this, arguments);
         this._handlers[id].forEach(function(handler) {
             this.off(eventName, handler);
@@ -259,7 +259,7 @@
     //
     //     element.trigger('anyEventName');
 
-    Node.prototype.trigger = function(type, options) {
+    Node.prototype.trigger = Node.prototype.trigger || function(type, options) {
 
         options = options || {};
         if(options.bubbles === undefined) options.bubbles = true;
@@ -274,7 +274,7 @@
     // Event methods for NodeList (apply method on each Node)
 
     ['on', 'off', 'delegate', 'undelegate', 'trigger'].forEach(function(fnName) {
-        NodeList.prototype[fnName] = function() {
+        NodeList.prototype[fnName] = NodeList.prototype[fnName] || function() {
             var args = arguments;
             this.forEach(function(element) {
                 element[fnName].apply(element, args);
