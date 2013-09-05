@@ -6,6 +6,7 @@
 // works with live Node and NodeList objects (instead of the Array-like `$` objects).
 //
 // The native `Node` and `NodeList` objects are extended to fill up the chainable API, like `forEach`, `addClass`, `append`, `on`.
+// Methods already on the `Node` or `NodeList` prototype are not overridden (i.e. use native method if available).
 // Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
 //
 // It's under 5KB after minification (<1.5KB gzipped).
