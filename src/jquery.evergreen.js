@@ -203,22 +203,6 @@
         return this;
     };
 
-    NodeList.prototype.on = function() {
-        var args = arguments;
-        this.forEach(function(element) {
-            element.on.apply(element, args);
-        });
-        return this;
-    };
-
-    NodeList.prototype.off = function() {
-        var args = arguments;
-        this.forEach(function(element) {
-            element.off.apply(element, args);
-        });
-        return this;
-    };
-
     //     var handler = function(event) {
     //         event.target; // child
     //         event.currentTarget; // container
@@ -240,22 +224,6 @@
             this.off(eventName, handler);
         }.bind(this));
         this._handlers[id] = null;
-        return this;
-    };
-
-    NodeList.prototype.delegate = function() {
-        var args = arguments;
-        this.forEach(function(element) {
-            element.delegate.apply(element, args);
-        });
-        return this;
-    };
-
-    NodeList.prototype.undelegate = function() {
-        var args = arguments;
-        this.forEach(function(element) {
-            element.undelegate.apply(element, args);
-        });
         return this;
     };
 
@@ -303,13 +271,17 @@
         return this;
     };
 
-    NodeList.prototype.trigger = function() {
-        var args = arguments;
-        this.forEach(function(element) {
-            element.trigger.apply(element, args);
-        });
-        return this;
-    };
+    // Event methods for NodeList (apply method on each Node)
+
+    ['on', 'off', 'delegate', 'undelegate', 'trigger'].forEach(function(fnName) {
+        NodeList.prototype[fnName] = function() {
+            var args = arguments;
+            this.forEach(function(element) {
+                element[fnName].apply(element, args);
+            });
+            return this;
+        };
+    });
 
     // Expose `$` to global scope
 
