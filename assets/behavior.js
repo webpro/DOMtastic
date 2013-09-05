@@ -14,7 +14,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["//"],
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/lars/www/jQuery3/src/jquery.evergreen.js",
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/jquery.evergreen.js",
         "projectPath": "src/jquery.evergreen.js",
         "targetPath": "index",
         "title": "index"
