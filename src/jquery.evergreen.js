@@ -11,7 +11,13 @@
 //
 // It's under 5KB after minification (<1.5KB gzipped).
 
-(function(global) {
+(function(root, factory) {
+    if(typeof define === 'function' && define.amd) {
+        define(factory);
+    } else {
+        root.$ = factory();
+    }
+}(this, function() {
 
     // Query selector
     // --------------
@@ -284,8 +290,6 @@
         };
     });
 
-    // Expose `$` to global scope
+    return $;
 
-    global.$ = $;
-
-})(this);
+}));
