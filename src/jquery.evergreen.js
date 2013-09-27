@@ -255,7 +255,7 @@
     // and actually call the provided event handler.
 
     var delegateHandler = function(selector, fn, event) {
-        var matchesSelector = this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.oMatchesSelector;
+        var matchesSelector = this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
         if(matchesSelector.call(event.target, selector)) {
             event.currentTarget = this;
             fn.call(event.target, event);
