@@ -293,7 +293,10 @@
         };
     });
 
-    // Polyfill for CustomEvent, borrowed from https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill.
+    // Polyfills
+    // ---------
+
+    // Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
     // Needed to support IE (9, 10, 11)
 
     (function() {
