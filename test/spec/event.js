@@ -34,7 +34,8 @@ describe('events', function() {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('should receive events bubbling up to an element not in the DOM', function() {
+    // Test disabled, since this feature is available in IE and Firefox, but not in WebKit-based browsers
+    xit('should receive events bubbling up to an element not in the DOM', function() {
         var element = $('<div><p></p></div>');
         element.on('EVENT-unattached-element', spy);
         element.$('p').trigger('EVENT-unattached-element');
