@@ -1,0 +1,5 @@
+{
+    "glob": ["src/*"],
+    "index": "src/jquery.evergreen.js",
+    "whitespace-after-token": false
+}
