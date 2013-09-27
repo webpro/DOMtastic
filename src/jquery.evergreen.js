@@ -10,6 +10,9 @@
 // Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
 //
 // It's under 5KB after minification (<1.5KB gzipped).
+//
+// Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
+// IE9 only needs a polyfill for `classList` to make all tests pass.
 
 (function(root, factory) {
     if(typeof define === 'function' && define.amd) {
@@ -291,7 +294,7 @@
     });
 
     // Polyfill for CustomEvent, borrowed from https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill.
-    // Needed to support IE9, IE10.
+    // Needed to support IE (9, 10, 11)
 
     (function() {
         function CustomEvent(event, params) {

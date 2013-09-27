@@ -10,6 +10,9 @@ Much of the original jQuery's "weight" is not included at all, such as `$.ajax`,
 
 It's under 5KB after minification (<1.5KB gzipped).
 
+Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
+IE9 only needs a polyfill for `classList` to make all tests pass.
+
 [Annotated source](http://webpro.github.io/jquery-evergreen)
 
 [MIT licensed](http://webpro.mit-license.org)
