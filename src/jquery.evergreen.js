@@ -145,27 +145,29 @@
     //     $('.myElement').append('<span>more</span>');
 
     Node.prototype.append = Node.prototype.append || function(element) {
-
-        element = typeof element !== 'string' ? element : $(element);
-
-        if(element instanceof NodeList) {
-            element.forEach(this.appendChild.bind(this));
+        if(typeof element === 'string') {
+            this.insertAdjacentHTML('beforeend', element);
         } else {
             this.appendChild(element);
         }
-
         return this;
     };
 
     Node.prototype.before = Node.prototype.before || function(element) {
-        element = typeof element !== 'string' ? element : $(element);
-        this.parentNode.insertBefore(element, this);
+        if(typeof element === 'string') {
+            this.insertAdjacentHTML('beforebegin', element)
+        } else {
+            this.parentNode.insertBefore(element, this);
+        }
         return this;
     };
 
     Node.prototype.after = Node.prototype.after || function(element) {
-        element = typeof element !== 'string' ? element : $(element);
-        this.parentNode.insertBefore(element, this.nextSibling);
+        if(typeof element === 'string') {
+            this.insertAdjacentHTML('afterend', element)
+        } else {
+            this.parentNode.insertBefore(element, this.nextSibling);
+        }
         return this;
     };
 
