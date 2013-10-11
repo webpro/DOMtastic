@@ -148,7 +148,11 @@
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
         } else {
-            this.appendChild(element);
+            if(element instanceof NodeList) {
+                element.toArray().forEach(this.appendChild.bind(this));
+            } else {
+                this.appendChild(element);
+            }
         }
         return this;
     };
@@ -157,7 +161,11 @@
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element)
         } else {
-            this.parentNode.insertBefore(element, this);
+            if(element instanceof NodeList) {
+                element.toArray().forEach(this.before.bind(this))
+            } else {
+                this.parentNode.insertBefore(element, this);
+            }
         }
         return this;
     };
@@ -166,7 +174,11 @@
         if(typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element)
         } else {
-            this.parentNode.insertBefore(element, this.nextSibling);
+            if(element instanceof NodeList) {
+                element.toArray().reverse().forEach(this.after.bind(this));
+            } else {
+                this.parentNode.insertBefore(element, this.nextSibling);
+            }
         }
         return this;
     };
