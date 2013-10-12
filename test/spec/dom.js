@@ -4,6 +4,7 @@ describe('DOM', function() {
         container = $('#testElement')[0],
         containerHTML = '<div id="testChild"></div>',
         html = '<article><section><p>foo</p><p>bar</p></section></article>',
+        htmlSmall = '<span>1</span>',
         htmlList = '<p>foo</p><p>bar</p><p>baz</p>';
 
     beforeEach(function() {
@@ -33,6 +34,24 @@ describe('DOM', function() {
         expect(emptyContainer.innerHTML).toBe(htmlList);
     });
 
+    it('should append DOM string to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.append(htmlSmall);
+        expect(emptyContainer.innerHTML).toBe('<p>foo' + htmlSmall + '</p><p>bar' + htmlSmall + '</p><p>baz' + htmlSmall + '</p>');
+    });
+
+    it('should append DOM element to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.append($(htmlSmall));
+        expect(emptyContainer.innerHTML).toBe('<p>foo' + htmlSmall + '</p><p>bar' + htmlSmall + '</p><p>baz' + htmlSmall + '</p>');
+    });
+
+    it('should append DOM elements to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.append($(htmlList));
+        expect(emptyContainer.innerHTML).toBe('<p>foo' + htmlList + '</p><p>bar' + htmlList + '</p><p>baz' + htmlList + '</p>');
+    });
+
     it('should insert DOM string as previous sibling', function() {
         $('#testChild').before(html);
         expect(container.innerHTML).toBe(html + containerHTML);
@@ -50,6 +69,24 @@ describe('DOM', function() {
         expect(container.innerHTML).toBe(htmlList + containerHTML);
     });
 
+    it('should insert DOM string as previous sibling to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.before(htmlSmall);
+        expect(emptyContainer.innerHTML).toBe(htmlSmall + '<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>');
+    });
+
+    it('should insert DOM element as previous sibling to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.before($(htmlSmall));
+        expect(emptyContainer.innerHTML).toBe(htmlSmall + '<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>');
+    });
+
+    it('should insert DOM elements as previous siblings to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.before($(htmlList));
+        expect(emptyContainer.innerHTML).toBe(htmlList + '<p>foo</p>' + htmlList + '<p>bar</p>' + htmlList + '<p>baz</p>');
+    });
+
     it('should insert DOM string as next sibling', function() {
         $('#testChild').after(html);
         expect(container.innerHTML).toBe(containerHTML + html);
@@ -59,6 +96,24 @@ describe('DOM', function() {
         var child = $(html);
         $('#testChild').after(child);
         expect(container.innerHTML).toBe(containerHTML + html);
+    });
+
+    it('should insert DOM string as next sibling to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.after(htmlSmall);
+        expect(emptyContainer.innerHTML).toBe('<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>' + htmlSmall);
+    });
+
+    it('should insert DOM element as next sibling to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.after($(htmlSmall));
+        expect(emptyContainer.innerHTML).toBe('<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>' + htmlSmall);
+    });
+
+    it('should insert DOM elements as next siblings to each element in NodeList', function() {
+        emptyContainer.append(htmlList);
+        emptyContainer.childNodes.after($(htmlList));
+        expect(emptyContainer.innerHTML).toBe('<p>foo</p>' + htmlList + '<p>bar</p>' + htmlList + '<p>baz</p>' + htmlList);
     });
 
     it('should insert DOM elements as next sibling', function() {

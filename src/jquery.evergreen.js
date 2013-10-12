@@ -148,8 +148,9 @@
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
         } else {
-            if(element instanceof NodeList) {
-                element.toArray().forEach(this.appendChild.bind(this));
+            if(element.length) {
+                var elements = element instanceof NodeList ? element.toArray() : element;
+                elements.forEach(this.appendChild.bind(this));
             } else {
                 this.appendChild(element);
             }
@@ -161,8 +162,9 @@
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element)
         } else {
-            if(element instanceof NodeList) {
-                element.toArray().forEach(this.before.bind(this))
+            if(element.length) {
+                var elements = element instanceof NodeList ? element.toArray() : element;
+                elements.forEach(this.before.bind(this));
             } else {
                 this.parentNode.insertBefore(element, this);
             }
@@ -174,8 +176,9 @@
         if(typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element)
         } else {
-            if(element instanceof NodeList) {
-                element.toArray().reverse().forEach(this.after.bind(this));
+            if(element.length) {
+                var elements = element instanceof NodeList ? element.toArray() : element;
+                elements.reverse().forEach(this.after.bind(this));
             } else {
                 this.parentNode.insertBefore(element, this.nextSibling);
             }
@@ -184,14 +187,31 @@
     };
 
     // Also extend `NodeList` with `append`, `before` and `after`.
-    // The method is only applied to the first element in NodeList.
+    // The method clones provided elements (except for its own last child).
 
     ['append', 'before', 'after'].forEach(function(fn) {
-        NodeList.prototype[fn] = NodeList.prototype[fn] || function(element) {
-            this[0][fn](element);
+        NodeList.prototype[fn] = NodeList.prototype[fn] || function(originalElement) {
+            var lastIndex = this.length - 1;
+            this.toArray().forEach(function(el, index) {
+                var element = index === lastIndex ? originalElement : clone(originalElement);
+                el[fn](element);
+            });
             return this;
         };
     });
+
+    var clone = function(element) {
+        if(typeof element === 'string') {
+            return '' + element;
+        } else if(element instanceof Node) {
+            return element.cloneNode(true);
+        } else if(element instanceof NodeList) {
+            return element.map(function(el) {
+                return el.cloneNode(true);
+            })
+        }
+        return element;
+    };
 
     // Events
     // ------
