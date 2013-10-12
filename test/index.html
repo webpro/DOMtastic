@@ -1,45 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>jQuery Evergreen Tests</title>
-		<link rel="stylesheet" href="lib/jasmine/jasmine.css">
-		<script src="lib/jasmine/jasmine.js"></script>
-		<script src="lib/jasmine/jasmine-html.js"></script>
-		<script src="lib/jasmine/boot.js"></script>
+    <head>
+        <title>jQuery Evergreen Tests</title>
+        <link rel="stylesheet" href="lib/jasmine/jasmine.css">
+        <script src="lib/jasmine/jasmine.js"></script>
+        <script src="lib/jasmine/jasmine-html.js"></script>
+        <script src="lib/jasmine/boot.js"></script>
         <script src="lib/jasmine.customMatchers.js"></script>
-		<script>
-			if(location.hash === '#testem')
-				document.write('<script src="/testem.js"></' + 'script>')
-		</script>
-	</head>
-	<body>
-		<h1>jQuery Evergreen Tests</h1>
+        <script>
+            if(location.hash === '#testem')
+                document.write('<script src="/testem.js"></' + 'script>')
+        </script>
+    </head>
+    <body>
+        <h1>jQuery Evergreen Tests</h1>
 
-		<div id="testFragment" style="display: none;">
+        <div id="testFragment" style="display: none;">
 
-			<ul>
-				<li>1<span>.</span></li>
-				<li class="two">2<span>.</span></li>
-				<li class="three">3<span>.</span></li>
-				<li class="fourth">4<span>.</span></li>
-				<li>5<span>.</span></li>
-			</ul>
+            <ul>
+                <li>1<span>.</span></li>
+                <li class="two">2<span>.</span></li>
+                <li class="three">3<span>.</span></li>
+                <li class="fourth">4<span>.</span></li>
+                <li>5<span>.</span></li>
+            </ul>
 
             <div class="cleanup"><span></span></div>
 
-		</div>
+        </div>
 
-		<div id="testEmpty" style="display: none;"></div>
+        <div id="testEmpty" style="display: none;"></div>
 
-		<div id="testElement" style="display: none;"></div>
+        <div id="testElement" style="display: none;"></div>
 
-		<script src="../src/jquery.evergreen.js"></script>
+        <script src="../src/jquery.evergreen.js"></script>
 
+        <script src="spec/selector.js"></script>
+        <script src="spec/dom.js"></script>
+        <script src="spec/event.js"></script>
+        <script src="spec/class.js"></script>
 
-		<script src="spec/selector.js"></script>
-		<script src="spec/dom.js"></script>
-		<script src="spec/event.js"></script>
-		<script src="spec/class.js"></script>
-
-	</body>
+    </body>
 </html>
