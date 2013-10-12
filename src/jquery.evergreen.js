@@ -143,6 +143,7 @@
     // ----------------
     //
     //     $('.myElement').append('<span>more</span>');
+    //     $('.myList').append('<span>more</span>');
 
     Node.prototype.append = Node.prototype.append || function(element) {
         if(typeof element === 'string') {
@@ -158,6 +159,8 @@
         return this;
     };
 
+    //     $('.myElement').before(element);
+
     Node.prototype.before = Node.prototype.before || function(element) {
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element)
@@ -171,6 +174,8 @@
         }
         return this;
     };
+
+    //     $('.myList').after(elements);
 
     Node.prototype.after = Node.prototype.after || function(element) {
         if(typeof element === 'string') {
@@ -187,7 +192,7 @@
     };
 
     // Also extend `NodeList` with `append`, `before` and `after`.
-    // The method clones provided elements (except for its own last child).
+    // The method clones provided elements (except for last iteration).
 
     ['append', 'before', 'after'].forEach(function(fn) {
         NodeList.prototype[fn] = NodeList.prototype[fn] || function(originalElement) {
