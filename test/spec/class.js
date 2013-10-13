@@ -22,10 +22,15 @@ describe('old-school class methods', function() {
     });
 
     it('should check a class', function() {
-        var element = $('#testFragment');
+        var element = $('#testFragment')[0];
         expect(element.hasClass('testClass4')).toBe(false);
         element.addClass('testClass4');
         expect(element.hasClass('testClass4')).toBe(true);
+    });
+
+    it('should check a class on a NodeList', function() {
+        var elements = $('#testFragment li');
+        expect(elements.hasClass('fourth')).toBe(true);
     });
 
     it('should provide a chainable API', function() {

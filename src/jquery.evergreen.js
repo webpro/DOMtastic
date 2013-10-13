@@ -131,12 +131,14 @@
     //
     //     $('.myElement').hasClass('myClass');
 
-    Node.prototype.hasClass = Node.prototype.hasClass || Node.prototype.contains;
+    Node.prototype.hasClass = Node.prototype.hasClass || function(value) {
+        return this.classList.contains(value)
+    };
 
-    NodeList.prototype.hasClass = NodeList.prototype.contains || function(value) {
+    NodeList.prototype.hasClass = NodeList.prototype.hasClass || function(value) {
         return this.some(function(element) {
             return element.classList.contains(value)
-        }, false);
+        });
     };
 
     // DOM Manipulation
