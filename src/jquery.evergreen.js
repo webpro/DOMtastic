@@ -2,10 +2,10 @@
 // ----------------
 //
 // jQuery Evergreen works with modern browsers.
-// It has the same familiar API as jQuery 1.x and 2.x, but under the hood has the major difference that it
+// It has the same familiar API as jQuery, but under the hood has the major difference that it
 // works with live Node and NodeList objects (instead of the Array-like `$` objects).
 //
-// The native `Node` and `NodeList` objects are extended to fill up the chainable API, like `forEach`, `addClass`, `append`, `on`.
+// The native `Node` and `NodeList` prototypes are augmented to fill up the chainable API, like `forEach`, `addClass`, `append`, `on`.
 // Methods already on the `Node` or `NodeList` prototype are not overridden (i.e. use native method if available).
 // Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
 //
