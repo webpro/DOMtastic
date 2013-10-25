@@ -115,13 +115,13 @@
     ['add', 'remove', 'toggle'].forEach(function(fn) {
 
         Node.prototype[fn + 'Class'] = Node.prototype[fn + 'Class'] || function(value) {
-            this.classList[fn](value)
+            this.classList[fn](value);
             return this;
         };
 
         NodeList.prototype[fn + 'Class'] = NodeList.prototype[fn + 'Class'] || function(value) {
             this.forEach(function(element) {
-                element.classList[fn](value)
+                element.classList[fn](value);
             });
             return this;
         };
@@ -132,12 +132,12 @@
     //     $('.myElement').hasClass('myClass');
 
     Node.prototype.hasClass = Node.prototype.hasClass || function(value) {
-        return this.classList.contains(value)
+        return this.classList.contains(value);
     };
 
     NodeList.prototype.hasClass = NodeList.prototype.hasClass || function(value) {
         return this.some(function(element) {
-            return element.classList.contains(value)
+            return element.classList.contains(value);
         });
     };
 
@@ -165,7 +165,7 @@
 
     Node.prototype.before = Node.prototype.before || function(element) {
         if(typeof element === 'string') {
-            this.insertAdjacentHTML('beforebegin', element)
+            this.insertAdjacentHTML('beforebegin', element);
         } else {
             if(element.length) {
                 var elements = element instanceof NodeList ? element.toArray() : element;
@@ -181,7 +181,7 @@
 
     Node.prototype.after = Node.prototype.after || function(element) {
         if(typeof element === 'string') {
-            this.insertAdjacentHTML('afterend', element)
+            this.insertAdjacentHTML('afterend', element);
         } else {
             if(element.length) {
                 var elements = element instanceof NodeList ? element.toArray() : element;
@@ -215,7 +215,7 @@
         } else if(element instanceof NodeList) {
             return element.map(function(el) {
                 return el.cloneNode(true);
-            })
+            });
         }
         return element;
     };
@@ -232,7 +232,7 @@
     Node.prototype.on = Node.prototype.on || function(eventName, fn, useCapture) {
 
         if(typeof fn === 'string' && typeof useCapture === 'function') {
-            return this.delegate.apply(this, arguments)
+            return this.delegate.apply(this, arguments);
         }
 
         this.addEventListener(eventName, fn, useCapture || false);
@@ -247,7 +247,7 @@
     Node.prototype.off = Node.prototype.off || function(eventName, fn, useCapture) {
 
         if(typeof fn === 'string' && typeof useCapture === 'function') {
-            return this.undelegate.apply(this, arguments)
+            return this.undelegate.apply(this, arguments);
         }
 
         this.removeEventListener(eventName, fn, useCapture || false);
