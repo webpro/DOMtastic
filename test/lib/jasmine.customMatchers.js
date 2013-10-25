@@ -1,26 +1,18 @@
-_addMatchers = function() {
-    addMatchers({
-        toBeOfType: function toBeOfType() {
+var customMatchers = {
+    toBeOfType: function toBeOfType() {
+        return function(actual, expected) {
+            pass: typeof actual === expected;
+        };
+    },
+    toBeInstanceOf: function toBeInstanceOf() {
+        return function(actual, expected) {
             return {
-                compare: function(actual, expected) {
-                    return {
-                        pass: typeof actual === expected
-                    }
-                }
-            }
-        },
-        toBeInstanceOf: function toBeInstanceOf() {
-            return {
-                compare: function(actual, expected) {
-                    return {
-                        pass: actual instanceof expected
-                    }
-                }
-            }
-        }
-    });
+                pass: actual instanceof expected
+            };
+        };
+    }
 };
 
 beforeEach(function() {
-    _addMatchers();
+    jasmine.addMatchers(customMatchers);
 });
