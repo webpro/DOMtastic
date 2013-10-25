@@ -22,6 +22,9 @@
     }
 }(this, function() {
 
+    var NodeProto = Node.prototype,
+        NodeListProto = NodeList.prototype;
+
     // Query selector
     // --------------
 
@@ -60,11 +63,11 @@
     //
     //     $('.selectors).$('.deep').find('.deepest');
 
-    Node.prototype.$ = Node.prototype.find = function(selector) {
+    NodeProto.$ = NodeProto.find = function(selector) {
         return $(selector, this);
     };
 
-    NodeList.prototype.$ = NodeList.prototype.find = function(selector) {
+    NodeListProto.$ = NodeListProto.find = function(selector) {
         return $(selector, this[0]);
     };
 
@@ -92,16 +95,16 @@
     // Augment with every, filter, forEach, some, map
 
     ['every', 'filter', 'forEach', 'some', 'map'].forEach(function(fn) {
-        NodeList.prototype[fn] = NodeList.prototype[fn] || [][fn];
+        NodeListProto[fn] = NodeListProto[fn] || [][fn];
     });
 
     //  Aliasing `each` for `forEach`.
 
-    NodeList.prototype['each'] = []['forEach'];
+    NodeListProto['each'] = []['forEach'];
 
     // Convert `NodeList` to `Array`.
 
-    NodeList.prototype.toArray = NodeList.prototype.toArray || function() {
+    NodeListProto.toArray = NodeListProto.toArray || function() {
         return Array.prototype.slice.call(this);
     };
 
@@ -114,12 +117,12 @@
 
     ['add', 'remove', 'toggle'].forEach(function(fn) {
 
-        Node.prototype[fn + 'Class'] = Node.prototype[fn + 'Class'] || function(value) {
+        NodeProto[fn + 'Class'] = NodeProto[fn + 'Class'] || function(value) {
             this.classList[fn](value);
             return this;
         };
 
-        NodeList.prototype[fn + 'Class'] = NodeList.prototype[fn + 'Class'] || function(value) {
+        NodeListProto[fn + 'Class'] = NodeListProto[fn + 'Class'] || function(value) {
             this.forEach(function(element) {
                 element.classList[fn](value);
             });
@@ -131,11 +134,11 @@
     //
     //     $('.myElement').hasClass('myClass');
 
-    Node.prototype.hasClass = Node.prototype.hasClass || function(value) {
+    NodeProto.hasClass = NodeProto.hasClass || function(value) {
         return this.classList.contains(value);
     };
 
-    NodeList.prototype.hasClass = NodeList.prototype.hasClass || function(value) {
+    NodeListProto.hasClass = NodeListProto.hasClass || function(value) {
         return this.some(function(element) {
             return element.classList.contains(value);
         });
@@ -147,7 +150,7 @@
     //     $('.myElement').append('<span>more</span>');
     //     $('.myList').append('<span>more</span>');
 
-    Node.prototype.append = Node.prototype.append || function(element) {
+    NodeProto.append = NodeProto.append || function(element) {
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
         } else {
@@ -163,7 +166,7 @@
 
     //     $('.myElement').before(element);
 
-    Node.prototype.before = Node.prototype.before || function(element) {
+    NodeProto.before = NodeProto.before || function(element) {
         if(typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element);
         } else {
@@ -179,7 +182,7 @@
 
     //     $('.myList').after(elements);
 
-    Node.prototype.after = Node.prototype.after || function(element) {
+    NodeProto.after = NodeProto.after || function(element) {
         if(typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element);
         } else {
@@ -197,7 +200,7 @@
     // The method clones provided elements (except for last iteration).
 
     ['append', 'before', 'after'].forEach(function(fn) {
-        NodeList.prototype[fn] = NodeList.prototype[fn] || function(originalElement) {
+        NodeListProto[fn] = NodeListProto[fn] || function(originalElement) {
             var lastIndex = this.length - 1;
             this.toArray().forEach(function(el, index) {
                 var element = index === lastIndex ? originalElement : clone(originalElement);
@@ -229,7 +232,7 @@
     //     element.on('click', callback);
     //     element.trigger('click');
 
-    Node.prototype.on = Node.prototype.on || function(eventName, fn, useCapture) {
+    NodeProto.on = NodeProto.on || function(eventName, fn, useCapture) {
 
         if(typeof fn === 'string' && typeof useCapture === 'function') {
             return this.delegate.apply(this, arguments);
@@ -244,7 +247,7 @@
     //
     //     element.off('click', callback);
 
-    Node.prototype.off = Node.prototype.off || function(eventName, fn, useCapture) {
+    NodeProto.off = NodeProto.off || function(eventName, fn, useCapture) {
 
         if(typeof fn === 'string' && typeof useCapture === 'function') {
             return this.undelegate.apply(this, arguments);
@@ -263,13 +266,13 @@
     //
     //     container.undelegate('.children', 'click', handler);
 
-    Node.prototype.delegate = Node.prototype.delegate || function(selector, eventName, fn) {
+    NodeProto.delegate = NodeProto.delegate || function(selector, eventName, fn) {
         var handler = createEventHandler.apply(this, arguments);
         this.on(eventName, handler);
         return this;
     };
 
-    Node.prototype.undelegate = Node.prototype.undelegate || function(selector, eventName, fn) {
+    NodeProto.undelegate = NodeProto.undelegate || function(selector, eventName, fn) {
         var id = getEventId.apply(this, arguments);
         this._handlers[id].forEach(function(handler) {
             this.off(eventName, handler);
@@ -310,7 +313,7 @@
     //
     //     element.trigger('anyEventName');
 
-    Node.prototype.trigger = Node.prototype.trigger || function(type, options) {
+    NodeProto.trigger = NodeProto.trigger || function(type, options) {
 
         options = options || {};
         if(options.bubbles === undefined) options.bubbles = true;
@@ -325,7 +328,7 @@
     // Event methods for NodeList (apply method on each Node)
 
     ['on', 'off', 'delegate', 'undelegate', 'trigger'].forEach(function(fnName) {
-        NodeList.prototype[fnName] = NodeList.prototype[fnName] || function() {
+        NodeListProto[fnName] = NodeListProto[fnName] || function() {
             var args = arguments;
             this.forEach(function(element) {
                 element[fnName].apply(element, args);
