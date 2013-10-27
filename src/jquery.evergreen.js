@@ -24,6 +24,10 @@
 
     var isSafe = true;
 
+    var array = [],
+        slice = array.slice,
+        map = array.map;
+
 
     // Query selector
     // --------------
@@ -112,8 +116,8 @@
 
     // Convert `NodeList` to `Array`.
 
-    NodeListProto.toArray = NodeListProto.toArray || function() {
-        return Array.prototype.slice.call(this);
+    var toArray = function(list) {
+        return slice.call(list);
     };
 
     // Class methods
@@ -223,8 +227,8 @@
             return '' + element;
         } else if(element instanceof Node) {
             return element.cloneNode(true);
-        } else if(element instanceof NodeList) {
-            return element.map(function(el) {
+        } else if(element.length) {
+            return map.call(element, function(el) {
                 return el.cloneNode(true);
             });
         }
