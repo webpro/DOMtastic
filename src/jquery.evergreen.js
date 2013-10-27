@@ -143,15 +143,25 @@
     //     $('.myElement').append('<span>more</span>');
     //     $('.myList').append('<span>more</span>');
 
-    NodeProto.append = NodeProto.append || function(element) {
-        if(typeof element === 'string') {
-            this.insertAdjacentHTML('beforeend', element);
+    var append = function(element) {
+        if(this.length) {
+            var lastIndex = this.length - 1;
+            this.forEach(function(el, index) {
+                var elm = index === lastIndex ? element : clone(element);
+                append.call(el, elm);
+            });
         } else {
-            if(element.length) {
-                var elements = element instanceof NodeList ? element.toArray() : element;
-                elements.forEach(this.appendChild.bind(this));
+            if(typeof element === 'string') {
+                (this.length ? this : [this]).forEach(function(parent) {
+                    parent.insertAdjacentHTML('beforeend', element);
+                });
             } else {
-                this.appendChild(element);
+                if(element.length) {
+                    var elements = element instanceof NodeList ? toArray(element) : element;
+                    elements.forEach(this.appendChild.bind(this));
+                } else {
+                    this.appendChild(element);
+                }
             }
         }
         return this;
@@ -159,15 +169,25 @@
 
     //     $('.myElement').before(element);
 
-    NodeProto.before = NodeProto.before || function(element) {
-        if(typeof element === 'string') {
-            this.insertAdjacentHTML('beforebegin', element);
+    var before = function(element) {
+        if(this.length) {
+            var lastIndex = this.length - 1;
+            this.forEach(function(el, index) {
+                var elm = index === lastIndex ? element : clone(element);
+                before.call(el, elm);
+            });
         } else {
-            if(element.length) {
-                var elements = element instanceof NodeList ? element.toArray() : element;
-                elements.forEach(this.before.bind(this));
+            if(typeof element === 'string') {
+                (this.length ? this : [this]).forEach(function(parent) {
+                    parent.insertAdjacentHTML('beforebegin', element);
+                });
             } else {
-                this.parentNode.insertBefore(element, this);
+                if(element.length) {
+                    var elements = element instanceof NodeList ? toArray(element) : element;
+                    elements.forEach(before.bind(this));
+                } else {
+                    this.parentNode.insertBefore(element, this);
+                }
             }
         }
         return this;
@@ -175,33 +195,27 @@
 
     //     $('.myList').after(elements);
 
-    NodeProto.after = NodeProto.after || function(element) {
-        if(typeof element === 'string') {
-            this.insertAdjacentHTML('afterend', element);
+    var after = function(element) {
+        if(this.length) {
+            var lastIndex = this.length - 1;
+            this.forEach(function(el, index) {
+                var elm = index === lastIndex ? element : clone(element);
+                after.call(el, elm);
+            });
         } else {
-            if(element.length) {
-                var elements = element instanceof NodeList ? element.toArray() : element;
-                elements.reverse().forEach(this.after.bind(this));
+            if(typeof element === 'string') {
+                this.insertAdjacentHTML('afterend', element);
             } else {
-                this.parentNode.insertBefore(element, this.nextSibling);
+                if(element.length) {
+                    var elements = element instanceof NodeList ? toArray(element) : element;
+                    elements.reverse().forEach(after.bind(this));
+                } else {
+                    this.parentNode.insertBefore(element, this.nextSibling);
+                }
             }
         }
         return this;
     };
-
-    // Also extend `NodeList` with `append`, `before` and `after`.
-    // The method clones provided elements (except for last iteration).
-
-    ['append', 'before', 'after'].forEach(function(fn) {
-        NodeListProto[fn] = NodeListProto[fn] || function(originalElement) {
-            var lastIndex = this.length - 1;
-            this.toArray().forEach(function(el, index) {
-                var element = index === lastIndex ? originalElement : clone(originalElement);
-                el[fn](element);
-            });
-            return this;
-        };
-    });
 
     var clone = function(element) {
         if(typeof element === 'string') {
