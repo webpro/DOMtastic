@@ -22,8 +22,8 @@
     }
 }(this, function() {
 
-    var NodeProto = Node.prototype,
-        NodeListProto = NodeList.prototype;
+    var isSafe = true;
+
 
     // Query selector
     // --------------
@@ -353,6 +353,101 @@
         CustomEvent.prototype = window.CustomEvent.prototype;
         window.CustomEvent = CustomEvent;
     })();
+
+    // Calling `$(selector)` returns a wrapped array of elements in safe mode (default),
+    // and a native, augmented NodeList in non-safe mode (`$.safeMode(false)`).
+
+    var wrap = function(list) {
+        var key,
+            wrapped = list.length ? slice.call(list) : [list];
+        for(var key in proto) {
+            wrapped[key] = proto[key];
+        }
+        return wrapped;
+    };
+
+    var proto = {
+        $: find,
+        find: find,
+        addClass: addClass,
+        removeClass: removeClass,
+        toggleClass: toggleClass,
+        hasClass: hasClass,
+        append: append,
+        before: before,
+        after: after,
+        on: on,
+        off: off,
+        delegate: delegate,
+        undelegate: undelegate,
+        trigger: trigger
+    };
+
+    var protoList = {
+        toArray: toArray,
+        every: array.every,
+        filter: array.filter,
+        forEach: array.forEach,
+        each: array.forEach,
+        some: array.some,
+        map: array.map
+    };
+
+    var NodeProto = Node.prototype,
+        NodeListProto = NodeList.prototype,
+        NodeProtoOriginals = {},
+        NodeListProtoOriginals = {};
+
+    // Augment native `Node` and `NodeList` objects for non-safe mode.
+
+    var augmentNatives = function() {
+
+        var key;
+
+        for(key in proto) {
+            NodeProtoOriginals[key] = NodeProto[key];
+            NodeListProtoOriginals[key] = NodeListProto[key];
+            NodeProto[key] =  proto[key];
+            NodeListProto[key] = proto[key];
+        }
+
+        for(key in protoList) {
+            NodeListProtoOriginals[key] = NodeListProto[key];
+            NodeListProto[key] = protoList[key];
+        }
+    };
+
+    // Unaugment native `Node` and `NodeList` objects to switch back to safe mode.
+    // Mainly used for tests.
+
+    var unaugmentNatives = function() {
+
+        var key;
+
+        for(key in proto) {
+            NodeProto[key] =  NodeProtoOriginals[key];
+            NodeListProto[key] = NodeListProtoOriginals[key];
+        }
+
+        for(key in protoList) {
+            NodeListProto[key] = NodeListProtoOriginals[key];
+        }
+    };
+
+
+    $.safeMode = function(safe) {
+        var wasSafe = isSafe;
+        if(typeof safe === 'boolean') {
+            isSafe = safe;
+        }
+        if(wasSafe && !isSafe) {
+            augmentNatives();
+        }
+        if(!wasSafe && isSafe) {
+            unaugmentNatives();
+        }
+        return isSafe;
+    };
 
     return $;
 
