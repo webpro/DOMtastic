@@ -1,20 +1,20 @@
 describe('old-school class methods', function() {
 
     it('should add a class', function() {
-        var element = document.body;
+        var element = getElement(document.body);
         element.addClass('testClass1');
         expect(document.body.className).toContain('testClass1');
     });
 
     it('should remove a class', function() {
-        var element = document.body;
+        var element = getElement(document.body);
         element.addClass('testClass2');
         element.removeClass('testClass2');
         expect(document.body.className).not.toContain('testClass2');
     });
 
     it('should toggle a class', function() {
-        var element = document.body;
+        var element = getElement(document.body);
         element.toggleClass('testClass3');
         expect(document.body.className).toContain('testClass3');
         element.toggleClass('testClass3');
@@ -22,7 +22,7 @@ describe('old-school class methods', function() {
     });
 
     it('should check a class', function() {
-        var element = $('#testFragment')[0];
+        var element = getElement(document.getElementById('testFragment'));
         expect(element.hasClass('testClass4')).toBe(false);
         element.addClass('testClass4');
         expect(element.hasClass('testClass4')).toBe(true);

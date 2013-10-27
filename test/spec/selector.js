@@ -1,11 +1,14 @@
 describe('selectors', function() {
 
     it('should return an empty NodeList for falsey selectors', function() {
-        expect($()).toBeInstanceOf(NodeList);
+
+        var actual = $.safeMode() ? Array : NodeList;
+
+        expect($()).toBeInstanceOf(actual);
         expect($().length).toBe(0);
-        expect($(null)).toBeInstanceOf(NodeList);
-        expect($('')).toBeInstanceOf(NodeList);
-        expect($(0)).toBeInstanceOf(NodeList);
+        expect($(null)).toBeInstanceOf(actual);
+        expect($('')).toBeInstanceOf(actual);
+        expect($(0)).toBeInstanceOf(actual);
     });
 
     it('should return queried elements', function() {
@@ -19,9 +22,9 @@ describe('selectors', function() {
     });
 
     it('should return the provided element', function() {
-        expect($(window)).toBe(window);
-        expect($(document)).toBe(document);
-        expect($(document.body)).toBe(document.body);
+        expect($(window)[0]).toBe(window);
+        expect($(document)[0]).toBe(document);
+        expect($(document.body)[0]).toBe(document.body);
     });
 
     it('should provide a chainable API', function() {
