@@ -239,13 +239,13 @@
     //     element.on('click', callback);
     //     element.trigger('click');
 
-    NodeProto.on = NodeProto.on || function(eventName, fn, useCapture) {
-
+    var on = function(eventName, fn, useCapture) {
         if(typeof fn === 'string' && typeof useCapture === 'function') {
-            return this.delegate.apply(this, arguments);
+            return delegate.apply(this, arguments);
         }
-
-        this.addEventListener(eventName, fn, useCapture || false);
+        (this.length ? this : [this]).forEach(function(element) {
+            element.addEventListener(eventName, fn, useCapture || false);
+        });
         return this;
     };
 
@@ -254,13 +254,13 @@
     //
     //     element.off('click', callback);
 
-    NodeProto.off = NodeProto.off || function(eventName, fn, useCapture) {
-
+    var off = function(eventName, fn, useCapture) {
         if(typeof fn === 'string' && typeof useCapture === 'function') {
-            return this.undelegate.apply(this, arguments);
+            return undelegate.apply(this, arguments);
         }
-
-        this.removeEventListener(eventName, fn, useCapture || false);
+        (this.length ? this : [this]).forEach(function(element) {
+            element.removeEventListener(eventName, fn, useCapture || false);
+        });
         return this;
     };
 
@@ -273,18 +273,24 @@
     //
     //     container.undelegate('.children', 'click', handler);
 
-    NodeProto.delegate = NodeProto.delegate || function(selector, eventName, fn) {
-        var handler = createEventHandler.apply(this, arguments);
-        this.on(eventName, handler);
+    var delegate = function(selector, eventName, fn) {
+        var args = arguments;
+        (this.length ? this : [this]).forEach(function(element) {
+            var handler = createEventHandler.apply(element, args);
+            on.call(element, eventName, handler);
+        });
         return this;
     };
 
-    NodeProto.undelegate = NodeProto.undelegate || function(selector, eventName, fn) {
-        var id = getEventId.apply(this, arguments);
-        this._handlers[id].forEach(function(handler) {
-            this.off(eventName, handler);
-        }.bind(this));
-        this._handlers[id] = null;
+    var undelegate = function(selector, eventName, fn) {
+        var args = arguments;
+        (this.length ? this : [this]).forEach(function(element) {
+            var id = getEventId.apply(element, args);
+            element._handlers[id].forEach(function(handler) {
+                off.call(element, eventName, handler);
+            }.bind(element));
+            element._handlers[id] = null;
+        });
         return this;
     };
 
@@ -320,29 +326,16 @@
     //
     //     element.trigger('anyEventName');
 
-    NodeProto.trigger = NodeProto.trigger || function(type, options) {
-
+    var trigger = function(type, options) {
         options = options || {};
         if(options.bubbles === undefined) options.bubbles = true;
         if(options.cancelable === undefined) options.cancelable = true;
-
         var event = new CustomEvent(type, options);
-        this.dispatchEvent(event);
-
+        (this.length ? this : [this]).forEach(function(element) {
+            element.dispatchEvent(event);
+        });
         return this;
     };
-
-    // Event methods for NodeList (apply method on each Node)
-
-    ['on', 'off', 'delegate', 'undelegate', 'trigger'].forEach(function(fnName) {
-        NodeListProto[fnName] = NodeListProto[fnName] || function() {
-            var args = arguments;
-            this.forEach(function(element) {
-                element[fnName].apply(element, args);
-            });
-            return this;
-        };
-    });
 
     // Polyfills
     // ---------
