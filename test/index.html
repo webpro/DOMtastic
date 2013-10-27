@@ -42,7 +42,8 @@
             }
         </script>
         <p>Save mode:
-            <script>document.write($.safeMode())</script>
+            <strong><script>document.write($.safeMode())</script></strong>
+            (run tests in non-safe (native) mode by appending <code>?NOSAFE</code> to the url.)
         </p>
 
         <script src="spec/safeMode.js"></script>

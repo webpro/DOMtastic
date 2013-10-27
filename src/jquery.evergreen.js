@@ -2,17 +2,18 @@
 // ----------------
 //
 // jQuery Evergreen works with modern browsers.
-// It has the same familiar API as jQuery, but under the hood has the major difference that it
-// works with live Node and NodeList objects (instead of the Array-like `$` objects).
+// It has the same familiar API as jQuery, and is lean & mean with just the selector, DOM and event methods.
 //
-// The native `Node` and `NodeList` prototypes are augmented to fill up the chainable API, like `forEach`, `addClass`, `append`, `on`.
-// Methods already on the `Node` or `NodeList` prototype are not overridden (i.e. use native method if available).
+// It's under 7KB after minification (<2KB gzipped).
+//
 // Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
-//
-// It's under 5KB after minification (<1.5KB gzipped).
 //
 // Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
 // IE9 only needs a polyfill for `classList` to make all tests pass.
+//
+// You can opt-in to work with live Node and NodeList objects (instead of the Array-like `$` objects).
+// In this mode, the native `Node` and `NodeList` prototypes are augmented to fill up the chainable API,
+// like `forEach`, `addClass`, `append`, `on`.
 
 (function(root, factory) {
     if(typeof define === 'function' && define.amd) {
@@ -355,8 +356,10 @@
         window.CustomEvent = CustomEvent;
     })();
 
-    // Calling `$(selector)` returns a wrapped array of elements in safe mode (default),
-    // and a native, augmented NodeList in non-safe mode (`$.safeMode(false)`).
+    // Safe Mode
+    // ---------
+
+    // Calling `$(selector)` returns a wrapped array of elements in **safe mode** (default).
 
     var wrap = function(list) {
         var wrapped = list instanceof NodeList ? slice.call(list) : list instanceof Array ? list : [list];
@@ -365,6 +368,26 @@
         }
         return wrapped;
     };
+
+    // In **non-safe mode** a native, augmented NodeList is returned. Use `$.safeMode(false)` to activate this behavior.
+    // The API is the same in both modes.
+
+    $.safeMode = function(safe) {
+        var wasSafe = isSafe;
+        if(typeof safe === 'boolean') {
+            isSafe = safe;
+        }
+        if(wasSafe && !isSafe) {
+            augmentNatives();
+        }
+        if(!wasSafe && isSafe) {
+            unaugmentNatives();
+        }
+        return isSafe;
+    };
+
+    // The `proto` object represents the API that gets augmented onto either the wrapped array (safe mode),
+    // or the native `Node` and `Nodelist` objects (non-safe mode).
 
     var proto = {
         $: find,
@@ -382,6 +405,9 @@
         undelegate: undelegate,
         trigger: trigger
     };
+
+    // The `protoList` object represents the API that gets augmented onto the native `Nodelist` object.
+    // The wrapped array (native `Array`) already has these (and more).
 
     var protoList = {
         toArray: toArray,
@@ -434,20 +460,7 @@
         }
     };
 
-
-    $.safeMode = function(safe) {
-        var wasSafe = isSafe;
-        if(typeof safe === 'boolean') {
-            isSafe = safe;
-        }
-        if(wasSafe && !isSafe) {
-            augmentNatives();
-        }
-        if(!wasSafe && isSafe) {
-            unaugmentNatives();
-        }
-        return isSafe;
-    };
+    // Export the API
 
     return $;
 
