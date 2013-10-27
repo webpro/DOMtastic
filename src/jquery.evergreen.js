@@ -75,12 +75,8 @@
     //
     //     $('.selectors).$('.deep').find('.deepest');
 
-    NodeProto.$ = NodeProto.find = function(selector) {
+    var find = function(selector) {
         return $(selector, this);
-    };
-
-    NodeListProto.$ = NodeListProto.find = function(selector) {
-        return $(selector, this[0]);
     };
 
     // Create DOM fragment from an HTML string
@@ -100,19 +96,6 @@
 
         return fragment.childNodes;
     };
-
-    // Array methods
-    // -------------
-
-    // Augment with every, filter, forEach, some, map
-
-    ['every', 'filter', 'forEach', 'some', 'map'].forEach(function(fn) {
-        NodeListProto[fn] = NodeListProto[fn] || [][fn];
-    });
-
-    //  Aliasing `each` for `forEach`.
-
-    NodeListProto['each'] = []['forEach'];
 
     // Convert `NodeList` to `Array`.
 
