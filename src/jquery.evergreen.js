@@ -96,9 +96,9 @@
             fragment.appendChild(container.firstChild);
         }
 
-        // Return a single element if possible
+        // For least surprises, always return a `NodeList`.
 
-        return fragment.childNodes.length === 1 ? fragment.firstChild : fragment.childNodes;
+        return fragment.childNodes;
     };
 
     // Array methods
