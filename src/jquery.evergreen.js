@@ -61,9 +61,9 @@
 
         }
 
-        // For least surprises, always return a `NodeList`.
+        // For least surprises, always return an array (or `NodeList` if `isSafe = false`).
 
-        return list;
+        return isSafe ? wrap(list) : list;
 
     };
 
@@ -366,8 +366,7 @@
     // and a native, augmented NodeList in non-safe mode (`$.safeMode(false)`).
 
     var wrap = function(list) {
-        var key,
-            wrapped = list.length ? slice.call(list) : [list];
+        var wrapped = list instanceof NodeList ? slice.call(list) : list instanceof Array ? list : [list];
         for(var key in proto) {
             wrapped[key] = proto[key];
         }
