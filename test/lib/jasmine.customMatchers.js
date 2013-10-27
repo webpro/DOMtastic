@@ -1,7 +1,9 @@
 var customMatchers = {
     toBeOfType: function toBeOfType() {
         return function(actual, expected) {
-            pass: typeof actual === expected;
+            return {
+                pass: typeof actual === expected
+            };
         };
     },
     toBeInstanceOf: function toBeInstanceOf() {
@@ -10,6 +12,13 @@ var customMatchers = {
                 pass: actual instanceof expected
             };
         };
+    },
+    toHave: function toHave() {
+        return function(actual, expected) {
+            return {
+                pass: expected in actual
+            }
+        }
     }
 };
 
