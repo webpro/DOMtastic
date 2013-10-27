@@ -350,6 +350,7 @@
             evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
             return evt;
         }
+
         CustomEvent.prototype = window.CustomEvent.prototype;
         window.CustomEvent = CustomEvent;
     })();
@@ -406,7 +407,7 @@
         for(key in proto) {
             NodeProtoOriginals[key] = NodeProto[key];
             NodeListProtoOriginals[key] = NodeListProto[key];
-            NodeProto[key] =  proto[key];
+            NodeProto[key] = proto[key];
             NodeListProto[key] = proto[key];
         }
 
@@ -424,7 +425,7 @@
         var key;
 
         for(key in proto) {
-            NodeProto[key] =  NodeProtoOriginals[key];
+            NodeProto[key] = NodeProtoOriginals[key];
             NodeListProto[key] = NodeListProtoOriginals[key];
         }
 
