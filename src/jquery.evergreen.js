@@ -110,31 +110,29 @@
     //
     //     $('.myElement').addClass('myClass');
 
-    ['add', 'remove', 'toggle'].forEach(function(fn) {
-
-        NodeProto[fn + 'Class'] = NodeProto[fn + 'Class'] || function(value) {
-            this.classList[fn](value);
-            return this;
-        };
-
-        NodeListProto[fn + 'Class'] = NodeListProto[fn + 'Class'] || function(value) {
-            this.forEach(function(element) {
-                element.classList[fn](value);
-            });
-            return this;
-        };
-    });
-
-    // And hasClass.
-    //
-    //     $('.myElement').hasClass('myClass');
-
-    NodeProto.hasClass = NodeProto.hasClass || function(value) {
-        return this.classList.contains(value);
+    var addClass = function(value) {
+        (this.length ? this : [this]).forEach(function(element) {
+            element.classList.add(value);
+        });
+        return this;
     };
 
-    NodeListProto.hasClass = NodeListProto.hasClass || function(value) {
-        return this.some(function(element) {
+    var removeClass = function(value) {
+        (this.length ? this : [this]).forEach(function(element) {
+            element.classList.remove(value);
+        });
+        return this;
+    };
+
+    var toggleClass = function(value) {
+        (this.length ? this : [this]).forEach(function(element) {
+            element.classList.toggle(value);
+        });
+        return this;
+    };
+
+    var hasClass = function(value) {
+        return (this.length ? this : [this]).some(function(element) {
             return element.classList.contains(value);
         });
     };
