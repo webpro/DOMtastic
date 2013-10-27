@@ -32,30 +32,38 @@
 
     var $ = function(selector, context) {
 
+        var list;
+
         if(!selector) {
-            return document.querySelectorAll(null);
+
+            list = document.querySelectorAll(null);
+
+        } else if(typeof selector !== 'string') {
+
+            // If `selector` doesn't look like a string, return (maybe a DOM element?)
+
+            list = selector.length ? selector : [selector];
+
+        } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
+
+            // If `selector` looks like an HTML string, create and return a DOM fragment.
+
+            list = createFragment(selector);
+
+        } else {
+
+            // The `context` to query elements (default: `document`).
+            // It can be either a string or a Node (or a NodeList, the first Node will be used).
+
+            context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
+
+            list = context.querySelectorAll(selector);
+
         }
-
-        // If `selector` doesn't look like a string, return (maybe a DOM element?)
-
-        if(typeof selector !== 'string') {
-            return selector;
-        }
-
-        // If `selector` looks like an HTML string, create and return a DOM fragment.
-
-        if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
-            return createFragment(selector);
-        }
-
-        // The `context` to query elements (default: `document`).
-        // It can be either a string or a Node (or a NodeList, the first Node will be used).
-
-        context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
 
         // For least surprises, always return a `NodeList`.
 
-        return context.querySelectorAll(selector);
+        return list;
 
     };
 
