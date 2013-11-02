@@ -284,7 +284,9 @@ define("event",
     var delegateHandler = function(selector, fn, event) {
         var matchesSelector = this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
         if(matchesSelector.call(event.target, selector)) {
-            event.currentTarget = this;
+            if(!event.currentTarget) {
+                event.currentTarget = this;
+            }
             fn.call(event.target, event);
         }
     };
@@ -293,11 +295,9 @@ define("event",
     //
     //     element.trigger('anyEventName');
 
-    var trigger = function(type, options) {
-        options = options || {};
-        if(options.bubbles === undefined) options.bubbles = true;
-        if(options.cancelable === undefined) options.cancelable = true;
-        var event = new CustomEvent(type, options);
+    var trigger = function(type, params) {
+        params = params || { bubbles: true, cancelable: true, detail: undefined };
+        var event = new CustomEvent(type, params);
         (this.length ? this : [this]).forEach(function(element) {
             element.dispatchEvent(event);
         });
@@ -368,6 +368,8 @@ define("mode",
     "use strict";
     var api = __dependency1__.api;
 
+    var $ = api.$;
+
     // Safe vs. Native Mode
     // -------------------
 
@@ -387,7 +389,9 @@ define("mode",
         var wasSafe = isSafe;
         if(typeof safe === 'boolean') {
             isSafe = safe;
-            if($) $.isSafe = isSafe;
+            if($) {
+                $.isSafe = isSafe;
+            }
         }
         if(wasSafe && !isSafe) {
             augmentNatives();
@@ -452,8 +456,6 @@ define("mode",
             NodeListProto[key] = NodeListProtoOriginals[key];
         }
     };
-
-    var $ = api.$;
 
     // It's possible to have a custom build without the [selector](selector.html) API,
     // but in that case only the native mode makes sense.
