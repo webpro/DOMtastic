@@ -27,7 +27,7 @@
 // and transpiled to an AMD version, and a "browser global" version
 // using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
 
-import { api } from "api";
-import "mode";
+import { api } from 'api';
+import 'mode';
 
 export default = api.$;
