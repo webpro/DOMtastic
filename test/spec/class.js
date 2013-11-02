@@ -29,12 +29,12 @@ describe('old-school class methods', function() {
     });
 
     it('should check a class on a NodeList', function() {
-        var elements = $('#testFragment li');
+        var elements = getElement('#testFragment li');
         expect(elements.hasClass('fourth')).toBe(true);
     });
 
     it('should provide a chainable API', function() {
-        var element = $('#testFragment');
+        var element = getElement('#testFragment');
         element.addClass('testClass5').removeClass('testClass5').toggleClass('testClass5');
         expect(element.hasClass('testClass5')).toBe(true);
 
