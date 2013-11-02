@@ -1,5 +1,5 @@
 {
     "glob": ["src/*"],
-    "index": "src/jquery.evergreen.js",
+    "index": "src/main.js",
     "whitespace-after-token": false
 }
