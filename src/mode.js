@@ -1,5 +1,7 @@
 import { api } from 'api';
 
+var $ = api.$;
+
 // Safe vs. Native Mode
 // -------------------
 
@@ -19,7 +21,9 @@ var safeMode = function(safe) {
     var wasSafe = isSafe;
     if(typeof safe === 'boolean') {
         isSafe = safe;
-        if($) $.isSafe = isSafe;
+        if($) {
+            $.isSafe = isSafe;
+        }
     }
     if(wasSafe && !isSafe) {
         augmentNatives();
@@ -84,8 +88,6 @@ var unaugmentNatives = function() {
         NodeListProto[key] = NodeListProtoOriginals[key];
     }
 };
-
-var $ = api.$;
 
 // It's possible to have a custom build without the [selector](selector.html) API,
 // but in that case only the native mode makes sense.
