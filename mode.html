@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><title>mode</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="mode"><meta name="groc-project-path" content="src/mode.js"><meta name="groc-github-url" content="https://github.com/webpro/jquery-evergreen"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/webpro/jquery-evergreen/blob/master/src/mode.js">src/mode.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="kr">import</span> <span class="p">{</span> <span class="nx">api</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;api&quot;</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="safe-vs-native-mode">Safe vs. Native Mode</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The default "safe" mode is similar to how jQuery works (returning an array-like object).</p></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>However, you can opt-in to work with live Node and NodeList objects (instead of the Array-like <code>$</code> objects).
+In this "native" mode, the <code>Node</code> and <code>NodeList</code> prototypes are augmented to fill up the chainable API,
+like <code>forEach</code>, <code>addClass</code>, <code>append</code>, <code>on</code>.</p></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>In this mode, an augmented NodeList is returned when using <code>$(selector)</code>.
+Use <code>$.safeMode(false)</code> to activate this behavior.
+The API is the same in both modes.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">isSafe</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">safeMode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">safe</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">wasSafe</span> <span class="o">=</span> <span class="nx">isSafe</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">safe</span> <span class="o">===</span> <span class="s1">&#39;boolean&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">isSafe</span> <span class="o">=</span> <span class="nx">safe</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="nx">$</span><span class="p">.</span><span class="nx">isSafe</span> <span class="o">=</span> <span class="nx">isSafe</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">wasSafe</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isSafe</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">augmentNatives</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">wasSafe</span> <span class="o">&amp;&amp;</span> <span class="nx">isSafe</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">unaugmentNatives</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">isSafe</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The <code>apiNodeList</code> object represents the API that gets augmented onto the native <code>Nodelist</code> object.
+The wrapped array (native <code>Array</code>) already has these (and more).</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">apiNodeList</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">every</span><span class="o">:</span> <span class="nx">array</span><span class="p">.</span><span class="nx">every</span><span class="p">,</span>
+    <span class="nx">filter</span><span class="o">:</span> <span class="nx">array</span><span class="p">.</span><span class="nx">filter</span><span class="p">,</span>
+    <span class="nx">forEach</span><span class="o">:</span> <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">,</span>
+    <span class="nx">each</span><span class="o">:</span> <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">,</span>
+    <span class="nx">some</span><span class="o">:</span> <span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">,</span>
+    <span class="nx">map</span><span class="o">:</span> <span class="nx">array</span><span class="p">.</span><span class="nx">map</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">NodeProto</span> <span class="o">=</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span>
+    <span class="nx">NodeListProto</span> <span class="o">=</span> <span class="nx">NodeList</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span>
+    <span class="nx">NodeProtoOriginals</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="nx">NodeListProtoOriginals</span> <span class="o">=</span> <span class="p">{};</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Augment native <code>Node</code> and <code>NodeList</code> objects in native mode.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">augmentNatives</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">key</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">NodeProtoOriginals</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">NodeProto</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="nx">NodeListProtoOriginals</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">NodeListProto</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="nx">NodeProto</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">api</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="nx">NodeListProto</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">api</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">apiNodeList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">NodeListProtoOriginals</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">NodeListProto</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="nx">NodeListProto</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">apiNodeList</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Unaugment native <code>Node</code> and <code>NodeList</code> objects to switch back to safe mode.
+Mainly used for tests.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">unaugmentNatives</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">key</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">api</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">NodeProto</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">NodeProtoOriginals</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+        <span class="nx">NodeListProto</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">NodeListProtoOriginals</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">apiNodeList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">NodeListProto</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">NodeListProtoOriginals</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">$</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>It's possible to have a custom build without the <a href="selector.html">selector</a> API,
+but in that case only the native mode makes sense.</p></div></div><div class="code"><div class="wrapper"><span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">$</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">safeMode</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">isSafe</span> <span class="o">=</span> <span class="nx">isSafe</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">safeMode</span> <span class="o">=</span> <span class="nx">safeMode</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">export</span> <span class="p">{</span> <span class="nx">isSafe</span><span class="p">,</span> <span class="nx">safeMode</span> <span class="p">};</span></div></div></div></div></body></html>

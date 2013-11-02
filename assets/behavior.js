@@ -14,8 +14,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["//"],
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/jquery.evergreen.js",
-        "projectPath": "src/jquery.evergreen.js",
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/main.js",
+        "projectPath": "src/main.js",
         "targetPath": "index",
         "title": "index"
       },
@@ -29,15 +29,41 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "slug": "jquery-evergreen"
           },
           "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Query selector",
-            "slug": "query-selector"
-          },
-          "depth": 2
-        }, {
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "singleLineComment": ["//"],
+          "name": "JavaScript"
+        },
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/api.js",
+        "projectPath": "src/api.js",
+        "targetPath": "api",
+        "title": "api"
+      },
+      "depth": 1,
+      "outline": []
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "singleLineComment": ["//"],
+          "name": "JavaScript"
+        },
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/class.js",
+        "projectPath": "src/class.js",
+        "targetPath": "class",
+        "title": "class"
+      },
+      "depth": 1,
+      "outline": [
+        {
           "type": "heading",
           "data": {
             "level": 2,
@@ -45,7 +71,25 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "slug": "class-methods"
           },
           "depth": 2
-        }, {
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "singleLineComment": ["//"],
+          "name": "JavaScript"
+        },
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/dom.js",
+        "projectPath": "src/dom.js",
+        "targetPath": "dom",
+        "title": "dom"
+      },
+      "depth": 1,
+      "outline": [
+        {
           "type": "heading",
           "data": {
             "level": 2,
@@ -53,7 +97,25 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "slug": "dom-manipulation"
           },
           "depth": 2
-        }, {
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "singleLineComment": ["//"],
+          "name": "JavaScript"
+        },
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/event.js",
+        "projectPath": "src/event.js",
+        "targetPath": "event",
+        "title": "event"
+      },
+      "depth": 1,
+      "outline": [
+        {
           "type": "heading",
           "data": {
             "level": 2,
@@ -61,20 +123,56 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "slug": "events"
           },
           "depth": 2
-        }, {
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "singleLineComment": ["//"],
+          "name": "JavaScript"
+        },
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/mode.js",
+        "projectPath": "src/mode.js",
+        "targetPath": "mode",
+        "title": "mode"
+      },
+      "depth": 1,
+      "outline": [
+        {
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Polyfills",
-            "slug": "polyfills"
+            "title": "Safe vs. Native Mode",
+            "slug": "safe-vs-native-mode"
           },
           "depth": 2
-        }, {
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "singleLineComment": ["//"],
+          "name": "JavaScript"
+        },
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/selector.js",
+        "projectPath": "src/selector.js",
+        "targetPath": "selector",
+        "title": "selector"
+      },
+      "depth": 1,
+      "outline": [
+        {
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Safe Mode",
-            "slug": "safe-mode"
+            "title": "Query selector",
+            "slug": "query-selector"
           },
           "depth": 2
         }
