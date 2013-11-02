@@ -10,12 +10,7 @@
 //
 // Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
 // IE9 only needs a polyfill for `classList` to make all tests pass.
-
-import { api } from "api";
-import "mode";
-
-export default = api.$;
-
+//
 // You can opt-in to work with [live Node and NodeList](mode.html) objects.
 //
 // You can easily create **custom builds** to exclude parts you don't need:
@@ -31,3 +26,8 @@ export default = api.$;
 // The sources are written in the **ES6** Modules format,
 // and transpiled to an AMD version, and a "browser global" version
 // using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
+
+import { api } from "api";
+import "mode";
+
+export default = api.$;
