@@ -96,11 +96,9 @@ var delegateHandler = function(selector, fn, event) {
 //
 //     element.trigger('anyEventName');
 
-var trigger = function(type, options) {
-    options = options || {};
-    if(options.bubbles === undefined) options.bubbles = true;
-    if(options.cancelable === undefined) options.cancelable = true;
-    var event = new CustomEvent(type, options);
+var trigger = function(type, params) {
+    params = params || { bubbles: true, cancelable: true, detail: undefined };
+    var event = new CustomEvent(type, params);
     (this.length ? this : [this]).forEach(function(element) {
         element.dispatchEvent(event);
     });
