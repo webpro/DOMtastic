@@ -35,14 +35,14 @@
 
         <div id="testElement" style="display: none;"></div>
 
-        <script src="../src/jquery.evergreen.js"></script>
+        <script src="../dist/jquery-evergreen.js"></script>
         <script>
-            if(location.search.indexOf('NOSAFE') > -1) {
+            if(location.search.indexOf('NOSAFE') > -1 && typeof $ !== 'undefined') {
                 $.safeMode(false);
             }
         </script>
         <p>Save mode:
-            <strong><script>document.write($.safeMode())</script></strong>
+            <strong><script>document.write(typeof $ !== 'undefined' && $.safeMode())</script></strong>
             (run tests in non-safe (native) mode by appending <code>?NOSAFE</code> to the url.)
         </p>
 
