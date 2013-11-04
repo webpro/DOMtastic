@@ -1,12 +1,6 @@
 // DOM Manipulation
 // ----------------
 
-// Convert `NodeList` to `Array`.
-
-var toArray = function(list) {
-    return [].slice.call(list);
-};
-
 //     $('.myElement').append('<span>more</span>');
 //     $('.myList').append('<span>more</span>');
 
@@ -91,6 +85,12 @@ var clone = function(element) {
         });
     }
     return element;
+};
+
+// Convert `NodeList` to `Array`.
+
+var toArray = function(list) {
+    return [].slice.call(list);
 };
 
 export { append, before, after };

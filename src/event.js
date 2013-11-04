@@ -62,6 +62,19 @@ var undelegate = function(selector, eventName, fn) {
     return this;
 };
 
+// Trigger uses `CustomEvent`.
+//
+//     element.trigger('anyEventName');
+
+var trigger = function(type, params) {
+    params = params || { bubbles: true, cancelable: true, detail: undefined };
+    var event = new CustomEvent(type, params);
+    (this.length ? this : [this]).forEach(function(element) {
+        element.dispatchEvent(event);
+    });
+    return this;
+};
+
 // Internal functions to create and get event handlers to remove them later on.
 
 var createEventHandler = function(selector, eventName, fn) {
@@ -90,19 +103,6 @@ var delegateHandler = function(selector, fn, event) {
         }
         fn.call(event.target, event);
     }
-};
-
-// Trigger uses `CustomEvent`.
-//
-//     element.trigger('anyEventName');
-
-var trigger = function(type, params) {
-    params = params || { bubbles: true, cancelable: true, detail: undefined };
-    var event = new CustomEvent(type, params);
-    (this.length ? this : [this]).forEach(function(element) {
-        element.dispatchEvent(event);
-    });
-    return this;
 };
 
 // Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
