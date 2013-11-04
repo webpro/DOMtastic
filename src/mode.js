@@ -1,4 +1,4 @@
-import { api } from 'api';
+import { api, apiNodeList } from 'api';
 
 var $ = api.$;
 
@@ -32,20 +32,6 @@ var safeMode = function(safe) {
         unaugmentNatives();
     }
     return isSafe;
-};
-
-var array = [];
-
-// The `apiNodeList` object represents the API that gets augmented onto the native `Nodelist` object.
-// The wrapped array (native `Array`) already has these (and more).
-
-var apiNodeList = {
-    every: array.every,
-    filter: array.filter,
-    forEach: array.forEach,
-    each: array.forEach,
-    some: array.some,
-    map: array.map
 };
 
 var NodeProto = Node.prototype,
