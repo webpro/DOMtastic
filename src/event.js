@@ -1,11 +1,17 @@
-// Events
-// ------
-//
-// Chainable shorthand for `addEventListener`.
-// Delegates to `delegate` if that signature is used.
-//
-//     element.on('click', callback);
-//     element.trigger('click');
+// # Events
+
+/**
+ * ## on
+ *
+ * Shorthand for `addEventListener`. Delegates to `delegate` if that signature is used.
+ *
+ *     $('.item').on('click', callback);
+ *
+ * @param {String} eventName
+ * @param {Function} fn Listener
+ * @param {Boolean} useCapture
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var on = function(eventName, fn, useCapture) {
     if(typeof fn === 'string' && typeof useCapture === 'function') {
@@ -17,10 +23,18 @@ var on = function(eventName, fn, useCapture) {
     return this;
 };
 
-// Chainable shorthand for `removeEventListener`.
-// Delegates to `undelegate` if that signature is used.
-//
-//     element.off('click', callback);
+/**
+ * ## off
+ *
+ * Shorthand for `removeEventListener`. Delegates to `undelegate` if that signature is used.
+ *
+ *     $('.item').off('click', callback);
+ *
+ * @param {String} eventName Name or type of the event
+ * @param {Function} fn Event handler
+ * @param {Boolean} useCapture
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var off = function(eventName, fn, useCapture) {
     if(typeof fn === 'string' && typeof useCapture === 'function') {
@@ -32,14 +46,18 @@ var off = function(eventName, fn, useCapture) {
     return this;
 };
 
-//     var handler = function(event) {
-//         event.target; // child
-//         event.currentTarget; // container
-//     }
-//     container.delegate('.children', 'click', handler);
-//     $(.children)[2].trigger('click');
-//
-//     container.undelegate('.children', 'click', handler);
+/**
+ * ## delegate
+ *
+ * Delegate events triggered at descendants to element(s)
+ *
+ *     $('.container').delegate('.item', 'click', handler);
+ *
+ * @param {String} selector Selector to filter descendants that delegate the event to this element.
+ * @param {String} eventName Name or type of the event
+ * @param {Function} fn Event handler
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var delegate = function(selector, eventName, fn) {
     var args = arguments;
@@ -49,6 +67,19 @@ var delegate = function(selector, eventName, fn) {
     });
     return this;
 };
+
+/**
+ * ## undelegate
+ *
+ * Undelegate events triggered at descendants to element(s)
+ *
+ *     $('.container').undelegate('.item', 'click', handler);
+ *
+ * @param {String} selector Selector to filter descendants that undelegate the event to this element.
+ * @param {String} eventName Name or type of the event
+ * @param {Function} fn Event handler
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var undelegate = function(selector, eventName, fn) {
     var args = arguments;
@@ -62,9 +93,21 @@ var undelegate = function(selector, eventName, fn) {
     return this;
 };
 
-// Trigger uses `CustomEvent`.
-//
-//     element.trigger('anyEventName');
+/**
+ * ## trigger
+ *
+ * Undelegate events triggered at descendants to element(s)
+ *
+ *     $('.item').trigger('anyEventType');
+ *
+ * @param {String} type Type of the event
+ * @param {Object} params Event parameters (optional)
+ * @param {Boolean} params.bubbles Does the event bubble up through the DOM or not.
+ * @param {Boolean} params.cancelable Is the event cancelable or not.
+ * @param {Number} params.detail Additional numerical information about the event, depending on the type of event.
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
+
 
 var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
@@ -75,7 +118,16 @@ var trigger = function(type, params) {
     return this;
 };
 
-// Internal functions to create and get event handlers to remove them later on.
+/**
+ * Store handler to element (to be able to remove delegated events).
+ *
+ * @method createEventHandler
+ * @private
+ * @param {String} selector Selector to filter descendants that undelegate the event to this element.
+ * @param {String} eventName Name or type of the event
+ * @param {Function} fn Event handler
+ * @return {Function} Returns the bound event handler
+ */
 
 var createEventHandler = function(selector, eventName, fn) {
     var proxyFn = delegateHandler.bind(this, selector, fn),
@@ -92,8 +144,19 @@ var getEventId = function(selector, eventName, fn) {
     return selector + eventName + (fn._handlerId = fn._handlerId || ++eventHandlerId);
 };
 
-// Internal function to check whether delegated events match the provided `selector`; set `event.currentTarget`;
-// and actually call the provided event handler.
+
+/**
+ * Check whether delegated events match the provided `selector`, set `event.currentTarget`,
+ * and actually call the provided event handler.
+ *
+ * @method delegateHandler
+ * @private
+ * @param {String} selector Selector to filter descendants that undelegate the event to this element.
+ * @param {Function} fn Event handler
+ * @param {Event} event
+ * @return {Function} Returns the bound event handler
+ */
+
 
 var delegateHandler = function(selector, fn, event) {
     var matchesSelector = this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
@@ -105,8 +168,10 @@ var delegateHandler = function(selector, fn, event) {
     }
 };
 
-// Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
-// Needed to support IE (9, 10, 11)
+/**
+ * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
+ * Needed to support IE (9, 10, 11)
+ */
 
 (function() {
     function CustomEvent(event, params) {
@@ -119,5 +184,7 @@ var delegateHandler = function(selector, fn, event) {
     CustomEvent.prototype = window.CustomEvent.prototype;
     window.CustomEvent = CustomEvent;
 })();
+
+// Export interface
 
 export { on, off, delegate, undelegate, trigger };

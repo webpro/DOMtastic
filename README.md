@@ -12,9 +12,7 @@ IE9 only needs a polyfill for `classList` to make all tests pass.
 
 You can opt-in to work with [live Node and NodeList](mode.html) objects.
 
-You can easily create **custom builds** to exclude parts you don't need:
-
-    $ grunt --exclude=class,dom,event,selector
+## Usage
 
 Using **AMD**, just include it as a regular dependency:
 
@@ -22,10 +20,47 @@ Using **AMD**, just include it as a regular dependency:
 
     });
 
+## Custom Build
+
+You can easily create **custom builds** to exclude parts you don't need:
+
+    $ grunt --exclude=class,dom,event,selector
+
+## Development
+
 The sources are written in the **ES6** Modules format,
 and transpiled to an AMD version, and a "browser global" version
 using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
 
+## Documentation & API
+
 [Annotated source](http://webpro.github.io/jquery-evergreen)
+
+### Selector
+
+	$()
+
+### Class
+
+	.addClass()
+	.removeClass()
+	.toggleClass()
+	.hasClass()
+
+### DOM
+
+	.append()
+	.before()
+	.after()
+
+### Event
+
+	.on()
+	.off()
+	.delegate()
+	.undelegate()
+	.trigger()
+
+## License
 
 [MIT licensed](http://webpro.mit-license.org)

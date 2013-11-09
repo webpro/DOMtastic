@@ -1,8 +1,14 @@
-// DOM Manipulation
-// ----------------
+// # DOM Manipulation
 
-//     $('.myElement').append('<span>more</span>');
-//     $('.myList').append('<span>more</span>');
+/**
+ * ## append
+ *
+ *     $('.item').append('<p>more</p>');
+ *
+ * @param {String|Node|NodeList|$Object} element What to append to the element(s).
+ * Clones elements as necessary.
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var append = function(element) {
     if(this instanceof Node) {
@@ -26,7 +32,15 @@ var append = function(element) {
     return this;
 };
 
-//     $('.myElement').before(element);
+/**
+ * ## before
+ *
+ *     $('.items').before('<p>prefix</p>');
+ *
+ * @param {String|Node|NodeList|$Object} element What to place as sibling(s) before to the element(s).
+ * Clones elements as necessary.
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var before = function(element) {
     if(this instanceof Node) {
@@ -50,7 +64,15 @@ var before = function(element) {
     return this;
 };
 
-//     $('.myList').after(elements);
+/**
+ * ## after
+ *
+ *     $('.items').after('<span>suf</span><span>fix</span>');
+ *
+ * @param {String|Node|NodeList|$Object} element What to place as sibling(s) after to the element(s).
+ * Clones elements as necessary.
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
 
 var after = function(element) {
     if(this instanceof Node) {
@@ -74,6 +96,13 @@ var after = function(element) {
     return this;
 };
 
+/**
+ * @method clone
+ * @private
+ * @param {String|Node|NodeList|Array} element The element(s) to clone.
+ * @return {String|Node|NodeList|Array} The cloned element(s)
+ */
+
 var clone = function(element) {
     if(typeof element === 'string') {
         return '' + element;
@@ -87,10 +116,17 @@ var clone = function(element) {
     return element;
 };
 
-// Convert `NodeList` to `Array`.
+/**
+ * @method toArray
+ * @private
+ * @param {NodeList|Array} list
+ * @return {Array}
+ */
 
 var toArray = function(list) {
     return [].slice.call(list);
 };
+
+// Export interface
 
 export { append, before, after };

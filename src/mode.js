@@ -1,19 +1,20 @@
+/*
+ * # Safe vs. Native Mode
+ *
+ * The default "safe" mode is similar to how jQuery works (returning an array-like object).
+ *
+ * However, you can opt-in to work with live Node and NodeList objects (instead of the Array-like `$` objects).
+ * In this "native" mode, the `Node` and `NodeList` prototypes are augmented to fill up the chainable API,
+ * like `forEach`, `addClass`, `append`, `on`.
+ *
+ * In this mode, an augmented NodeList is returned when using `$(selector)`.
+ * Use `$.safeMode(false)` to activate this behavior.
+ * The API is the same in both modes.
+ */
+
 import { api, apiNodeList } from 'api';
 
 var $ = api.$;
-
-// Safe vs. Native Mode
-// -------------------
-
-// The default "safe" mode is similar to how jQuery works (returning an array-like object).
-
-// However, you can opt-in to work with live Node and NodeList objects (instead of the Array-like `$` objects).
-// In this "native" mode, the `Node` and `NodeList` prototypes are augmented to fill up the chainable API,
-// like `forEach`, `addClass`, `append`, `on`.
-
-// In this mode, an augmented NodeList is returned when using `$(selector)`.
-// Use `$.safeMode(false)` to activate this behavior.
-// The API is the same in both modes.
 
 var isSafe = true;
 
@@ -39,7 +40,9 @@ var NodeProto = Node.prototype,
     NodeProtoOriginals = {},
     NodeListProtoOriginals = {};
 
-// Augment native `Node` and `NodeList` objects in native mode.
+/*
+ * Augment native `Node` and `NodeList` objects in native mode.
+ */
 
 var augmentNatives = function() {
 
@@ -58,8 +61,10 @@ var augmentNatives = function() {
     }
 };
 
-// Unaugment native `Node` and `NodeList` objects to switch back to safe mode.
-// Mainly used for tests.
+/*
+ * Unaugment native `Node` and `NodeList` objects to switch back to safe mode.
+ * Mainly used for tests.
+ */
 
 var unaugmentNatives = function() {
 
@@ -75,8 +80,10 @@ var unaugmentNatives = function() {
     }
 };
 
-// It's possible to have a custom build without the [selector](selector.html) API,
-// but in that case only the native mode makes sense.
+/*
+ * It's possible to have a custom build without the [selector](selector.html) API,
+ * but in that case only the native mode makes sense.
+ */
 
 if(typeof $ === 'undefined') {
     safeMode(false);
@@ -84,5 +91,7 @@ if(typeof $ === 'undefined') {
     $.isSafe = isSafe;
     $.safeMode = safeMode;
 }
+
+// Export interface
 
 export { isSafe, safeMode };

@@ -1,3 +1,11 @@
+/*
+ * # API
+ *
+ * Import modules to build the API.
+ *
+ * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
+ */
+
 var api = {};
 
 /* API:class */
@@ -33,8 +41,10 @@ $._api = api;
 
 var array = [];
 
-// The `apiNodeList` object represents the API that gets augmented onto the native `Nodelist` object.
-// The wrapped array (native `Array`) already has these (and more).
+/*
+ * The `apiNodeList` object represents the API that gets augmented onto the native `Nodelist` object.
+ * The wrapped array (native `Array`) already has these (and more).
+ */
 
 var apiNodeList = {
     every: array.every,
