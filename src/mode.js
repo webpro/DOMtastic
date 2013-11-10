@@ -36,9 +36,30 @@ var safeMode = function(safe) {
 };
 
 var NodeProto = Node.prototype,
-    NodeListProto = NodeList.prototype,
-    NodeProtoOriginals = {},
-    NodeListProtoOriginals = {};
+    NodeListProto = NodeList.prototype;
+
+/*
+ * Add a property (i.e. method) to an object in a safe and reversible manner.
+ * Only add the method if object not already had it (non-inherited).
+ */
+
+var augment = function(obj, key, value) {
+    if(!obj.hasOwnProperty(key)) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            configurable: true,
+            enumerable: false
+        });
+    }
+};
+
+/*
+ * Remove property from object (only inherited properties will be removed).
+ */
+
+var unaugment = function(obj, key) {
+    delete obj[key];
+};
 
 /*
  * Augment native `Node` and `NodeList` objects in native mode.
@@ -49,15 +70,12 @@ var augmentNatives = function() {
     var key;
 
     for(key in api) {
-        NodeProtoOriginals[key] = NodeProto[key];
-        NodeListProtoOriginals[key] = NodeListProto[key];
-        NodeProto[key] = api[key];
-        NodeListProto[key] = api[key];
+        augment(NodeProto, key, api[key]);
+        augment(NodeListProto, key, api[key]);
     }
 
     for(key in apiNodeList) {
-        NodeListProtoOriginals[key] = NodeListProto[key];
-        NodeListProto[key] = apiNodeList[key];
+        augment(NodeListProto, key, apiNodeList[key]);
     }
 };
 
@@ -71,12 +89,12 @@ var unaugmentNatives = function() {
     var key;
 
     for(key in api) {
-        NodeProto[key] = NodeProtoOriginals[key];
-        NodeListProto[key] = NodeListProtoOriginals[key];
+        unaugment(NodeProto, key);
+        unaugment(NodeListProto, key);
     }
 
     for(key in apiNodeList) {
-        NodeListProto[key] = NodeListProtoOriginals[key];
+        unaugment(NodeListProto, key);
     }
 };
 
