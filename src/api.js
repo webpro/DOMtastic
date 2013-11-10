@@ -42,7 +42,7 @@ $._api = api;
 var array = [];
 
 /*
- * The `apiNodeList` object represents the API that gets augmented onto the native `Nodelist` object.
+ * The `apiNodeList` object represents the API that gets augmented onto the native `NodeList` object.
  * The wrapped array (native `Array`) already has these (and more).
  */
 
