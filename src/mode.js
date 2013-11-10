@@ -27,10 +27,10 @@ var safeMode = function(safe) {
         }
     }
     if(wasSafe && !isSafe) {
-        augmentNatives();
+        augmentNativePrototypes();
     }
     if(!wasSafe && isSafe) {
-        unaugmentNatives();
+        unaugmentNativePrototypes();
     }
     return isSafe;
 };
@@ -65,7 +65,7 @@ var unaugment = function(obj, key) {
  * Augment native `Node` and `NodeList` objects in native mode.
  */
 
-var augmentNatives = function() {
+var augmentNativePrototypes = function() {
 
     var key;
 
@@ -84,7 +84,7 @@ var augmentNatives = function() {
  * Mainly used for tests.
  */
 
-var unaugmentNatives = function() {
+var unaugmentNativePrototypes = function() {
 
     var key;
 
