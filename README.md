@@ -1,7 +1,7 @@
 # jQuery Evergreen
 
 jQuery Evergreen works with modern browsers.
-It has the same familiar API as jQuery, and is lean & mean with just the [selector](selector.html), [class](class.html), [DOM](dom.html) and [event](event.html) modules.
+It has the same familiar API as jQuery, and is lean & mean with just the selector, class, DOM and event modules.
 
 The complete version is under 6KB after minification (<2KB gzipped).
 
@@ -10,7 +10,7 @@ Much of the original jQuery's "weight" is not included at all, such as `$.ajax`,
 Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
 IE9 only needs a polyfill for `classList` to make all tests pass.
 
-You can opt-in to work directly with [Node and live NodeList](mode.html) objects.
+You can opt-in to work directly with [Node and live NodeList](http://webpro.github.io/jquery-evergreen/mode.html) objects.
 
 ## Usage
 
@@ -35,31 +35,6 @@ using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/
 ## Documentation & API
 
 [Annotated source](http://webpro.github.io/jquery-evergreen)
-
-### Selector
-
-	$()
-
-### Class
-
-	.addClass()
-	.removeClass()
-	.toggleClass()
-	.hasClass()
-
-### DOM
-
-	.append()
-	.before()
-	.after()
-
-### Event
-
-	.on()
-	.off()
-	.delegate()
-	.undelegate()
-	.trigger()
 
 ## License
 
