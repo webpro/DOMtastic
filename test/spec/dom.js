@@ -5,7 +5,8 @@ describe('DOM', function() {
         containerHTML = '<div id="testChild"></div>',
         html = '<article><section><p>foo</p><p>bar</p></section></article>',
         htmlSmall = '<span>1</span>',
-        htmlList = '<p>foo</p><p>bar</p><p>baz</p>';
+        htmlList = '<p>foo</p><p>bar</p><p>baz</p>',
+        htmlText = 'text';
 
     beforeEach(function() {
         container[0].innerHTML = containerHTML;
@@ -20,6 +21,11 @@ describe('DOM', function() {
     it('should append DOM string', function() {
         emptyContainer.append(html);
         expect(emptyContainer[0].innerHTML).toBe(html);
+    });
+
+    it('should append DOM string (text node)', function() {
+        emptyContainer.append(htmlText);
+        expect(emptyContainer[0].innerHTML).toBe(htmlText);
     });
 
     it('should append DOM element', function() {
@@ -57,6 +63,11 @@ describe('DOM', function() {
         expect(container[0].innerHTML).toBe(html + containerHTML);
     });
 
+    it('should insert DOM string (text node) as previous sibling', function() {
+        getElement('#testChild').before(htmlText);
+        expect(container[0].innerHTML).toBe(htmlText + containerHTML);
+    });
+
     it('should insert DOM element as previous sibling', function() {
         var child = $(html);
         getElement('#testChild').before(child);
@@ -90,6 +101,11 @@ describe('DOM', function() {
     it('should insert DOM string as next sibling', function() {
         getElement('#testChild').after(html);
         expect(container[0].innerHTML).toBe(containerHTML + html);
+    });
+
+    it('should insert DOM string (text node) as next sibling', function() {
+        getElement('#testChild').after(htmlText);
+        expect(container[0].innerHTML).toBe(containerHTML + htmlText);
     });
 
     it('should insert DOM element as next sibling', function() {
