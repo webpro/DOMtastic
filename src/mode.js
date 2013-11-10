@@ -16,23 +16,21 @@ import { api, apiNodeList } from 'api';
 
 var $ = api.$;
 
-var isSafe = true;
+var isNative = false;
 
-var safeMode = function(safe) {
-    var wasSafe = isSafe;
-    if(typeof safe === 'boolean') {
-        isSafe = safe;
-        if($) {
-            $.isSafe = isSafe;
-        }
+var native = function(native) {
+    var wasNative = isNative;
+    isNative = typeof native === 'boolean' ? native : true;
+    if($) {
+        $.isNative = isNative;
     }
-    if(wasSafe && !isSafe) {
+    if(!wasNative && isNative) {
         augmentNativePrototypes();
     }
-    if(!wasSafe && isSafe) {
+    if(wasNative && !isNative) {
         unaugmentNativePrototypes();
     }
-    return isSafe;
+    return isNative;
 };
 
 var NodeProto = Node.prototype,
@@ -104,12 +102,12 @@ var unaugmentNativePrototypes = function() {
  */
 
 if(typeof $ === 'undefined') {
-    safeMode(false);
+    native();
 } else {
-    $.isSafe = isSafe;
-    $.safeMode = safeMode;
+    $.isNative = isNative;
+    $.native = native;
 }
 
 // Export interface
 
-export { isSafe, safeMode };
+export { isNative, native };

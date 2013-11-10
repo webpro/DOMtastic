@@ -39,7 +39,7 @@ var $ = function(selector, context) {
 
     }
 
-    return $.isSafe ? wrap(collection) : collection;
+    return $.isNative ? collection : wrap(collection);
 
 };
 

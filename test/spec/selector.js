@@ -2,7 +2,7 @@ describe('selectors', function() {
 
     it('should return an empty NodeList for falsey selectors', function() {
 
-        var actual = $.safeMode() ? Array : NodeList;
+        var actual = !$.isNative ? Array : NodeList;
 
         expect($()).toBeInstanceOf(actual);
         expect($().length).toBe(0);

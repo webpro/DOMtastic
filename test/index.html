@@ -37,13 +37,13 @@
 
         <script src="../dist/jquery-evergreen.js"></script>
         <script>
-            if(location.search.indexOf('NOSAFE') > -1 && typeof $ !== 'undefined') {
-                $.safeMode(false);
+            if(location.search.indexOf('NATIVE') > -1 && typeof $ !== 'undefined') {
+                $.native();
             }
         </script>
-        <p>Save mode:
-            <strong><script>document.write(typeof $ !== 'undefined' && $.safeMode())</script></strong>
-            (run tests in non-safe (native) mode by appending <code>?NOSAFE</code> to the url.)
+        <p>Mode:
+            <strong><script>document.write($.isNative ? 'native' : 'default')</script></strong>
+            (run tests in <a href="?">default</a> or <a href="?NATIVE">native</a> mode).
         </p>
 
         <script src="spec/safeMode.js"></script>

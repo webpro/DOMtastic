@@ -2,7 +2,7 @@ describe('safeMode', function() {
 
     it('should not augment native objects', function() {
 
-        if($.safeMode()) {
+        if(!$.isNative) {
 
             expect(Node.prototype).not.toHave('find');
             expect(NodeList.prototype).not.toHave('find');
@@ -23,7 +23,7 @@ describe('safeMode', function() {
         expect(result.length).toBe(5);
         expect(result[3]).toBe(document.querySelector('.fourth'));
 
-        if($.safeMode()) {
+        if(!$.isNative) {
 
             expect(result).toBeInstanceOf(Array);
             expect(result).toHave('find');
@@ -41,10 +41,10 @@ describe('safeMode', function() {
 
     it('should be able to switch modes', function() {
 
-        var revertMode = $.safeMode(),
+        var revertMode = $.isNative,
             result;
 
-        $.safeMode(false);
+        $.native();
 
         result = $('#testFragment li');
 
@@ -53,7 +53,7 @@ describe('safeMode', function() {
         expect(NodeList.prototype.forEach).toBeOfType('function');
         expect(result).toBeInstanceOf(NodeList);
 
-        $.safeMode(true);
+        $.native(false);
 
         result = $('#testFragment li');
 
@@ -62,7 +62,7 @@ describe('safeMode', function() {
         expect(NodeList.prototype.forEach).toBeOfType('undefined');
         expect(result).toBeInstanceOf(Array);
 
-        $.safeMode(revertMode);
+        $.native(revertMode);
 
     });
 
