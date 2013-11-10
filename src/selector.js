@@ -17,29 +17,29 @@
 
 var $ = function(selector, context) {
 
-    var list;
+    var collection;
 
     if(!selector) {
 
-        list = document.querySelectorAll(null);
+        collection = document.querySelectorAll(null);
 
     } else if(typeof selector !== 'string') {
 
-        list = selector.length ? selector : [selector];
+        collection = selector.length ? selector : [selector];
 
     } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
 
-        list = createFragment(selector);
+        collection = createFragment(selector);
 
     } else {
 
         context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
 
-        list = context.querySelectorAll(selector);
+        collection = context.querySelectorAll(selector);
 
     }
 
-    return $.isSafe ? wrap(list) : list;
+    return $.isSafe ? wrap(collection) : collection;
 
 };
 
@@ -83,12 +83,12 @@ var createFragment = function(html) {
  *
  * @method wrap
  * @private
- * @param {NodeList|Node|Array} list Element(s) to wrap as a `$Object`.
+ * @param {NodeList|Node|Array} collection Element(s) to wrap as a `$Object`.
  * @return {$Object} Array with augmented API.
  */
 
-var wrap = function(list) {
-    var wrapped = list instanceof NodeList ? [].slice.call(list) : list instanceof Array ? list : [list];
+var wrap = function(collection) {
+    var wrapped = collection instanceof NodeList ? [].slice.call(collection) : collection instanceof Array ? collection : [collection];
     for(var key in $._api) {
         wrapped[key] = $._api[key];
     }

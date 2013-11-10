@@ -119,12 +119,12 @@ var clone = function(element) {
 /**
  * @method toArray
  * @private
- * @param {NodeList|Array} list
+ * @param {NodeList|Array} collection
  * @return {Array}
  */
 
-var toArray = function(list) {
-    return [].slice.call(list);
+var toArray = function(collection) {
+    return [].slice.call(collection);
 };
 
 // Export interface
