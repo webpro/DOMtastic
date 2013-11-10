@@ -50,6 +50,7 @@ describe('safeMode', function() {
 
         expect(Node.prototype.find).toBeOfType('function');
         expect(NodeList.prototype.find).toBeOfType('function');
+        expect(NodeList.prototype.forEach).toBeOfType('function');
         expect(result).toBeInstanceOf(NodeList);
 
         $.safeMode(true);
@@ -58,6 +59,7 @@ describe('safeMode', function() {
 
         expect(Node.prototype.find).not.toBeOfType('function');
         expect(NodeList.prototype.find).not.toBeOfType('function');
+        expect(NodeList.prototype.forEach).toBeOfType('undefined');
         expect(result).toBeInstanceOf(Array);
 
         $.safeMode(revertMode);
