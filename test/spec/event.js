@@ -38,7 +38,7 @@ describe('events', function() {
     xit('should receive events bubbling up to an element not in the DOM', function() {
         var element = getElement('<div><p></p></div>');
         element.on('EVENT-unattached-element', spy);
-        element.$('p').trigger('EVENT-unattached-element');
+        element.find('p').trigger('EVENT-unattached-element');
         expect(spy).toHaveBeenCalled();
     });
 

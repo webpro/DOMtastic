@@ -28,7 +28,7 @@ describe('selectors', function() {
     });
 
     it('should provide a chainable API', function() {
-        var element = $('body').$('#testFragment').$('.two');
+        var element = $('body').find('#testFragment').find('.two');
         expect(element[0]).toBe($('.two')[0]);
     });
 
