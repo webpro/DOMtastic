@@ -1,15 +1,26 @@
 /*
- * # Safe vs. Native Mode
+ * # Opt-in to Native Mode
  *
- * The default "safe" mode is similar to how jQuery works (returning an array-like object).
+ * The default, non-intrusive mode is similar to how jQuery operates: working with static, array-like `$` objects:
  *
- * However, you can opt-in to work with live Node and NodeList objects (instead of the Array-like `$` objects).
- * In this "native" mode, the `Node` and `NodeList` prototypes are augmented to fill up the chainable API,
- * like `forEach`, `addClass`, `append`, `on`.
+ *     $('.items').append('<span>foo</span>);
+ *     $(document.body).on('click', '.tab', handler);
  *
- * In this mode, an augmented NodeList is returned when using `$(selector)`.
- * Use `$.safeMode(false)` to activate this behavior.
- * The API is the same in both modes.
+ * However, you can opt-in to work with live NodeList objects.
+ * In this "native" mode, the `Node` and `NodeList` prototypes are augmented (in a safe and reversible manner) to fill up the chainable API,
+ * to enable working with `Node` and `NodeList` objects directly:
+ *
+ *     var collection = document.querySelectorAll('.items');
+ *     collection.append('<span>foo</span>);
+ *     collection.addClass('bar');
+ *     collection.forEach(iteratorFn);
+ *     collection.find('.more');
+ *
+ *     document.body.on('click', '.tab', handler)
+ *
+ * Note that in native mode, `$(selector)` can stil be used. It returns a NodeList.
+ *
+ * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
 import { api, apiNodeList } from 'api';
@@ -78,7 +89,7 @@ var augmentNativePrototypes = function() {
 };
 
 /*
- * Unaugment native `Node` and `NodeList` objects to switch back to safe mode.
+ * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
  * Mainly used for tests.
  */
 
