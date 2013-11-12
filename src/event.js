@@ -17,7 +17,7 @@ var on = function(eventName, fn, useCapture) {
     if(typeof fn === 'string' && typeof useCapture === 'function') {
         return delegate.call(this, fn, eventName, useCapture);
     }
-    (this.length ? this : [this]).forEach(function(element) {
+    (this.nodeType ? [this] : this).forEach(function(element) {
         element.addEventListener(eventName, fn, useCapture || false);
     });
     return this;
@@ -40,7 +40,7 @@ var off = function(eventName, fn, useCapture) {
     if(typeof fn === 'string' && typeof useCapture === 'function') {
         return undelegate.call(this, fn, eventName, useCapture);
     }
-    (this.length ? this : [this]).forEach(function(element) {
+    (this.nodeType ? [this] : this).forEach(function(element) {
         element.removeEventListener(eventName, fn, useCapture || false);
     });
     return this;
@@ -61,7 +61,7 @@ var off = function(eventName, fn, useCapture) {
 
 var delegate = function(selector, eventName, fn) {
     var args = arguments;
-    (this.length ? this : [this]).forEach(function(element) {
+    (this.nodeType ? [this] : this).forEach(function(element) {
         var handler = createEventHandler.apply(element, args);
         on.call(element, eventName, handler);
     });
@@ -83,7 +83,7 @@ var delegate = function(selector, eventName, fn) {
 
 var undelegate = function(selector, eventName, fn) {
     var args = arguments;
-    (this.length ? this : [this]).forEach(function(element) {
+    (this.nodeType ? [this] : this).forEach(function(element) {
         var id = getEventId.apply(element, args);
         element._handlers[id].forEach(function(handler) {
             off.call(element, eventName, handler);
@@ -112,7 +112,7 @@ var undelegate = function(selector, eventName, fn) {
 var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
-    (this.length ? this : [this]).forEach(function(element) {
+    (this.nodeType ? [this] : this).forEach(function(element) {
         element.dispatchEvent(event);
     });
     return this;
