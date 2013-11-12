@@ -15,7 +15,7 @@
 
 var on = function(eventName, fn, useCapture) {
     if(typeof fn === 'string' && typeof useCapture === 'function') {
-        return delegate.apply(this, arguments);
+        return delegate.call(this, fn, eventName, useCapture);
     }
     (this.length ? this : [this]).forEach(function(element) {
         element.addEventListener(eventName, fn, useCapture || false);
@@ -38,7 +38,7 @@ var on = function(eventName, fn, useCapture) {
 
 var off = function(eventName, fn, useCapture) {
     if(typeof fn === 'string' && typeof useCapture === 'function') {
-        return undelegate.apply(this, arguments);
+        return undelegate.call(this, fn, eventName, useCapture);
     }
     (this.length ? this : [this]).forEach(function(element) {
         element.removeEventListener(eventName, fn, useCapture || false);

@@ -97,15 +97,15 @@ describe('events', function() {
 
     it('should forward request to `delegate` if that signature was used', function() {
         var element = getElement(document.body);
-        element.on('li', 'EVENT-on-delegate', spy);
+        element.on('EVENT-on-delegate', 'li', spy);
         getElement('.fourth').trigger('EVENT-on-delegate');
         expect(spy).toHaveBeenCalled();
     });
 
     it('should forward request to `undelegate` if that signature was used', function() {
         var element = getElement(document.body);
-        element.on('li', 'EVENT-off-undelegate', spy);
-        element.off('li', 'EVENT-off-undelegate', spy);
+        element.on('EVENT-off-undelegate', 'li', spy);
+        element.off('EVENT-off-undelegate', 'li', spy);
         getElement('.fourth').trigger('EVENT-on-delegate');
         expect(spy).not.toHaveBeenCalled();
     });
