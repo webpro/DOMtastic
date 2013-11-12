@@ -30,7 +30,7 @@
  *
  */
 
-import { api } from 'api';
+import { $ } from 'api';
 import 'mode';
 
-export default = api.$;
+export default = $;

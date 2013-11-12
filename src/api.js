@@ -34,7 +34,7 @@ api.trigger = trigger;
 
 /* API:selector */
 import { $, find } from 'selector';
-api.$ = $;
+api.$ = find;
 api.find = find;
 $._api = api;
 /* API:selector */
@@ -57,4 +57,4 @@ var apiNodeList = {
 
 // Export interface
 
-export { api, apiNodeList };
+export { $, api, apiNodeList };

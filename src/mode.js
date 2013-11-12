@@ -23,9 +23,7 @@
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
-import { api, apiNodeList } from 'api';
-
-var $ = api.$;
+import { $, api, apiNodeList } from 'api';
 
 var isNative = false;
 
