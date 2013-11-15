@@ -3,23 +3,43 @@
 /**
  * ## on
  *
- * Shorthand for `addEventListener`. Delegates to `delegate` if that signature is used.
+ * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
  *
  *     $('.item').on('click', callback);
+ *     $('.container').on('click', '.item', handler);
  *
  * @param {String} eventName
- * @param {Function} fn Listener
- * @param {Boolean} useCapture
+ * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
+ * @param {Function} handler Event handler
+ * @param {Boolean} useCapture=false
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
-var on = function(eventName, fn, useCapture) {
-    if(typeof fn === 'string' && typeof useCapture === 'function') {
-        return delegate.call(this, fn, eventName, useCapture);
+var on = function(eventName, selector, handler, useCapture) {
+
+    if(typeof selector === 'function') {
+        handler = selector;
+        selector = null;
     }
+
+    var eventListener = handler;
+
     (this.nodeType ? [this] : this).forEach(function(element) {
-        element.addEventListener(eventName, fn, useCapture || false);
+
+        if(selector) {
+            eventListener = delegateHandler.bind(element, selector, handler);
+        }
+
+        element.addEventListener(eventName, eventListener, useCapture || false);
+
+        getHandlers(element).push({
+            eventName: eventName,
+            handler: handler,
+            eventListener: eventListener,
+            selector: selector
+        });
     });
+
     return this;
 };
 
@@ -31,18 +51,49 @@ var on = function(eventName, fn, useCapture) {
  *     $('.item').off('click', callback);
  *
  * @param {String} eventName Name or type of the event
- * @param {Function} fn Event handler
- * @param {Boolean} useCapture
+ * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
+ * @param {Function} handler Event handler
+ * @param {Boolean} useCapture=false
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
-var off = function(eventName, fn, useCapture) {
-    if(typeof fn === 'string' && typeof useCapture === 'function') {
-        return undelegate.call(this, fn, eventName, useCapture);
+var off = function(eventName, selector, handler, useCapture) {
+
+    if(typeof selector === 'function') {
+        handler = selector;
+        selector = null;
     }
+
     (this.nodeType ? [this] : this).forEach(function(element) {
-        element.removeEventListener(eventName, fn, useCapture || false);
+
+        var handlers = getHandlers(element) || [];
+
+        if(!eventName && !selector && !handler) {
+
+            handlers.forEach(function(item) {
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+            });
+
+            clearHandlers(element);
+
+        } else {
+
+            handlers.filter(function(item) {
+                return ((!eventName || item.eventName === eventName) &&
+                    (!handler || item.handler === handler) &&
+                    (!selector || item.selector === selector));
+            }).forEach(function(item) {
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+                handlers.splice(handlers.indexOf(item), 1);
+            });
+
+            if(handlers.length === 0) {
+                clearHandlers(element);
+            }
+        }
+
     });
+
     return this;
 };
 
@@ -60,12 +111,7 @@ var off = function(eventName, fn, useCapture) {
  */
 
 var delegate = function(selector, eventName, fn) {
-    var args = arguments;
-    (this.nodeType ? [this] : this).forEach(function(element) {
-        var handler = createEventHandler.apply(element, args);
-        on.call(element, eventName, handler);
-    });
-    return this;
+    return on.call(this, eventName, selector, fn);
 };
 
 /**
@@ -82,15 +128,7 @@ var delegate = function(selector, eventName, fn) {
  */
 
 var undelegate = function(selector, eventName, fn) {
-    var args = arguments;
-    (this.nodeType ? [this] : this).forEach(function(element) {
-        var id = getEventId.apply(element, args);
-        element._handlers[id].forEach(function(handler) {
-            off.call(element, eventName, handler);
-        }.bind(element));
-        element._handlers[id] = null;
-    });
-    return this;
+    return off.call(this, eventName, selector, fn);
 };
 
 /**
@@ -108,7 +146,6 @@ var undelegate = function(selector, eventName, fn) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
-
 var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
@@ -119,54 +156,68 @@ var trigger = function(type, params) {
 };
 
 /**
- * Store handler to element (to be able to remove delegated events).
+ * Get event handlers from an element
  *
- * @method createEventHandler
+ * @method getHandlers
  * @private
- * @param {String} selector Selector to filter descendants that undelegate the event to this element.
- * @param {String} eventName Name or type of the event
- * @param {Function} fn Event handler
- * @return {Function} Returns the bound event handler
+ * @param {Node} element
+ * @return {Array}
  */
 
-var createEventHandler = function(selector, eventName, fn) {
-    var proxyFn = delegateHandler.bind(this, selector, fn),
-        id = getEventId.apply(this, arguments);
-    this._handlers = this._handlers || {};
-    this._handlers[id] = this._handlers[id] || [];
-    this._handlers[id].push(proxyFn);
-    return proxyFn;
-};
+var cacheKeyProp = '_jeh';
+var id = 1;
+var handlers = {};
+var unusedKeys = [];
 
-var eventHandlerId = 0;
-
-var getEventId = function(selector, eventName, fn) {
-    return selector + eventName + (fn._handlerId = fn._handlerId || ++eventHandlerId);
-};
-
+var getHandlers = function(element) {
+    if(!element[cacheKeyProp]) {
+        element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
+    }
+    var key = element[cacheKeyProp];
+    return handlers[key] || (handlers[key] = []);
+}
 
 /**
- * Check whether delegated events match the provided `selector`, set `event.currentTarget`,
- * and actually call the provided event handler.
+ * Clear event handlers for an element
+ *
+ * @method clearHandlers
+ * @private
+ * @param {Node} element
+ */
+
+var clearHandlers = function(element) {
+    var key = element[cacheKeyProp];
+    if(handlers[key]) {
+        handlers[key] = null;
+        element[key] = null;
+        unusedKeys.push(key);
+    }
+};
+
+/**
+ * Function to test whether delegated events match the provided `selector` (filter),
+ * and then actually call the provided event handler.
+ * Also sets `event.currentTarget` on the event object.
  *
  * @method delegateHandler
  * @private
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
  * @param {Function} fn Event handler
  * @param {Event} event
- * @return {Function} Returns the bound event handler
  */
 
-
-var delegateHandler = function(selector, fn, event) {
-    var matchesSelector = this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
+var delegateHandler = function(selector, handler, event) {
     if(matchesSelector.call(event.target, selector)) {
         if(!event.currentTarget) {
             event.currentTarget = this;
         }
-        fn.call(event.target, event);
+        handler.call(event.target, event);
     }
 };
+
+var matchesSelector = function() {
+    return this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
+}.call(Element.prototype);
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
