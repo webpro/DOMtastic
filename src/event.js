@@ -22,6 +22,10 @@ var on = function(eventName, selector, handler, useCapture) {
         selector = null;
     }
 
+    var parts = eventName.split('.');
+    eventName = parts[0] || null;
+    var namespace = parts[1] || null;
+
     var eventListener = handler;
 
     (this.nodeType ? [this] : this).forEach(function(element) {
@@ -36,7 +40,8 @@ var on = function(eventName, selector, handler, useCapture) {
             eventName: eventName,
             handler: handler,
             eventListener: eventListener,
-            selector: selector
+            selector: selector,
+            namespace: namespace
         });
     });
 
@@ -64,11 +69,17 @@ var off = function(eventName, selector, handler, useCapture) {
         selector = null;
     }
 
+    if(eventName) {
+        var parts = eventName.split('.');
+        eventName = parts[0];
+        var namespace = parts[1];
+    }
+
     (this.nodeType ? [this] : this).forEach(function(element) {
 
         var handlers = getHandlers(element) || [];
 
-        if(!eventName && !selector && !handler) {
+        if(!eventName && !namespace && !selector && !handler) {
 
             handlers.forEach(function(item) {
                 element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
@@ -80,6 +91,7 @@ var off = function(eventName, selector, handler, useCapture) {
 
             handlers.filter(function(item) {
                 return ((!eventName || item.eventName === eventName) &&
+                    (!namespace || item.namespace === namespace) &&
                     (!handler || item.handler === handler) &&
                     (!selector || item.selector === selector));
             }).forEach(function(item) {
