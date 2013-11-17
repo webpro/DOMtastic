@@ -22,8 +22,22 @@ describe('events', function() {
 
     it('should attach an event handler of any type to an element', function() {
         var element = getElement(document.body);
-        element.on('foo', spy);
-        element.trigger('foo');
+        element.on('EVENT-custom', spy);
+        element.trigger('EVENT-custom');
+        expect(spy).toHaveBeenCalled();
+    });
+
+    it('should attach an event handler to the window object', function() {
+        var element = getElement(window);
+        element.on('EVENT-window', spy);
+        element.trigger('EVENT-window');
+        expect(spy).toHaveBeenCalled();
+    });
+
+    it('should attach an event handler with a namespaced type to an element', function() {
+        var element = getElement(document.body);
+        element.on('EVENT-namespaced.namespace', spy);
+        element.trigger('EVENT-namespaced');
         expect(spy).toHaveBeenCalled();
     });
 
@@ -62,6 +76,23 @@ describe('events', function() {
         element.on('EVENT-detach', spy);
         element.off('EVENT-detach', spy);
         element.trigger('EVENT-detach');
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should detach an event handler with a namespace from an element', function() {
+        var element = getElement(document.body);
+        element.on('EVENT-detach.namespace', spy);
+        element.off('EVENT-detach.namespace');
+        element.trigger('EVENT-detach.namespace');
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should detach all event handlers from an element', function() {
+        var element = getElement(document.body);
+        element.on('EVENT-detach-all.namespace', spy);
+        element.on('EVENT-detach-all.namespace', spy);
+        element.off();
+        element.trigger('EVENT-detach.namespace');
         expect(spy).not.toHaveBeenCalled();
     });
 
