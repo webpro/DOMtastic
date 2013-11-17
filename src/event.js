@@ -244,7 +244,7 @@ var delegateHandler = function(selector, handler, event) {
 };
 
 var matchesSelector = function() {
-    return this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
+    return this.matches || this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
 }.call(Element.prototype);
 
 /**
