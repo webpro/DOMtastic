@@ -162,9 +162,24 @@ var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
     (this.nodeType ? [this] : this).forEach(function(element) {
-        element.dispatchEvent(event);
+        if(!params.bubbles || element === window || isEventBubblingInDetachedTree || document.contains(element)) {
+            element.dispatchEvent(event);
+        } else {
+            triggerForPath(element, type, params);
+        }
     });
     return this;
+};
+
+var triggerForPath = function(element, type, params) {
+    params = params || {};
+    params.bubbles = false;
+    var event = new CustomEvent(type, params);
+    event._target = element;
+    while(element.parentNode) {
+        element.dispatchEvent(event);
+        element = element.parentNode;
+    }
 };
 
 /**
@@ -219,11 +234,12 @@ var clearHandlers = function(element) {
  */
 
 var delegateHandler = function(selector, handler, event) {
-    if(matchesSelector.call(event.target, selector)) {
+    var eventTarget = event._target || event.target;
+    if(matchesSelector.call(eventTarget, selector)) {
         if(!event.currentTarget) {
-            event.currentTarget = this;
+            event.currentTarget = eventTarget;
         }
-        handler.call(event.target, event);
+        handler.call(eventTarget, event);
     }
 };
 
@@ -247,6 +263,20 @@ var matchesSelector = function() {
     CustomEvent.prototype = window.CustomEvent.prototype;
     window.CustomEvent = CustomEvent;
 })();
+
+// Are events bubbling in detached DOM trees?
+
+var isEventBubblingInDetachedTree = function() {
+    var isBubbling = false,
+        parent = document.createElement('div'),
+        child = parent.cloneNode();
+    parent.appendChild(child);
+    parent.addEventListener('e', function() {
+        isBubbling = true;
+    });
+    child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+    return isBubbling;
+}();
 
 // Export interface
 

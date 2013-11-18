@@ -34,12 +34,20 @@ describe('events', function() {
         expect(spy).toHaveBeenCalled();
     });
 
-    // Test disabled, since this feature is available in IE and Firefox, but not in WebKit-based browsers
-    xit('should receive events bubbling up to an element not in the DOM', function() {
+    it('should receive events bubbling up to an element not in the DOM', function() {
         var element = getElement('<div><p></p></div>');
         element.on('EVENT-unattached-element', spy);
         element.find('p').trigger('EVENT-unattached-element');
         expect(spy).toHaveBeenCalled();
+        expect(spy.calls.count()).toBe(1);
+    });
+
+    it('should receive delegated events bubbling up to an element not in the DOM', function() {
+        var element = getElement('<div><p></p></div>');
+        element.on('EVENT-unattached-delegated', 'p', spy);
+        element.find('p').trigger('EVENT-unattached-delegated');
+        expect(spy).toHaveBeenCalled();
+        expect(spy.calls.count()).toBe(1);
     });
 
     it('should not receive events bubbling up to an element when `bubbles` is set to false', function() {
