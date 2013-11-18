@@ -3,9 +3,10 @@
  * # jQuery Evergreen
  *
  * jQuery Evergreen works with modern browsers.
- * It has the same familiar API as jQuery, and is lean & mean with just the [selector](selector.html), [class](class.html), [DOM](dom.html) and [event](event.html) modules.
+ * It has the same familiar API as jQuery, and is lean & mean with the following, optional modules:
+ * [selector](selector.html), [class](class.html), [DOM](dom.html), [event](event.html), [attr](attr.html) and [html](html.html).
  *
- * The complete version is under 6KB after minification (<2KB gzipped).
+ * The complete version is under 7KB after minification (2KB gzipped).
  *
  * Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
  *
@@ -16,7 +17,7 @@
  *
  * You can easily create **custom builds** to exclude parts you don't need:
  *
- *     $ grunt --exclude=class,dom,event,selector
+ *     $ grunt --exclude=attr,class,dom,event,html,selector
  *
  * Using **AMD**, just include it as a regular dependency:
  *
