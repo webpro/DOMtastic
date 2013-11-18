@@ -8,8 +8,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         config: {
-            modules: ['api', 'mode', 'class', 'dom', 'event', 'selector', 'main'],
-            optionalModules: ['class', 'dom', 'event', 'selector'],
+            modules: ['api', 'mode', 'attr', 'class', 'dom', 'event', 'selector', 'main'],
+            optionalModules: ['attr', 'class', 'dom', 'event', 'selector'],
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
             processFiles: [],

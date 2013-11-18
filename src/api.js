@@ -8,6 +8,11 @@
 
 var api = {};
 
+/* API:attr */
+import { attr } from 'attr';
+api.attr = attr;
+/* API:attr */
+
 /* API:class */
 import { addClass, removeClass, toggleClass, hasClass } from 'class';
 api.addClass = addClass;
