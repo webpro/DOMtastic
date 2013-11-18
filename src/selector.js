@@ -11,7 +11,7 @@
  * Providing a selector string gives the default behavior.
  * Providing a Node or NodeList will return a NodeList or $Object containing the same element(s).
  * Providing a string that looks like HTML (i.e. starts with a `<tag>`) results in an attempt to create a DOM Fragment from it.
- * @param {String|Node|NodeList} context The context for the selector to query elements (optional, default: `document`).
+ * @param {String|Node|NodeList} context=`document` The context for the selector to query elements.
  * @return {NodeList|$Object}
  */
 

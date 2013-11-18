@@ -146,15 +146,15 @@ var undelegate = function(selector, eventName, fn) {
 /**
  * ## trigger
  *
- * Undelegate events triggered at descendants to element(s)
+ * Trigger event at element(s)
  *
  *     $('.item').trigger('anyEventType');
  *
  * @param {String} type Type of the event
- * @param {Object} params Event parameters (optional)
- * @param {Boolean} params.bubbles Does the event bubble up through the DOM or not.
- * @param {Boolean} params.cancelable Is the event cancelable or not.
- * @param {Number} params.detail Additional numerical information about the event, depending on the type of event.
+ * @param {Object} [params] Event parameters (optional)
+ * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
+ * @param {Boolean} params.cancelable=true Is the event cancelable or not.
+ * @param {Mixed} params.detail=undefined Additional information about the event.
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
@@ -170,6 +170,19 @@ var trigger = function(type, params) {
     });
     return this;
 };
+
+/**
+ * Dispatch the event at the element and its ancestors.
+ * Required to support delegated events in browsers that don't bubble events in detached DOM trees.
+ *
+ * @param {Node} element First element to dispatch the event
+ * @param {String} type Type of the event
+ * @param {Object} [params] Event parameters (optional)
+ * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
+ * Will be set to false (but shouldn't matter since events don't bubble anyway).
+ * @param {Boolean} params.cancelable=true Is the event cancelable or not.
+ * @param {Mixed} params.detail=undefined Additional information about the event.
+ */
 
 var triggerForPath = function(element, type, params) {
     params = params || {};
@@ -242,6 +255,8 @@ var delegateHandler = function(selector, handler, event) {
         handler.call(eventTarget, event);
     }
 };
+
+// Get the available `matches` or `matchesSelector` method.
 
 var matchesSelector = function() {
     return this.matches || this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
