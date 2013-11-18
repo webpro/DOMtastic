@@ -156,6 +156,47 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     }, {
       "type": "file",
       "data": {
+        "projectPath": "src/attr.js",
+        "targetPath": "attr",
+        "pageTitle": "attr",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Attr",
+            "slug": "attr",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "attr",
+                "slug": "attr"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "Attr"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "attr",
+            "slug": "attr"
+          },
+          "depth": 2
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
         "projectPath": "src/class.js",
         "targetPath": "class",
         "pageTitle": "class",
@@ -423,6 +464,47 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     }, {
       "type": "file",
       "data": {
+        "projectPath": "src/html.js",
+        "targetPath": "html",
+        "pageTitle": "html",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "HTML",
+            "slug": "html",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "html",
+                "slug": "html"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "HTML"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "html",
+            "slug": "html"
+          },
+          "depth": 2
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
         "projectPath": "src/mode.js",
         "targetPath": "mode",
         "pageTitle": "mode",
@@ -430,13 +512,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "Safe vs. Native Mode",
-            "slug": "safe-vs-native-mode",
+            "title": "Opt-in to Native Mode",
+            "slug": "opt-in-to-native-mode",
             "isFileHeader": true
           },
           "depth": 1
         },
-        "title": "Safe vs. Native Mode"
+        "title": "Opt-in to Native Mode"
       },
       "depth": 1,
       "outline": []
