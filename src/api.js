@@ -37,6 +37,11 @@ api.undelegate = undelegate;
 api.trigger = trigger;
 /* API:event */
 
+/* API:html */
+import { html } from 'html';
+api.html = html;
+/* API:html */
+
 /* API:selector */
 import { $, find } from 'selector';
 api.$ = find;
