@@ -196,6 +196,8 @@ var isAttachedToDocument = function(element) {
  * Dispatch the event at the element and its ancestors.
  * Required to support delegated events in browsers that don't bubble events in detached DOM trees.
  *
+ * @method triggerForPath
+ * @private
  * @param {Node} element First element to dispatch the event
  * @param {String} type Type of the event
  * @param {Object} [params] Event parameters (optional)
@@ -236,7 +238,7 @@ var getHandlers = function(element) {
     }
     var key = element[cacheKeyProp];
     return handlers[key] || (handlers[key] = []);
-}
+};
 
 /**
  * Clear event handlers for an element
