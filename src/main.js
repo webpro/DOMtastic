@@ -29,6 +29,12 @@
  * and transpiled to an AMD version, and a "browser global" version
  * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
  *
+ * Many thanks to these sources of inspiration:
+ *
+ * - [remy/min.js](https://github.com/remy/min.js)
+ * - [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
+ * - [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
+ * - [madrobby/zepto](https://github.com/madrobby/zepto/)
  */
 
 import { $ } from 'api';
