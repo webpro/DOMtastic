@@ -506,7 +506,7 @@ define("event",
         params = params || { bubbles: true, cancelable: true, detail: undefined };
         var event = new CustomEvent(type, params);
         (this.nodeType ? [this] : this).forEach(function(element) {
-            if(!params.bubbles || element === window || isEventBubblingInDetachedTree || document.contains(element)) {
+            if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
                 element.dispatchEvent(event);
             } else {
                 triggerForPath(element, type, params);
@@ -516,9 +516,32 @@ define("event",
     };
 
     /**
+     * Check whether the element is attached to (or detached from) the document
+     *
+     * @method isAttachedToDocument
+     * @private
+     * @param {Node} element Element to test
+     * @return {Boolean}
+     */
+
+    var isAttachedToDocument = function(element) {
+        var container = element.ownerDocument.documentElement;
+        if(element === window) {
+            return true;
+        } else if(container.contains) {
+            return container.contains(element);
+        } else if(container.compareDocumentPosition) {
+            return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
+        }
+        return false;
+    };
+
+    /**
      * Dispatch the event at the element and its ancestors.
      * Required to support delegated events in browsers that don't bubble events in detached DOM trees.
      *
+     * @method triggerForPath
+     * @private
      * @param {Node} element First element to dispatch the event
      * @param {String} type Type of the event
      * @param {Object} [params] Event parameters (optional)
@@ -559,7 +582,7 @@ define("event",
         }
         var key = element[cacheKeyProp];
         return handlers[key] || (handlers[key] = []);
-    }
+    };
 
     /**
      * Clear event handlers for an element
@@ -713,6 +736,12 @@ define("main",
      * and transpiled to an AMD version, and a "browser global" version
      * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
      *
+     * Many thanks to these sources of inspiration:
+     *
+     * - [remy/min.js](https://github.com/remy/min.js)
+     * - [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
+     * - [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
+     * - [madrobby/zepto](https://github.com/madrobby/zepto/)
      */
 
     var $ = __dependency1__.$;
