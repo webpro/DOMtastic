@@ -189,14 +189,39 @@ Additional information about the event.</p></li></ul></li>
     <span class="nx">params</span> <span class="o">=</span> <span class="nx">params</span> <span class="o">||</span> <span class="p">{</span> <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">cancelable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">detail</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">};</span>
     <span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
     <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">?</span> <span class="p">[</span><span class="k">this</span><span class="p">]</span> <span class="o">:</span> <span class="k">this</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">params</span><span class="p">.</span><span class="nx">bubbles</span> <span class="o">||</span> <span class="nx">element</span> <span class="o">===</span> <span class="nb">window</span> <span class="o">||</span> <span class="nx">isEventBubblingInDetachedTree</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">element</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">params</span><span class="p">.</span><span class="nx">bubbles</span> <span class="o">||</span> <span class="nx">isEventBubblingInDetachedTree</span> <span class="o">||</span> <span class="nx">isAttachedToDocument</span><span class="p">(</span><span class="nx">element</span><span class="p">))</span> <span class="p">{</span>
             <span class="nx">element</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="nx">triggerForPath</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">});</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Dispatch the event at the element and its ancestors.
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>isAttachedToDocument</em></span></p>
+
+<p>Check whether the element is attached to (or detached from) the document</p>
+
+<p><strong>Parameter:</strong></p>
+
+<ul>
+<li><strong><em>element</em> must be a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em></strong> <br />
+Element to test</li>
+</ul>
+
+<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em></strong></p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">isAttachedToDocument</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">ownerDocument</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">element</span> <span class="o">===</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">contains</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">container</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">compareDocumentPosition</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">compareDocumentPosition</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">DOCUMENT_POSITION_DISCONNECTED</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>triggerForPath</em></span></p>
+
+<p>Dispatch the event at the element and its ancestors.
 Required to support delegated events in browsers that don't bubble events in detached DOM trees.</p>
 
 <p><strong>Parameters:</strong></p>
@@ -249,7 +274,7 @@ Additional information about the event.</p></li></ul></li>
     <span class="p">}</span>
     <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">element</span><span class="p">[</span><span class="nx">cacheKeyProp</span><span class="p">];</span>
     <span class="k">return</span> <span class="nx">handlers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">handlers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]);</span>
-<span class="p">}</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>clearHandlers</em></span></p>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>clearHandlers</em></span></p>
 
 <p>Clear event handlers for an element</p>
 
