@@ -4,7 +4,7 @@ describe('mode', function() {
 
         it('should not augment native objects', function() {
 
-            expect(Element.prototype).not.toHave('find');
+            expect(Node.prototype).not.toHave('find');
             expect(NodeList.prototype).not.toHave('find');
             expect(NodeList.prototype).not.toHave('forEach');
 
@@ -20,7 +20,7 @@ describe('mode', function() {
             expect(result).toHave('find');
             expect(result).toHave('forEach');
 
-            expect(result[0]).toBeInstanceOf(Element);
+            expect(result[0]).toBeInstanceOf(Node);
             expect(result[0]).not.toHave('find');
             expect(result[0]).not.toHave('forEach');
 
@@ -32,7 +32,7 @@ describe('mode', function() {
 
         it('should augment native objects', function() {
 
-            expect(Element.prototype).toHave('find');
+            expect(Node.prototype).toHave('find');
             expect(NodeList.prototype).toHave('find');
             expect(NodeList.prototype).toHave('forEach');
 
@@ -48,7 +48,7 @@ describe('mode', function() {
             expect(result).toHave('find');
             expect(result).toHave('forEach');
 
-            expect(result[0]).toBeInstanceOf(Element);
+            expect(result[0]).toBeInstanceOf(Node);
             expect(result[0]).toHave('find');
             expect(result[0]).not.toHave('forEach');
 
@@ -76,7 +76,7 @@ describe('mode', function() {
 
         $.native();
 
-        expect(Element.prototype.find).toBeOfType('function');
+        expect(Node.prototype.find).toBeOfType('function');
         expect(NodeList.prototype.find).toBeOfType('function');
         expect(NodeList.prototype.forEach).toBeOfType('function');
 
@@ -86,7 +86,7 @@ describe('mode', function() {
 
         $.native(false);
 
-        expect(Element.prototype).not.toHave('find');
+        expect(Node.prototype).not.toHave('find');
         expect(NodeList.prototype).not.toHave('find');
         expect(NodeList.prototype).not.toHave('forEach');
 
