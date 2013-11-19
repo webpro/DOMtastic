@@ -162,13 +162,34 @@ var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
     (this.nodeType ? [this] : this).forEach(function(element) {
-        if(!params.bubbles || element === window || isEventBubblingInDetachedTree || document.contains(element)) {
+        if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
         } else {
             triggerForPath(element, type, params);
         }
     });
     return this;
+};
+
+/**
+ * Check whether the element is attached to (or detached from) the document
+ *
+ * @method isAttachedToDocument
+ * @private
+ * @param {Node} element Element to test
+ * @return {Boolean}
+ */
+
+var isAttachedToDocument = function(element) {
+    var container = element.ownerDocument.documentElement;
+    if(element === window) {
+        return true;
+    } else if(container.contains) {
+        return container.contains(element);
+    } else if(container.compareDocumentPosition) {
+        return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
+    }
+    return false;
 };
 
 /**
