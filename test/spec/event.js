@@ -49,6 +49,52 @@ describe('events', function() {
 
     });
 
+    describe('cancellation', function() {
+
+        it('should stop propagation', function() {
+
+            var parent = getElement('#testFragment'),
+                child = getElement('.fourth');
+
+            parent.on('EVENT-stopPropagation', spy);
+            child.on('EVENT-stopPropagation', function(event){
+                event.stopPropagation();
+            });
+
+            var event = new CustomEvent('EVENT-stopPropagation', { bubbles: true, cancelable: true, detail: undefined });
+
+            spyOn(event, 'stopPropagation').and.callThrough();
+
+            child[0].dispatchEvent(event);
+
+            expect(event.stopPropagation).toHaveBeenCalled();
+            expect(spy).not.toHaveBeenCalled();
+
+        });
+
+        it('should prevent default', function() {
+
+            var parent = getElement('#testFragment'),
+                child = getElement('.fourth');
+
+            parent.on('EVENT-preventDefault', spy);
+            child.on('EVENT-preventDefault', function(event){
+                event.preventDefault();
+            });
+
+            var event = new CustomEvent('EVENT-preventDefault', { bubbles: true, cancelable: true, detail: undefined });
+
+            spyOn(event, 'preventDefault').and.callThrough();
+
+            child[0].dispatchEvent(event);
+
+            expect(event.preventDefault).toHaveBeenCalled();
+            expect(spy).toHaveBeenCalled();
+
+        });
+
+    });
+
     describe('bubbling', function() {
 
         it('should receive events bubbling up to an element', function() {
