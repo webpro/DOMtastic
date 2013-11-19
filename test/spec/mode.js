@@ -56,6 +56,14 @@ describe('mode', function() {
 
     });
 
+    it('should not augment the window object', function() {
+
+        // Most browsers actually have [window.find](https://developer.mozilla.org/en-US/docs/Web/API/Window.find).
+        expect(window.find).not.toBe($._api.find);
+        expect(window).not.toHave('forEach');
+
+    });
+
     it('should return the correct collection', function() {
 
         var selector = '#testFragment li',
