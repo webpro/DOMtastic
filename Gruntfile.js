@@ -13,14 +13,15 @@ module.exports = function(grunt) {
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
             processFiles: [],
-            tmpCopy: '.tmp',
-            tmpTranspiled: '.transpiled',
+            tmpCopy: '.tmp/',
+            tmpTranspiledAMD: '.transpiled.amd/',
+            tmpTranspiledCJS: '.transpiled.cjs/',
             outputFileAMD: 'dist/jquery-evergreen.amd.js',
             outputFileGlobal: 'dist/jquery-evergreen.js'
         },
 
         clean: {
-            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiled %>']
+            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>', '<%= config.tmpTranspiledCJS %>']
         },
 
         copy: {
@@ -53,9 +54,21 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= config.tmpCopy %>/',
-                        src: '<%= config.processFiles %>',
-                        dest: '<%= config.tmpTranspiled %>/',
+                        cwd: '<%= config.tmpCopy %>',
+                        src: ['**/*.js'],
+                        dest: '<%= config.tmpTranspiledAMD %>',
+                        ext: '.js'
+                    }
+                ]
+            },
+            cjs: {
+                type: "cjs",
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= config.tmpCopy %>',
+                        src: '**/*.js',
+                        dest: '<%= config.tmpTranspiledCJS %>',
                         ext: '.js'
                     }
                 ]
@@ -64,7 +77,7 @@ module.exports = function(grunt) {
 
         concat: {
             amd: {
-                src: '<%= config.tmpTranspiled %>/**/*',
+                src: '<%= config.tmpTranspiledAMD %>/**/*.js',
                 dest: '<%= config.outputFileAMD %>',
                 options: {
                     footer: 'define("jquery-evergreen", ["main"], function(main) { return main["default"];});'
@@ -74,10 +87,10 @@ module.exports = function(grunt) {
 
         browser: {
             dist: {
-                src: ['vendor/amd-loader.js', '<%= config.outputFileAMD %>'],
+                src: ['vendor/amd-loader.js', '<%= config.tmpTranspiledAMD %>/**/*.js'],
                 dest: '<%= config.outputFileGlobal %>',
                 options: {
-                    barename: "jquery-evergreen",
+                    barename: "main",
                     namespace: "$"
                 }
             }
@@ -111,7 +124,7 @@ module.exports = function(grunt) {
             output.push.apply(output, f.src.map(grunt.file.read));
 
             output.push(grunt.template.process(
-                'window.<%= namespace %> = requireModule("<%= barename %>");', {
+                'window.<%= namespace %> = requireModule("<%= barename %>")["default"];', {
                     data: {
                         namespace: opts.namespace,
                         barename: opts.barename
@@ -128,8 +141,9 @@ module.exports = function(grunt) {
         'clean',
         'excludeModules',
         'copy:main',
-        'transpile:amd',
+        'transpile',
         'concat:amd',
-        'browser'
+        'browser',
+        'clean'
     ]);
 };
