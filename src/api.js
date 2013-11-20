@@ -9,12 +9,12 @@
 var api = {};
 
 /* API:attr */
-import { attr } from 'attr';
+import { attr } from 'je/attr';
 api.attr = attr;
 /* API:attr */
 
 /* API:class */
-import { addClass, removeClass, toggleClass, hasClass } from 'class';
+import { addClass, removeClass, toggleClass, hasClass } from 'je/class';
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
@@ -22,14 +22,14 @@ api.hasClass = hasClass;
 /* API:class */
 
 /* API:dom */
-import { append, before, after } from 'dom';
+import { append, before, after } from 'je/dom';
 api.append = append;
 api.before = before;
 api.after = after;
 /* API:dom */
 
 /* API:event */
-import { on, off, delegate, undelegate, trigger } from 'event';
+import { on, off, delegate, undelegate, trigger } from 'je/event';
 api.on = on;
 api.off = off;
 api.delegate = delegate;
@@ -38,12 +38,12 @@ api.trigger = trigger;
 /* API:event */
 
 /* API:html */
-import { html } from 'html';
+import { html } from 'je/html';
 api.html = html;
 /* API:html */
 
 /* API:selector */
-import { $, find } from 'selector';
+import { $, find } from 'je/selector';
 api.$ = find;
 api.find = find;
 $._api = api;
