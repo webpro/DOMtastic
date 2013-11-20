@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         config: {
-            modules: ['api', 'mode', 'attr', 'class', 'dom', 'event', 'html', 'selector', 'main'],
+            modules: ['api', 'main', 'mode'],
             optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'selector'],
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
@@ -88,17 +88,17 @@ module.exports = function(grunt) {
 
         var excludeParam = grunt.option('exclude') || '',
             excludeModules = excludeParam.length ? excludeParam.split(',') : [],
-            modules = grunt.config.get('config.modules'),
-            processFiles = [];
+            optionalModules = grunt.config.get('config.optionalModules'),
+            processFiles = grunt.config.get('config.modules');
 
-        modules.forEach(function(module) {
+        optionalModules.forEach(function(module) {
             if(excludeModules.indexOf(module) === -1) {
-                processFiles.push(module + '.js');
+                processFiles.push('je/' + module);
             }
         });
 
         grunt.config.set('config.excludeModules', excludeModules);
-        grunt.config.set('config.processFiles', processFiles);
+        grunt.config.set('config.processFiles', processFiles.map(function(module) { return module + '.js'; }));
 
     });
 
