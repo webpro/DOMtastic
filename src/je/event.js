@@ -281,40 +281,46 @@ var delegateHandler = function(selector, handler, event) {
 
 // Get the available `matches` or `matchesSelector` method.
 
-var matchesSelector = function() {
-    return this.matches || this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
-}.call(Element.prototype);
+var matchesSelector = (function(global) {
+    var context = typeof Element !== 'undefined' ? Element.prototype : global;
+    return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+})(this);
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
  * Needed to support IE (9, 10, 11)
  */
 
-(function() {
-    function CustomEvent(event, params) {
-        params = params || { bubbles: false, cancelable: false, detail: undefined };
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
-    }
+(function(global) {
+    if(global.CustomEvent) {
+        var CustomEvent = function(event, params) {
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
 
-    CustomEvent.prototype = window.CustomEvent.prototype;
-    window.CustomEvent = CustomEvent;
-})();
+        CustomEvent.prototype = global.CustomEvent.prototype;
+        global.CustomEvent = CustomEvent;
+    }
+})(this);
 
 // Are events bubbling in detached DOM trees?
 
-var isEventBubblingInDetachedTree = function() {
+var isEventBubblingInDetachedTree = (function(global) {
     var isBubbling = false,
-        parent = document.createElement('div'),
-        child = parent.cloneNode();
-    parent.appendChild(child);
-    parent.addEventListener('e', function() {
-        isBubbling = true;
-    });
-    child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+        doc = global.document;
+    if(doc) {
+        var parent = doc.createElement('div'),
+            child = parent.cloneNode();
+        parent.appendChild(child);
+        parent.addEventListener('e', function() {
+            isBubbling = true;
+        });
+        child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+    }
     return isBubbling;
-}();
+})(this);
 
 // Export interface
 
