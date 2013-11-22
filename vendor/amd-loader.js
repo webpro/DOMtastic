@@ -10,6 +10,7 @@ var define, requireModule;
     };
 
     requireModule = function(name) {
+        name = name.replace(/^\.\//, '');
         if (seen[name]) { return seen[name]; }
         seen[name] = {};
 

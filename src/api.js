@@ -8,46 +8,46 @@
 
 var api = {};
 
-/* API:attr */
-import { attr } from 'je/attr';
+/* API:je/attr */
+import { attr } from './je/attr';
 api.attr = attr;
-/* API:attr */
+/* API:je/attr */
 
-/* API:class */
-import { addClass, removeClass, toggleClass, hasClass } from 'je/class';
+/* API:je/class */
+import { addClass, removeClass, toggleClass, hasClass } from './je/class';
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
 api.hasClass = hasClass;
-/* API:class */
+/* API:je/class */
 
-/* API:dom */
-import { append, before, after } from 'je/dom';
+/* API:je/dom */
+import { append, before, after } from './je/dom';
 api.append = append;
 api.before = before;
 api.after = after;
-/* API:dom */
+/* API:je/dom */
 
-/* API:event */
-import { on, off, delegate, undelegate, trigger } from 'je/event';
+/* API:je/event */
+import { on, off, delegate, undelegate, trigger } from './je/event';
 api.on = on;
 api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
 api.trigger = trigger;
-/* API:event */
+/* API:je/event */
 
-/* API:html */
-import { html } from 'je/html';
+/* API:je/html */
+import { html } from './je/html';
 api.html = html;
-/* API:html */
+/* API:je/html */
 
-/* API:selector */
-import { $, find } from 'je/selector';
+/* API:je/selector */
+import { $, find } from './je/selector';
 api.$ = find;
 api.find = find;
 $._api = api;
-/* API:selector */
+/* API:je/selector */
 
 var array = [];
 

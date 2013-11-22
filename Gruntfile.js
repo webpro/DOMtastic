@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
         config: {
             modules: ['api', 'main', 'mode'],
-            optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'selector'],
+            optionalModules: ['je/attr', 'je/class', 'je/dom', 'je/event', 'je/html', 'je/selector'],
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
             processFiles: [],
@@ -100,13 +100,13 @@ module.exports = function(grunt) {
     grunt.registerTask('excludeModules', function() {
 
         var excludeParam = grunt.option('exclude') || '',
-            excludeModules = excludeParam.length ? excludeParam.split(',') : [],
+            excludeModules = grunt.config.get('config.excludeModules').concat(excludeParam.length ? excludeParam.split(',') : []),
             optionalModules = grunt.config.get('config.optionalModules'),
             processFiles = grunt.config.get('config.modules');
 
         optionalModules.forEach(function(module) {
             if(excludeModules.indexOf(module) === -1) {
-                processFiles.push('je/' + module);
+                processFiles.push(module);
             }
         });
 

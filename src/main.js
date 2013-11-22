@@ -37,7 +37,7 @@
  * - [madrobby/zepto](https://github.com/madrobby/zepto/)
  */
 
-import { $ } from 'api';
-import 'mode';
+import { $ } from './api';
+import './mode';
 
 export default = $;
