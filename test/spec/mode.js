@@ -77,7 +77,7 @@ describe('mode', function() {
         }
     });
 
-    it('should be able to switch modes', function() {
+    typeof $.native === 'function' && it('should be able to switch modes', function() {
 
         var revertMode = $.isNative,
             result;

@@ -37,7 +37,7 @@
 
         <script src="../dist/jquery-evergreen.js"></script>
         <script>
-            if(location.search.indexOf('NATIVE') > -1 && typeof $ !== 'undefined') {
+            if(location.search.indexOf('NATIVE') > -1 && typeof $ !== 'undefined' && typeof $.native === 'function') {
                 $.native();
             }
         </script>
