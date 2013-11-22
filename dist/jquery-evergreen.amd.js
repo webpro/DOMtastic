@@ -1,5 +1,5 @@
 define("api", 
-  ["attr","class","dom","event","html","selector","exports"],
+  ["./je/attr","./je/class","./je/dom","./je/event","./je/html","./je/selector","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
     "use strict";
     /*
@@ -12,12 +12,12 @@ define("api",
 
     var api = {};
 
-    /* API:attr */
+    /* API:je/attr */
     var attr = __dependency1__.attr;
     api.attr = attr;
-    /* API:attr */
+    /* API:je/attr */
 
-    /* API:class */
+    /* API:je/class */
     var addClass = __dependency2__.addClass;
     var removeClass = __dependency2__.removeClass;
     var toggleClass = __dependency2__.toggleClass;
@@ -26,18 +26,18 @@ define("api",
     api.removeClass = removeClass;
     api.toggleClass = toggleClass;
     api.hasClass = hasClass;
-    /* API:class */
+    /* API:je/class */
 
-    /* API:dom */
+    /* API:je/dom */
     var append = __dependency3__.append;
     var before = __dependency3__.before;
     var after = __dependency3__.after;
     api.append = append;
     api.before = before;
     api.after = after;
-    /* API:dom */
+    /* API:je/dom */
 
-    /* API:event */
+    /* API:je/event */
     var on = __dependency4__.on;
     var off = __dependency4__.off;
     var delegate = __dependency4__.delegate;
@@ -48,20 +48,20 @@ define("api",
     api.delegate = delegate;
     api.undelegate = undelegate;
     api.trigger = trigger;
-    /* API:event */
+    /* API:je/event */
 
-    /* API:html */
+    /* API:je/html */
     var html = __dependency5__.html;
     api.html = html;
-    /* API:html */
+    /* API:je/html */
 
-    /* API:selector */
+    /* API:je/selector */
     var $ = __dependency6__.$;
     var find = __dependency6__.find;
     api.$ = find;
     api.find = find;
     $._api = api;
-    /* API:selector */
+    /* API:je/selector */
 
     var array = [];
 
@@ -85,7 +85,7 @@ define("api",
     __exports__.api = api;
     __exports__.apiNodeList = apiNodeList;
   });
-define("attr", 
+define("je/attr", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -122,7 +122,7 @@ define("attr",
 
     __exports__.attr = attr;
   });
-define("class", 
+define("je/class", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -199,7 +199,7 @@ define("class",
     __exports__.toggleClass = toggleClass;
     __exports__.hasClass = hasClass;
   });
-define("dom", 
+define("je/dom", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -338,7 +338,7 @@ define("dom",
     __exports__.before = before;
     __exports__.after = after;
   });
-define("event", 
+define("je/event", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -625,40 +625,46 @@ define("event",
 
     // Get the available `matches` or `matchesSelector` method.
 
-    var matchesSelector = function() {
-        return this.matches || this.matchesSelector || this.mozMatchesSelector || this.webkitMatchesSelector || this.msMatchesSelector || this.oMatchesSelector;
-    }.call(Element.prototype);
+    var matchesSelector = (function(global) {
+        var context = typeof Element !== 'undefined' ? Element.prototype : global;
+        return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+    })(this);
 
     /**
      * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
      * Needed to support IE (9, 10, 11)
      */
 
-    (function() {
-        function CustomEvent(event, params) {
-            params = params || { bubbles: false, cancelable: false, detail: undefined };
-            var evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
-        }
+    (function(global) {
+        if(global.CustomEvent) {
+            var CustomEvent = function(event, params) {
+                params = params || { bubbles: false, cancelable: false, detail: undefined };
+                var evt = document.createEvent('CustomEvent');
+                evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+                return evt;
+            };
 
-        CustomEvent.prototype = window.CustomEvent.prototype;
-        window.CustomEvent = CustomEvent;
-    })();
+            CustomEvent.prototype = global.CustomEvent.prototype;
+            global.CustomEvent = CustomEvent;
+        }
+    })(this);
 
     // Are events bubbling in detached DOM trees?
 
-    var isEventBubblingInDetachedTree = function() {
+    var isEventBubblingInDetachedTree = (function(global) {
         var isBubbling = false,
-            parent = document.createElement('div'),
-            child = parent.cloneNode();
-        parent.appendChild(child);
-        parent.addEventListener('e', function() {
-            isBubbling = true;
-        });
-        child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+            doc = global.document;
+        if(doc) {
+            var parent = doc.createElement('div'),
+                child = parent.cloneNode();
+            parent.appendChild(child);
+            parent.addEventListener('e', function() {
+                isBubbling = true;
+            });
+            child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+        }
         return isBubbling;
-    }();
+    })(this);
 
     // Export interface
 
@@ -668,7 +674,7 @@ define("event",
     __exports__.undelegate = undelegate;
     __exports__.trigger = trigger;
   });
-define("html", 
+define("je/html", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -701,184 +707,7 @@ define("html",
 
     __exports__.html = html;
   });
-define("main", 
-  ["api","mode","exports"],
-  function(__dependency1__, __dependency2__, __exports__) {
-    "use strict";
-    /**
-     *
-     * # jQuery Evergreen
-     *
-     * jQuery Evergreen works with modern browsers.
-     * It has the same familiar API as jQuery, and is lean & mean with the following, optional modules:
-     * [selector](selector.html), [class](class.html), [DOM](dom.html), [event](event.html), [attr](attr.html) and [html](html.html).
-     *
-     * The complete version is under 7KB after minification (2KB gzipped).
-     *
-     * Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
-     *
-     * Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
-     * IE9 only needs a polyfill for `classList` to make all tests pass.
-     *
-     * You can opt-in to work directly with [Node and live NodeList](mode.html) objects.
-     *
-     * You can easily create **custom builds** to exclude parts you don't need:
-     *
-     *     $ grunt --exclude=attr,class,dom,event,html,selector
-     *
-     * Using **AMD**, just include it as a regular dependency:
-     *
-     *     define(['jquery-evergreen'], function($) {
-     *
-     *     });
-     *
-     * The sources are written in the **ES6** Modules format,
-     * and transpiled to an AMD version, and a "browser global" version
-     * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
-     *
-     * Many thanks to these sources of inspiration:
-     *
-     * - [remy/min.js](https://github.com/remy/min.js)
-     * - [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
-     * - [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
-     * - [madrobby/zepto](https://github.com/madrobby/zepto/)
-     */
-
-    var $ = __dependency1__.$;
-
-    __exports__["default"] = $;
-  });
-define("mode", 
-  ["api","exports"],
-  function(__dependency1__, __exports__) {
-    "use strict";
-    /*
-     * # Opt-in to Native Mode
-     *
-     * The default, non-intrusive mode is similar to how jQuery operates: working with static, array-like `$` objects:
-     *
-     *     $('.items').append('<span>foo</span>);
-     *     $(document.body).on('click', '.tab', handler);
-     *
-     * However, you can opt-in to work with live NodeList objects.
-     * In this "native" mode, the `Node` and `NodeList` prototypes are augmented (in a safe and reversible manner) to fill up the chainable API,
-     * to enable working with `Node` and `NodeList` objects directly:
-     *
-     *     var collection = document.querySelectorAll('.items');
-     *     collection.append('<span>foo</span>);
-     *     collection.addClass('bar');
-     *     collection.forEach(iteratorFn);
-     *     collection.find('.more');
-     *
-     *     document.body.on('click', '.tab', handler)
-     *
-     * Note that in native mode, `$(selector)` can stil be used. It returns a NodeList.
-     *
-     * Use `$.native()` to activate this behavior. The API is the same in both modes.
-     */
-
-    var $ = __dependency1__.$;
-    var api = __dependency1__.api;
-    var apiNodeList = __dependency1__.apiNodeList;
-
-    var isNative = false;
-
-    var native = function(native) {
-        var wasNative = isNative;
-        isNative = typeof native === 'boolean' ? native : true;
-        if($) {
-            $.isNative = isNative;
-        }
-        if(!wasNative && isNative) {
-            augmentNativePrototypes();
-        }
-        if(wasNative && !isNative) {
-            unaugmentNativePrototypes();
-        }
-        return isNative;
-    };
-
-    var NodeProto = Node.prototype,
-        NodeListProto = NodeList.prototype;
-
-    /*
-     * Add a property (i.e. method) to an object in a safe and reversible manner.
-     * Only add the method if object not already had it (non-inherited).
-     */
-
-    var augment = function(obj, key, value) {
-        if(!obj.hasOwnProperty(key)) {
-            Object.defineProperty(obj, key, {
-                value: value,
-                configurable: true,
-                enumerable: false
-            });
-        }
-    };
-
-    /*
-     * Remove property from object (only inherited properties will be removed).
-     */
-
-    var unaugment = function(obj, key) {
-        delete obj[key];
-    };
-
-    /*
-     * Augment native `Node` and `NodeList` objects in native mode.
-     */
-
-    var augmentNativePrototypes = function() {
-
-        var key;
-
-        for(key in api) {
-            augment(NodeProto, key, api[key]);
-            augment(NodeListProto, key, api[key]);
-        }
-
-        for(key in apiNodeList) {
-            augment(NodeListProto, key, apiNodeList[key]);
-        }
-    };
-
-    /*
-     * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
-     * Mainly used for tests.
-     */
-
-    var unaugmentNativePrototypes = function() {
-
-        var key;
-
-        for(key in api) {
-            unaugment(NodeProto, key);
-            unaugment(NodeListProto, key);
-        }
-
-        for(key in apiNodeList) {
-            unaugment(NodeListProto, key);
-        }
-    };
-
-    /*
-     * It's possible to have a custom build without the [selector](selector.html) API,
-     * but in that case only the native mode makes sense.
-     */
-
-    if(typeof $ === 'undefined') {
-        native();
-    } else {
-        $.isNative = isNative;
-        $.native = native;
-    }
-
-    // Export interface
-
-    __exports__.isNative = isNative;
-    __exports__.native = native;
-  });
-define("selector", 
+define("je/selector", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -983,4 +812,59 @@ define("selector",
 
     __exports__.$ = $;
     __exports__.find = find;
+  });
+define("main", 
+  ["./api","exports"],
+  function(__dependency1__, __exports__) {
+    "use strict";
+    /**
+     *
+     * # jQuery Evergreen
+     *
+     * jQuery Evergreen works with modern browsers.
+     * It has the same familiar API as jQuery, and is lean & mean with the following, optional modules:
+     * [selector](selector.html), [class](class.html), [DOM](dom.html), [event](event.html), [attr](attr.html) and [html](html.html).
+     *
+     * The complete version is under 7KB after minification (2KB gzipped).
+     *
+     * Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
+     *
+     * Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
+     * IE9 only needs a polyfill for `classList` to make all tests pass.
+     *
+     * You can [opt-in](mode.html) to work directly with Node and live NodeList objects.
+     *
+     * You can easily create **custom builds** to exclude parts you don't need:
+     *
+     *     $ grunt --exclude=attr,class,dom,event,html,mode,selector
+     *
+     * The default build in this repo:
+     *
+     *     $ grunt --exclude=mode
+     *
+     * Using **AMD**, just include it as a regular dependency:
+     *
+     *     define(['jquery-evergreen'], function($) {
+     *
+     *     });
+     *
+     *  Otherwise, include something like `<script src="jquery-evergreen.js">` and have `$` globally available.
+     *
+     * The sources are written in the **ES6** Modules format,
+     * and transpiled to an AMD version, and a "browser global" version
+     * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
+     *
+     * Many thanks to these sources of inspiration:
+     *
+     * - [remy/min.js](https://github.com/remy/min.js)
+     * - [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
+     * - [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
+     * - [madrobby/zepto](https://github.com/madrobby/zepto/)
+     */
+
+    var $ = __dependency1__.$;
+
+    /*  */
+
+    __exports__["default"] = $;
   });define("jquery-evergreen", ["main"], function(main) { return main["default"];});
