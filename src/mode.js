@@ -107,7 +107,7 @@ var unaugmentNativePrototypes = function() {
 };
 
 /*
- * It's possible to have a custom build without the [selector](selector.html) API,
+ * It's possible to have a custom build without the [selector](je/selector.html) API,
  * but in that case only the native mode makes sense.
  */
 
