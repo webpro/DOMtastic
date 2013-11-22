@@ -13,17 +13,23 @@
  * Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
  * IE9 only needs a polyfill for `classList` to make all tests pass.
  *
- * You can opt-in to work directly with [Node and live NodeList](mode.html) objects.
+ * You can [opt-in](mode.html) to work directly with Node and live NodeList objects.
  *
  * You can easily create **custom builds** to exclude parts you don't need:
  *
- *     $ grunt --exclude=attr,class,dom,event,html,selector
+ *     $ grunt --exclude=attr,class,dom,event,html,mode,selector
+ *
+ * The default build in this repo:
+ *
+ *     $ grunt --exclude=mode
  *
  * Using **AMD**, just include it as a regular dependency:
  *
  *     define(['jquery-evergreen'], function($) {
  *
  *     });
+ *
+ *  Otherwise, include something like `<script src="jquery-evergreen.js">` and have `$` globally available.
  *
  * The sources are written in the **ES6** Modules format,
  * and transpiled to an AMD version, and a "browser global" version
