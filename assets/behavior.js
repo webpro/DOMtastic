@@ -154,21 +154,44 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "depth": 1,
       "outline": []
     }, {
-      "type": "file",
+      "type": "folder",
       "data": {
-        "projectPath": "src/attr.js",
-        "targetPath": "attr",
-        "pageTitle": "attr",
-        "firstHeader": {
-          "type": "heading",
+        "path": "je",
+        "title": "je"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
           "data": {
-            "level": 1,
-            "title": "Attr",
-            "slug": "attr",
-            "isFileHeader": true
+            "projectPath": "src/je/attr.js",
+            "targetPath": "je/attr",
+            "pageTitle": "je/attr",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Attr",
+                "slug": "attr",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "attr",
+                    "slug": "attr"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Attr"
           },
-          "depth": 1,
-          "children": [
+          "depth": 2,
+          "outline": [
             {
               "type": "heading",
               "data": {
@@ -179,37 +202,61 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        },
-        "title": "Attr"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
+        }, {
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "attr",
-            "slug": "attr"
+            "projectPath": "src/je/class.js",
+            "targetPath": "je/class",
+            "pageTitle": "je/class",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Class methods",
+                "slug": "class-methods",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "addClass",
+                    "slug": "addclass"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "removeClass",
+                    "slug": "removeclass"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "toggleClass",
+                    "slug": "toggleclass"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "hasClass",
+                    "slug": "hasclass"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Class methods"
           },
-          "depth": 2
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/class.js",
-        "targetPath": "class",
-        "pageTitle": "class",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Class methods",
-            "slug": "class-methods",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
+          "depth": 2,
+          "outline": [
             {
               "type": "heading",
               "data": {
@@ -244,61 +291,53 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        },
-        "title": "Class methods"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "addClass",
-            "slug": "addclass"
-          },
-          "depth": 2
         }, {
-          "type": "heading",
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "removeClass",
-            "slug": "removeclass"
+            "projectPath": "src/je/dom.js",
+            "targetPath": "je/dom",
+            "pageTitle": "je/dom",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "DOM Manipulation",
+                "slug": "dom-manipulation",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "append",
+                    "slug": "append"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "before",
+                    "slug": "before"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "after",
+                    "slug": "after"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "DOM Manipulation"
           },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "toggleClass",
-            "slug": "toggleclass"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "hasClass",
-            "slug": "hasclass"
-          },
-          "depth": 2
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/dom.js",
-        "targetPath": "dom",
-        "pageTitle": "dom",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "DOM Manipulation",
-            "slug": "dom-manipulation",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
+          "depth": 2,
+          "outline": [
             {
               "type": "heading",
               "data": {
@@ -325,53 +364,69 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        },
-        "title": "DOM Manipulation"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "append",
-            "slug": "append"
-          },
-          "depth": 2
         }, {
-          "type": "heading",
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "before",
-            "slug": "before"
+            "projectPath": "src/je/event.js",
+            "targetPath": "je/event",
+            "pageTitle": "je/event",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Events",
+                "slug": "events",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "on",
+                    "slug": "on"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "off",
+                    "slug": "off"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "delegate",
+                    "slug": "delegate"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "undelegate",
+                    "slug": "undelegate"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "trigger",
+                    "slug": "trigger"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Events"
           },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "after",
-            "slug": "after"
-          },
-          "depth": 2
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/event.js",
-        "targetPath": "event",
-        "pageTitle": "event",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Events",
-            "slug": "events",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
+          "depth": 2,
+          "outline": [
             {
               "type": "heading",
               "data": {
@@ -414,69 +469,37 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        },
-        "title": "Events"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "on",
-            "slug": "on"
-          },
-          "depth": 2
         }, {
-          "type": "heading",
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "off",
-            "slug": "off"
+            "projectPath": "src/je/html.js",
+            "targetPath": "je/html",
+            "pageTitle": "je/html",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "HTML",
+                "slug": "html",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "html",
+                    "slug": "html"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "HTML"
           },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "delegate",
-            "slug": "delegate"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "undelegate",
-            "slug": "undelegate"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "trigger",
-            "slug": "trigger"
-          },
-          "depth": 2
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/html.js",
-        "targetPath": "html",
-        "pageTitle": "html",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "HTML",
-            "slug": "html",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
+          "depth": 2,
+          "outline": [
             {
               "type": "heading",
               "data": {
@@ -487,19 +510,63 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        },
-        "title": "HTML"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
+        }, {
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "html",
-            "slug": "html"
+            "projectPath": "src/je/selector.js",
+            "targetPath": "je/selector",
+            "pageTitle": "je/selector",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Selector",
+                "slug": "selector",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "$",
+                    "slug": ""
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Find",
+                    "slug": "find"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Selector"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "$",
+                "slug": ""
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Find",
+                "slug": "find"
+              },
+              "depth": 2
+            }
+          ]
         }
       ]
     }, {
@@ -522,63 +589,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       },
       "depth": 1,
       "outline": []
-    }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/selector.js",
-        "targetPath": "selector",
-        "pageTitle": "selector",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Selector",
-            "slug": "selector",
-            "isFileHeader": true
-          },
-          "depth": 1,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "$",
-                "slug": ""
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Find",
-                "slug": "find"
-              },
-              "depth": 2
-            }
-          ]
-        },
-        "title": "Selector"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "$",
-            "slug": ""
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Find",
-            "slug": "find"
-          },
-          "depth": 2
-        }
-      ]
     }
   ];
 
