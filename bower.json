@@ -1,7 +1,13 @@
 {
   "name": "jquery-evergreen",
   "version": "0.2.1",
+  "main": "dist/jquery-evergreen.amd.js",
   "devDependencies": {
       "jasmine": "git+https://github.com/pivotal/jasmine.git#v2.0.0.rc5"
-  }
+  },
+  "ignore": [
+    "src",
+    "test",
+    "vendor"
+  ]
 }
