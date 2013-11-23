@@ -43,8 +43,8 @@ var native = function(native) {
     return isNative;
 };
 
-var NodeProto = Node.prototype,
-    NodeListProto = NodeList.prototype;
+var NodeProto = typeof Node !== 'undefined' && Node.prototype,
+    NodeListProto = typeof NodeList !== 'undefined' && NodeList.prototype;
 
 /*
  * Add a property (i.e. method) to an object in a safe and reversible manner.

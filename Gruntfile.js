@@ -15,13 +15,13 @@ module.exports = function(grunt) {
             processFiles: [],
             tmpCopy: '.tmp/',
             tmpTranspiledAMD: '.transpiled.amd/',
-            tmpTranspiledCJS: '.transpiled.cjs/',
             outputFileAMD: 'dist/jquery-evergreen.amd.js',
+            outputCJS: 'dist/commonjs/',
             outputFileGlobal: 'dist/jquery-evergreen.js'
         },
 
         clean: {
-            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>', '<%= config.tmpTranspiledCJS %>']
+            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>']
         },
 
         copy: {
@@ -66,9 +66,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= config.tmpCopy %>',
+                        cwd: 'src/',
                         src: '**/*.js',
-                        dest: '<%= config.tmpTranspiledCJS %>',
+                        dest: '<%= config.outputCJS %>',
                         ext: '.js'
                     }
                 ]
