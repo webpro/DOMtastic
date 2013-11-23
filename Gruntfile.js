@@ -21,7 +21,8 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>']
+            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>', 'dist/'],
+            tmp: ['<%= config.tmpCopy %>']
         },
 
         copy: {
@@ -138,12 +139,12 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', [
-        'clean',
+        'clean:all',
         'excludeModules',
         'copy:main',
         'transpile',
         'concat:amd',
         'browser',
-        'clean'
+        'clean:tmp'
     ]);
 };
