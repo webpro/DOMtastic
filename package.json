@@ -1,6 +1,15 @@
 {
   "name": "jquery-evergreen",
   "version": "0.2.2",
+  "description": "jQuery Evergreen works with modern browsers. It has the same familiar API as jQuery, and is lean & mean with small, optional modules.",
+  "keywords": [
+    "jquery",
+    "evergreen",
+    "DOM",
+    "events"
+  ],
+  "homepage": "http://webpro.github.io/jquery-evergreen/",
+  "main": "dist/commonjs/main.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/webpro/jquery-evergreen.git"
@@ -11,5 +20,6 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-es6-module-transpiler": "~0.5.1"
-  }
+  },
+  "license": "MIT"
 }

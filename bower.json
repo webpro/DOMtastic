@@ -1,7 +1,19 @@
 {
   "name": "jquery-evergreen",
   "version": "0.2.2",
+  "description": "jQuery Evergreen works with modern browsers. It has the same familiar API as jQuery, and is lean & mean with small, optional modules.",
+  "keywords": [
+    "jquery",
+    "evergreen",
+    "DOM",
+    "events"
+  ],
+  "homepage": "http://webpro.github.io/jquery-evergreen/",
   "main": "dist/jquery-evergreen.amd.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/webpro/jquery-evergreen.git"
+  },
   "devDependencies": {
       "jasmine": "git+https://github.com/pivotal/jasmine.git#v2.0.0.rc5"
   },
@@ -9,5 +21,6 @@
     "src",
     "test",
     "vendor"
-  ]
+  ],
+  "license": "MIT"
 }
