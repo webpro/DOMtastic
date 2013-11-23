@@ -832,7 +832,7 @@ define("je/selector",
     };
 
     /*
-     * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
+     * Calling `$(selector)` returns a wrapped array of elements [by default](../mode.html).
      *
      * @method wrap
      * @private
@@ -863,7 +863,7 @@ define("main",
      *
      * jQuery Evergreen works with modern browsers.
      * It has the same familiar API as jQuery, and is lean & mean with the following, optional modules:
-     * [selector](selector.html), [class](class.html), [DOM](dom.html), [event](event.html), [attr](attr.html) and [html](html.html).
+     * [selector](je/selector.html), [class](je/class.html), [DOM](je/dom.html), [event](je/event.html), [attr](je/attr.html) and [html](je/html.html).
      *
      * The complete version is under 7KB after minification (2KB gzipped).
      *
