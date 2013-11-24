@@ -23,7 +23,7 @@ module.exports = function(grunt) {
 
         clean: {
             all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>', 'dist/'],
-            tmp: ['<%= config.tmpCopy %>']
+            tmp: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>']
         },
 
         copy: {
