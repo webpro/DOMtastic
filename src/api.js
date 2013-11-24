@@ -45,7 +45,6 @@ api.html = html;
 /* API:selector */
 import { $, find } from './je/selector';
 api.find = find;
-$._api = api;
 /* API:selector */
 
 var array = [];
@@ -63,6 +62,22 @@ var apiNodeList = {
     some: array.some,
     map: array.map
 };
+
+/*
+ * Augment the `$` function to be able to:
+ *
+ * - wrap the `$` objects and add the API methods
+ * - switch to native mode
+ */
+
+if($) {
+    $.getNodeMethods = function() {
+        return api;
+    };
+    $.getNodeListMethods = function() {
+        return apiNodeList;
+    };
+}
 
 // Export interface
 

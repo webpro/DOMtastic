@@ -87,10 +87,13 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 
+var methods;
+
 var wrap = function(collection) {
     var wrapped = collection instanceof NodeList ? [].slice.call(collection) : collection instanceof Array ? collection : [collection];
-    for(var key in $._api) {
-        wrapped[key] = $._api[key];
+    methods = methods || $.getNodeMethods();
+    for(var key in methods) {
+        wrapped[key] = methods[key];
     }
     return wrapped;
 };
