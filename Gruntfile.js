@@ -3,6 +3,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks('grunt-es6-module-transpiler');
 
     grunt.initConfig({
@@ -95,6 +96,22 @@ module.exports = function(grunt) {
                     namespace: "$"
                 }
             }
+        },
+
+        uglify: {
+            options: {
+                mangle: true,
+                preserveComments: false,
+                compress: {
+                    unsafe: true
+                }
+            },
+            amd: {
+                files: {
+                    'dist/jquery-evergreen.amd.min.js': ['dist/jquery-evergreen.amd.js'],
+                    'dist/jquery-evergreen.min.js': ['dist/jquery-evergreen.js']
+                }
+            }
         }
     });
 
@@ -145,6 +162,7 @@ module.exports = function(grunt) {
         'transpile',
         'concat:amd',
         'browser',
+        'uglify',
         'clean:tmp'
     ]);
 };
