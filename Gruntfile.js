@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
         config: {
             modules: ['api', 'main'],
-            optionalModules: ['mode', 'je/attr', 'je/class', 'je/dom', 'je/event', 'je/html', 'je/selector'],
+            optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'selector'],
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
             processFiles: [],
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
 
         optionalModules.forEach(function(module) {
             if(excludeModules.indexOf(module) === -1) {
-                processFiles.push(module);
+                processFiles.push('je/' + module);
             }
         });
 

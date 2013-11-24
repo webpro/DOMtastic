@@ -8,46 +8,46 @@
 
 var api = {};
 
-/* API:je/attr */
+/* API:attr */
 import attr from './je/attr';
 api.attr = attr;
-/* API:je/attr */
+/* API:attr */
 
-/* API:je/class */
+/* API:class */
 import { addClass, removeClass, toggleClass, hasClass } from './je/class';
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
 api.hasClass = hasClass;
-/* API:je/class */
+/* API:class */
 
-/* API:je/dom */
+/* API:dom */
 import { append, before, after } from './je/dom';
 api.append = append;
 api.before = before;
 api.after = after;
-/* API:je/dom */
+/* API:dom */
 
-/* API:je/event */
+/* API:event */
 import { on, off, delegate, undelegate, trigger } from './je/event';
 api.on = on;
 api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
 api.trigger = trigger;
-/* API:je/event */
+/* API:event */
 
-/* API:je/html */
+/* API:html */
 import html from './je/html';
 api.html = html;
-/* API:je/html */
+/* API:html */
 
-/* API:je/selector */
+/* API:selector */
 import { $, find } from './je/selector';
 api.$ = find;
 api.find = find;
 $._api = api;
-/* API:je/selector */
+/* API:selector */
 
 var array = [];
 
