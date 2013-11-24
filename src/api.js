@@ -44,7 +44,6 @@ api.html = html;
 
 /* API:selector */
 import { $, find } from './je/selector';
-api.$ = find;
 api.find = find;
 $._api = api;
 /* API:selector */
