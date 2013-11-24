@@ -9,7 +9,7 @@
 var api = {};
 
 /* API:je/attr */
-import { attr } from './je/attr';
+import attr from './je/attr';
 api.attr = attr;
 /* API:je/attr */
 
@@ -38,7 +38,7 @@ api.trigger = trigger;
 /* API:je/event */
 
 /* API:je/html */
-import { html } from './je/html';
+import html from './je/html';
 api.html = html;
 /* API:je/html */
 

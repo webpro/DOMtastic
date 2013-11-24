@@ -25,4 +25,4 @@ var html = function(fragment) {
 
 // Export interface
 
-export { html };
+export default html;
