@@ -45,8 +45,4 @@
 
 import { $ } from './api';
 
-/* API:mode */
-import './mode';
-/* API:mode */
-
 export default $;

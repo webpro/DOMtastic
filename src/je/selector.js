@@ -79,7 +79,7 @@ var createFragment = function(html) {
 };
 
 /*
- * Calling `$(selector)` returns a wrapped array of elements [by default](../mode.html).
+ * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
  *
  * @method wrap
  * @private

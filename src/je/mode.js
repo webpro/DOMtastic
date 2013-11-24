@@ -24,8 +24,6 @@
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
-import { $, api, apiNodeList } from './api';
-
 var isNative = false;
 
 var native = function(native) {
@@ -35,10 +33,10 @@ var native = function(native) {
         $.isNative = isNative;
     }
     if(!wasNative && isNative) {
-        augmentNativePrototypes();
+        augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
     }
     if(wasNative && !isNative) {
-        unaugmentNativePrototypes();
+        unaugmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
     }
     return isNative;
 };
@@ -73,17 +71,17 @@ var unaugment = function(obj, key) {
  * Augment native `Node` and `NodeList` objects in native mode.
  */
 
-var augmentNativePrototypes = function() {
+var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
     var key;
 
-    for(key in api) {
-        augment(NodeProto, key, api[key]);
-        augment(NodeListProto, key, api[key]);
+    for(key in methodsNode) {
+        augment(NodeProto, key, methodsNode[key]);
+        augment(NodeListProto, key, methodsNode[key]);
     }
 
-    for(key in apiNodeList) {
-        augment(NodeListProto, key, apiNodeList[key]);
+    for(key in methodsNodeList) {
+        augment(NodeListProto, key, methodsNodeList[key]);
     }
 };
 
@@ -92,31 +90,19 @@ var augmentNativePrototypes = function() {
  * Mainly used for tests.
  */
 
-var unaugmentNativePrototypes = function() {
+var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
     var key;
 
-    for(key in api) {
+    for(key in methodsNode) {
         unaugment(NodeProto, key);
         unaugment(NodeListProto, key);
     }
 
-    for(key in apiNodeList) {
+    for(key in methodsNodeList) {
         unaugment(NodeListProto, key);
     }
 };
-
-/*
- * It's possible to have a custom build without the [selector](je/selector.html) API,
- * but in that case only the native mode makes sense.
- */
-
-if(typeof $ === 'undefined') {
-    native();
-} else {
-    $.isNative = isNative;
-    $.native = native;
-}
 
 // Export interface
 

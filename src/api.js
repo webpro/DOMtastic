@@ -47,6 +47,16 @@ import { $, find } from './je/selector';
 api.find = find;
 /* API:selector */
 
+/* API:mode */
+import { isNative, native } from './je/mode';
+if($) {
+    $.isNative = isNative;
+    $.native = native;
+} else {
+    native();
+}
+/* API:mode */
+
 var array = [];
 
 /*
