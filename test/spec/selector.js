@@ -30,7 +30,7 @@ describe('selectors', function() {
     });
 
     it('should create a DOM fragment from string', function() {
-        var fragment = getElement(html);
+        var fragment = $(html);
         expect(fragment[0].outerHTML).toBe(html);
     });
 

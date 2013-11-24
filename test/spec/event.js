@@ -105,17 +105,19 @@ describe('events', function() {
         });
 
         it('should receive events bubbling up to an element not in the DOM', function() {
-            var element = getElement('<div><p></p></div>');
+            var element = getElement('<div><p></p></div>'),
+                child = getElement(element[0].querySelector('p'));
             element.on('EVENT-unattached-element', spy);
-            element.find('p').trigger('EVENT-unattached-element');
+            child.trigger('EVENT-unattached-element');
             expect(spy).toHaveBeenCalled();
             expect(spy.calls.count()).toBe(1);
         });
 
         it('should receive delegated events bubbling up to an element not in the DOM', function() {
-            var element = getElement('<div><p></p></div>');
+            var element = getElement('<div><p></p></div>'),
+                child = getElement(element[0].querySelector('p'));
             element.on('EVENT-unattached-delegated', 'p', spy);
-            element.find('p').trigger('EVENT-unattached-delegated');
+            child.trigger('EVENT-unattached-delegated');
             expect(spy).toHaveBeenCalled();
             expect(spy.calls.count()).toBe(1);
         });

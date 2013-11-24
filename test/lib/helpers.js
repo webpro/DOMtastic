@@ -1,5 +1,5 @@
 var getElement = function(element) {
-    return $ && !$.isNative ?
+    return typeof $ === 'function' && !$.isNative ?
         $(element) :
         typeof element !== 'string' ?
             element :

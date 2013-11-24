@@ -12,7 +12,7 @@ describe('mode', function() {
 
         it('should return a wrapped array of elements for calls to $()', function() {
 
-            var result = $('#testFragment li');
+            var result = getElement('#testFragment li');
 
             expect(result).toBeInstanceOf(Array);
             expect(result).not.toBeInstanceOf(NodeList);
@@ -40,7 +40,7 @@ describe('mode', function() {
 
         it('should return a NodeList for calls to $()', function() {
 
-            var result = $('#testFragment li');
+            var result = getElement('#testFragment li');
 
             expect(result).toBeInstanceOf(NodeList);
             expect(result).not.toBeInstanceOf(Array);
@@ -59,7 +59,7 @@ describe('mode', function() {
     it('should not modify/augment the window object', function() {
 
         // Most browsers actually have [window.find](https://developer.mozilla.org/en-US/docs/Web/API/Window.find).
-        expect(window.find).not.toBe($().find);
+        expect(window.find).not.toBe(getElement().find);
         expect(window).not.toHave('forEach');
 
     });

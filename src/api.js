@@ -6,7 +6,8 @@
  * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
  */
 
-var api = {};
+var api = {},
+    $ = {};
 
 /* API:attr */
 import attr from './je/attr';
@@ -49,12 +50,8 @@ api.find = find;
 
 /* API:mode */
 import { isNative, native } from './je/mode';
-if($) {
-    $.isNative = isNative;
-    $.native = native;
-} else {
-    native();
-}
+$.isNative = isNative;
+$.native = native;
 /* API:mode */
 
 var array = [];
@@ -80,14 +77,12 @@ var apiNodeList = {
  * - switch to native mode
  */
 
-if($) {
-    $.getNodeMethods = function() {
-        return api;
-    };
-    $.getNodeListMethods = function() {
-        return apiNodeList;
-    };
-}
+$.getNodeMethods = function() {
+    return api;
+};
+$.getNodeListMethods = function() {
+    return apiNodeList;
+};
 
 // Export interface
 
