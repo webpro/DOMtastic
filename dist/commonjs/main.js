@@ -46,7 +46,4 @@
 
 var $ = require("./api").$;
 
-/* API:mode */
-require("./mode");/* API:mode */
-
 exports["default"] = $;

@@ -50,14 +50,15 @@ define("api",
      * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
      */
 
-    var api = {};
+    var api = {},
+        $ = {};
 
-    /* API:je/attr */
-    var attr = __dependency1__.attr;
+    /* API:attr */
+    var attr = __dependency1__["default"];
     api.attr = attr;
-    /* API:je/attr */
+    /* API:attr */
 
-    /* API:je/class */
+    /* API:class */
     var addClass = __dependency2__.addClass;
     var removeClass = __dependency2__.removeClass;
     var toggleClass = __dependency2__.toggleClass;
@@ -66,18 +67,18 @@ define("api",
     api.removeClass = removeClass;
     api.toggleClass = toggleClass;
     api.hasClass = hasClass;
-    /* API:je/class */
+    /* API:class */
 
-    /* API:je/dom */
+    /* API:dom */
     var append = __dependency3__.append;
     var before = __dependency3__.before;
     var after = __dependency3__.after;
     api.append = append;
     api.before = before;
     api.after = after;
-    /* API:je/dom */
+    /* API:dom */
 
-    /* API:je/event */
+    /* API:event */
     var on = __dependency4__.on;
     var off = __dependency4__.off;
     var delegate = __dependency4__.delegate;
@@ -88,20 +89,20 @@ define("api",
     api.delegate = delegate;
     api.undelegate = undelegate;
     api.trigger = trigger;
-    /* API:je/event */
+    /* API:event */
 
-    /* API:je/html */
-    var html = __dependency5__.html;
+    /* API:html */
+    var html = __dependency5__["default"];
     api.html = html;
-    /* API:je/html */
+    /* API:html */
 
-    /* API:je/selector */
+    /* API:selector */
     var $ = __dependency6__.$;
     var find = __dependency6__.find;
-    api.$ = find;
     api.find = find;
-    $._api = api;
-    /* API:je/selector */
+    /* API:selector */
+
+    /*  */
 
     var array = [];
 
@@ -117,6 +118,20 @@ define("api",
         each: array.forEach,
         some: array.some,
         map: array.map
+    };
+
+    /*
+     * Augment the `$` function to be able to:
+     *
+     * - wrap the `$` objects and add the API methods
+     * - switch to native mode
+     */
+
+    $.getNodeMethods = function() {
+        return api;
+    };
+    $.getNodeListMethods = function() {
+        return apiNodeList;
     };
 
     // Export interface
@@ -160,7 +175,7 @@ define("je/attr",
 
     // Export interface
 
-    __exports__.attr = attr;
+    __exports__["default"] = attr
   });
 define("je/class", 
   ["exports"],
@@ -745,7 +760,7 @@ define("je/html",
 
     // Export interface
 
-    __exports__.html = html;
+    __exports__["default"] = html;
   });
 define("je/selector", 
   ["exports"],
@@ -832,7 +847,7 @@ define("je/selector",
     };
 
     /*
-     * Calling `$(selector)` returns a wrapped array of elements [by default](../mode.html).
+     * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
      *
      * @method wrap
      * @private
@@ -840,10 +855,13 @@ define("je/selector",
      * @return {$Object} Array with augmented API.
      */
 
+    var methods;
+
     var wrap = function(collection) {
         var wrapped = collection instanceof NodeList ? [].slice.call(collection) : collection instanceof Array ? collection : [collection];
-        for(var key in $._api) {
-            wrapped[key] = $._api[key];
+        methods = methods || $.getNodeMethods();
+        for(var key in methods) {
+            wrapped[key] = methods[key];
         }
         return wrapped;
     };
@@ -903,8 +921,6 @@ define("main",
      */
 
     var $ = __dependency1__.$;
-
-    /*  */
 
     __exports__["default"] = $;
   });

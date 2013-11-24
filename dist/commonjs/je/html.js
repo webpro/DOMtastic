@@ -26,4 +26,4 @@ var html = function(fragment) {
 
 // Export interface
 
-exports.html = html;
+exports["default"] = html;

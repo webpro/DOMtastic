@@ -7,14 +7,15 @@
  * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
  */
 
-var api = {};
+var api = {},
+    $ = {};
 
-/* API:je/attr */
-var attr = require("./je/attr").attr;
+/* API:attr */
+var attr = require("./je/attr")["default"];
 api.attr = attr;
-/* API:je/attr */
+/* API:attr */
 
-/* API:je/class */
+/* API:class */
 var addClass = require("./je/class").addClass;
 var removeClass = require("./je/class").removeClass;
 var toggleClass = require("./je/class").toggleClass;
@@ -23,18 +24,18 @@ api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
 api.hasClass = hasClass;
-/* API:je/class */
+/* API:class */
 
-/* API:je/dom */
+/* API:dom */
 var append = require("./je/dom").append;
 var before = require("./je/dom").before;
 var after = require("./je/dom").after;
 api.append = append;
 api.before = before;
 api.after = after;
-/* API:je/dom */
+/* API:dom */
 
-/* API:je/event */
+/* API:event */
 var on = require("./je/event").on;
 var off = require("./je/event").off;
 var delegate = require("./je/event").delegate;
@@ -45,20 +46,25 @@ api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
 api.trigger = trigger;
-/* API:je/event */
+/* API:event */
 
-/* API:je/html */
-var html = require("./je/html").html;
+/* API:html */
+var html = require("./je/html")["default"];
 api.html = html;
-/* API:je/html */
+/* API:html */
 
-/* API:je/selector */
+/* API:selector */
 var $ = require("./je/selector").$;
 var find = require("./je/selector").find;
-api.$ = find;
 api.find = find;
-$._api = api;
-/* API:je/selector */
+/* API:selector */
+
+/* API:mode */
+var isNative = require("./je/mode").isNative;
+var native = require("./je/mode").native;
+$.isNative = isNative;
+$.native = native;
+/* API:mode */
 
 var array = [];
 
@@ -74,6 +80,20 @@ var apiNodeList = {
     each: array.forEach,
     some: array.some,
     map: array.map
+};
+
+/*
+ * Augment the `$` function to be able to:
+ *
+ * - wrap the `$` objects and add the API methods
+ * - switch to native mode
+ */
+
+$.getNodeMethods = function() {
+    return api;
+};
+$.getNodeListMethods = function() {
+    return apiNodeList;
 };
 
 // Export interface
