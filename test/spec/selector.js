@@ -1,5 +1,7 @@
 describe('selectors', function() {
 
+    var html = '<article><section><p>foo</p><p>bar</p></section></article>';
+
     it('should return an empty NodeList for falsey selectors', function() {
 
         var actual = !$.isNative ? Array : NodeList;
@@ -25,6 +27,11 @@ describe('selectors', function() {
         expect($(window)[0]).toBe(window);
         expect($(document)[0]).toBe(document);
         expect($(document.body)[0]).toBe(document.body);
+    });
+
+    it('should create a DOM fragment from string', function() {
+        var fragment = getElement(html);
+        expect(fragment[0].outerHTML).toBe(html);
     });
 
     it('should provide a chainable API', function() {

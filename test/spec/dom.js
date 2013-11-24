@@ -13,11 +13,6 @@ describe('DOM', function() {
         emptyContainer[0].innerHTML = '';
     });
 
-    it('should create a DOM fragment from string', function() {
-        var fragment = $(html);
-        expect(fragment[0].outerHTML).toBe(html);
-    });
-
     it('should append DOM string', function() {
         emptyContainer.append(html);
         expect(emptyContainer[0].innerHTML).toBe(html);
