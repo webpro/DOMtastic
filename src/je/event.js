@@ -183,10 +183,11 @@ var trigger = function(type, params) {
  */
 
 var isAttachedToDocument = function(element) {
-    var container = element.ownerDocument.documentElement;
-    if(element === window) {
+    if(element === window || element === document) {
         return true;
-    } else if(container.contains) {
+    }
+    var container = element.ownerDocument.documentElement;
+    if(container.contains) {
         return container.contains(element);
     } else if(container.compareDocumentPosition) {
         return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
