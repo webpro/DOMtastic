@@ -1,5 +1,7 @@
 // # Attr
 
+import { makeIterable } from '../util';
+
 /**
  * ## attr
  *
@@ -14,7 +16,7 @@ var attr = function(key, value) {
         return (this.nodeType ? this : this[0]).getAttribute(key);
     }
 
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         if(typeof key === 'object') {
             for(var attr in key) {
                 element.setAttribute(attr, key[attr]);

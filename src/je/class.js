@@ -1,5 +1,7 @@
 // # Class methods
 
+import { makeIterable } from '../util';
+
 /**
  * ## addClass
  *
@@ -10,7 +12,7 @@
  */
 
 var addClass = function(value) {
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         element.classList.add(value);
     });
     return this;
@@ -26,7 +28,7 @@ var addClass = function(value) {
  */
 
 var removeClass = function(value) {
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         element.classList.remove(value);
     });
     return this;
@@ -42,7 +44,7 @@ var removeClass = function(value) {
  */
 
 var toggleClass = function(value) {
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         element.classList.toggle(value);
     });
     return this;
@@ -59,7 +61,7 @@ var toggleClass = function(value) {
  */
 
 var hasClass = function(value) {
-    return (this.nodeType ? [this] : this).some(function(element) {
+    return makeIterable(this).some(function(element) {
         return element.classList.contains(value);
     });
 };

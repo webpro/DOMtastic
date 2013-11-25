@@ -1,5 +1,7 @@
 // # Events
 
+import { makeIterable } from '../util';
+
 /**
  * ## on
  *
@@ -28,7 +30,7 @@ var on = function(eventName, selector, handler, useCapture) {
 
     var eventListener = handler;
 
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
 
         if(selector) {
             eventListener = delegateHandler.bind(element, selector, handler);
@@ -75,7 +77,7 @@ var off = function(eventName, selector, handler, useCapture) {
         var namespace = parts[1];
     }
 
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
 
         var handlers = getHandlers(element) || [];
 
@@ -161,7 +163,7 @@ var undelegate = function(selector, eventName, fn) {
 var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
         } else {

@@ -1,5 +1,7 @@
 // # DOM Manipulation
 
+import { toArray } from '../util';
+
 /**
  * ## append
  *
@@ -114,17 +116,6 @@ var clone = function(element) {
         });
     }
     return element;
-};
-
-/**
- * @method toArray
- * @private
- * @param {NodeList|Array} collection
- * @return {Array}
- */
-
-var toArray = function(collection) {
-    return [].slice.call(collection);
 };
 
 // Export interface

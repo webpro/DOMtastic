@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         config: {
-            modules: ['api', 'main'],
+            modules: ['api', 'main', 'util'],
             optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'selector'],
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
