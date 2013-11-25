@@ -98,6 +98,4 @@ $.getNodeListMethods = function() {
 
 // Export interface
 
-exports.$ = $;
-exports.api = api;
-exports.apiNodeList = apiNodeList;
+exports["default"] = $;

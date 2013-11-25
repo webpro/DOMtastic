@@ -1,6 +1,8 @@
 "use strict";
 // # DOM Manipulation
 
+var toArray = require("../util").toArray;
+
 /**
  * ## append
  *
@@ -115,17 +117,6 @@ var clone = function(element) {
         });
     }
     return element;
-};
-
-/**
- * @method toArray
- * @private
- * @param {NodeList|Array} collection
- * @return {Array}
- */
-
-var toArray = function(collection) {
-    return [].slice.call(collection);
 };
 
 // Export interface

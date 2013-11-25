@@ -3,6 +3,8 @@
  * # Selector
  */
 
+var makeIterable = require("../util").makeIterable;
+
 /*
  * ## $
  *
@@ -26,7 +28,7 @@ var $ = function(selector, context) {
 
     } else if(typeof selector !== 'string') {
 
-        collection = selector.length ? selector : [selector];
+        collection = makeIterable(selector)
 
     } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
 

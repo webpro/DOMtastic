@@ -1,6 +1,8 @@
 "use strict";
 // # HTML
 
+var makeIterable = require("../util").makeIterable;
+
 /*
  * ## html
  *
@@ -17,7 +19,7 @@ var html = function(fragment) {
         return (this.nodeType ? this : this[0]).innerHTML;
     }
 
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         element.innerHTML = fragment;
     });
     return this;

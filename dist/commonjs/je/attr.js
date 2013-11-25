@@ -1,6 +1,8 @@
 "use strict";
 // # Attr
 
+var makeIterable = require("../util").makeIterable;
+
 /**
  * ## attr
  *
@@ -15,7 +17,7 @@ var attr = function(key, value) {
         return (this.nodeType ? this : this[0]).getAttribute(key);
     }
 
-    (this.nodeType ? [this] : this).forEach(function(element) {
+    makeIterable(this).forEach(function(element) {
         if(typeof key === 'object') {
             for(var attr in key) {
                 element.setAttribute(attr, key[attr]);
@@ -30,4 +32,4 @@ var attr = function(key, value) {
 
 // Export interface
 
-exports["default"] = attr
+exports["default"] = attr;

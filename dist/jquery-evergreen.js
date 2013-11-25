@@ -11,7 +11,7 @@ var define, requireModule;
     };
 
     requireModule = function(name) {
-        name = name.replace(/^\.\//, '');
+        name = name.replace(/^\.\.?\//, '');
         if (seen[name]) { return seen[name]; }
         seen[name] = {};
 
@@ -136,15 +136,15 @@ define("api",
 
     // Export interface
 
-    __exports__.$ = $;
-    __exports__.api = api;
-    __exports__.apiNodeList = apiNodeList;
+    __exports__["default"] = $;
   });
 define("je/attr", 
-  ["exports"],
-  function(__exports__) {
+  ["../util","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
     // # Attr
+
+    var makeIterable = __dependency1__.makeIterable;
 
     /**
      * ## attr
@@ -160,7 +160,7 @@ define("je/attr",
             return (this.nodeType ? this : this[0]).getAttribute(key);
         }
 
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
             if(typeof key === 'object') {
                 for(var attr in key) {
                     element.setAttribute(attr, key[attr]);
@@ -175,13 +175,15 @@ define("je/attr",
 
     // Export interface
 
-    __exports__["default"] = attr
+    __exports__["default"] = attr;
   });
 define("je/class", 
-  ["exports"],
-  function(__exports__) {
+  ["../util","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
     // # Class methods
+
+    var makeIterable = __dependency1__.makeIterable;
 
     /**
      * ## addClass
@@ -193,7 +195,7 @@ define("je/class",
      */
 
     var addClass = function(value) {
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
             element.classList.add(value);
         });
         return this;
@@ -209,7 +211,7 @@ define("je/class",
      */
 
     var removeClass = function(value) {
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
             element.classList.remove(value);
         });
         return this;
@@ -225,7 +227,7 @@ define("je/class",
      */
 
     var toggleClass = function(value) {
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
             element.classList.toggle(value);
         });
         return this;
@@ -242,7 +244,7 @@ define("je/class",
      */
 
     var hasClass = function(value) {
-        return (this.nodeType ? [this] : this).some(function(element) {
+        return makeIterable(this).some(function(element) {
             return element.classList.contains(value);
         });
     };
@@ -255,10 +257,12 @@ define("je/class",
     __exports__.hasClass = hasClass;
   });
 define("je/dom", 
-  ["exports"],
-  function(__exports__) {
+  ["../util","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
     // # DOM Manipulation
+
+    var toArray = __dependency1__.toArray;
 
     /**
      * ## append
@@ -376,17 +380,6 @@ define("je/dom",
         return element;
     };
 
-    /**
-     * @method toArray
-     * @private
-     * @param {NodeList|Array} collection
-     * @return {Array}
-     */
-
-    var toArray = function(collection) {
-        return [].slice.call(collection);
-    };
-
     // Export interface
 
     __exports__.append = append;
@@ -394,10 +387,12 @@ define("je/dom",
     __exports__.after = after;
   });
 define("je/event", 
-  ["exports"],
-  function(__exports__) {
+  ["../util","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
     // # Events
+
+    var makeIterable = __dependency1__.makeIterable;
 
     /**
      * ## on
@@ -427,7 +422,7 @@ define("je/event",
 
         var eventListener = handler;
 
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
 
             if(selector) {
                 eventListener = delegateHandler.bind(element, selector, handler);
@@ -474,7 +469,7 @@ define("je/event",
             var namespace = parts[1];
         }
 
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
 
             var handlers = getHandlers(element) || [];
 
@@ -560,7 +555,7 @@ define("je/event",
     var trigger = function(type, params) {
         params = params || { bubbles: true, cancelable: true, detail: undefined };
         var event = new CustomEvent(type, params);
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
             if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
                 element.dispatchEvent(event);
             } else {
@@ -580,10 +575,11 @@ define("je/event",
      */
 
     var isAttachedToDocument = function(element) {
-        var container = element.ownerDocument.documentElement;
-        if(element === window) {
+        if(element === window || element === document) {
             return true;
-        } else if(container.contains) {
+        }
+        var container = element.ownerDocument.documentElement;
+        if(container.contains) {
             return container.contains(element);
         } else if(container.compareDocumentPosition) {
             return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
@@ -730,10 +726,12 @@ define("je/event",
     __exports__.trigger = trigger;
   });
 define("je/html", 
-  ["exports"],
-  function(__exports__) {
+  ["../util","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
     // # HTML
+
+    var makeIterable = __dependency1__.makeIterable;
 
     /*
      * ## html
@@ -751,7 +749,7 @@ define("je/html",
             return (this.nodeType ? this : this[0]).innerHTML;
         }
 
-        (this.nodeType ? [this] : this).forEach(function(element) {
+        makeIterable(this).forEach(function(element) {
             element.innerHTML = fragment;
         });
         return this;
@@ -763,12 +761,14 @@ define("je/html",
     __exports__["default"] = html;
   });
 define("je/selector", 
-  ["exports"],
-  function(__exports__) {
+  ["../util","exports"],
+  function(__dependency1__, __exports__) {
     "use strict";
     /*
      * # Selector
      */
+
+    var makeIterable = __dependency1__.makeIterable;
 
     /*
      * ## $
@@ -793,7 +793,7 @@ define("je/selector",
 
         } else if(typeof selector !== 'string') {
 
-            collection = selector.length ? selector : [selector];
+            collection = makeIterable(selector)
 
         } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
 
@@ -920,9 +920,43 @@ define("main",
      * - [madrobby/zepto](https://github.com/madrobby/zepto/)
      */
 
-    var $ = __dependency1__.$;
+    var $ = __dependency1__["default"];
 
     __exports__["default"] = $;
+  });
+define("util", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    /**
+     * ## toArray
+     *
+     * Convert `NodeList` to `Array`.
+     *
+     * @param {NodeList|Array} collection
+     * @return {Array}
+     */
+
+    var toArray = function(collection) {
+        return [].slice.call(collection);
+    };
+
+    /**
+     * ## makeIterable
+     *
+     * Make sure to return something that can be iterated over (e.g. using `forEach`).
+     * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
+     *
+     * @param {Node|NodeList|Array} element
+     * @return {Array|NodeList}
+     */
+
+    var makeIterable = function(element) {
+        return typeof element.length === 'undefined' || element === window ? [element] : element;
+    };
+
+    __exports__.toArray = toArray;
+    __exports__.makeIterable = makeIterable;
   });
 window.$ = requireModule("main")["default"];
 })(window);
