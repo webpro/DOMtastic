@@ -513,6 +513,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         }, {
           "type": "file",
           "data": {
+            "projectPath": "src/je/mode.js",
+            "targetPath": "je/mode",
+            "pageTitle": "je/mode",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Opt-in to Native Mode",
+                "slug": "opt-in-to-native-mode",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Opt-in to Native Mode"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
             "projectPath": "src/je/selector.js",
             "targetPath": "je/selector",
             "pageTitle": "je/selector",
@@ -572,23 +592,31 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     }, {
       "type": "file",
       "data": {
-        "projectPath": "src/mode.js",
-        "targetPath": "mode",
-        "pageTitle": "mode",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Opt-in to Native Mode",
-            "slug": "opt-in-to-native-mode",
-            "isFileHeader": true
-          },
-          "depth": 1
-        },
-        "title": "Opt-in to Native Mode"
+        "projectPath": "src/util.js",
+        "targetPath": "util",
+        "pageTitle": "util",
+        "title": "util"
       },
       "depth": 1,
-      "outline": []
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "toArray",
+            "slug": "toarray"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "makeIterable",
+            "slug": "makeiterable"
+          },
+          "depth": 2
+        }
+      ]
     }
   ];
 
