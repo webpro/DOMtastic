@@ -59,7 +59,7 @@ describe('mode', function() {
     it('should not modify/augment the window object', function() {
 
         // Most browsers actually have [window.find](https://developer.mozilla.org/en-US/docs/Web/API/Window.find).
-        expect(window.find).not.toBe(getElement().find);
+        expect(window.find).not.toBe(getElement(document).find);
         expect(window).not.toHave('forEach');
 
     });
