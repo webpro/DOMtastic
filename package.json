@@ -1,6 +1,6 @@
 {
   "name": "jquery-evergreen",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "jQuery Evergreen works with modern browsers. It has the same familiar API as jQuery, and is lean & mean with small, optional modules.",
   "keywords": [
     "jquery",
