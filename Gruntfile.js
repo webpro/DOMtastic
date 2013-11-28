@@ -3,7 +3,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-requirejs");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-es6-module-transpiler');
 
     grunt.initConfig({
@@ -14,16 +16,16 @@ module.exports = function(grunt) {
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
             processFiles: [],
-            tmpCopy: '.tmp/',
-            tmpTranspiledAMD: '.transpiled.amd/',
-            outputFileAMD: 'dist/jquery-evergreen.amd.js',
+            tmp: 'tmp/',
+            outputAMD: 'dist/amd/',
+            outputAMDBundle: 'dist/jquery-evergreen.amd.js',
             outputCJS: 'dist/commonjs/',
             outputFileGlobal: 'dist/jquery-evergreen.js'
         },
 
         clean: {
-            all: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>', 'dist/'],
-            tmp: ['<%= config.tmpCopy %>', '<%= config.tmpTranspiledAMD %>']
+            all: ['<%= config.tmp %>', 'dist/'],
+            tmp: ['<%= config.tmp %>']
         },
 
         copy: {
@@ -44,7 +46,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: 'src/',
                         src: '<%= config.processFiles %>',
-                        dest: '<%= config.tmpCopy %>'
+                        dest: '<%= config.tmp %>'
                     }
                 ]
             }
@@ -53,12 +55,13 @@ module.exports = function(grunt) {
         transpile: {
             amd: {
                 type: "amd",
+                anonymous: true,
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= config.tmpCopy %>',
+                        cwd: '<%= config.tmp %>',
                         src: ['**/*.js'],
-                        dest: '<%= config.tmpTranspiledAMD %>',
+                        dest: '<%= config.outputAMD %>',
                         ext: '.js'
                     }
                 ]
@@ -77,23 +80,32 @@ module.exports = function(grunt) {
             }
         },
 
-        concat: {
-            amd: {
-                src: '<%= config.tmpTranspiledAMD %>/**/*.js',
-                dest: '<%= config.outputFileAMD %>',
+        requirejs: {
+            options: {
+                optimize: 'none',
+                baseUrl: '<%= config.outputAMD %>'
+            },
+            dist: {
                 options: {
-                    footer: 'define("jquery-evergreen", ["main"], function(main) { return main["default"];});'
+                    name: 'main',
+                    wrap: {
+                        end: "define('jquery-evergreen',['main'],function(main){return main['default'];});"
+                    },
+                    out: '<%= config.outputAMDBundle %>'
                 }
             }
         },
 
-        browser: {
+        browserify: {
             dist: {
-                src: ['vendor/amd-loader.js', '<%= config.tmpTranspiledAMD %>/**/*.js'],
+                src: ['<%= config.outputCJS %>/main.js'],
                 dest: '<%= config.outputFileGlobal %>',
                 options: {
-                    barename: "main",
-                    namespace: "$"
+                    alias: '<%= config.outputCJS %>/main.js:jQueryEvergreen',
+                    postBundleCB: function(err, src, next) {
+                        src += "window.$=require('jQueryEvergreen')['default'];";
+                        next(err, src);
+                    }
                 }
             }
         },
@@ -102,14 +114,12 @@ module.exports = function(grunt) {
             options: {
                 mangle: true,
                 preserveComments: false,
-                compress: {
-                    unsafe: true
-                }
+                compress: true
             },
             amd: {
                 files: {
-                    'dist/jquery-evergreen.amd.min.js': ['dist/jquery-evergreen.amd.js'],
-                    'dist/jquery-evergreen.min.js': ['dist/jquery-evergreen.js']
+                    'dist/jquery-evergreen.min.js': ['<%= config.outputFileGlobal %>'],
+                    'dist/jquery-evergreen.amd.min.js': ['<%= config.outputAMDBundle %>']
                 }
             }
         }
@@ -133,35 +143,13 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerMultiTask('browser', "Export a module to the window", function() {
-        // Borrowed from https://github.com/thomasboyt/grunt-microlib/blob/master/tasks/browser.js
-        var opts = this.options();
-        this.files.forEach(function(f) {
-            var output = ["(function(globals) {"];
-
-            output.push.apply(output, f.src.map(grunt.file.read));
-
-            output.push(grunt.template.process(
-                'window.<%= namespace %> = requireModule("<%= barename %>")["default"];', {
-                    data: {
-                        namespace: opts.namespace,
-                        barename: opts.barename
-                    }
-                }
-            ));
-            output.push('})(window);');
-
-            grunt.file.write(f.dest, grunt.template.process(output.join("\n")));
-        });
-    });
-
     grunt.registerTask('default', [
         'clean:all',
         'excludeModules',
         'copy:main',
         'transpile',
-        'concat:amd',
-        'browser',
+        'requirejs',
+        'browserify',
         'uglify',
         'clean:tmp'
     ]);
