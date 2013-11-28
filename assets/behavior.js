@@ -134,26 +134,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "depth": 1,
       "outline": []
     }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/api.js",
-        "targetPath": "api",
-        "pageTitle": "api",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "API",
-            "slug": "api",
-            "isFileHeader": true
-          },
-          "depth": 1
-        },
-        "title": "API"
-      },
-      "depth": 1,
-      "outline": []
-    }, {
       "type": "folder",
       "data": {
         "path": "je",
@@ -162,6 +142,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "depth": 1,
       "children": [
         {
+          "type": "file",
+          "data": {
+            "projectPath": "src/je/api.js",
+            "targetPath": "je/api",
+            "pageTitle": "je/api",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "API",
+                "slug": "api",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "API"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
           "type": "file",
           "data": {
             "projectPath": "src/je/attr.js",
@@ -587,34 +587,34 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "projectPath": "src/util.js",
-        "targetPath": "util",
-        "pageTitle": "util",
-        "title": "util"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "toArray",
-            "slug": "toarray"
-          },
-          "depth": 2
         }, {
-          "type": "heading",
+          "type": "file",
           "data": {
-            "level": 2,
-            "title": "makeIterable",
-            "slug": "makeiterable"
+            "projectPath": "src/je/util.js",
+            "targetPath": "je/util",
+            "pageTitle": "je/util",
+            "title": "util"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "toArray",
+                "slug": "toarray"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "makeIterable",
+                "slug": "makeiterable"
+              },
+              "depth": 2
+            }
+          ]
         }
       ]
     }
