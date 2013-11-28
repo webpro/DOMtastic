@@ -11,15 +11,15 @@ var api = {},
     $ = {};
 
 /* API:attr */
-var attr = require("./je/attr")["default"];
+var attr = require("./attr")["default"];
 api.attr = attr;
 /* API:attr */
 
 /* API:class */
-var addClass = require("./je/class").addClass;
-var removeClass = require("./je/class").removeClass;
-var toggleClass = require("./je/class").toggleClass;
-var hasClass = require("./je/class").hasClass;
+var addClass = require("./class").addClass;
+var removeClass = require("./class").removeClass;
+var toggleClass = require("./class").toggleClass;
+var hasClass = require("./class").hasClass;
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
@@ -27,20 +27,20 @@ api.hasClass = hasClass;
 /* API:class */
 
 /* API:dom */
-var append = require("./je/dom").append;
-var before = require("./je/dom").before;
-var after = require("./je/dom").after;
+var append = require("./dom").append;
+var before = require("./dom").before;
+var after = require("./dom").after;
 api.append = append;
 api.before = before;
 api.after = after;
 /* API:dom */
 
 /* API:event */
-var on = require("./je/event").on;
-var off = require("./je/event").off;
-var delegate = require("./je/event").delegate;
-var undelegate = require("./je/event").undelegate;
-var trigger = require("./je/event").trigger;
+var on = require("./event").on;
+var off = require("./event").off;
+var delegate = require("./event").delegate;
+var undelegate = require("./event").undelegate;
+var trigger = require("./event").trigger;
 api.on = on;
 api.off = off;
 api.delegate = delegate;
@@ -49,19 +49,19 @@ api.trigger = trigger;
 /* API:event */
 
 /* API:html */
-var html = require("./je/html")["default"];
+var html = require("./html")["default"];
 api.html = html;
 /* API:html */
 
 /* API:selector */
-var $ = require("./je/selector").$;
-var find = require("./je/selector").find;
+var $ = require("./selector").$;
+var find = require("./selector").find;
 api.find = find;
 /* API:selector */
 
 /* API:mode */
-var isNative = require("./je/mode").isNative;
-var native = require("./je/mode").native;
+var isNative = require("./mode").isNative;
+var native = require("./mode").native;
 $.isNative = isNative;
 $.native = native;
 /* API:mode */

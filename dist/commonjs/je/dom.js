@@ -1,7 +1,7 @@
 "use strict";
 // # DOM Manipulation
 
-var toArray = require("../util").toArray;
+var toArray = require("./util").toArray;
 
 /**
  * ## append

@@ -1,7 +1,7 @@
 "use strict";
 // # Attr
 
-var makeIterable = require("../util").makeIterable;
+var makeIterable = require("./util").makeIterable;
 
 /**
  * ## attr

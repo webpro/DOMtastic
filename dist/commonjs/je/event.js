@@ -1,7 +1,7 @@
 "use strict";
 // # Events
 
-var makeIterable = require("../util").makeIterable;
+var makeIterable = require("./util").makeIterable;
 
 /**
  * ## on

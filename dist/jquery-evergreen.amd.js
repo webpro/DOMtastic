@@ -1,107 +1,42 @@
-define("api", 
-  ["./je/attr","./je/class","./je/dom","./je/event","./je/html","./je/selector","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
-    "use strict";
-    /*
-     * # API
+
+define(
+  'je/util',["exports"],
+  function(__exports__) {
+    
+    /**
+     * ## toArray
      *
-     * Import modules to build the API.
+     * Convert `NodeList` to `Array`.
      *
-     * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
+     * @param {NodeList|Array} collection
+     * @return {Array}
      */
 
-    var api = {},
-        $ = {};
-
-    /* API:attr */
-    var attr = __dependency1__["default"];
-    api.attr = attr;
-    /* API:attr */
-
-    /* API:class */
-    var addClass = __dependency2__.addClass;
-    var removeClass = __dependency2__.removeClass;
-    var toggleClass = __dependency2__.toggleClass;
-    var hasClass = __dependency2__.hasClass;
-    api.addClass = addClass;
-    api.removeClass = removeClass;
-    api.toggleClass = toggleClass;
-    api.hasClass = hasClass;
-    /* API:class */
-
-    /* API:dom */
-    var append = __dependency3__.append;
-    var before = __dependency3__.before;
-    var after = __dependency3__.after;
-    api.append = append;
-    api.before = before;
-    api.after = after;
-    /* API:dom */
-
-    /* API:event */
-    var on = __dependency4__.on;
-    var off = __dependency4__.off;
-    var delegate = __dependency4__.delegate;
-    var undelegate = __dependency4__.undelegate;
-    var trigger = __dependency4__.trigger;
-    api.on = on;
-    api.off = off;
-    api.delegate = delegate;
-    api.undelegate = undelegate;
-    api.trigger = trigger;
-    /* API:event */
-
-    /* API:html */
-    var html = __dependency5__["default"];
-    api.html = html;
-    /* API:html */
-
-    /* API:selector */
-    var $ = __dependency6__.$;
-    var find = __dependency6__.find;
-    api.find = find;
-    /* API:selector */
-
-    /*  */
-
-    var array = [];
-
-    /*
-     * The `apiNodeList` object represents the API that gets augmented onto the native `NodeList` object.
-     * The wrapped array (native `Array`) already has these (and more).
-     */
-
-    var apiNodeList = {
-        every: array.every,
-        filter: array.filter,
-        forEach: array.forEach,
-        each: array.forEach,
-        some: array.some,
-        map: array.map
+    var toArray = function(collection) {
+        return [].slice.call(collection);
     };
 
-    /*
-     * Augment the `$` function to be able to:
+    /**
+     * ## makeIterable
      *
-     * - wrap the `$` objects and add the API methods
-     * - switch to native mode
+     * Make sure to return something that can be iterated over (e.g. using `forEach`).
+     * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
+     *
+     * @param {Node|NodeList|Array} element
+     * @return {Array|NodeList}
      */
 
-    $.getNodeMethods = function() {
-        return api;
-    };
-    $.getNodeListMethods = function() {
-        return apiNodeList;
+    var makeIterable = function(element) {
+        return typeof element.length === 'undefined' || element === window ? [element] : element;
     };
 
-    // Export interface
-
-    __exports__["default"] = $;
+    __exports__.toArray = toArray;
+    __exports__.makeIterable = makeIterable;
   });
-define("je/attr", 
-  ["../util","exports"],
+define(
+  'je/attr',["./util","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     // # Attr
 
     var makeIterable = __dependency1__.makeIterable;
@@ -137,10 +72,10 @@ define("je/attr",
 
     __exports__["default"] = attr;
   });
-define("je/class", 
-  ["../util","exports"],
+define(
+  'je/class',["./util","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     // # Class methods
 
     var makeIterable = __dependency1__.makeIterable;
@@ -216,10 +151,10 @@ define("je/class",
     __exports__.toggleClass = toggleClass;
     __exports__.hasClass = hasClass;
   });
-define("je/dom", 
-  ["../util","exports"],
+define(
+  'je/dom',["./util","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     // # DOM Manipulation
 
     var toArray = __dependency1__.toArray;
@@ -346,10 +281,10 @@ define("je/dom",
     __exports__.before = before;
     __exports__.after = after;
   });
-define("je/event", 
-  ["../util","exports"],
+define(
+  'je/event',["./util","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     // # Events
 
     var makeIterable = __dependency1__.makeIterable;
@@ -685,10 +620,10 @@ define("je/event",
     __exports__.undelegate = undelegate;
     __exports__.trigger = trigger;
   });
-define("je/html", 
-  ["../util","exports"],
+define(
+  'je/html',["./util","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     // # HTML
 
     var makeIterable = __dependency1__.makeIterable;
@@ -720,10 +655,10 @@ define("je/html",
 
     __exports__["default"] = html;
   });
-define("je/selector", 
-  ["../util","exports"],
+define(
+  'je/selector',["./util","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     /*
      * # Selector
      */
@@ -831,10 +766,110 @@ define("je/selector",
     __exports__.$ = $;
     __exports__.find = find;
   });
-define("main", 
-  ["./api","exports"],
+define(
+  'je/api',["./attr","./class","./dom","./event","./html","./selector","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
+    
+    /*
+     * # API
+     *
+     * Import modules to build the API.
+     *
+     * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
+     */
+
+    var api = {},
+        $ = {};
+
+    /* API:attr */
+    var attr = __dependency1__["default"];
+    api.attr = attr;
+    /* API:attr */
+
+    /* API:class */
+    var addClass = __dependency2__.addClass;
+    var removeClass = __dependency2__.removeClass;
+    var toggleClass = __dependency2__.toggleClass;
+    var hasClass = __dependency2__.hasClass;
+    api.addClass = addClass;
+    api.removeClass = removeClass;
+    api.toggleClass = toggleClass;
+    api.hasClass = hasClass;
+    /* API:class */
+
+    /* API:dom */
+    var append = __dependency3__.append;
+    var before = __dependency3__.before;
+    var after = __dependency3__.after;
+    api.append = append;
+    api.before = before;
+    api.after = after;
+    /* API:dom */
+
+    /* API:event */
+    var on = __dependency4__.on;
+    var off = __dependency4__.off;
+    var delegate = __dependency4__.delegate;
+    var undelegate = __dependency4__.undelegate;
+    var trigger = __dependency4__.trigger;
+    api.on = on;
+    api.off = off;
+    api.delegate = delegate;
+    api.undelegate = undelegate;
+    api.trigger = trigger;
+    /* API:event */
+
+    /* API:html */
+    var html = __dependency5__["default"];
+    api.html = html;
+    /* API:html */
+
+    /* API:selector */
+    var $ = __dependency6__.$;
+    var find = __dependency6__.find;
+    api.find = find;
+    /* API:selector */
+
+    /*  */
+
+    var array = [];
+
+    /*
+     * The `apiNodeList` object represents the API that gets augmented onto the native `NodeList` object.
+     * The wrapped array (native `Array`) already has these (and more).
+     */
+
+    var apiNodeList = {
+        every: array.every,
+        filter: array.filter,
+        forEach: array.forEach,
+        each: array.forEach,
+        some: array.some,
+        map: array.map
+    };
+
+    /*
+     * Augment the `$` function to be able to:
+     *
+     * - wrap the `$` objects and add the API methods
+     * - switch to native mode
+     */
+
+    $.getNodeMethods = function() {
+        return api;
+    };
+    $.getNodeListMethods = function() {
+        return apiNodeList;
+    };
+
+    // Export interface
+
+    __exports__["default"] = $;
+  });
+define(
+  'main',["./je/api","exports"],
   function(__dependency1__, __exports__) {
-    "use strict";
+    
     /**
      *
      * # jQuery Evergreen
@@ -883,38 +918,4 @@ define("main",
     var $ = __dependency1__["default"];
 
     __exports__["default"] = $;
-  });
-define("util", 
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    /**
-     * ## toArray
-     *
-     * Convert `NodeList` to `Array`.
-     *
-     * @param {NodeList|Array} collection
-     * @return {Array}
-     */
-
-    var toArray = function(collection) {
-        return [].slice.call(collection);
-    };
-
-    /**
-     * ## makeIterable
-     *
-     * Make sure to return something that can be iterated over (e.g. using `forEach`).
-     * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
-     *
-     * @param {Node|NodeList|Array} element
-     * @return {Array|NodeList}
-     */
-
-    var makeIterable = function(element) {
-        return typeof element.length === 'undefined' || element === window ? [element] : element;
-    };
-
-    __exports__.toArray = toArray;
-    __exports__.makeIterable = makeIterable;
-  });define("jquery-evergreen", ["main"], function(main) { return main["default"];});
+  });define('jquery-evergreen',['main'],function(main){return main['default'];});

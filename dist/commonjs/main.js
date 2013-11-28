@@ -44,6 +44,6 @@
  * - [madrobby/zepto](https://github.com/madrobby/zepto/)
  */
 
-var $ = require("./api")["default"];
+var $ = require("./je/api")["default"];
 
 exports["default"] = $;
