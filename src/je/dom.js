@@ -1,6 +1,6 @@
 // # DOM Manipulation
 
-import { toArray } from '../util';
+import { toArray } from './util';
 
 /**
  * ## append

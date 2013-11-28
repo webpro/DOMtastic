@@ -43,6 +43,6 @@
  * - [madrobby/zepto](https://github.com/madrobby/zepto/)
  */
 
-import $ from './api';
+import $ from './je/api';
 
 export default $;

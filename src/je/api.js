@@ -10,12 +10,12 @@ var api = {},
     $ = {};
 
 /* API:attr */
-import attr from './je/attr';
+import attr from './attr';
 api.attr = attr;
 /* API:attr */
 
 /* API:class */
-import { addClass, removeClass, toggleClass, hasClass } from './je/class';
+import { addClass, removeClass, toggleClass, hasClass } from './class';
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
@@ -23,14 +23,14 @@ api.hasClass = hasClass;
 /* API:class */
 
 /* API:dom */
-import { append, before, after } from './je/dom';
+import { append, before, after } from './dom';
 api.append = append;
 api.before = before;
 api.after = after;
 /* API:dom */
 
 /* API:event */
-import { on, off, delegate, undelegate, trigger } from './je/event';
+import { on, off, delegate, undelegate, trigger } from './event';
 api.on = on;
 api.off = off;
 api.delegate = delegate;
@@ -39,17 +39,17 @@ api.trigger = trigger;
 /* API:event */
 
 /* API:html */
-import html from './je/html';
+import html from './html';
 api.html = html;
 /* API:html */
 
 /* API:selector */
-import { $, find } from './je/selector';
+import { $, find } from './selector';
 api.find = find;
 /* API:selector */
 
 /* API:mode */
-import { isNative, native } from './je/mode';
+import { isNative, native } from './mode';
 $.isNative = isNative;
 $.native = native;
 /* API:mode */

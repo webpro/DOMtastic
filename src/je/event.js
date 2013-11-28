@@ -1,6 +1,6 @@
 // # Events
 
-import { makeIterable } from '../util';
+import { makeIterable } from './util';
 
 /**
  * ## on

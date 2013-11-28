@@ -1,6 +1,6 @@
 // # Attr
 
-import { makeIterable } from '../util';
+import { makeIterable } from './util';
 
 /**
  * ## attr
