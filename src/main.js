@@ -25,14 +25,12 @@
  *
  * Using **AMD**, just include it as a regular dependency:
  *
- *     define(['jquery-evergreen'], function($) {
+ *     define(['jquery-evergreen'], function($) {});
  *
- *     });
- *
- *  Otherwise, include something like `<script src="jquery-evergreen.js">` and have `$` globally available.
+ * Otherwise, include `<script src="dist/jquery-evergreen.min.js">` and have `$` globally available.
  *
  * The sources are written in the **ES6** Modules format,
- * and transpiled to an AMD version, and a "browser global" version
+ * and transpiled to an AMD version, and a "browserified" CommonJS version
  * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
  *
  * Many thanks to these sources of inspiration:
