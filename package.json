@@ -8,12 +8,20 @@
     "DOM",
     "events"
   ],
+  "author": {
+    "name" : "Lars Kappert",
+    "email" : "lars@webpro.nl",
+    "url" : "http://webpro.nl"
+  },
   "homepage": "http://webpro.github.io/jquery-evergreen/",
-  "main": "dist/commonjs/main.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/webpro/jquery-evergreen.git"
   },
+  "bugs": {
+    "url": "https://github.com/webpro/jquery-evergreen/issues"
+  },
+  "main": "dist/commonjs/main.js",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",

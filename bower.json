@@ -8,12 +8,17 @@
     "DOM",
     "events"
   ],
+  "authors": [{
+    "name" : "Lars Kappert",
+    "email" : "lars@webpro.nl",
+    "homepage" : "http://webpro.nl"
+  }],
   "homepage": "http://webpro.github.io/jquery-evergreen/",
-  "main": "dist/jquery-evergreen.amd.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/webpro/jquery-evergreen.git"
   },
+  "main": "dist/jquery-evergreen.amd.js",
   "devDependencies": {
       "jasmine": "git+https://github.com/pivotal/jasmine.git#v2.0.0.rc5"
   },
