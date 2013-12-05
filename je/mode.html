@@ -1,79 +1,71 @@
-<!DOCTYPE html><html lang="en" class="two-column-layout no-js"><head><title>je/mode</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="je/mode"><meta name="groc-project-path" content="src/je/mode.js"><meta name="groc-github-url" content="https://github.com/webpro/jquery-evergreen"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/webpro/jquery-evergreen/blob/master/src/je/mode.js">src/je/mode.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="opt-in-to-native-mode">Opt-in to Native Mode</h1>
-
+<!DOCTYPE html><html lang="en"><head><title>je/mode</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="je/mode"><meta name="groc-project-path" content="src/je/mode.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/mode.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="opt-in-to-native-mode">Opt-in to Native Mode</h1>
 <p>The default, non-intrusive mode is similar to how jQuery operates: working with static, array-like <code>$</code> objects:</p>
-
-<pre><code>$('.items').append('&lt;span&gt;foo&lt;/span&gt;);
-$(document.body).on('click', '.tab', handler);
-</code></pre>
-
+<pre><code>$(&#39;.items&#39;).append(&#39;&lt;span&gt;foo&lt;/span&gt;);
+$(document.body).on(&#39;click&#39;, &#39;.tab&#39;, handler);</code></pre>
 <p>However, you can opt-in to work with live NodeList objects.
-In this "native" mode, the <code>Node</code> and <code>NodeList</code> prototypes are augmented (in a safe and reversible manner) to fill up the chainable API,
+In this &quot;native&quot; mode, the <code>Node</code> and <code>NodeList</code> prototypes are augmented (in a safe and reversible manner) to fill up the chainable API,
 to enable working with <code>Node</code> and <code>NodeList</code> objects directly:</p>
-
-<pre><code>var collection = document.querySelectorAll('.items');
-collection.append('&lt;span&gt;foo&lt;/span&gt;);
-collection.addClass('bar');
+<pre><code>var collection = document.querySelectorAll(&#39;.items&#39;);
+collection.append(&#39;&lt;span&gt;foo&lt;/span&gt;);
+collection.addClass(&#39;bar&#39;);
 collection.forEach(iteratorFn);
-collection.find('.more');
+collection.find(&#39;.more&#39;);
 
-document.body.on('click', '.tab', handler)
-</code></pre>
-
+document.body.on(&#39;click&#39;, &#39;.tab&#39;, handler)</code></pre>
 <p>Note that in native mode, <code>$(selector)</code> can stil be used. It returns a NodeList.</p>
-
 <p>Build the lib using Grunt with <code>mode</code> not excluded.
-Use <code>$.native()</code> to activate this behavior. The API is the same in both modes.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">isNative</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+Use <code>$.native()</code> to activate this behavior. The API is the same in both modes.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> isNative = <span class="literal">false</span>;
 
-<span class="kd">var</span> <span class="kr">native</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="kr">native</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">wasNative</span> <span class="o">=</span> <span class="nx">isNative</span><span class="p">;</span>
-    <span class="nx">isNative</span> <span class="o">=</span> <span class="k">typeof</span> <span class="kr">native</span> <span class="o">===</span> <span class="s1">&#39;boolean&#39;</span> <span class="o">?</span> <span class="kr">native</span> <span class="o">:</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">.</span><span class="nx">isNative</span> <span class="o">=</span> <span class="nx">isNative</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">wasNative</span> <span class="o">&amp;&amp;</span> <span class="nx">isNative</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">augmentNativePrototypes</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getNodeMethods</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">getNodeListMethods</span><span class="p">());</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">wasNative</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isNative</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">unaugmentNativePrototypes</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getNodeMethods</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">getNodeListMethods</span><span class="p">());</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">isNative</span><span class="p">;</span>
-<span class="p">};</span>
+<span class="keyword">var</span> native = <span class="function"><span class="keyword">function</span><span class="params">(native)</span> {</span>
+    <span class="keyword">var</span> wasNative = isNative;
+    isNative = <span class="keyword">typeof</span> native === <span class="string">'boolean'</span> ? native : <span class="literal">true</span>;
+    <span class="keyword">if</span>($) {
+        $.isNative = isNative;
+    }
+    <span class="keyword">if</span>(!wasNative &amp;&amp; isNative) {
+        augmentNativePrototypes(<span class="keyword">this</span>.getNodeMethods(), <span class="keyword">this</span>.getNodeListMethods());
+    }
+    <span class="keyword">if</span>(wasNative &amp;&amp; !isNative) {
+        unaugmentNativePrototypes(<span class="keyword">this</span>.getNodeMethods(), <span class="keyword">this</span>.getNodeListMethods());
+    }
+    <span class="keyword">return</span> isNative;
+};
 
-<span class="kd">var</span> <span class="nx">NodeProto</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">Node</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span>
-    <span class="nx">NodeListProto</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">NodeList</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">NodeList</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add a property (i.e. method) to an object in a safe and reversible manner.
-Only add the method if object not already had it (non-inherited).</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">augment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">obj</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="p">{</span>
-            <span class="nx">value</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span>
-            <span class="nx">configurable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">false</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove property from object (only inherited properties will be removed).</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">unaugment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">delete</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Augment native <code>Node</code> and <code>NodeList</code> objects in native mode.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">augmentNativePrototypes</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">methodsNode</span><span class="p">,</span> <span class="nx">methodsNodeList</span><span class="p">)</span> <span class="p">{</span>
+<span class="keyword">var</span> NodeProto = <span class="keyword">typeof</span> Node !== <span class="string">'undefined'</span> &amp;&amp; Node.prototype,
+    NodeListProto = <span class="keyword">typeof</span> NodeList !== <span class="string">'undefined'</span> &amp;&amp; NodeList.prototype;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add a property (i.e. method) to an object in a safe and reversible manner.
+Only add the method if object not already had it (non-inherited).</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> augment = <span class="function"><span class="keyword">function</span><span class="params">(obj, key, value)</span> {</span>
+    <span class="keyword">if</span>(!obj.hasOwnProperty(key)) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            configurable: <span class="literal">true</span>,
+            enumerable: <span class="literal">false</span>
+        });
+    }
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove property from object (only inherited properties will be removed).</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> unaugment = <span class="function"><span class="keyword">function</span><span class="params">(obj, key)</span> {</span>
+    <span class="keyword">delete</span> obj[key];
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Augment native <code>Node</code> and <code>NodeList</code> objects in native mode.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> augmentNativePrototypes = <span class="function"><span class="keyword">function</span><span class="params">(methodsNode, methodsNodeList)</span> {</span>
 
-    <span class="kd">var</span> <span class="nx">key</span><span class="p">;</span>
+    <span class="keyword">var</span> key;
 
-    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">methodsNode</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">augment</span><span class="p">(</span><span class="nx">NodeProto</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">methodsNode</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
-        <span class="nx">augment</span><span class="p">(</span><span class="nx">NodeListProto</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">methodsNode</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
-    <span class="p">}</span>
+    <span class="keyword">for</span>(key <span class="keyword">in</span> methodsNode) {
+        augment(NodeProto, key, methodsNode[key]);
+        augment(NodeListProto, key, methodsNode[key]);
+    }
 
-    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">methodsNodeList</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">augment</span><span class="p">(</span><span class="nx">NodeListProto</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">methodsNodeList</span><span class="p">[</span><span class="nx">key</span><span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Unaugment native <code>Node</code> and <code>NodeList</code> objects to switch back to default mode.
-Mainly used for tests.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">unaugmentNativePrototypes</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">methodsNode</span><span class="p">,</span> <span class="nx">methodsNodeList</span><span class="p">)</span> <span class="p">{</span>
+    <span class="keyword">for</span>(key <span class="keyword">in</span> methodsNodeList) {
+        augment(NodeListProto, key, methodsNodeList[key]);
+    }
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Unaugment native <code>Node</code> and <code>NodeList</code> objects to switch back to default mode.
+Mainly used for tests.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> unaugmentNativePrototypes = <span class="function"><span class="keyword">function</span><span class="params">(methodsNode, methodsNodeList)</span> {</span>
 
-    <span class="kd">var</span> <span class="nx">key</span><span class="p">;</span>
+    <span class="keyword">var</span> key;
 
-    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">methodsNode</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">unaugment</span><span class="p">(</span><span class="nx">NodeProto</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
-        <span class="nx">unaugment</span><span class="p">(</span><span class="nx">NodeListProto</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
-    <span class="p">}</span>
+    <span class="keyword">for</span>(key <span class="keyword">in</span> methodsNode) {
+        unaugment(NodeProto, key);
+        unaugment(NodeListProto, key);
+    }
 
-    <span class="k">for</span><span class="p">(</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">methodsNodeList</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">unaugment</span><span class="p">(</span><span class="nx">NodeListProto</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper"><span class="kr">export</span> <span class="p">{</span> <span class="nx">isNative</span><span class="p">,</span> <span class="kr">native</span> <span class="p">};</span></div></div></div></div><nav><ol class="toc"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;index&quot;}}" class="file"><a href="../index.html" title="src/main.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">jQuery Evergreen</span></a></li><li data-groc="{&quot;data&quot;:{}}" class="folder expanded"><a href="#" tabindex="101" class="label"><span class="discloser"></span><span class="text">je</span></a><ol class="children"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/api&quot;}}" class="file"><a href="../je/api.html" title="src/je/api.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">API</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/attr&quot;}}" class="file"><a href="../je/attr.html" title="src/je/attr.js" tabindex="101" class="label"><span class="discloser placeholder"></span><span class="text">Attr</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/class&quot;}}" class="file"><a href="../je/class.html" title="src/je/class.js" tabindex="102" class="label"><span class="discloser placeholder"></span><span class="text">Class methods</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/dom&quot;}}" class="file"><a href="../je/dom.html" title="src/je/dom.js" tabindex="103" class="label"><span class="discloser placeholder"></span><span class="text">DOM Manipulation</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/event&quot;}}" class="file"><a href="../je/event.html" title="src/je/event.js" tabindex="104" class="label"><span class="discloser placeholder"></span><span class="text">Events</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/html&quot;}}" class="file"><a href="../je/html.html" title="src/je/html.js" tabindex="105" class="label"><span class="discloser placeholder"></span><span class="text">HTML</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/mode&quot;}}" class="file current"><a href="../je/mode.html" title="src/je/mode.js" tabindex="106" class="label"><span class="discloser placeholder"></span><span class="text">Opt-in to Native Mode</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/selector&quot;}}" class="file"><a href="../je/selector.html" title="src/je/selector.js" tabindex="107" class="label"><span class="discloser placeholder"></span><span class="text">Selector</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/util&quot;}}" class="file"><a href="../je/util.html" title="src/je/util.js" tabindex="108" class="label"><span class="discloser placeholder"></span><span class="text">util</span></a></li></ol></li></ol></nav></body></html>
+    <span class="keyword">for</span>(key <span class="keyword">in</span> methodsNodeList) {
+        unaugment(NodeListProto, key);
+    }
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { isNative, native };</div></div></div></div></body></html>

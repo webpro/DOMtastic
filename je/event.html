@@ -1,348 +1,286 @@
-<!DOCTYPE html><html lang="en" class="two-column-layout no-js"><head><title>je/event</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="je/event"><meta name="groc-project-path" content="src/je/event.js"><meta name="groc-github-url" content="https://github.com/webpro/jquery-evergreen"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/webpro/jquery-evergreen/blob/master/src/je/event.js">src/je/event.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="events">Events</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="kr">import</span> <span class="p">{</span> <span class="nx">makeIterable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./util&#39;</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="on">on</h2>
-
+<!DOCTYPE html><html lang="en"><head><title>je/event</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="je/event"><meta name="groc-project-path" content="src/je/event.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/event.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="events">Events</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { makeIterable } from <span class="string">'./util'</span>;</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="on">on</h2>
 <p>Shorthand for <code>addEventListener</code>. Supports event delegation if a filter (<code>selector</code>) is provided.</p>
-
-<pre><code>$('.item').on('click', callback);
-$('.container').on('click', '.item', handler);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
+<pre><code>$(&#39;.item&#39;).on(&#39;click&#39;, callback);
+$(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>eventName</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p></li>
-<li><p><strong><em>selector</em> is optional and must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Selector to filter descendants that delegate the event to this element.</p></li>
-<li><p><strong><em>handler</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong> <br />
-Event handler</p></li>
-<li><p><strong><em>useCapture</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> and has a default value of false</strong></p></li>
+<li><p><strong>eventName must be a String.</strong></p>
+</li>
+<li><p><strong>selector is optional and must be a String.</strong><br/>(Selector to filter descendants that delegate the event to this element.)</p>
+</li>
+<li><p><strong>handler must be a Function.</strong><br/>(Event handler)</p>
+</li>
+<li><p><strong>useCapture must be a Boolean and has a default value of false.</strong></p>
+</li>
 </ul>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> on = <span class="function"><span class="keyword">function</span><span class="params">(eventName, selector, handler, useCapture)</span> {</span>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
+    <span class="keyword">if</span>(<span class="keyword">typeof</span> selector === <span class="string">'function'</span>) {
+        handler = selector;
+        selector = <span class="literal">null</span>;
+    }
 
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">on</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">handler</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span>
+    <span class="keyword">var</span> parts = eventName.split(<span class="string">'.'</span>);
+    eventName = parts[<span class="number">0</span>] || <span class="literal">null</span>;
+    <span class="keyword">var</span> namespace = parts[<span class="number">1</span>] || <span class="literal">null</span>;
 
-    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">selector</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">handler</span> <span class="o">=</span> <span class="nx">selector</span><span class="p">;</span>
-        <span class="nx">selector</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">}</span>
+    <span class="keyword">var</span> eventListener = handler;
 
-    <span class="kd">var</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">eventName</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
-    <span class="nx">eventName</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">namespace</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="kc">null</span><span class="p">;</span>
+    makeIterable(<span class="keyword">this</span>).forEach(<span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
 
-    <span class="kd">var</span> <span class="nx">eventListener</span> <span class="o">=</span> <span class="nx">handler</span><span class="p">;</span>
+        <span class="keyword">if</span>(selector) {
+            eventListener = delegateHandler.bind(element, selector, handler);
+        }
 
-    <span class="nx">makeIterable</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+        element.addEventListener(eventName, eventListener, useCapture || <span class="literal">false</span>);
 
-        <span class="k">if</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">eventListener</span> <span class="o">=</span> <span class="nx">delegateHandler</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
-        <span class="p">}</span>
+        getHandlers(element).push({
+            eventName: eventName,
+            handler: handler,
+            eventListener: eventListener,
+            selector: selector,
+            namespace: namespace
+        });
+    });
 
-        <span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">eventListener</span><span class="p">,</span> <span class="nx">useCapture</span> <span class="o">||</span> <span class="kc">false</span><span class="p">);</span>
-
-        <span class="nx">getHandlers</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">push</span><span class="p">({</span>
-            <span class="nx">eventName</span><span class="o">:</span> <span class="nx">eventName</span><span class="p">,</span>
-            <span class="nx">handler</span><span class="o">:</span> <span class="nx">handler</span><span class="p">,</span>
-            <span class="nx">eventListener</span><span class="o">:</span> <span class="nx">eventListener</span><span class="p">,</span>
-            <span class="nx">selector</span><span class="o">:</span> <span class="nx">selector</span><span class="p">,</span>
-            <span class="nx">namespace</span><span class="o">:</span> <span class="nx">namespace</span>
-        <span class="p">});</span>
-    <span class="p">});</span>
-
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="off">off</h2>
-
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="off">off</h2>
 <p>Shorthand for <code>removeEventListener</code>. Delegates to <code>undelegate</code> if that signature is used.</p>
-
-<pre><code>$('.item').off('click', callback);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
+<pre><code>$(&#39;.item&#39;).off(&#39;click&#39;, callback);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>eventName</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Name or type of the event</p></li>
-<li><p><strong><em>selector</em> is optional and must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Selector to filter descendants that undelegate the event to this element.</p></li>
-<li><p><strong><em>handler</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong> <br />
-Event handler</p></li>
-<li><p><strong><em>useCapture</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> and has a default value of false</strong></p></li>
+<li><p><strong>eventName must be a String.</strong><br/>(Name or type of the event)</p>
+</li>
+<li><p><strong>selector is optional and must be a String.</strong><br/>(Selector to filter descendants that undelegate the event to this element.)</p>
+</li>
+<li><p><strong>handler must be a Function.</strong><br/>(Event handler)</p>
+</li>
+<li><p><strong>useCapture must be a Boolean and has a default value of false.</strong></p>
+</li>
 </ul>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> off = <span class="function"><span class="keyword">function</span><span class="params">(eventName, selector, handler, useCapture)</span> {</span>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
+    <span class="keyword">if</span>(<span class="keyword">typeof</span> selector === <span class="string">'function'</span>) {
+        handler = selector;
+        selector = <span class="literal">null</span>;
+    }
 
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">off</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">handler</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span>
+    <span class="keyword">if</span>(eventName) {
+        <span class="keyword">var</span> parts = eventName.split(<span class="string">'.'</span>);
+        eventName = parts[<span class="number">0</span>];
+        <span class="keyword">var</span> namespace = parts[<span class="number">1</span>];
+    }
 
-    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">selector</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">handler</span> <span class="o">=</span> <span class="nx">selector</span><span class="p">;</span>
-        <span class="nx">selector</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">}</span>
+    makeIterable(<span class="keyword">this</span>).forEach(<span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
 
-    <span class="k">if</span><span class="p">(</span><span class="nx">eventName</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">eventName</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
-        <span class="nx">eventName</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="kd">var</span> <span class="nx">namespace</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="p">}</span>
+        <span class="keyword">var</span> handlers = getHandlers(element) || [];
 
-    <span class="nx">makeIterable</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+        <span class="keyword">if</span>(!eventName &amp;&amp; !namespace &amp;&amp; !selector &amp;&amp; !handler) {
 
-        <span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="nx">getHandlers</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">||</span> <span class="p">[];</span>
+            handlers.forEach(<span class="function"><span class="keyword">function</span><span class="params">(item)</span> {</span>
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || <span class="literal">false</span>);
+            });
 
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">eventName</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">namespace</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">selector</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
+            clearHandlers(element);
 
-            <span class="nx">handlers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">eventListener</span><span class="p">,</span> <span class="nx">useCapture</span> <span class="o">||</span> <span class="kc">false</span><span class="p">);</span>
-            <span class="p">});</span>
+        } <span class="keyword">else</span> {
 
-            <span class="nx">clearHandlers</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+            handlers.filter(<span class="function"><span class="keyword">function</span><span class="params">(item)</span> {</span>
+                <span class="keyword">return</span> ((!eventName || item.eventName === eventName) &amp;&amp;
+                    (!namespace || item.namespace === namespace) &amp;&amp;
+                    (!handler || item.handler === handler) &amp;&amp;
+                    (!selector || item.selector === selector));
+            }).forEach(<span class="function"><span class="keyword">function</span><span class="params">(item)</span> {</span>
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || <span class="literal">false</span>);
+                handlers.splice(handlers.indexOf(item), <span class="number">1</span>);
+            });
 
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="keyword">if</span>(handlers.length === <span class="number">0</span>) {
+                clearHandlers(element);
+            }
+        }
 
-            <span class="nx">handlers</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="p">((</span><span class="o">!</span><span class="nx">eventName</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">eventName</span> <span class="o">===</span> <span class="nx">eventName</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-                    <span class="p">(</span><span class="o">!</span><span class="nx">namespace</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">namespace</span> <span class="o">===</span> <span class="nx">namespace</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-                    <span class="p">(</span><span class="o">!</span><span class="nx">handler</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">handler</span> <span class="o">===</span> <span class="nx">handler</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-                    <span class="p">(</span><span class="o">!</span><span class="nx">selector</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">selector</span> <span class="o">===</span> <span class="nx">selector</span><span class="p">));</span>
-            <span class="p">}).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">eventName</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">eventListener</span><span class="p">,</span> <span class="nx">useCapture</span> <span class="o">||</span> <span class="kc">false</span><span class="p">);</span>
-                <span class="nx">handlers</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">handlers</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">item</span><span class="p">),</span> <span class="mi">1</span><span class="p">);</span>
-            <span class="p">});</span>
+    });
 
-            <span class="k">if</span><span class="p">(</span><span class="nx">handlers</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">clearHandlers</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-    <span class="p">});</span>
-
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="delegate">delegate</h2>
-
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="delegate">delegate</h2>
 <p>Delegate events triggered at descendants to element(s)</p>
-
-<pre><code>$('.container').delegate('.item', 'click', handler);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
+<pre><code>$(&#39;.container&#39;).delegate(&#39;.item&#39;, &#39;click&#39;, handler);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>selector</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Selector to filter descendants that delegate the event to this element.</p></li>
-<li><p><strong><em>eventName</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Name or type of the event</p></li>
-<li><p><strong><em>fn</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong> <br />
-Event handler</p></li>
+<li><p><strong>selector must be a String.</strong><br/>(Selector to filter descendants that delegate the event to this element.)</p>
+</li>
+<li><p><strong>eventName must be a String.</strong><br/>(Name or type of the event)</p>
+</li>
+<li><p><strong>fn must be a Function.</strong><br/>(Event handler)</p>
+</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">delegate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">on</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="undelegate">undelegate</h2>
-
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> delegate = <span class="function"><span class="keyword">function</span><span class="params">(selector, eventName, fn)</span> {</span>
+    <span class="keyword">return</span> on.call(<span class="keyword">this</span>, eventName, selector, fn);
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="undelegate">undelegate</h2>
 <p>Undelegate events triggered at descendants to element(s)</p>
-
-<pre><code>$('.container').undelegate('.item', 'click', handler);
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
+<pre><code>$(&#39;.container&#39;).undelegate(&#39;.item&#39;, &#39;click&#39;, handler);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>selector</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Selector to filter descendants that undelegate the event to this element.</p></li>
-<li><p><strong><em>eventName</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Name or type of the event</p></li>
-<li><p><strong><em>fn</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong> <br />
-Event handler</p></li>
+<li><p><strong>selector must be a String.</strong><br/>(Selector to filter descendants that undelegate the event to this element.)</p>
+</li>
+<li><p><strong>eventName must be a String.</strong><br/>(Name or type of the event)</p>
+</li>
+<li><p><strong>fn must be a Function.</strong><br/>(Event handler)</p>
+</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">undelegate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">off</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="trigger">trigger</h2>
-
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> undelegate = <span class="function"><span class="keyword">function</span><span class="params">(selector, eventName, fn)</span> {</span>
+    <span class="keyword">return</span> off.call(<span class="keyword">this</span>, eventName, selector, fn);
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="trigger">trigger</h2>
 <p>Trigger event at element(s)</p>
-
-<pre><code>$('.item').trigger('anyEventType');
-</code></pre>
-
-<p><strong>Parameters:</strong></p>
-
+<pre><code>$(&#39;.item&#39;).trigger(&#39;anyEventType&#39;);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>type</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Type of the event</p></li>
-<li><p><strong><em>params</em> is optional and must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong> <br />
-Event parameters (optional)</p>
-
-<ul><li><p>[…].<strong><em>bubbles</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> and has a default value of true</strong> <br />
-Does the event bubble up through the DOM or not.</p></li>
-<li><p>[…].<strong><em>cancelable</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> and has a default value of true</strong> <br />
-Is the event cancelable or not.</p></li>
-<li><p>[…].<strong><em>detail</em> must be a <em>Mixed</em> and has a default value of undefined</strong> <br />
-Additional information about the event.</p></li></ul></li>
+<li><p><strong>type must be a String.</strong><br/>(Type of the event)</p>
+</li>
+<li><p><strong>params is optional and must be an Object.</strong><br/>(Event parameters (optional))</p>
+<ul>
+<li><p><strong>params.bubbles must be a Boolean and has a default value of true.</strong><br/>(Does the event bubble up through the DOM or not.)</p>
+</li>
+<li><p><strong>params.cancelable must be a Boolean and has a default value of true.</strong><br/>(Is the event cancelable or not.)</p>
+</li>
+<li><p><strong>params.detail can be of any type and has a default value of undefined.</strong><br/>(Additional information about the event.)</p>
+</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">trigger</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">params</span> <span class="o">=</span> <span class="nx">params</span> <span class="o">||</span> <span class="p">{</span> <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">cancelable</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">detail</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">};</span>
-    <span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
-    <span class="nx">makeIterable</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">params</span><span class="p">.</span><span class="nx">bubbles</span> <span class="o">||</span> <span class="nx">isEventBubblingInDetachedTree</span> <span class="o">||</span> <span class="nx">isAttachedToDocument</span><span class="p">(</span><span class="nx">element</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nx">element</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">triggerForPath</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>isAttachedToDocument</em></span></p>
-
+</li>
+</ul>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> trigger = <span class="function"><span class="keyword">function</span><span class="params">(type, params)</span> {</span>
+    params = params || { bubbles: <span class="literal">true</span>, cancelable: <span class="literal">true</span>, detail: <span class="literal">undefined</span> };
+    <span class="keyword">var</span> event = <span class="keyword">new</span> CustomEvent(type, params);
+    makeIterable(<span class="keyword">this</span>).forEach(<span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+        <span class="keyword">if</span>(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+            element.dispatchEvent(event);
+        } <span class="keyword">else</span> {
+            triggerForPath(element, type, params);
+        }
+    });
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method isAttachedToDocument</span></p>
 <p>Check whether the element is attached to (or detached from) the document</p>
-
-<p><strong>Parameter:</strong></p>
-
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> must be a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em></strong> <br />
-Element to test</li>
+<li><strong>element must be a Node.</strong><br/>(Element to test)</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">isAttachedToDocument</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">element</span> <span class="o">===</span> <span class="nb">window</span> <span class="o">||</span> <span class="nx">element</span> <span class="o">===</span> <span class="nb">document</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">ownerDocument</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">contains</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">container</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">compareDocumentPosition</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">compareDocumentPosition</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">DOCUMENT_POSITION_DISCONNECTED</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>triggerForPath</em></span></p>
-
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> isAttachedToDocument = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">if</span>(element === window || element === document) {
+        <span class="keyword">return</span> <span class="literal">true</span>;
+    }
+    <span class="keyword">var</span> container = element.ownerDocument.documentElement;
+    <span class="keyword">if</span>(container.contains) {
+        <span class="keyword">return</span> container.contains(element);
+    } <span class="keyword">else</span> <span class="keyword">if</span>(container.compareDocumentPosition) {
+        <span class="keyword">return</span> !(container.compareDocumentPosition(element) &amp; Node.DOCUMENT_POSITION_DISCONNECTED);
+    }
+    <span class="keyword">return</span> <span class="literal">false</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method triggerForPath</span></p>
 <p>Dispatch the event at the element and its ancestors.
-Required to support delegated events in browsers that don't bubble events in detached DOM trees.</p>
-
-<p><strong>Parameters:</strong></p>
-
+Required to support delegated events in browsers that don&#39;t bubble events in detached DOM trees.</p>
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>element</em> must be a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em></strong> <br />
-First element to dispatch the event</p></li>
-<li><p><strong><em>type</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Type of the event</p></li>
-<li><p><strong><em>params</em> is optional and must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong> <br />
-Event parameters (optional)</p>
-
-<ul><li><p>[…].<strong><em>bubbles</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> and has a default value of true</strong> <br />
-Does the event bubble up through the DOM or not. Will be set to false (but shouldn't matter since events don't bubble anyway).</p></li>
-<li><p>[…].<strong><em>cancelable</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> and has a default value of true</strong> <br />
-Is the event cancelable or not.</p></li>
-<li><p>[…].<strong><em>detail</em> must be a <em>Mixed</em> and has a default value of undefined</strong> <br />
-Additional information about the event.</p></li></ul></li>
+<li><p><strong>element must be a Node.</strong><br/>(First element to dispatch the event)</p>
+</li>
+<li><p><strong>type must be a String.</strong><br/>(Type of the event)</p>
+</li>
+<li><p><strong>params is optional and must be an Object.</strong><br/>(Event parameters (optional))</p>
+<ul>
+<li><p><strong>params.bubbles must be a Boolean and has a default value of true.</strong><br/>(Does the event bubble up through the DOM or not. Will be set to false (but shouldn&#39;t matter since events don&#39;t bubble anyway).)</p>
+</li>
+<li><p><strong>params.cancelable must be a Boolean and has a default value of true.</strong><br/>(Is the event cancelable or not.)</p>
+</li>
+<li><p><strong>params.detail can be of any type and has a default value of undefined.</strong><br/>(Additional information about the event.)</p>
+</li>
 </ul>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">triggerForPath</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">params</span> <span class="o">=</span> <span class="nx">params</span> <span class="o">||</span> <span class="p">{};</span>
-    <span class="nx">params</span><span class="p">.</span><span class="nx">bubbles</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
-    <span class="nx">event</span><span class="p">.</span><span class="nx">_target</span> <span class="o">=</span> <span class="nx">element</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">element</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
-        <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>getHandlers</em></span></p>
-
+</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> triggerForPath = <span class="function"><span class="keyword">function</span><span class="params">(element, type, params)</span> {</span>
+    params = params || {};
+    params.bubbles = <span class="literal">false</span>;
+    <span class="keyword">var</span> event = <span class="keyword">new</span> CustomEvent(type, params);
+    event._target = element;
+    <span class="keyword">while</span>(element.parentNode) {
+        element.dispatchEvent(event);
+        element = element.parentNode;
+    }
+};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method getHandlers</span></p>
 <p>Get event handlers from an element</p>
-
-<p><strong>Parameter:</strong></p>
-
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> must be a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em></strong></li>
+<li><strong>element must be a Node.</strong></li>
 </ul>
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> cacheKeyProp = <span class="string">'_jeh'</span>;
+<span class="keyword">var</span> id = <span class="number">1</span>;
+<span class="keyword">var</span> handlers = {};
+<span class="keyword">var</span> unusedKeys = [];
 
-<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">cacheKeyProp</span> <span class="o">=</span> <span class="s1">&#39;_jeh&#39;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="kd">var</span> <span class="nx">unusedKeys</span> <span class="o">=</span> <span class="p">[];</span>
-
-<span class="kd">var</span> <span class="nx">getHandlers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">element</span><span class="p">[</span><span class="nx">cacheKeyProp</span><span class="p">])</span> <span class="p">{</span>
-        <span class="nx">element</span><span class="p">[</span><span class="nx">cacheKeyProp</span><span class="p">]</span> <span class="o">=</span> <span class="nx">unusedKeys</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="o">++</span><span class="nx">id</span> <span class="o">:</span> <span class="nx">unusedKeys</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">element</span><span class="p">[</span><span class="nx">cacheKeyProp</span><span class="p">];</span>
-    <span class="k">return</span> <span class="nx">handlers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">handlers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]);</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>clearHandlers</em></span></p>
-
+<span class="keyword">var</span> getHandlers = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">if</span>(!element[cacheKeyProp]) {
+        element[cacheKeyProp] = unusedKeys.length === <span class="number">0</span> ? ++id : unusedKeys.pop();
+    }
+    <span class="keyword">var</span> key = element[cacheKeyProp];
+    <span class="keyword">return</span> handlers[key] || (handlers[key] = []);
+};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method clearHandlers</span></p>
 <p>Clear event handlers for an element</p>
-
-<p><strong>Parameter:</strong></p>
-
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> must be a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em></strong></li>
-</ul>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">clearHandlers</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">element</span><span class="p">[</span><span class="nx">cacheKeyProp</span><span class="p">];</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">handlers</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span> <span class="p">{</span>
-        <span class="nx">handlers</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="nx">element</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-        <span class="nx">unusedKeys</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>delegateHandler</em></span></p>
-
+<li><strong>element must be a Node.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> clearHandlers = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">var</span> key = element[cacheKeyProp];
+    <span class="keyword">if</span>(handlers[key]) {
+        handlers[key] = <span class="literal">null</span>;
+        element[key] = <span class="literal">null</span>;
+        unusedKeys.push(key);
+    }
+};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method delegateHandler</span></p>
 <p>Function to test whether delegated events match the provided <code>selector</code> (filter),
 and then actually call the provided event handler.
 Also sets <code>event.currentTarget</code> on the event object.</p>
-
-<p><strong>Parameters:</strong></p>
-
+<p>Parameters:</p>
 <ul>
-<li><p><strong><em>selector</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-Selector to filter descendants that undelegate the event to this element.</p></li>
-<li><p><strong><em>fn</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong> <br />
-Event handler</p></li>
-<li><p><strong><em>event</em> must be an <em><a href="https://developer.mozilla.org/en/docs/Web/API/Event">Event</a></em></strong></p></li>
-</ul>
+<li><p><strong>selector must be a String.</strong><br/>(Selector to filter descendants that undelegate the event to this element.)</p>
+</li>
+<li><p><strong>fn must be a Function.</strong><br/>(Event handler)</p>
+</li>
+<li><p><strong>event must be an Event.</strong></p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> delegateHandler = <span class="function"><span class="keyword">function</span><span class="params">(selector, handler, event)</span> {</span>
+    <span class="keyword">var</span> eventTarget = event._target || event.target;
+    <span class="keyword">if</span>(matchesSelector.call(eventTarget, selector)) {
+        <span class="keyword">if</span>(!event.currentTarget) {
+            event.currentTarget = eventTarget;
+        }
+        handler.call(eventTarget, event);
+    }
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the available <code>matches</code> or <code>matchesSelector</code> method.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> matchesSelector = (<span class="function"><span class="keyword">function</span><span class="params">(global)</span> {</span>
+    <span class="keyword">var</span> context = <span class="keyword">typeof</span> Element !== <span class="string">'undefined'</span> ? Element.prototype : global;
+    <span class="keyword">return</span> context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+})(<span class="keyword">this</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Polyfill for CustomEvent, borrowed from <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill">MDN</a>.
+Needed to support IE (9, 10, 11)</p></div></div><div class="code"><div class="wrapper">(<span class="function"><span class="keyword">function</span><span class="params">(global)</span> {</span>
+    <span class="keyword">if</span>(global.CustomEvent) {
+        <span class="keyword">var</span> CustomEvent = <span class="function"><span class="keyword">function</span><span class="params">(event, params)</span> {</span>
+            params = params || { bubbles: <span class="literal">false</span>, cancelable: <span class="literal">false</span>, detail: <span class="literal">undefined</span> };
+            <span class="keyword">var</span> evt = document.createEvent(<span class="string">'CustomEvent'</span>);
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            <span class="keyword">return</span> evt;
+        };
 
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">delegateHandler</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">handler</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">eventTarget</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">_target</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">matchesSelector</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">eventTarget</span><span class="p">,</span> <span class="nx">selector</span><span class="p">))</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span> <span class="o">=</span> <span class="nx">eventTarget</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="nx">handler</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">eventTarget</span><span class="p">,</span> <span class="nx">event</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the available <code>matches</code> or <code>matchesSelector</code> method.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">matchesSelector</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">global</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">Element</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">?</span> <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">:</span> <span class="nx">global</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nx">context</span><span class="p">.</span><span class="nx">matches</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">matchesSelector</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">mozMatchesSelector</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">webkitMatchesSelector</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">msMatchesSelector</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">oMatchesSelector</span><span class="p">;</span>
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Polyfill for CustomEvent, borrowed from <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill">MDN</a>.
-Needed to support IE (9, 10, 11)</p></div></div><div class="code"><div class="wrapper"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">global</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">global</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">CustomEvent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">params</span> <span class="o">=</span> <span class="nx">params</span> <span class="o">||</span> <span class="p">{</span> <span class="nx">bubbles</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">cancelable</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">detail</span><span class="o">:</span> <span class="kc">undefined</span> <span class="p">};</span>
-            <span class="kd">var</span> <span class="nx">evt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="s1">&#39;CustomEvent&#39;</span><span class="p">);</span>
-            <span class="nx">evt</span><span class="p">.</span><span class="nx">initCustomEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">params</span><span class="p">.</span><span class="nx">bubbles</span><span class="p">,</span> <span class="nx">params</span><span class="p">.</span><span class="nx">cancelable</span><span class="p">,</span> <span class="nx">params</span><span class="p">.</span><span class="nx">detail</span><span class="p">);</span>
-            <span class="k">return</span> <span class="nx">evt</span><span class="p">;</span>
-        <span class="p">};</span>
-
-        <span class="nx">CustomEvent</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nx">CustomEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
-        <span class="nx">global</span><span class="p">.</span><span class="nx">CustomEvent</span> <span class="o">=</span> <span class="nx">CustomEvent</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Are events bubbling in detached DOM trees?</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">isEventBubblingInDetachedTree</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">global</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">isBubbling</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">doc</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nb">document</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">),</span>
-            <span class="nx">child</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">();</span>
-        <span class="nx">parent</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
-        <span class="nx">parent</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">isBubbling</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-        <span class="p">});</span>
-        <span class="nx">child</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="k">new</span> <span class="nx">CustomEvent</span><span class="p">(</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">bubbles</span><span class="o">:</span><span class="kc">true</span><span class="p">}));</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">isBubbling</span><span class="p">;</span>
-<span class="p">})(</span><span class="k">this</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper"><span class="kr">export</span> <span class="p">{</span> <span class="nx">on</span><span class="p">,</span> <span class="nx">off</span><span class="p">,</span> <span class="nx">delegate</span><span class="p">,</span> <span class="nx">undelegate</span><span class="p">,</span> <span class="nx">trigger</span> <span class="p">};</span></div></div></div></div><nav><ol class="toc"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;index&quot;}}" class="file"><a href="../index.html" title="src/main.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">jQuery Evergreen</span></a></li><li data-groc="{&quot;data&quot;:{}}" class="folder expanded"><a href="#" tabindex="101" class="label"><span class="discloser"></span><span class="text">je</span></a><ol class="children"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/api&quot;}}" class="file"><a href="../je/api.html" title="src/je/api.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">API</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/attr&quot;}}" class="file"><a href="../je/attr.html" title="src/je/attr.js" tabindex="101" class="label"><span class="discloser placeholder"></span><span class="text">Attr</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/class&quot;}}" class="file"><a href="../je/class.html" title="src/je/class.js" tabindex="102" class="label"><span class="discloser placeholder"></span><span class="text">Class methods</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/dom&quot;}}" class="file"><a href="../je/dom.html" title="src/je/dom.js" tabindex="103" class="label"><span class="discloser placeholder"></span><span class="text">DOM Manipulation</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/event&quot;}}" class="file current"><a href="../je/event.html" title="src/je/event.js" tabindex="104" class="label"><span class="discloser placeholder"></span><span class="text">Events</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/html&quot;}}" class="file"><a href="../je/html.html" title="src/je/html.js" tabindex="105" class="label"><span class="discloser placeholder"></span><span class="text">HTML</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/mode&quot;}}" class="file"><a href="../je/mode.html" title="src/je/mode.js" tabindex="106" class="label"><span class="discloser placeholder"></span><span class="text">Opt-in to Native Mode</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/selector&quot;}}" class="file"><a href="../je/selector.html" title="src/je/selector.js" tabindex="107" class="label"><span class="discloser placeholder"></span><span class="text">Selector</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/util&quot;}}" class="file"><a href="../je/util.html" title="src/je/util.js" tabindex="108" class="label"><span class="discloser placeholder"></span><span class="text">util</span></a></li></ol></li></ol></nav></body></html>
+        CustomEvent.prototype = global.CustomEvent.prototype;
+        global.CustomEvent = CustomEvent;
+    }
+})(<span class="keyword">this</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Are events bubbling in detached DOM trees?</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> isEventBubblingInDetachedTree = (<span class="function"><span class="keyword">function</span><span class="params">(global)</span> {</span>
+    <span class="keyword">var</span> isBubbling = <span class="literal">false</span>,
+        doc = global.document;
+    <span class="keyword">if</span>(doc) {
+        <span class="keyword">var</span> parent = doc.createElement(<span class="string">'div'</span>),
+            child = parent.cloneNode();
+        parent.appendChild(child);
+        parent.addEventListener(<span class="string">'e'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+            isBubbling = <span class="literal">true</span>;
+        });
+        child.dispatchEvent(<span class="keyword">new</span> CustomEvent(<span class="string">'e'</span>, {bubbles:<span class="literal">true</span>}));
+    }
+    <span class="keyword">return</span> isBubbling;
+})(<span class="keyword">this</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { on, off, delegate, undelegate, trigger };</div></div></div></div></body></html>

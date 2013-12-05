@@ -1,125 +1,95 @@
-<!DOCTYPE html><html lang="en" class="two-column-layout no-js"><head><title>je/dom</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="je/dom"><meta name="groc-project-path" content="src/je/dom.js"><meta name="groc-github-url" content="https://github.com/webpro/jquery-evergreen"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/webpro/jquery-evergreen/blob/master/src/je/dom.js">src/je/dom.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="dom-manipulation">DOM Manipulation</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="kr">import</span> <span class="p">{</span> <span class="nx">toArray</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./util&#39;</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="append">append</h2>
-
-<pre><code>$('.item').append('&lt;p&gt;more&lt;/p&gt;');
-</code></pre>
-
-<p><strong>Parameter:</strong></p>
-
+<!DOCTYPE html><html lang="en"><head><title>je/dom</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="je/dom"><meta name="groc-project-path" content="src/je/dom.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/dom.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="dom-manipulation">DOM Manipulation</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { toArray } from <span class="string">'./util'</span>;</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="append">append</h2>
+<pre><code>$(&#39;.item&#39;).append(&#39;&lt;p&gt;more&lt;/p&gt;&#39;);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong> <br />
-What to append to the element(s). Clones elements as necessary.</li>
+<li><strong>element can be a String, a Node, a NodeList, or a $Object.</strong><br/>(What to append to the element(s). Clones elements as necessary.)</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">append</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">element</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">insertAdjacentHTML</span><span class="p">(</span><span class="s1">&#39;beforeend&#39;</span><span class="p">,</span> <span class="nx">element</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">NodeList</span> <span class="o">?</span> <span class="nx">toArray</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">:</span> <span class="nx">element</span><span class="p">;</span>
-                <span class="nx">elements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="nx">l</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nx">l</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">element</span> <span class="o">:</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="nx">append</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">elm</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="before">before</h2>
-
-<pre><code>$('.items').before('&lt;p&gt;prefix&lt;/p&gt;');
-</code></pre>
-
-<p><strong>Parameter:</strong></p>
-
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> append = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> Node) {
+        <span class="keyword">if</span>(<span class="keyword">typeof</span> element === <span class="string">'string'</span>) {
+            <span class="keyword">this</span>.insertAdjacentHTML(<span class="string">'beforeend'</span>, element);
+        } <span class="keyword">else</span> {
+            <span class="keyword">if</span>(element <span class="keyword">instanceof</span> Node) {
+                <span class="keyword">this</span>.appendChild(element);
+            } <span class="keyword">else</span> {
+                <span class="keyword">var</span> elements = element <span class="keyword">instanceof</span> NodeList ? toArray(element) : element;
+                elements.forEach(<span class="keyword">this</span>.appendChild.bind(<span class="keyword">this</span>));
+            }
+        }
+    } <span class="keyword">else</span> {
+        <span class="keyword">var</span> l = <span class="keyword">this</span>.length;
+        <span class="keyword">while</span>(l--) {
+            <span class="keyword">var</span> elm = l === <span class="number">0</span> ? element : clone(element);
+            append.call(<span class="keyword">this</span>[l], elm);
+        }
+    }
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="before">before</h2>
+<pre><code>$(&#39;.items&#39;).before(&#39;&lt;p&gt;prefix&lt;/p&gt;&#39;);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong> <br />
-What to place as sibling(s) before to the element(s). Clones elements as necessary.</li>
+<li><strong>element can be a String, a Node, a NodeList, or a $Object.</strong><br/>(What to place as sibling(s) before to the element(s). Clones elements as necessary.)</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">before</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">element</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">insertAdjacentHTML</span><span class="p">(</span><span class="s1">&#39;beforebegin&#39;</span><span class="p">,</span> <span class="nx">element</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">NodeList</span> <span class="o">?</span> <span class="nx">toArray</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">:</span> <span class="nx">element</span><span class="p">;</span>
-                <span class="nx">elements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">before</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="nx">l</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nx">l</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">element</span> <span class="o">:</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="nx">before</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">elm</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="after">after</h2>
-
-<pre><code>$('.items').after('&lt;span&gt;suf&lt;/span&gt;&lt;span&gt;fix&lt;/span&gt;');
-</code></pre>
-
-<p><strong>Parameter:</strong></p>
-
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> before = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> Node) {
+        <span class="keyword">if</span>(<span class="keyword">typeof</span> element === <span class="string">'string'</span>) {
+            <span class="keyword">this</span>.insertAdjacentHTML(<span class="string">'beforebegin'</span>, element);
+        } <span class="keyword">else</span> {
+            <span class="keyword">if</span>(element <span class="keyword">instanceof</span> Node) {
+                <span class="keyword">this</span>.parentNode.insertBefore(element, <span class="keyword">this</span>);
+            } <span class="keyword">else</span> {
+                <span class="keyword">var</span> elements = element <span class="keyword">instanceof</span> NodeList ? toArray(element) : element;
+                elements.forEach(before.bind(<span class="keyword">this</span>));
+            }
+        }
+    } <span class="keyword">else</span> {
+        <span class="keyword">var</span> l = <span class="keyword">this</span>.length;
+        <span class="keyword">while</span>(l--) {
+            <span class="keyword">var</span> elm = l === <span class="number">0</span> ? element : clone(element);
+            before.call(<span class="keyword">this</span>[l], elm);
+        }
+    }
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="after">after</h2>
+<pre><code>$(&#39;.items&#39;).after(&#39;&lt;span&gt;suf&lt;/span&gt;&lt;span&gt;fix&lt;/span&gt;&#39;);</code></pre>
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong> <br />
-What to place as sibling(s) after to the element(s). Clones elements as necessary.</li>
+<li><strong>element can be a String, a Node, a NodeList, or a $Object.</strong><br/>(What to place as sibling(s) after to the element(s). Clones elements as necessary.)</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or a <em>$Object</em></strong><br/>Returns the object it was applied to (<code>this</code>).<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">after</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">element</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">insertAdjacentHTML</span><span class="p">(</span><span class="s1">&#39;afterend&#39;</span><span class="p">,</span> <span class="nx">element</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">);</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">NodeList</span> <span class="o">?</span> <span class="nx">toArray</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="o">:</span> <span class="nx">element</span><span class="p">;</span>
-                <span class="nx">elements</span><span class="p">.</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">after</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">l</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="nx">l</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">elm</span> <span class="o">=</span> <span class="nx">l</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">element</span> <span class="o">:</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-            <span class="nx">after</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">elm</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method <em>clone</em></span></p>
-
-<p><strong>Parameter:</strong></p>
-
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> after = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">if</span>(<span class="keyword">this</span> <span class="keyword">instanceof</span> Node) {
+        <span class="keyword">if</span>(<span class="keyword">typeof</span> element === <span class="string">'string'</span>) {
+            <span class="keyword">this</span>.insertAdjacentHTML(<span class="string">'afterend'</span>, element);
+        } <span class="keyword">else</span> {
+            <span class="keyword">if</span>(element <span class="keyword">instanceof</span> Node) {
+                <span class="keyword">this</span>.parentNode.insertBefore(element, <span class="keyword">this</span>.nextSibling);
+            } <span class="keyword">else</span> {
+                <span class="keyword">var</span> elements = element <span class="keyword">instanceof</span> NodeList ? toArray(element) : element;
+                elements.reverse().forEach(after.bind(<span class="keyword">this</span>));
+            }
+        }
+    } <span class="keyword">else</span> {
+        <span class="keyword">var</span> l = <span class="keyword">this</span>.length;
+        <span class="keyword">while</span>(l--) {
+            <span class="keyword">var</span> elm = l === <span class="number">0</span> ? element : clone(element);
+            after.call(<span class="keyword">this</span>[l], elm);
+        }
+    }
+    <span class="keyword">return</span> <span class="keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method clone</span></p>
+<p>Parameters:</p>
 <ul>
-<li><strong><em>element</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
-The element(s) to clone.</li>
+<li><strong>element can be a String, a Node, a NodeList, or an Array.</strong><br/>(The element(s) to clone.)</li>
 </ul>
-
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/Node">Node</a></em>, a <em><a href="https://developer.mozilla.org/en/docs/Web/API/NodeList">NodeList</a></em> or an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong><br/>The cloned element(s)<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">clone</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">element</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">element</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">element</span> <span class="k">instanceof</span> <span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">element</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[].</span><span class="nx">map</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">el</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">element</span><span class="p">;</span>
-<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper"><span class="kr">export</span> <span class="p">{</span> <span class="nx">append</span><span class="p">,</span> <span class="nx">before</span><span class="p">,</span> <span class="nx">after</span> <span class="p">};</span></div></div></div></div><nav><ol class="toc"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;index&quot;}}" class="file"><a href="../index.html" title="src/main.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">jQuery Evergreen</span></a></li><li data-groc="{&quot;data&quot;:{}}" class="folder expanded"><a href="#" tabindex="101" class="label"><span class="discloser"></span><span class="text">je</span></a><ol class="children"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/api&quot;}}" class="file"><a href="../je/api.html" title="src/je/api.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">API</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/attr&quot;}}" class="file"><a href="../je/attr.html" title="src/je/attr.js" tabindex="101" class="label"><span class="discloser placeholder"></span><span class="text">Attr</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/class&quot;}}" class="file"><a href="../je/class.html" title="src/je/class.js" tabindex="102" class="label"><span class="discloser placeholder"></span><span class="text">Class methods</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/dom&quot;}}" class="file current"><a href="../je/dom.html" title="src/je/dom.js" tabindex="103" class="label"><span class="discloser placeholder"></span><span class="text">DOM Manipulation</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/event&quot;}}" class="file"><a href="../je/event.html" title="src/je/event.js" tabindex="104" class="label"><span class="discloser placeholder"></span><span class="text">Events</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/html&quot;}}" class="file"><a href="../je/html.html" title="src/je/html.js" tabindex="105" class="label"><span class="discloser placeholder"></span><span class="text">HTML</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/mode&quot;}}" class="file"><a href="../je/mode.html" title="src/je/mode.js" tabindex="106" class="label"><span class="discloser placeholder"></span><span class="text">Opt-in to Native Mode</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/selector&quot;}}" class="file"><a href="../je/selector.html" title="src/je/selector.js" tabindex="107" class="label"><span class="discloser placeholder"></span><span class="text">Selector</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/util&quot;}}" class="file"><a href="../je/util.html" title="src/je/util.js" tabindex="108" class="label"><span class="discloser placeholder"></span><span class="text">util</span></a></li></ol></li></ol></nav></body></html>
+<p><strong>Returns a String or a Node or a NodeList or an Array</strong><br/>(The cloned element(s))</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> clone = <span class="function"><span class="keyword">function</span><span class="params">(element)</span> {</span>
+    <span class="keyword">if</span>(<span class="keyword">typeof</span> element === <span class="string">'string'</span>) {
+        <span class="keyword">return</span> <span class="string">''</span> + element;
+    } <span class="keyword">else</span> <span class="keyword">if</span>(element <span class="keyword">instanceof</span> Node) {
+        <span class="keyword">return</span> element.cloneNode(<span class="literal">true</span>);
+    } <span class="keyword">else</span> <span class="keyword">if</span>(element.length) {
+        <span class="keyword">return</span> [].map.call(element, <span class="function"><span class="keyword">function</span><span class="params">(el)</span> {</span>
+            <span class="keyword">return</span> el.cloneNode(<span class="literal">true</span>);
+        });
+    }
+    <span class="keyword">return</span> element;
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { append, before, after };</div></div></div></div></body></html>
