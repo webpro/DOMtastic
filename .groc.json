@@ -1,5 +1,4 @@
 {
     "glob": ["src/**/*.js"],
-    "index": "src/main.js",
     "whitespace-after-token": false
 }
