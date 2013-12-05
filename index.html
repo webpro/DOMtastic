@@ -1,38 +1,188 @@
-<!DOCTYPE html><html lang="en" class="two-column-layout no-js"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="src/main.js"><meta name="groc-github-url" content="https://github.com/webpro/jquery-evergreen"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/webpro/jquery-evergreen/blob/master/src/main.js">src/main.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="jquery-evergreen">jQuery Evergreen</h1>
+<!doctype html>
+<html>
 
-<p>jQuery Evergreen works with modern browsers.
-It has the same familiar API as jQuery, and is lean &amp; mean with the following, optional modules:
-<a href="je/selector.html">selector</a>, <a href="je/class.html">class</a>, <a href="je/dom.html">DOM</a>, <a href="je/event.html">event</a>, <a href="je/attr.html">attr</a> and <a href="je/html.html">html</a>.</p>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
 
-<p>The complete version is under 7KB after minification (2KB gzipped).</p>
+        <title>jquery-evergreen</title>
 
-<p>Much of the original jQuery's "weight" is not included at all, such as <code>$.ajax</code>, <code>$.animate</code>, and <code>$.Deferred</code>.</p>
+        <link rel="stylesheet" href="http://webpro.nl/stylesheet.css">
+        <link rel="stylesheet" href="http://webpro.github.io/css/prism.css">
 
-<p>Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
-IE9 only needs a polyfill for <code>classList</code> to make all tests pass.</p>
+        <style type="text/css">
+            header {
+                border-bottom-color: #DDD;
+            }
 
-<p>You can <a href="je/mode.html">opt-in</a> to work directly with Node and live NodeList objects.</p>
+            header h1, header h1 a {
+                color: #DDD;
+            }
 
-<p>You can easily create <strong>custom builds</strong> to exclude parts you don't need:</p>
+            @media (max-width:1150px) {
+                .hide-small {
+                    display: none;
+                }
+            }
 
-<pre><code>$ grunt --exclude=attr,class,dom,event,html,mode,selector
-</code></pre>
+            .subheader div {
+                float: right;
+                clear: right;
+                line-height: 3em;
+            }
 
-<p>The default build in this repo:</p>
+            .subheader a {
+                text-decoration: none;
+            }
 
-<pre><code>$ grunt --exclude=mode
-</code></pre>
+            .subheader img {
+                vertical-align: middle;
+            }
 
-<p>Using <strong>AMD</strong>, just include it as a regular dependency:</p>
+            .project,
+			.content {
+                font-size: 1.25em;
+            }
 
-<pre><code>define(['jquery-evergreen'], function($) {});
-</code></pre>
+			h2,
+			h3 {
+				margin-top: 1em;
+				margin-bottom: 0.3em;
+			}
 
-<p>Otherwise, include <code>&lt;script src="dist/jquery-evergreen.min.js"&gt;</code> and have <code>$</code> globally available.</p>
+			h2 + p,
+			h3 + p {
+				margin-top: 0;
+			}
 
-<p>The sources are written in the <strong>ES6</strong> Modules format,
-and transpiled to an AMD version, and a "browserified" CommonJS version
-using the <a href="http://square.github.io/es6-module-transpiler/">ES6 Module Transpiler</a>.</p>
+			pre[class*="language-"],
+			table {
+				border-radius: 8px;
+				background-color: #f5f2f0;
+			}
+			th, td {
+				padding: 0.3em 0.5em;
+			}
+		</style>
+    </head>
+
+    <body>
+
+        <header>
+            <h1><a href="http://webpro.nl" title="WebPro">WebPro</a></h1>
+        </header>
+
+        
+            <a href="https://github.com/webpro/jquery-evergreen" class="hide-small"><img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-orange@2x.png" alt="Fork me on GitHub"></a>
+        
+
+        <section class="subheader">
+            
+            <div>
+                <a href="https://github.com/webpro">webpro</a>/<a href="https://github.com/webpro/jquery-evergreen">
+                    jquery-evergreen
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMi42IiBoZWlnaHQ9IjMxLjgiPjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjMTkxNzE3IiBkPSJNMTYuMyAwYy05IDAtMTYuMyA3LjMtMTYuMyAxNi4zIDAgNy4yIDQuNyAxMy4zIDExLjEgMTUuNS44LjEgMS4xLS40IDEuMS0uOHYtMi44Yy00LjUgMS01LjUtMi4yLTUuNS0yLjItLjctMS45LTEuOC0yLjQtMS44LTIuNC0xLjUtMSAuMS0xIC4xLTEgMS42LjEgMi41IDEuNyAyLjUgMS43IDEuNSAyLjUgMy44IDEuOCA0LjcgMS40LjEtMS4xLjYtMS44IDEtMi4yLTMuNi0uNC03LjQtMS44LTcuNC04LjEgMC0xLjguNi0zLjIgMS43LTQuNC0uMS0uMy0uNy0yIC4yLTQuMiAwIDAgMS40LS40IDQuNSAxLjcgMS4zLS40IDIuNy0uNSA0LjEtLjUgMS40IDAgMi44LjIgNC4xLjUgMy4xLTIuMSA0LjUtMS43IDQuNS0xLjcuOSAyLjIuMyAzLjkuMiA0LjMgMSAxLjEgMS43IDIuNiAxLjcgNC40IDAgNi4zLTMuOCA3LjYtNy40IDggLjYuNSAxLjEgMS41IDEuMSAzdjQuNWMwIC40LjMuOSAxLjEuOCA2LjUtMi4yIDExLjEtOC4zIDExLjEtMTUuNS0uMS05LTcuNC0xNi4zLTE2LjQtMTYuM3oiLz48L3N2Zz4=" alt="jquery-evergreen at GitHub" style="width:32px;">
+                </a>
+            </div>
+            
+            <div>
+                <a href="https://twitter.com/webprolific">
+                    @webprolific
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMTYyLjUiPjxwYXRoIGZpbGw9IiMwNDA0MDQiIGQ9Ik0yMDAgMTkuMmMtNy40IDMuMy0xNS4zIDUuNS0yMy42IDYuNSA4LjUtNS4xIDE1LTEzLjEgMTgtMjIuNy03LjkgNC43LTE2LjcgOC4xLTI2LjEgMTAtNy41LTgtMTguMS0xMy0zMC0xMy0yMi43IDAtNDEgMTguNC00MSA0MSAwIDMuMi40IDYuMyAxLjEgOS40LTM0LjEtMS43LTY0LjMtMTgtODQuNi00Mi45LTMuNSA2LjEtNS42IDEzLjEtNS42IDIwLjYgMCAxNC4yIDcuMiAyNi44IDE4LjMgMzQuMi02LjctLjItMTMuMS0yLjEtMTguNi01LjF2LjVjMCAxOS45IDE0LjEgMzYuNSAzMi45IDQwLjItMy40LjktNy4xIDEuNC0xMC44IDEuNC0yLjYgMC01LjItLjMtNy43LS43IDUuMiAxNi4zIDIwLjQgMjguMiAzOC4zIDI4LjUtMTQgMTEtMzEuNyAxNy42LTUxIDE3LjYtMy4zIDAtNi42LS4yLTkuOC0uNiAxOC4yIDExLjYgMzkuNyAxOC40IDYyLjkgMTguNCA3NS41IDAgMTE2LjctNjIuNSAxMTYuNy0xMTYuNyAwLTEuOCAwLTMuNS0uMS01LjMgOC4yLTUuOCAxNS4yLTEzIDIwLjctMjEuM3oiLz48L3N2Zz4=" alt="WebPro at Twitter" style="width:32px;">
+                </a>
+            </div>
+        </section>
+
+        <main class="project">
+            <h1>jQuery Evergreen</h1>
+
+<p>Small &amp; fast DOM and event library for modern browsers.
+Having the same familiar API as jQuery (but without the extra &quot;weight&quot; of modules like <code>$.ajax</code>, <code>$.animate</code>, and <code>$.Deferred</code>), it works great stand-alone or paired up with e.g. Backbone.
+The full version is only 7KB minified (2KB gzip), but it&#39;s easy to create a custom build to exclude parts you don&#39;t need.</p>
+
+<p>The <a href="http://webpro.github.io/jquery-evergreen/main.html">annotated</a> source is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the <a href="http://square.github.io/es6-module-transpiler/">ES6 Module Transpiler</a>. And last but also least, the CommonJS version is &quot;browserified&quot;.</p>
+
+<h2>Quickstart</h2>
+
+<h3>AMD</h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># Install
+bower install jquery-evergreen
+
+# Configure
+paths: {
+    &#39;jquery-evergreen&#39;: &#39;lib/jquery-evergreen/dist/jquery-evergreen.amd&#39;
+}
+
+# Use
+define([&#39;jquery-evergreen&#39;], function($) {
+    $(&#39;.earth&#39;).addClass(&#39;evergreen&#39;).on(&#39;sunrise&#39;, &#39;.people&#39;, awake);
+});
+</code></pre></div>
+<h3>Browser Global</h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># Install
+bower/npm install jquery-evergreen
+
+# Configure
+&lt;script src=&quot;dist/jquery-evergreen.js&quot;&gt;&lt;/script&gt;
+
+# Use
+$(&#39;.planet&#39;).addClass(&#39;evergreen&#39;).on(&#39;sunrise&#39;, &#39;.grass&#39;, grow);
+</code></pre></div>
+<h2>API</h2>
+
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/attr.html">Attr</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">attr
+</code></pre></div>
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/class.html">Class</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">addClass
+removeClass
+toggleClass
+hasClass
+</code></pre></div>
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/dom.html">DOM</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">append
+before
+after
+</code></pre></div>
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/event.html">Event</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">on
+off
+delegate
+undelegate
+trigger
+</code></pre></div>
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/html.html">HTML</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">html
+</code></pre></div>
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/mode.html">Mode</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">isNative
+native
+</code></pre></div>
+<h3><a href="http://webpro.github.io/jquery-evergreen/je/selector.html">Selector</a></h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">$
+find
+</code></pre></div>
+<h2>Browser Support</h2>
+
+<p>Latest versions of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11. IE9 only needs a polyfill for <code>classList</code> to make these tests pass.</p>
+
+<h2>Native Mode</h2>
+
+<p>You can <a href="http://webpro.github.io/jquery-evergreen/je/mode.html">opt-in</a> to work directly with <code>Node</code> and live <code>NodeList</code> objects, as opposed to the default, wrapped <code>$</code> object.</p>
+
+<h2>Custom Build</h2>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">npm install jquery-evergreen
+cd jquery-evergreen
+npm install
+grunt --exclude=attr,mode,html
+</code></pre></div>
+<p>And find the AMD, CommonJS and browserified versions in the <code>/dist</code> folder.</p>
+
+<h2>Test</h2>
+
+<p>Run the <a href="./test/">test suite</a>. You can also get it from Github or npm, and find the <code>/test</code> folder.</p>
+
+<h2>Credits</h2>
 
 <p>Many thanks to these sources of inspiration:</p>
 
@@ -41,6 +191,18 @@ using the <a href="http://square.github.io/es6-module-transpiler/">ES6 Module Tr
 <li><a href="https://github.com/knockout/knockout/blob/master/src/utils.js">Knockout</a></li>
 <li><a href="https://github.com/inkling/backbone.native/blob/master/backbone.native.js">inkling/Backbone.Native</a></li>
 <li><a href="https://github.com/madrobby/zepto/">madrobby/zepto</a></li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="kr">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;./je/api&#39;</span><span class="p">;</span>
+</ul>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">$</span><span class="p">;</span></div></div></div></div><nav><ol class="toc"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;index&quot;}}" class="file current"><a href="index.html" title="src/main.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">jQuery Evergreen</span></a></li><li data-groc="{&quot;data&quot;:{}}" class="folder expanded"><a href="#" tabindex="101" class="label"><span class="discloser"></span><span class="text">je</span></a><ol class="children"><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/api&quot;}}" class="file"><a href="je/api.html" title="src/je/api.js" tabindex="100" class="label"><span class="discloser placeholder"></span><span class="text">API</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/attr&quot;}}" class="file"><a href="je/attr.html" title="src/je/attr.js" tabindex="101" class="label"><span class="discloser placeholder"></span><span class="text">Attr</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/class&quot;}}" class="file"><a href="je/class.html" title="src/je/class.js" tabindex="102" class="label"><span class="discloser placeholder"></span><span class="text">Class methods</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/dom&quot;}}" class="file"><a href="je/dom.html" title="src/je/dom.js" tabindex="103" class="label"><span class="discloser placeholder"></span><span class="text">DOM Manipulation</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/event&quot;}}" class="file"><a href="je/event.html" title="src/je/event.js" tabindex="104" class="label"><span class="discloser placeholder"></span><span class="text">Events</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/html&quot;}}" class="file"><a href="je/html.html" title="src/je/html.js" tabindex="105" class="label"><span class="discloser placeholder"></span><span class="text">HTML</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/mode&quot;}}" class="file"><a href="je/mode.html" title="src/je/mode.js" tabindex="106" class="label"><span class="discloser placeholder"></span><span class="text">Opt-in to Native Mode</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/selector&quot;}}" class="file"><a href="je/selector.html" title="src/je/selector.js" tabindex="107" class="label"><span class="discloser placeholder"></span><span class="text">Selector</span></a></li><li data-groc="{&quot;data&quot;:{&quot;targetPath&quot;:&quot;je/util&quot;}}" class="file"><a href="je/util.html" title="src/je/util.js" tabindex="108" class="label"><span class="discloser placeholder"></span><span class="text">util</span></a></li></ol></li></ol></nav></body></html>
+<h2>License</h2>
+
+<p><a href="http://webpro.mit-license.org">MIT licensed</a></p>
+
+        </main>
+
+        <script src="http://webpro.github.io/js/prism.js"></script>
+        <script>
+            var _gaq = [['_setAccount', 'UA-42001005-1'], ['_setDomainName', 'webpro.github.io'], ['_trackPageview']];
+            (function(d, t) {var g = d.createElement(t), s = d.getElementsByTagName(t)[0];g.src = '//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g, s)}(document, 'script'));
+        </script>
+    </body>
+</html>
