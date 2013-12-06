@@ -66,6 +66,11 @@ $.isNative = isNative;
 $.native = native;
 /* API:mode */
 
+/* API:noconflict */
+var noConflict = require("./noconflict")["default"];
+$.noConflict = noConflict;
+/* API:noconflict */
+
 var array = [];
 
 /*

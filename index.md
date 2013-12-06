@@ -76,6 +76,10 @@ The [annotated](http://webpro.github.io/jquery-evergreen/main.html) source is wr
 	isNative
 	native
 
+### [NoConflict](http://webpro.github.io/jquery-evergreen/je/noconflict.html)
+
+	noConflict
+
 ### [Selector](http://webpro.github.io/jquery-evergreen/je/selector.html)
 
 	$
@@ -100,7 +104,7 @@ And find the AMD, CommonJS and browserified versions in the `/dist` folder.
 
 ## Test
 
-Run the [test suite](./test/). You can also get it from Github or npm, and find the `/test` folder.
+Run the [test suite](http://webpro.github.io/jquery-evergreen/test/). You can also get it from Github or npm, and find the `/test` folder.
 
 ## Credits
 
