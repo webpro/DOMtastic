@@ -3,8 +3,6 @@ safe: true
 lsi: false
 pygments: true
 markdown: redcarpet
-destination: doc
-exclude: ['*.json', '*.yml', 'README.md', 'Gruntfile.js', 'doc', 'src']
 
 redcarpet:
     extensions: ["autolink"]
