@@ -767,8 +767,152 @@ define(
     __exports__.find = find;
   });
 define(
-  'je/api',["./attr","./class","./dom","./event","./html","./selector","exports"],
-  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __exports__) {
+  'je/mode',["exports"],
+  function(__exports__) {
+    
+    /*
+     * # Opt-in to Native Mode
+     *
+     * The default, non-intrusive mode is similar to how jQuery operates: working with static, array-like `$` objects:
+     *
+     *     $('.items').append('<span>foo</span>);
+     *     $(document.body).on('click', '.tab', handler);
+     *
+     * However, you can opt-in to work with live NodeList objects.
+     * In this "native" mode, the `Node` and `NodeList` prototypes are augmented (in a safe and reversible manner) to fill up the chainable API,
+     * to enable working with `Node` and `NodeList` objects directly:
+     *
+     *     var collection = document.querySelectorAll('.items');
+     *     collection.append('<span>foo</span>);
+     *     collection.addClass('bar');
+     *     collection.forEach(iteratorFn);
+     *     collection.find('.more');
+     *
+     *     document.body.on('click', '.tab', handler)
+     *
+     * Note that in native mode, `$(selector)` can stil be used. It returns a NodeList.
+     *
+     * Build the lib using Grunt with `mode` not excluded.
+     * Use `$.native()` to activate this behavior. The API is the same in both modes.
+     */
+
+    var isNative = false;
+
+    var native = function(native) {
+        var wasNative = isNative;
+        isNative = typeof native === 'boolean' ? native : true;
+        if($) {
+            $.isNative = isNative;
+        }
+        if(!wasNative && isNative) {
+            augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
+        }
+        if(wasNative && !isNative) {
+            unaugmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
+        }
+        return isNative;
+    };
+
+    var NodeProto = typeof Node !== 'undefined' && Node.prototype,
+        NodeListProto = typeof NodeList !== 'undefined' && NodeList.prototype;
+
+    /*
+     * Add a property (i.e. method) to an object in a safe and reversible manner.
+     * Only add the method if object not already had it (non-inherited).
+     */
+
+    var augment = function(obj, key, value) {
+        if(!obj.hasOwnProperty(key)) {
+            Object.defineProperty(obj, key, {
+                value: value,
+                configurable: true,
+                enumerable: false
+            });
+        }
+    };
+
+    /*
+     * Remove property from object (only inherited properties will be removed).
+     */
+
+    var unaugment = function(obj, key) {
+        delete obj[key];
+    };
+
+    /*
+     * Augment native `Node` and `NodeList` objects in native mode.
+     */
+
+    var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
+
+        var key;
+
+        for(key in methodsNode) {
+            augment(NodeProto, key, methodsNode[key]);
+            augment(NodeListProto, key, methodsNode[key]);
+        }
+
+        for(key in methodsNodeList) {
+            augment(NodeListProto, key, methodsNodeList[key]);
+        }
+    };
+
+    /*
+     * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
+     * Mainly used for tests.
+     */
+
+    var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
+
+        var key;
+
+        for(key in methodsNode) {
+            unaugment(NodeProto, key);
+            unaugment(NodeListProto, key);
+        }
+
+        for(key in methodsNodeList) {
+            unaugment(NodeListProto, key);
+        }
+    };
+
+    // Export interface
+
+    __exports__.isNative = isNative;
+    __exports__.native = native;
+  });
+define(
+  'je/noconflict',["exports"],
+  function(__exports__) {
+    
+    /*
+     * # noConflict
+     *
+     * In case another library sets the global `$` variable before jQuery Evergreen does,
+     * this method can be used to return the global `$` to that other library.
+     *
+     */
+
+    // Save the previous value of the global `$` variable, so that it can be restored later on.
+
+    var root = Function("return this")(),
+        previousLib = root.$;
+
+    // Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
+    // Returns a reference to jQuery Evergreen.
+
+    var noConflict = function() {
+    	root.$ = previousLib;
+    	return this;
+    };
+
+    // Export interface
+
+    __exports__["default"] = noConflict;
+  });
+define(
+  'je/api',["./attr","./class","./dom","./event","./html","./selector","./mode","./noconflict","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __dependency4__, __dependency5__, __dependency6__, __dependency7__, __dependency8__, __exports__) {
     
     /*
      * # API
@@ -830,7 +974,17 @@ define(
     api.find = find;
     /* API:selector */
 
-    /*  */
+    /* API:mode */
+    var isNative = __dependency7__.isNative;
+    var native = __dependency7__.native;
+    $.isNative = isNative;
+    $.native = native;
+    /* API:mode */
+
+    /* API:noconflict */
+    var noConflict = __dependency8__["default"];
+    $.noConflict = noConflict;
+    /* API:noconflict */
 
     var array = [];
 
@@ -871,48 +1025,15 @@ define(
   function(__dependency1__, __exports__) {
     
     /**
-     *
      * # jQuery Evergreen
      *
-     * jQuery Evergreen works with modern browsers.
-     * It has the same familiar API as jQuery, and is lean & mean with the following, optional modules:
-     * [selector](je/selector.html), [class](je/class.html), [DOM](je/dom.html), [event](je/event.html), [attr](je/attr.html) and [html](je/html.html).
+     * Small & fast DOM and event library for modern browsers.
+     * Having the same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`), it works great stand-alone or paired up with e.g. Backbone.
+     * The full version is only 7KB minified (2KB gzip), but it's easy to create a custom build to exclude parts you don't need.
      *
-     * The complete version is under 7KB after minification (2KB gzipped).
+     * The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). And last but also least, the CommonJS version is "browserified".
      *
-     * Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
-     *
-     * Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
-     * IE9 only needs a polyfill for `classList` to make all tests pass.
-     *
-     * You can [opt-in](mode.html) to work directly with Node and live NodeList objects.
-     *
-     * You can easily create **custom builds** to exclude parts you don't need:
-     *
-     *     $ grunt --exclude=attr,class,dom,event,html,mode,selector
-     *
-     * The default build in this repo:
-     *
-     *     $ grunt --exclude=mode
-     *
-     * Using **AMD**, just include it as a regular dependency:
-     *
-     *     define(['jquery-evergreen'], function($) {
-     *
-     *     });
-     *
-     *  Otherwise, include something like `<script src="jquery-evergreen.js">` and have `$` globally available.
-     *
-     * The sources are written in the **ES6** Modules format,
-     * and transpiled to an AMD version, and a "browser global" version
-     * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
-     *
-     * Many thanks to these sources of inspiration:
-     *
-     * - [remy/min.js](https://github.com/remy/min.js)
-     * - [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
-     * - [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
-     * - [madrobby/zepto](https://github.com/madrobby/zepto/)
+     * Please find the table of contents in upper right.
      */
 
     var $ = __dependency1__["default"];

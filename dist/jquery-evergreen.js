@@ -67,6 +67,11 @@ $.isNative = isNative;
 $.native = native;
 /* API:mode */
 
+/* API:noconflict */
+var noConflict = require("./noconflict")["default"];
+$.noConflict = noConflict;
+/* API:noconflict */
+
 var array = [];
 
 /*
@@ -100,7 +105,7 @@ $.getNodeListMethods = function() {
 // Export interface
 
 exports["default"] = $;
-},{"./attr":2,"./class":3,"./dom":4,"./event":5,"./html":6,"./mode":7,"./selector":8}],2:[function(require,module,exports){
+},{"./attr":2,"./class":3,"./dom":4,"./event":5,"./html":6,"./mode":7,"./noconflict":8,"./selector":9}],2:[function(require,module,exports){
 "use strict";
 // # Attr
 
@@ -136,7 +141,7 @@ var attr = function(key, value) {
 // Export interface
 
 exports["default"] = attr;
-},{"./util":9}],3:[function(require,module,exports){
+},{"./util":10}],3:[function(require,module,exports){
 "use strict";
 // # Class methods
 
@@ -212,7 +217,7 @@ exports.addClass = addClass;
 exports.removeClass = removeClass;
 exports.toggleClass = toggleClass;
 exports.hasClass = hasClass;
-},{"./util":9}],4:[function(require,module,exports){
+},{"./util":10}],4:[function(require,module,exports){
 "use strict";
 // # DOM Manipulation
 
@@ -339,7 +344,7 @@ var clone = function(element) {
 exports.append = append;
 exports.before = before;
 exports.after = after;
-},{"./util":9}],5:[function(require,module,exports){
+},{"./util":10}],5:[function(require,module,exports){
 "use strict";
 // # Events
 
@@ -675,7 +680,7 @@ exports.off = off;
 exports.delegate = delegate;
 exports.undelegate = undelegate;
 exports.trigger = trigger;
-},{"./util":9}],6:[function(require,module,exports){
+},{"./util":10}],6:[function(require,module,exports){
 "use strict";
 // # HTML
 
@@ -707,7 +712,7 @@ var html = function(fragment) {
 // Export interface
 
 exports["default"] = html;
-},{"./util":9}],7:[function(require,module,exports){
+},{"./util":10}],7:[function(require,module,exports){
 "use strict";
 /*
  * # Opt-in to Native Mode
@@ -822,6 +827,32 @@ exports.native = native;
 },{}],8:[function(require,module,exports){
 "use strict";
 /*
+ * # noConflict
+ *
+ * In case another library sets the global `$` variable before jQuery Evergreen does,
+ * this method can be used to return the global `$` to that other library.
+ *
+ */
+
+// Save the previous value of the global `$` variable, so that it can be restored later on.
+
+var root = Function("return this")(),
+    previousLib = root.$;
+
+// Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
+// Returns a reference to jQuery Evergreen.
+
+var noConflict = function() {
+	root.$ = previousLib;
+	return this;
+};
+
+// Export interface
+
+exports["default"] = noConflict;
+},{}],9:[function(require,module,exports){
+"use strict";
+/*
  * # Selector
  */
 
@@ -927,7 +958,7 @@ var wrap = function(collection) {
 
 exports.$ = $;
 exports.find = find;
-},{"./util":9}],9:[function(require,module,exports){
+},{"./util":10}],10:[function(require,module,exports){
 "use strict";
 /**
  * ## toArray
@@ -963,48 +994,15 @@ module.exports=require('iOJE2k');
 },{}],"iOJE2k":[function(require,module,exports){
 "use strict";
 /**
- *
  * # jQuery Evergreen
  *
- * jQuery Evergreen works with modern browsers.
- * It has the same familiar API as jQuery, and is lean & mean with the following, optional modules:
- * [selector](je/selector.html), [class](je/class.html), [DOM](je/dom.html), [event](je/event.html), [attr](je/attr.html) and [html](je/html.html).
+ * Small & fast DOM and event library for modern browsers.
+ * Having the same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`), it works great stand-alone or paired up with e.g. Backbone.
+ * The full version is only 7KB minified (2KB gzip), but it's easy to create a custom build to exclude parts you don't need.
  *
- * The complete version is under 7KB after minification (2KB gzipped).
+ * The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). And last but also least, the CommonJS version is "browserified".
  *
- * Much of the original jQuery's "weight" is not included at all, such as `$.ajax`, `$.animate`, and `$.Deferred`.
- *
- * Browser support: latest version of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11.
- * IE9 only needs a polyfill for `classList` to make all tests pass.
- *
- * You can [opt-in](mode.html) to work directly with Node and live NodeList objects.
- *
- * You can easily create **custom builds** to exclude parts you don't need:
- *
- *     $ grunt --exclude=attr,class,dom,event,html,mode,selector
- *
- * The default build in this repo:
- *
- *     $ grunt --exclude=mode
- *
- * Using **AMD**, just include it as a regular dependency:
- *
- *     define(['jquery-evergreen'], function($) {
- *
- *     });
- *
- *  Otherwise, include something like `<script src="jquery-evergreen.js">` and have `$` globally available.
- *
- * The sources are written in the **ES6** Modules format,
- * and transpiled to an AMD version, and a "browser global" version
- * using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/).
- *
- * Many thanks to these sources of inspiration:
- *
- * - [remy/min.js](https://github.com/remy/min.js)
- * - [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
- * - [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
- * - [madrobby/zepto](https://github.com/madrobby/zepto/)
+ * Please find the table of contents in upper right.
  */
 
 var $ = require("./je/api")["default"];
