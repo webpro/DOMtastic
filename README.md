@@ -70,6 +70,10 @@ The [annotated](http://webpro.github.io/jquery-evergreen/main.html) source is wr
 	isNative
 	native
 
+### [NoConflict](http://webpro.github.io/jquery-evergreen/je/noconflict.html)
+
+	noConflict
+
 ### [Selector](http://webpro.github.io/jquery-evergreen/je/selector.html)
 
 	$

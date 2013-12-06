@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
         config: {
             modules: ['main', 'je/api', 'je/util'],
-            optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'selector'],
+            optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'noconflict', 'selector'],
             excludeModules: [],
             excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
             processFiles: [],

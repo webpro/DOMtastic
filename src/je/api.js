@@ -54,6 +54,11 @@ $.isNative = isNative;
 $.native = native;
 /* API:mode */
 
+/* API:noconflict */
+import noConflict from './noconflict';
+$.noConflict = noConflict;
+/* API:noconflict */
+
 var array = [];
 
 /*
