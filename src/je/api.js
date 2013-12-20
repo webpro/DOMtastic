@@ -59,21 +59,16 @@ import noConflict from './noconflict';
 $.noConflict = noConflict;
 /* API:noconflict */
 
-var array = [];
-
 /*
- * The `apiNodeList` object represents the API that gets augmented onto the native `NodeList` object.
- * The wrapped array (native `Array`) already has these (and more).
+ * The `apiNodeList` object represents the API that gets augmented onto
+ * either the wrapped array or the native `NodeList` object.
  */
 
-var apiNodeList = {
-    every: array.every,
-    filter: array.filter,
-    forEach: array.forEach,
-    each: array.forEach,
-    some: array.some,
-    map: array.map
-};
+var apiNodeList = {};
+
+['every', 'filter', 'forEach', 'map', 'reverse', 'some'].forEach(function(methodName) {
+    apiNodeList[methodName] = Array.prototype[methodName];
+});
 
 /*
  * Augment the `$` function to be able to:
