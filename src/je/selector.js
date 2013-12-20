@@ -4,6 +4,8 @@
 
 import { makeIterable } from './util';
 
+var reFragment = /^\s*<(\w+|!)[^>]*>/;
+
 /*
  * ## $
  *
@@ -29,7 +31,7 @@ var $ = function(selector, context) {
 
         collection = makeIterable(selector)
 
-    } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
+    } else if(reFragment.test(selector)) {
 
         collection = createFragment(selector);
 
