@@ -43,7 +43,7 @@ var $ = function(selector, context) {
 
         context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
 
-        collection = context.querySelectorAll(selector);
+        collection = querySelector(selector, context);
 
     }
 
@@ -61,6 +61,34 @@ var $ = function(selector, context) {
 
 var find = function(selector) {
     return $(selector, this);
+};
+
+/*
+ * Use the faster `getElementById` or `getElementsByClassName` over `querySelectorAll` if possible.
+ *
+ * @method querySelector
+ * @private
+ * @param {String} selector Query selector.
+ * @param {Node} context The context for the selector to query elements.
+ * @return {NodeList|Node}
+ */
+
+var querySelector = function(selector, context) {
+
+    var isSimpleSelector = reSimpleSelector.test(selector);
+
+    if(isSimpleSelector) {
+        if(selector[0] === '#') {
+            return (context.getElementById ? context : document).getElementById(selector.slice(1));
+        }
+        if(selector[0] === '.') {
+            return context.getElementsByClassName(selector.slice(1));
+        }
+        return context.getElementsByTagName(selector);
+    }
+
+    return context.querySelectorAll(selector);
+
 };
 
 /*
