@@ -33,7 +33,7 @@ var $ = function(selector, context) {
 
     } else if(typeof selector !== 'string') {
 
-        collection = makeIterable(selector)
+        collection = makeIterable(selector);
 
     } else if(reFragment.test(selector)) {
 
