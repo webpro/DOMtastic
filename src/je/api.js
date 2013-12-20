@@ -80,9 +80,23 @@ var apiNodeList = {};
 $.getNodeMethods = function() {
     return api;
 };
+
 $.getNodeListMethods = function() {
     return apiNodeList;
 };
+
+$.apiMethods = function(api, apiNodeList) {
+
+    var methods = apiNodeList,
+        key;
+
+    for(key in api) {
+        methods[key] = api[key];
+    }
+
+    return methods;
+
+}(api, apiNodeList);
 
 // Export interface
 

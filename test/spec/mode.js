@@ -14,7 +14,6 @@ describe('mode', function() {
 
             var result = getElement('#testFragment li');
 
-            expect(result).toBeInstanceOf(Array);
             expect(result).not.toBeInstanceOf(NodeList);
 
             expect(result).toHave('find');
@@ -43,7 +42,6 @@ describe('mode', function() {
             var result = getElement('#testFragment li');
 
             expect(result).toBeInstanceOf(NodeList);
-            expect(result).not.toBeInstanceOf(Array);
 
             expect(result).toHave('find');
             expect(result).toHave('forEach');
@@ -100,7 +98,7 @@ describe('mode', function() {
 
         result = $('#testFragment li');
 
-        expect(result).toBeInstanceOf(Array);
+        expect(result).not.toBeInstanceOf(NodeList);
 
         $.native(revertMode);
 

@@ -4,8 +4,11 @@
 
 import { makeIterable } from './util';
 
-var reFragment = /^\s*<(\w+|!)[^>]*>/,
-    reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+var slice = [].slice,
+    hasProto = !Object.prototype.isPrototypeOf({__proto__: null}),
+    reFragment = /^\s*<(\w+|!)[^>]*>/,
+    reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+    reSimpleSelector = /^[\.#]?[\w-]*$/;
 
 /*
  * ## $
@@ -96,14 +99,19 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 
-var methods;
-
 var wrap = function(collection) {
-    var wrapped = collection instanceof NodeList ? [].slice.call(collection) : collection instanceof Array ? collection : [collection];
-    methods = methods || $.getNodeMethods();
-    for(var key in methods) {
-        wrapped[key] = methods[key];
+
+    var wrapped = typeof collection.length !== 'undefined' ? slice.call(collection) : [collection],
+        methods = $.apiMethods;
+
+    if (hasProto) {
+        wrapped.__proto__ = methods;
+    } else {
+        for(var key in methods) {
+            wrapped[key] = methods[key];
+        }
     }
+
     return wrapped;
 };
 

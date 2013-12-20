@@ -4,13 +4,12 @@ describe('selectors', function() {
 
     it('should return an empty NodeList for falsey selectors', function() {
 
-        var actual = !$.isNative ? Array : NodeList;
-
-        expect($()).toBeInstanceOf(actual);
+        expect($().forEach).toBeDefined();
+        expect($().length).toBeDefined();
         expect($().length).toBe(0);
-        expect($(null)).toBeInstanceOf(actual);
-        expect($('')).toBeInstanceOf(actual);
-        expect($(0)).toBeInstanceOf(actual);
+        expect($(null).length).toBe(0);
+        expect($('').length).toBe(0);
+        expect($(0).length).toBe(0);
     });
 
     it('should return queried elements', function() {
