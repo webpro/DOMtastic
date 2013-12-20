@@ -4,7 +4,8 @@
 
 import { makeIterable } from './util';
 
-var reFragment = /^\s*<(\w+|!)[^>]*>/;
+var reFragment = /^\s*<(\w+|!)[^>]*>/,
+    reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
 
 /*
  * ## $
@@ -69,6 +70,10 @@ var find = function(selector) {
  */
 
 var createFragment = function(html) {
+
+    if(reSingleTag.test(html)) {
+        return document.createElement(RegExp.$1);
+    }
 
     var fragment = document.createDocumentFragment(),
         container = document.createElement('div');
