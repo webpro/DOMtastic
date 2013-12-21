@@ -13,9 +13,9 @@
     "selector"
   ],
   "authors": [{
-    "name" : "Lars Kappert",
-    "email" : "lars@webpro.nl",
-    "homepage" : "http://webpro.nl"
+    "name": "Lars Kappert",
+    "email": "lars@webpro.nl",
+    "homepage": "http://webpro.nl"
   }],
   "homepage": "http://webpro.github.io/jquery-evergreen/",
   "repository": {
