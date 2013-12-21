@@ -79,6 +79,16 @@ The [annotated](http://webpro.github.io/jquery-evergreen/main.html) source is wr
 	$
 	find
 
+## But it doesn't even have ...!
+
+As mentioned in the introduction, jQuery Evergreen doesn't have methods for your Ajax, Animation and Deferred needs. Please find your own libraries to fill in the gaps as needed. Here are just some examples:
+
+* Ajax: [microjs#ajax](http://microjs.com/#ajax), [rest.js](https://github.com/cujojs/rest)
+* Animation: [microjs#animation](http://microjs.com/#animation), [Move.js](http://visionmedia.github.io/move.js/), [Animate.css](https://daneden.me/animate/)
+* Deferred (aka promises): [when.js](https://github.com/cujojs/when), [RSVP.js](https://github.com/tildeio/rsvp.js)
+
+However, feel free to [open an issue](https://github.com/webpro/jquery-evergreen/issues) if you feel an important method is missing.
+
 ## Browser Support
 
 Latest versions of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11. IE9 only needs a polyfill for `classList` to make these tests pass.
