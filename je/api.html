@@ -18,21 +18,33 @@ api.trigger = trigger;</div></div></div><div class="segment"><div class="comment
 api.html = html;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:html </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:selector </p></div></div><div class="code"><div class="wrapper">import { $, find } from <span class="string">'./selector'</span>;
 api.find = find;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:selector </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:mode </p></div></div><div class="code"><div class="wrapper">import { isNative, native } from <span class="string">'./mode'</span>;
 $.isNative = isNative;
-$.native = native;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:mode </p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> array = [];</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>apiNodeList</code> object represents the API that gets augmented onto the native <code>NodeList</code> object.
-The wrapped array (native <code>Array</code>) already has these (and more).</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> apiNodeList = {
-    every: array.every,
-    filter: array.filter,
-    forEach: array.forEach,
-    each: array.forEach,
-    some: array.some,
-    map: array.map
-};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Augment the <code>$</code> function to be able to:</p>
+$.native = native;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:mode </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:noconflict </p></div></div><div class="code"><div class="wrapper">import noConflict from <span class="string">'./noconflict'</span>;
+$.noConflict = noConflict;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:noconflict </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>apiNodeList</code> object represents the API that gets augmented onto
+either the wrapped array or the native <code>NodeList</code> object.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> apiNodeList = {};
+
+[<span class="string">'every'</span>, <span class="string">'filter'</span>, <span class="string">'forEach'</span>, <span class="string">'map'</span>, <span class="string">'reverse'</span>, <span class="string">'some'</span>].forEach(<span class="function"><span class="keyword">function</span><span class="params">(methodName)</span> {</span>
+    apiNodeList[methodName] = Array.prototype[methodName];
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Augment the <code>$</code> function to be able to:</p>
 <ul>
 <li>wrap the <code>$</code> objects and add the API methods</li>
 <li>switch to native mode</li>
 </ul></div></div><div class="code"><div class="wrapper">$.getNodeMethods = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">return</span> api;
 };
+
 $.getNodeListMethods = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     <span class="keyword">return</span> apiNodeList;
-};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export <span class="keyword">default</span> $;</div></div></div></div></body></html>
+};
+
+$.apiMethods = <span class="function"><span class="keyword">function</span><span class="params">(api, apiNodeList)</span> {</span>
+
+    <span class="keyword">var</span> methods = apiNodeList,
+        key;
+
+    <span class="keyword">for</span>(key <span class="keyword">in</span> api) {
+        methods[key] = api[key];
+    }
+
+    <span class="keyword">return</span> methods;
+
+}(api, apiNodeList);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export <span class="keyword">default</span> $;</div></div></div></div></body></html>

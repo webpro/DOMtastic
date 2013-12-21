@@ -25,7 +25,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/api.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/api.js",
             "projectPath": "src/je/api.js",
             "targetPath": "je/api",
             "pageTitle": "je/api",
@@ -55,7 +55,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/attr.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/attr.js",
             "projectPath": "src/je/attr.js",
             "targetPath": "je/attr",
             "pageTitle": "je/attr",
@@ -106,7 +106,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/class.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/class.js",
             "projectPath": "src/je/class.js",
             "targetPath": "je/class",
             "pageTitle": "je/class",
@@ -205,7 +205,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/dom.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/dom.js",
             "projectPath": "src/je/dom.js",
             "targetPath": "je/dom",
             "pageTitle": "je/dom",
@@ -288,7 +288,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/event.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/event.js",
             "projectPath": "src/je/event.js",
             "targetPath": "je/event",
             "pageTitle": "je/event",
@@ -403,7 +403,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/html.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/html.js",
             "projectPath": "src/je/html.js",
             "targetPath": "je/html",
             "pageTitle": "je/html",
@@ -454,7 +454,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/mode.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/mode.js",
             "projectPath": "src/je/mode.js",
             "targetPath": "je/mode",
             "pageTitle": "je/mode",
@@ -484,7 +484,37 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/selector.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/noconflict.js",
+            "projectPath": "src/je/noconflict.js",
+            "targetPath": "je/noconflict",
+            "pageTitle": "je/noconflict",
+            "title": "noconflict"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "noConflict",
+                "slug": "noconflict"
+              },
+              "depth": 1
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/selector.js",
             "projectPath": "src/je/selector.js",
             "targetPath": "je/selector",
             "pageTitle": "je/selector",
@@ -551,7 +581,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/lars/Projects/jep/src/je/util.js",
+            "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/je/util.js",
             "projectPath": "src/je/util.js",
             "targetPath": "je/util",
             "pageTitle": "je/util",
@@ -591,7 +621,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "JavaScript"
         },
-        "sourcePath": "/Users/lars/Projects/jep/src/main.js",
+        "sourcePath": "/Users/lars/Projects/jquery-evergreen/src/main.js",
         "projectPath": "src/main.js",
         "targetPath": "main",
         "pageTitle": "main",
