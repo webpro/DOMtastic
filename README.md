@@ -93,6 +93,16 @@ However, feel free to [open an issue](https://github.com/webpro/jquery-evergreen
 
 Latest versions of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11. IE9 only needs a polyfill for `classList` to make these tests pass.
 
+## Performance
+
+Some tests comparing the performance of jQuery, Zepto, and jQuery Evergreen:
+
+* [Selector (simple)](http://jsperf.com/jquery-zepto-evergreen-simple-selector) - `$('.foo')`
+* [Selector (complex)](http://jsperf.com/jquery-zepto-evergreen-complex-selector) - `$('.a .b > .c + .c article > [data-foo]').find('ul > li:first-child')`
+* [Class](http://jsperf.com/jquery-zepto-evergreen-class) - `addClass`, `removeClass`, `toggleClass`
+* [DOM manipulation](http://jsperf.com/jquery-zepto-evergreen-dom-manipulation) - `append`, `before`, `after`, `html`
+* [Attr](http://jsperf.com/jquery-zepto-evergreen-attr) - `attr`
+
 ## Native Mode
 
 You can [opt-in](http://webpro.github.io/jquery-evergreen/je/mode.html) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
