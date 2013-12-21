@@ -129,7 +129,7 @@ var createFragment = function(html) {
 
 var wrap = function(collection) {
 
-    var wrapped = typeof collection.length !== 'undefined' ? slice.call(collection) : [collection],
+    var wrapped = collection instanceof Array ? collection : 'length' in collection ? slice.call(collection) : [collection],
         methods = $.apiMethods;
 
     if (hasProto) {

@@ -110,7 +110,7 @@ var clone = function(element) {
         return '' + element;
     } else if(element instanceof Node) {
         return element.cloneNode(true);
-    } else if(element.length) {
+    } else if('length' in element) {
         return [].map.call(element, function(el) {
             return el.cloneNode(true);
         });

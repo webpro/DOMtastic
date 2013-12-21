@@ -28,7 +28,7 @@ var toArray = function(collection) {
  */
 
 var makeIterable = function(element) {
-    return typeof element.length === 'undefined' || element === window ? [element] : element;
+    return 'length' in element && element !== window ? element : [element];
 };
 
 export { global, toArray, makeIterable };
