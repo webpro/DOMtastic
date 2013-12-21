@@ -5,6 +5,12 @@
 
 var makeIterable = require("./util").makeIterable;
 
+var slice = [].slice,
+    hasProto = !Object.prototype.isPrototypeOf({__proto__: null}),
+    reFragment = /^\s*<(\w+|!)[^>]*>/,
+    reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+    reSimpleSelector = /^[\.#]?[\w-]*$/;
+
 /*
  * ## $
  *
@@ -28,9 +34,9 @@ var $ = function(selector, context) {
 
     } else if(typeof selector !== 'string') {
 
-        collection = makeIterable(selector)
+        collection = makeIterable(selector);
 
-    } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
+    } else if(reFragment.test(selector)) {
 
         collection = createFragment(selector);
 
@@ -38,7 +44,7 @@ var $ = function(selector, context) {
 
         context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
 
-        collection = context.querySelectorAll(selector);
+        collection = querySelector(selector, context);
 
     }
 
@@ -59,6 +65,34 @@ var find = function(selector) {
 };
 
 /*
+ * Use the faster `getElementById` or `getElementsByClassName` over `querySelectorAll` if possible.
+ *
+ * @method querySelector
+ * @private
+ * @param {String} selector Query selector.
+ * @param {Node} context The context for the selector to query elements.
+ * @return {NodeList|Node}
+ */
+
+var querySelector = function(selector, context) {
+
+    var isSimpleSelector = reSimpleSelector.test(selector);
+
+    if(isSimpleSelector && !$.isNative) {
+        if(selector[0] === '#') {
+            return (context.getElementById ? context : document).getElementById(selector.slice(1));
+        }
+        if(selector[0] === '.') {
+            return context.getElementsByClassName(selector.slice(1));
+        }
+        return context.getElementsByTagName(selector);
+    }
+
+    return context.querySelectorAll(selector);
+
+};
+
+/*
  * Create DOM fragment from an HTML string
  *
  * @method createFragment
@@ -68,6 +102,10 @@ var find = function(selector) {
  */
 
 var createFragment = function(html) {
+
+    if(reSingleTag.test(html)) {
+        return document.createElement(RegExp.$1);
+    }
 
     var fragment = document.createDocumentFragment(),
         container = document.createElement('div');
@@ -90,14 +128,19 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 
-var methods;
-
 var wrap = function(collection) {
-    var wrapped = collection instanceof NodeList ? [].slice.call(collection) : collection instanceof Array ? collection : [collection];
-    methods = methods || $.getNodeMethods();
-    for(var key in methods) {
-        wrapped[key] = methods[key];
+
+    var wrapped = collection instanceof Array ? collection : 'length' in collection ? slice.call(collection) : [collection],
+        methods = $.apiMethods;
+
+    if (hasProto) {
+        wrapped.__proto__ = methods;
+    } else {
+        for(var key in methods) {
+            wrapped[key] = methods[key];
+        }
     }
+
     return wrapped;
 };
 

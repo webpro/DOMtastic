@@ -4,6 +4,12 @@ define(
   function(__exports__) {
     
     /**
+     * Reference to the global scope
+     */
+
+    var global = Function("return this")();
+
+    /**
      * ## toArray
      *
      * Convert `NodeList` to `Array`.
@@ -27,9 +33,10 @@ define(
      */
 
     var makeIterable = function(element) {
-        return typeof element.length === 'undefined' || element === window ? [element] : element;
+        return 'length' in element && element !== window ? element : [element];
     };
 
+    __exports__.global = global;
     __exports__.toArray = toArray;
     __exports__.makeIterable = makeIterable;
   });
@@ -267,7 +274,7 @@ define(
             return '' + element;
         } else if(element instanceof Node) {
             return element.cloneNode(true);
-        } else if(element.length) {
+        } else if('length' in element) {
             return [].map.call(element, function(el) {
                 return el.cloneNode(true);
             });
@@ -287,6 +294,7 @@ define(
     
     // # Events
 
+    var global = __dependency1__.global;
     var makeIterable = __dependency1__.makeIterable;
 
     /**
@@ -581,7 +589,7 @@ define(
      * Needed to support IE (9, 10, 11)
      */
 
-    (function(global) {
+    (function() {
         if(global.CustomEvent) {
             var CustomEvent = function(event, params) {
                 params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -593,7 +601,7 @@ define(
             CustomEvent.prototype = global.CustomEvent.prototype;
             global.CustomEvent = CustomEvent;
         }
-    })(this);
+    })();
 
     // Are events bubbling in detached DOM trees?
 
@@ -665,6 +673,12 @@ define(
 
     var makeIterable = __dependency1__.makeIterable;
 
+    var slice = [].slice,
+        hasProto = !Object.prototype.isPrototypeOf({__proto__: null}),
+        reFragment = /^\s*<(\w+|!)[^>]*>/,
+        reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+        reSimpleSelector = /^[\.#]?[\w-]*$/;
+
     /*
      * ## $
      *
@@ -688,9 +702,9 @@ define(
 
         } else if(typeof selector !== 'string') {
 
-            collection = makeIterable(selector)
+            collection = makeIterable(selector);
 
-        } else if(/^\s*<(\w+|!)[^>]*>/.test(selector)) {
+        } else if(reFragment.test(selector)) {
 
             collection = createFragment(selector);
 
@@ -698,7 +712,7 @@ define(
 
             context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
 
-            collection = context.querySelectorAll(selector);
+            collection = querySelector(selector, context);
 
         }
 
@@ -719,6 +733,34 @@ define(
     };
 
     /*
+     * Use the faster `getElementById` or `getElementsByClassName` over `querySelectorAll` if possible.
+     *
+     * @method querySelector
+     * @private
+     * @param {String} selector Query selector.
+     * @param {Node} context The context for the selector to query elements.
+     * @return {NodeList|Node}
+     */
+
+    var querySelector = function(selector, context) {
+
+        var isSimpleSelector = reSimpleSelector.test(selector);
+
+        if(isSimpleSelector && !$.isNative) {
+            if(selector[0] === '#') {
+                return (context.getElementById ? context : document).getElementById(selector.slice(1));
+            }
+            if(selector[0] === '.') {
+                return context.getElementsByClassName(selector.slice(1));
+            }
+            return context.getElementsByTagName(selector);
+        }
+
+        return context.querySelectorAll(selector);
+
+    };
+
+    /*
      * Create DOM fragment from an HTML string
      *
      * @method createFragment
@@ -728,6 +770,10 @@ define(
      */
 
     var createFragment = function(html) {
+
+        if(reSingleTag.test(html)) {
+            return document.createElement(RegExp.$1);
+        }
 
         var fragment = document.createDocumentFragment(),
             container = document.createElement('div');
@@ -750,14 +796,19 @@ define(
      * @return {$Object} Array with augmented API.
      */
 
-    var methods;
-
     var wrap = function(collection) {
-        var wrapped = collection instanceof NodeList ? [].slice.call(collection) : collection instanceof Array ? collection : [collection];
-        methods = methods || $.getNodeMethods();
-        for(var key in methods) {
-            wrapped[key] = methods[key];
+
+        var wrapped = collection instanceof Array ? collection : 'length' in collection ? slice.call(collection) : [collection],
+            methods = $.apiMethods;
+
+        if (hasProto) {
+            wrapped.__proto__ = methods;
+        } else {
+            for(var key in methods) {
+                wrapped[key] = methods[key];
+            }
         }
+
         return wrapped;
     };
 
@@ -882,27 +933,27 @@ define(
     __exports__.native = native;
   });
 define(
-  'je/noconflict',["exports"],
-  function(__exports__) {
+  'je/noconflict',["./util","exports"],
+  function(__dependency1__, __exports__) {
     
+    var global = __dependency1__.global;
+
     /*
      * # noConflict
      *
      * In case another library sets the global `$` variable before jQuery Evergreen does,
      * this method can be used to return the global `$` to that other library.
-     *
      */
 
     // Save the previous value of the global `$` variable, so that it can be restored later on.
 
-    var root = Function("return this")(),
-        previousLib = root.$;
+    var previousLib = global.$;
 
     // Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
     // Returns a reference to jQuery Evergreen.
 
     var noConflict = function() {
-    	root.$ = previousLib;
+        global.$ = previousLib;
     	return this;
     };
 
@@ -986,21 +1037,16 @@ define(
     $.noConflict = noConflict;
     /* API:noconflict */
 
-    var array = [];
-
     /*
-     * The `apiNodeList` object represents the API that gets augmented onto the native `NodeList` object.
-     * The wrapped array (native `Array`) already has these (and more).
+     * The `apiNodeList` object represents the API that gets augmented onto
+     * either the wrapped array or the native `NodeList` object.
      */
 
-    var apiNodeList = {
-        every: array.every,
-        filter: array.filter,
-        forEach: array.forEach,
-        each: array.forEach,
-        some: array.some,
-        map: array.map
-    };
+    var apiNodeList = {};
+
+    ['every', 'filter', 'forEach', 'map', 'reverse', 'some'].forEach(function(methodName) {
+        apiNodeList[methodName] = Array.prototype[methodName];
+    });
 
     /*
      * Augment the `$` function to be able to:
@@ -1012,9 +1058,23 @@ define(
     $.getNodeMethods = function() {
         return api;
     };
+
     $.getNodeListMethods = function() {
         return apiNodeList;
     };
+
+    $.apiMethods = function(api, apiNodeList) {
+
+        var methods = apiNodeList,
+            key;
+
+        for(key in api) {
+            methods[key] = api[key];
+        }
+
+        return methods;
+
+    }(api, apiNodeList);
 
     // Export interface
 

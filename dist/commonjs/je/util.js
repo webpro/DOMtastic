@@ -1,5 +1,11 @@
 "use strict";
 /**
+ * Reference to the global scope
+ */
+
+var global = Function("return this")();
+
+/**
  * ## toArray
  *
  * Convert `NodeList` to `Array`.
@@ -23,8 +29,9 @@ var toArray = function(collection) {
  */
 
 var makeIterable = function(element) {
-    return typeof element.length === 'undefined' || element === window ? [element] : element;
+    return 'length' in element && element !== window ? element : [element];
 };
 
+exports.global = global;
 exports.toArray = toArray;
 exports.makeIterable = makeIterable;
