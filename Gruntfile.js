@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-requirejs");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-es6-module-transpiler');
 
@@ -21,6 +22,16 @@ module.exports = function(grunt) {
             outputAMDBundle: 'dist/jquery-evergreen.amd.js',
             outputCJS: 'dist/commonjs/',
             outputFileGlobal: 'dist/jquery-evergreen.js'
+        },
+
+        watch: {
+            scripts: {
+                files: ['src/**/*.js'],
+                tasks: ['default'],
+                options: {
+                    spawn: false
+                }
+            }
         },
 
         clean: {
