@@ -1,3 +1,5 @@
+import { global } from './util';
+
 /*
  * # noConflict
  *
@@ -7,14 +9,13 @@
 
 // Save the previous value of the global `$` variable, so that it can be restored later on.
 
-var root = Function("return this")(),
-    previousLib = root.$;
+var previousLib = global.$;
 
 // Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
 // Returns a reference to jQuery Evergreen.
 
 var noConflict = function() {
-	root.$ = previousLib;
+    global.$ = previousLib;
 	return this;
 };
 

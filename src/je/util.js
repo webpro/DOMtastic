@@ -1,4 +1,10 @@
 /**
+ * Reference to the global scope
+ */
+
+var global = Function("return this")();
+
+/**
  * ## toArray
  *
  * Convert `NodeList` to `Array`.
@@ -25,4 +31,4 @@ var makeIterable = function(element) {
     return typeof element.length === 'undefined' || element === window ? [element] : element;
 };
 
-export { toArray, makeIterable };
+export { global, toArray, makeIterable };

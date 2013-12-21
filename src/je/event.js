@@ -1,6 +1,6 @@
 // # Events
 
-import { makeIterable } from './util';
+import { global, makeIterable } from './util';
 
 /**
  * ## on
@@ -294,7 +294,7 @@ var matchesSelector = (function(global) {
  * Needed to support IE (9, 10, 11)
  */
 
-(function(global) {
+(function() {
     if(global.CustomEvent) {
         var CustomEvent = function(event, params) {
             params = params || { bubbles: false, cancelable: false, detail: undefined };
@@ -306,7 +306,7 @@ var matchesSelector = (function(global) {
         CustomEvent.prototype = global.CustomEvent.prototype;
         global.CustomEvent = CustomEvent;
     }
-})(this);
+})();
 
 // Are events bubbling in detached DOM trees?
 
