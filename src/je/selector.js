@@ -77,7 +77,7 @@ var querySelector = function(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
-    if(isSimpleSelector) {
+    if(isSimpleSelector && !$.isNative) {
         if(selector[0] === '#') {
             return (context.getElementById ? context : document).getElementById(selector.slice(1));
         }
