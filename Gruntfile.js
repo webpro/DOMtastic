@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                 options: {
                     alias: '<%= config.outputCJS %>/main.js:jQueryEvergreen',
                     postBundleCB: function(err, src, next) {
-                        src += "window.$=require('jQueryEvergreen')['default'];";
+                        src += ";window.$=require('jQueryEvergreen')['default'];";
                         next(err, src);
                     }
                 }
