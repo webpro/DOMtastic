@@ -33,7 +33,7 @@ define(
      */
 
     var makeIterable = function(element) {
-        return 'length' in element && element !== window ? element : [element];
+        return element.length === undefined || element === window ? [element] : element;
     };
 
     __exports__.global = global;
@@ -798,7 +798,7 @@ define(
 
     var wrap = function(collection) {
 
-        var wrapped = collection instanceof Array ? collection : 'length' in collection ? slice.call(collection) : [collection],
+        var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
             methods = $.apiMethods;
 
         if (hasProto) {
@@ -954,7 +954,7 @@ define(
 
     var noConflict = function() {
         global.$ = previousLib;
-    	return this;
+        return this;
     };
 
     // Export interface

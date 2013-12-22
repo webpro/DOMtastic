@@ -854,7 +854,7 @@ var previousLib = global.$;
 
 var noConflict = function() {
     global.$ = previousLib;
-	return this;
+    return this;
 };
 
 // Export interface
@@ -993,7 +993,7 @@ var createFragment = function(html) {
 
 var wrap = function(collection) {
 
-    var wrapped = collection instanceof Array ? collection : 'length' in collection ? slice.call(collection) : [collection],
+    var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
         methods = $.apiMethods;
 
     if (hasProto) {
@@ -1043,7 +1043,7 @@ var toArray = function(collection) {
  */
 
 var makeIterable = function(element) {
-    return 'length' in element && element !== window ? element : [element];
+    return element.length === undefined || element === window ? [element] : element;
 };
 
 exports.global = global;
@@ -1068,5 +1068,4 @@ module.exports=require('iOJE2k');
 var $ = require("./je/api")["default"];
 
 exports["default"] = $;
-},{"./je/api":1}]},{},["iOJE2k"])
-;window.$=require('jQueryEvergreen')['default'];
+},{"./je/api":1}]},{},["iOJE2k"]);window.$=require('jQueryEvergreen')['default'];

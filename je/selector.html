@@ -98,7 +98,7 @@
 </ul>
 <p><strong>Returns a $Object</strong><br/>(Array with augmented API.)</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> wrap = <span class="function"><span class="keyword">function</span><span class="params">(collection)</span> {</span>
 
-    <span class="keyword">var</span> wrapped = collection <span class="keyword">instanceof</span> Array ? collection : <span class="string">'length'</span> <span class="keyword">in</span> collection ? slice.call(collection) : [collection],
+    <span class="keyword">var</span> wrapped = collection <span class="keyword">instanceof</span> Array ? collection : collection.length !== <span class="literal">undefined</span> ? slice.call(collection) : [collection],
         methods = $.apiMethods;
 
     <span class="keyword">if</span> (hasProto) {

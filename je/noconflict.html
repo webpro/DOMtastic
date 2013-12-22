@@ -3,5 +3,5 @@
 this method can be used to return the global <code>$</code> to that other library.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Save the previous value of the global <code>$</code> variable, so that it can be restored later on.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> previousLib = global.$;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Put jQuery Evergreen in noConflict mode, returning the <code>$</code> variable to its previous owner.
 Returns a reference to jQuery Evergreen.</p></div></div><div class="code"><div class="wrapper"><span class="keyword">var</span> noConflict = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
     global.$ = previousLib;
-	<span class="keyword">return</span> <span class="keyword">this</span>;
+    <span class="keyword">return</span> <span class="keyword">this</span>;
 };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export <span class="keyword">default</span> noConflict;</div></div></div></div></body></html>
