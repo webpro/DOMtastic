@@ -17,7 +17,7 @@ var previousLib = global.$;
 
 var noConflict = function() {
     global.$ = previousLib;
-	return this;
+    return this;
 };
 
 // Export interface
