@@ -1,6 +1,6 @@
 // # HTML
 
-import { makeIterable } from './util';
+import { each } from './util';
 
 /*
  * ## html
@@ -18,7 +18,7 @@ var html = function(fragment) {
         return (this.nodeType ? this : this[0]).innerHTML;
     }
 
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
         element.innerHTML = fragment;
     });
     return this;
