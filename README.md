@@ -132,3 +132,5 @@ Many thanks to these sources of inspiration:
 ## License
 
 [MIT licensed](http://webpro.mit-license.org)
+
+![Analytics](https://ga-beacon.appspot.com/UA-17415234-3/jquery-evergreen/readme?pixel)
