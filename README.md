@@ -95,13 +95,7 @@ Latest versions of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile
 
 ## Performance
 
-Some tests comparing the performance of jQuery, Zepto, and jQuery Evergreen:
-
-* [Selector (simple)](http://jsperf.com/jquery-zepto-evergreen-simple-selector) - `$('.foo')`
-* [Selector (complex)](http://jsperf.com/jquery-zepto-evergreen-complex-selector) - `$('.a .b > .c + .c article > [data-foo]').find('ul > li:first-child')`
-* [Class](http://jsperf.com/jquery-zepto-evergreen-class) - `addClass`, `removeClass`, `toggleClass`
-* [DOM manipulation](http://jsperf.com/jquery-zepto-evergreen-dom-manipulation) - `append`, `before`, `after`, `html`
-* [Attr](http://jsperf.com/jquery-zepto-evergreen-attr) - `attr`
+Run the [benchmark suite](http://webpro.github.io/jquery-evergreen/benchmark/) to compare the performance of various methods of jQuery, Zepto and jQuery Evergreen.
 
 ## Native Mode
 
