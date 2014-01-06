@@ -1,7 +1,7 @@
 "use strict";
 // # Attr
 
-var makeIterable = require("./util").makeIterable;
+var each = require("./util").each;
 
 /**
  * ## attr
@@ -17,7 +17,7 @@ var attr = function(key, value) {
         return (this.nodeType ? this : this[0]).getAttribute(key);
     }
 
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
         if(typeof key === 'object') {
             for(var attr in key) {
                 element.setAttribute(attr, key[attr]);

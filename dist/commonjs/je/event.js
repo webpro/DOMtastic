@@ -2,7 +2,7 @@
 // # Events
 
 var global = require("./util").global;
-var makeIterable = require("./util").makeIterable;
+var each = require("./util").each;
 
 /**
  * ## on
@@ -32,7 +32,7 @@ var on = function(eventName, selector, handler, useCapture) {
 
     var eventListener = handler;
 
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
 
         if(selector) {
             eventListener = delegateHandler.bind(element, selector, handler);
@@ -79,13 +79,13 @@ var off = function(eventName, selector, handler, useCapture) {
         var namespace = parts[1];
     }
 
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
 
         var handlers = getHandlers(element) || [];
 
         if(!eventName && !namespace && !selector && !handler) {
 
-            handlers.forEach(function(item) {
+            each(handlers, function(item) {
                 element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
             });
 
@@ -93,12 +93,12 @@ var off = function(eventName, selector, handler, useCapture) {
 
         } else {
 
-            handlers.filter(function(item) {
+            each(handlers.filter(function(item) {
                 return ((!eventName || item.eventName === eventName) &&
                     (!namespace || item.namespace === namespace) &&
                     (!handler || item.handler === handler) &&
                     (!selector || item.selector === selector));
-            }).forEach(function(item) {
+            }), function(item) {
                 element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
                 handlers.splice(handlers.indexOf(item), 1);
             });
@@ -165,7 +165,7 @@ var undelegate = function(selector, eventName, fn) {
 var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
         if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
         } else {

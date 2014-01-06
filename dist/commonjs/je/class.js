@@ -2,6 +2,7 @@
 // # Class methods
 
 var makeIterable = require("./util").makeIterable;
+var each = require("./util").each;
 
 /**
  * ## addClass
@@ -13,7 +14,7 @@ var makeIterable = require("./util").makeIterable;
  */
 
 var addClass = function(value) {
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
         element.classList.add(value);
     });
     return this;
@@ -29,7 +30,7 @@ var addClass = function(value) {
  */
 
 var removeClass = function(value) {
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
         element.classList.remove(value);
     });
     return this;
@@ -45,7 +46,7 @@ var removeClass = function(value) {
  */
 
 var toggleClass = function(value) {
-    makeIterable(this).forEach(function(element) {
+    each(this, function(element) {
         element.classList.toggle(value);
     });
     return this;

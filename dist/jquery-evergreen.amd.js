@@ -36,9 +36,32 @@ define(
         return element.length === undefined || element === window ? [element] : element;
     };
 
+    /**
+     * ## each
+     *
+     * Faster alternative to [].forEach method
+     *
+     * @param {Node|NodeList|Array} collection
+     * @param {Function} callback
+     * @returns {Node|NodeList|Array}
+     */
+
+    var each = function(collection, callback) {
+        var length = collection.length;
+        if(length !== undefined) {
+            for(var i = 0; i < length; i++){
+                callback(collection[i]);
+            }
+        } else {
+            callback(collection);
+        }
+        return collection;
+    };
+
     __exports__.global = global;
     __exports__.toArray = toArray;
     __exports__.makeIterable = makeIterable;
+    __exports__.each = each;
   });
 define(
   'je/attr',["./util","exports"],
@@ -46,7 +69,7 @@ define(
     
     // # Attr
 
-    var makeIterable = __dependency1__.makeIterable;
+    var each = __dependency1__.each;
 
     /**
      * ## attr
@@ -62,7 +85,7 @@ define(
             return (this.nodeType ? this : this[0]).getAttribute(key);
         }
 
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
             if(typeof key === 'object') {
                 for(var attr in key) {
                     element.setAttribute(attr, key[attr]);
@@ -86,6 +109,7 @@ define(
     // # Class methods
 
     var makeIterable = __dependency1__.makeIterable;
+    var each = __dependency1__.each;
 
     /**
      * ## addClass
@@ -97,7 +121,7 @@ define(
      */
 
     var addClass = function(value) {
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
             element.classList.add(value);
         });
         return this;
@@ -113,7 +137,7 @@ define(
      */
 
     var removeClass = function(value) {
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
             element.classList.remove(value);
         });
         return this;
@@ -129,7 +153,7 @@ define(
      */
 
     var toggleClass = function(value) {
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
             element.classList.toggle(value);
         });
         return this;
@@ -295,7 +319,7 @@ define(
     // # Events
 
     var global = __dependency1__.global;
-    var makeIterable = __dependency1__.makeIterable;
+    var each = __dependency1__.each;
 
     /**
      * ## on
@@ -325,7 +349,7 @@ define(
 
         var eventListener = handler;
 
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
 
             if(selector) {
                 eventListener = delegateHandler.bind(element, selector, handler);
@@ -372,13 +396,13 @@ define(
             var namespace = parts[1];
         }
 
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
 
             var handlers = getHandlers(element) || [];
 
             if(!eventName && !namespace && !selector && !handler) {
 
-                handlers.forEach(function(item) {
+                each(handlers, function(item) {
                     element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
                 });
 
@@ -386,12 +410,12 @@ define(
 
             } else {
 
-                handlers.filter(function(item) {
+                each(handlers.filter(function(item) {
                     return ((!eventName || item.eventName === eventName) &&
                         (!namespace || item.namespace === namespace) &&
                         (!handler || item.handler === handler) &&
                         (!selector || item.selector === selector));
-                }).forEach(function(item) {
+                }), function(item) {
                     element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
                     handlers.splice(handlers.indexOf(item), 1);
                 });
@@ -458,7 +482,7 @@ define(
     var trigger = function(type, params) {
         params = params || { bubbles: true, cancelable: true, detail: undefined };
         var event = new CustomEvent(type, params);
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
             if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
                 element.dispatchEvent(event);
             } else {
@@ -634,7 +658,7 @@ define(
     
     // # HTML
 
-    var makeIterable = __dependency1__.makeIterable;
+    var each = __dependency1__.each;
 
     /*
      * ## html
@@ -652,7 +676,7 @@ define(
             return (this.nodeType ? this : this[0]).innerHTML;
         }
 
-        makeIterable(this).forEach(function(element) {
+        each(this, function(element) {
             element.innerHTML = fragment;
         });
         return this;
@@ -775,16 +799,17 @@ define(
             return document.createElement(RegExp.$1);
         }
 
-        var fragment = document.createDocumentFragment(),
-            container = document.createElement('div');
+        var elements = [],
+            container = document.createElement('div'),
+            children = container.childNodes;
 
-        container.innerHTML = html.trim();
+        container.innerHTML = html;
 
-        while(container.firstChild) {
-            fragment.appendChild(container.firstChild);
+        for(var i = 0, l = children.length; i < l; i++) {
+            elements.push(children[i]);
         }
 
-        return fragment.childNodes;
+        return elements;
     };
 
     /*

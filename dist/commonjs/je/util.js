@@ -32,6 +32,29 @@ var makeIterable = function(element) {
     return element.length === undefined || element === window ? [element] : element;
 };
 
+/**
+ * ## each
+ *
+ * Faster alternative to [].forEach method
+ *
+ * @param {Node|NodeList|Array} collection
+ * @param {Function} callback
+ * @returns {Node|NodeList|Array}
+ */
+
+var each = function(collection, callback) {
+    var length = collection.length;
+    if(length !== undefined) {
+        for(var i = 0; i < length; i++){
+            callback(collection[i]);
+        }
+    } else {
+        callback(collection);
+    }
+    return collection;
+};
+
 exports.global = global;
 exports.toArray = toArray;
 exports.makeIterable = makeIterable;
+exports.each = each;
