@@ -106,16 +106,17 @@ var createFragment = function(html) {
         return document.createElement(RegExp.$1);
     }
 
-    var fragment = document.createDocumentFragment(),
-        container = document.createElement('div');
+    var elements = [],
+        container = document.createElement('div'),
+        children = container.childNodes;
 
-    container.innerHTML = html.trim();
+    container.innerHTML = html;
 
-    while(container.firstChild) {
-        fragment.appendChild(container.firstChild);
+    for(var i = 0, l = children.length; i < l; i++) {
+        elements.push(children[i]);
     }
 
-    return fragment.childNodes;
+    return elements;
 };
 
 /*
