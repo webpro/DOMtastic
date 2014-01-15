@@ -19,7 +19,7 @@ import { global, each } from './util';
 
 var on = function(eventName, selector, handler, useCapture) {
 
-    if(typeof selector === 'function') {
+    if (typeof selector === 'function') {
         handler = selector;
         selector = null;
     }
@@ -32,7 +32,7 @@ var on = function(eventName, selector, handler, useCapture) {
 
     each(this, function(element) {
 
-        if(selector) {
+        if (selector) {
             eventListener = delegateHandler.bind(element, selector, handler);
         }
 
@@ -66,12 +66,12 @@ var on = function(eventName, selector, handler, useCapture) {
 
 var off = function(eventName, selector, handler, useCapture) {
 
-    if(typeof selector === 'function') {
+    if (typeof selector === 'function') {
         handler = selector;
         selector = null;
     }
 
-    if(eventName) {
+    if (eventName) {
         var parts = eventName.split('.');
         eventName = parts[0];
         var namespace = parts[1];
@@ -81,7 +81,7 @@ var off = function(eventName, selector, handler, useCapture) {
 
         var handlers = getHandlers(element) || [];
 
-        if(!eventName && !namespace && !selector && !handler) {
+        if (!eventName && !namespace && !selector && !handler) {
 
             each(handlers, function(item) {
                 element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
@@ -101,7 +101,7 @@ var off = function(eventName, selector, handler, useCapture) {
                 handlers.splice(handlers.indexOf(item), 1);
             });
 
-            if(handlers.length === 0) {
+            if (handlers.length === 0) {
                 clearHandlers(element);
             }
         }
@@ -164,7 +164,7 @@ var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
     each(this, function(element) {
-        if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+        if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
         } else {
             triggerForPath(element, type, params);
@@ -183,13 +183,13 @@ var trigger = function(type, params) {
  */
 
 var isAttachedToDocument = function(element) {
-    if(element === window || element === document) {
+    if (element === window || element === document) {
         return true;
     }
     var container = element.ownerDocument.documentElement;
-    if(container.contains) {
+    if (container.contains) {
         return container.contains(element);
-    } else if(container.compareDocumentPosition) {
+    } else if (container.compareDocumentPosition) {
         return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
     }
     return false;
@@ -215,7 +215,7 @@ var triggerForPath = function(element, type, params) {
     params.bubbles = false;
     var event = new CustomEvent(type, params);
     event._target = element;
-    while(element.parentNode) {
+    while (element.parentNode) {
         element.dispatchEvent(event);
         element = element.parentNode;
     }
@@ -236,7 +236,7 @@ var handlers = {};
 var unusedKeys = [];
 
 var getHandlers = function(element) {
-    if(!element[cacheKeyProp]) {
+    if (!element[cacheKeyProp]) {
         element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
     }
     var key = element[cacheKeyProp];
@@ -253,7 +253,7 @@ var getHandlers = function(element) {
 
 var clearHandlers = function(element) {
     var key = element[cacheKeyProp];
-    if(handlers[key]) {
+    if (handlers[key]) {
         handlers[key] = null;
         element[key] = null;
         unusedKeys.push(key);
@@ -274,8 +274,8 @@ var clearHandlers = function(element) {
 
 var delegateHandler = function(selector, handler, event) {
     var eventTarget = event._target || event.target;
-    if(matchesSelector.call(eventTarget, selector)) {
-        if(!event.currentTarget) {
+    if (matchesSelector.call(eventTarget, selector)) {
+        if (!event.currentTarget) {
             event.currentTarget = eventTarget;
         }
         handler.call(eventTarget, event);
@@ -295,7 +295,7 @@ var matchesSelector = (function(global) {
  */
 
 (function() {
-    if(global.CustomEvent) {
+    if (global.CustomEvent) {
         var CustomEvent = function(event, params) {
             params = params || { bubbles: false, cancelable: false, detail: undefined };
             var evt = document.createEvent('CustomEvent');
@@ -313,14 +313,14 @@ var matchesSelector = (function(global) {
 var isEventBubblingInDetachedTree = (function(global) {
     var isBubbling = false,
         doc = global.document;
-    if(doc) {
+    if (doc) {
         var parent = doc.createElement('div'),
             child = parent.cloneNode();
         parent.appendChild(child);
         parent.addEventListener('e', function() {
             isBubbling = true;
         });
-        child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+        child.dispatchEvent(new CustomEvent('e', { bubbles: true }));
     }
     return isBubbling;
 })(this);

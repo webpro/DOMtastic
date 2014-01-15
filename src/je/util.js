@@ -43,8 +43,8 @@ var makeIterable = function(element) {
 
 var each = function(collection, callback) {
     var length = collection.length;
-    if(length !== undefined) {
-        for(var i = 0; i < length; i++){
+    if (length !== undefined) {
+        for (var i = 0; i < length; i++){
             callback(collection[i]);
         }
     } else {

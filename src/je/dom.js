@@ -13,11 +13,11 @@ import { toArray } from './util';
  */
 
 var append = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === 'string') {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.appendChild(element);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -26,7 +26,7 @@ var append = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             append.call(this[l], elm);
         }
@@ -45,11 +45,11 @@ var append = function(element) {
  */
 
 var before = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === 'string') {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -58,7 +58,7 @@ var before = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             before.call(this[l], elm);
         }
@@ -77,11 +77,11 @@ var before = function(element) {
  */
 
 var after = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === 'string') {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this.nextSibling);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -90,7 +90,7 @@ var after = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             after.call(this[l], elm);
         }
@@ -106,11 +106,11 @@ var after = function(element) {
  */
 
 var clone = function(element) {
-    if(typeof element === 'string') {
-        return '' + element;
-    } else if(element instanceof Node) {
+    if (typeof element === 'string') {
+        return element;
+    } else if (element instanceof Node) {
         return element.cloneNode(true);
-    } else if('length' in element) {
+    } else if ('length' in element) {
         return [].map.call(element, function(el) {
             return el.cloneNode(true);
         });

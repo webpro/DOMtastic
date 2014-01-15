@@ -90,7 +90,7 @@ $.apiMethods = function(api, apiNodeList) {
     var methods = apiNodeList,
         key;
 
-    for(key in api) {
+    for (key in api) {
         methods[key] = api[key];
     }
 

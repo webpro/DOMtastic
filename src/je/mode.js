@@ -29,13 +29,13 @@ var isNative = false;
 var native = function(native) {
     var wasNative = isNative;
     isNative = typeof native === 'boolean' ? native : true;
-    if($) {
+    if ($) {
         $.isNative = isNative;
     }
-    if(!wasNative && isNative) {
+    if (!wasNative && isNative) {
         augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
     }
-    if(wasNative && !isNative) {
+    if (wasNative && !isNative) {
         unaugmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
     }
     return isNative;
@@ -50,7 +50,7 @@ var NodeProto = typeof Node !== 'undefined' && Node.prototype,
  */
 
 var augment = function(obj, key, value) {
-    if(!obj.hasOwnProperty(key)) {
+    if (!obj.hasOwnProperty(key)) {
         Object.defineProperty(obj, key, {
             value: value,
             configurable: true,
@@ -75,12 +75,12 @@ var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
     var key;
 
-    for(key in methodsNode) {
+    for (key in methodsNode) {
         augment(NodeProto, key, methodsNode[key]);
         augment(NodeListProto, key, methodsNode[key]);
     }
 
-    for(key in methodsNodeList) {
+    for (key in methodsNodeList) {
         augment(NodeListProto, key, methodsNodeList[key]);
     }
 };
@@ -94,12 +94,12 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
     var key;
 
-    for(key in methodsNode) {
+    for (key in methodsNode) {
         unaugment(NodeProto, key);
         unaugment(NodeListProto, key);
     }
 
-    for(key in methodsNodeList) {
+    for (key in methodsNodeList) {
         unaugment(NodeListProto, key);
     }
 };

@@ -14,7 +14,7 @@ import { each } from './util';
 
 var html = function(fragment) {
 
-    if(!fragment) {
+    if (!fragment) {
         return (this.nodeType ? this : this[0]).innerHTML;
     }
 
