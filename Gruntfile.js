@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-es6-module-transpiler');
+    grunt.loadNpmTasks("grunt-jscs-checker");
 
     grunt.initConfig({
 
@@ -91,6 +92,13 @@ module.exports = function(grunt) {
             }
         },
 
+        jscs: {
+            src: 'dist/commonjs/**/*.js',
+            options: {
+                config: '.jscs.json'
+            }
+        },
+
         requirejs: {
             options: {
                 optimize: 'none',
@@ -159,6 +167,7 @@ module.exports = function(grunt) {
         'excludeModules',
         'copy:main',
         'transpile',
+        'jscs',
         'requirejs',
         'browserify',
         'uglify',
