@@ -2,20 +2,20 @@
 <html>
     <head>
         <title>jQuery Evergreen Tests</title>
-        <link rel="stylesheet" href="lib/jasmine.css">
-        <script src="lib/jasmine.js"></script>
-        <script src="lib/jasmine-html.js"></script>
-        <script src="lib/boot.js"></script>
-        <script src="lib/jasmine.customMatchers.js"></script>
-        <script src="lib/helpers.js"></script>
+        <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+        <script src="../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+        <script src="../node_modules/sinon/pkg/sinon.js"></script>
         <script>
-            if(location.hash === '#testem') {
-                document.write('<script src="/testem.js"></' + 'script>')
-            }
+            mocha.setup('bdd');
+            var expect = chai.expect;
         </script>
+        <script src="lib/helpers.js"></script>
     </head>
     <body>
-        <h1>jQuery Evergreen Tests</h1>
+
+        <div id="mocha"></div>
 
         <div id="testFragment" style="display: none;">
 
@@ -36,15 +36,6 @@
         <div id="testElement" style="display: none;"></div>
 
         <script src="../dist/jquery-evergreen.js"></script>
-        <script>
-            if(location.search.indexOf('NATIVE') > -1 && typeof $ !== 'undefined' && typeof $.native === 'function') {
-                $.native();
-            }
-        </script>
-        <p>Mode:
-            <strong><script>document.write($.isNative ? 'native' : 'default')</script></strong>
-            (run tests in <a href="?">default</a> or <a href="?NATIVE">native</a> mode).
-        </p>
 
         <script src="spec/mode.js"></script>
         <script src="spec/selector.js"></script>
@@ -54,6 +45,10 @@
         <script src="spec/attr.js"></script>
         <script src="spec/html.js"></script>
         <script src="spec/noconflict.js"></script>
+
+        <script>
+            mocha.run();
+        </script>
 
     </body>
 </html>

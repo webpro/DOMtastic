@@ -4,9 +4,9 @@ describe('mode', function() {
 
         it('should not augment native objects', function() {
 
-            expect(Node.prototype).not.toHave('find');
-            expect(NodeList.prototype).not.toHave('find');
-            expect(NodeList.prototype).not.toHave('forEach');
+            expect(Node.prototype.find).to.be.an('undefined');
+            expect(NodeList.prototype.find).to.be.an('undefined');
+            expect(NodeList.prototype.forEach).to.be.an('undefined');
 
         });
 
@@ -14,14 +14,14 @@ describe('mode', function() {
 
             var result = getElement('#testFragment li');
 
-            expect(result).not.toBeInstanceOf(NodeList);
+            expect(result).not.to.be.instanceof(NodeList);
 
-            expect(result).toHave('find');
-            expect(result).toHave('forEach');
+            expect(result.find).to.be.a('function');
+            expect(result.forEach).to.be.a('function');
 
-            expect(result[0]).toBeInstanceOf(Node);
-            expect(result[0]).not.toHave('find');
-            expect(result[0]).not.toHave('forEach');
+            expect(result[0]).to.be.instanceof(Node);
+            expect(result[0].find).to.be.an('undefined');
+            expect(result[0].forEach).to.be.an('undefined');
 
         });
 
@@ -31,9 +31,9 @@ describe('mode', function() {
 
         it('should augment native objects', function() {
 
-            expect(Node.prototype).toHave('find');
-            expect(NodeList.prototype).toHave('find');
-            expect(NodeList.prototype).toHave('forEach');
+            expect(Node.prototype).to.contain('find');
+            expect(NodeList.prototype).to.contain('find');
+            expect(NodeList.prototype).to.contain('forEach');
 
         });
 
@@ -41,14 +41,14 @@ describe('mode', function() {
 
             var result = getElement('#testFragment li');
 
-            expect(result).toBeInstanceOf(NodeList);
+            expect(result).to.be.instanceof(NodeList);
 
-            expect(result).toHave('find');
-            expect(result).toHave('forEach');
+            expect(result).to.contain('find');
+            expect(result).to.contain('forEach');
 
-            expect(result[0]).toBeInstanceOf(Node);
-            expect(result[0]).toHave('find');
-            expect(result[0]).not.toHave('forEach');
+            expect(result[0]).to.be.instanceof(Node);
+            expect(result[0]).to.contain('find');
+            expect(result[0]).not.to.contain('forEach');
 
         });
 
@@ -57,8 +57,8 @@ describe('mode', function() {
     it('should not modify/augment the window object', function() {
 
         // Most browsers actually have [window.find](https://developer.mozilla.org/en-US/docs/Web/API/Window.find).
-        expect(window.find).not.toBe(getElement(document).find);
-        expect(window).not.toHave('forEach');
+        expect(window.find).not.to.equal(getElement(document).find);
+        expect(window.forEach).to.be.an('undefined');
 
     });
 
@@ -68,10 +68,10 @@ describe('mode', function() {
             result = document.querySelectorAll(selector),
             $result = $(selector);
 
-        expect(result.length).toBe(5);
+        expect(result.length).to.equal(5);
 
         for(var i = 0; i < result.length; i++) {
-            expect(result[i]).toBe($result[i]);
+            expect(result[i]).to.equal($result[i]);
         }
     });
 
@@ -82,23 +82,23 @@ describe('mode', function() {
 
         $.native();
 
-        expect(Node.prototype.find).toBeOfType('function');
-        expect(NodeList.prototype.find).toBeOfType('function');
-        expect(NodeList.prototype.forEach).toBeOfType('function');
+        expect(Node.prototype.find).to.be.a('function');
+        expect(NodeList.prototype.find).to.be.a('function');
+        expect(NodeList.prototype.forEach).to.be.a('function');
 
         result = $('#testFragment li');
 
-        expect(result).toBeInstanceOf(NodeList);
+        expect(result).to.be.instanceof(NodeList);
 
         $.native(false);
 
-        expect(Node.prototype).not.toHave('find');
-        expect(NodeList.prototype).not.toHave('find');
-        expect(NodeList.prototype).not.toHave('forEach');
+        expect(Node.prototype.find).to.be.an('undefined');
+        expect(NodeList.prototype.find).to.be.an('undefined');
+        expect(NodeList.prototype.forEach).to.be.an('undefined');
 
         result = $('#testFragment li');
 
-        expect(result).not.toBeInstanceOf(NodeList);
+        expect(result).not.to.be.instanceof(NodeList);
 
         $.native(revertMode);
 

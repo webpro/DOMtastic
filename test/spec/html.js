@@ -9,12 +9,12 @@ describe('html', function() {
 
     it('should set the innerHTML for an element', function() {
         emptyContainer.html(html);
-        expect(emptyContainer[0].innerHTML).toBe(html);
+        expect(emptyContainer[0].innerHTML).to.equal(html);
     });
 
     it('should get the innerHTML for an element', function() {
         emptyContainer[0].innerHTML = html;
-        expect(emptyContainer.html()).toBe(html);
+        expect(emptyContainer.html()).to.equal(html);
     });
 
 });
