@@ -42,10 +42,6 @@
     "grunt-es6-module-transpiler": "~0.6.0",
     "benchrunner": "0.0.2",
     "grunt-jscs-checker": "~0.3.2",
-    "mocha": "~1.17.0",
-    "chai": "~1.8.1",
-    "sinon": "~1.7.3",
-    "sinon-chai": "~2.4.0",
     "mocha-phantomjs": "~3.3.1",
     "istanbul": "~0.2.3"
   },
