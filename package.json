@@ -27,7 +27,7 @@
   },
   "main": "dist/commonjs/main.js",
   "scripts": {
-    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html",
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html -R dot",
     "coverage": "./node_modules/istanbul/lib/cli.js instrument dist/jquery-evergreen.js > dist/jquery-evergreen.instrumented.js && ./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && ./node_modules/istanbul/lib/cli.js report --root ./coverage/",
     "doc": "./node_modules/groc/bin/groc"
   },
