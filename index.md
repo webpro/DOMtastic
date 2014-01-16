@@ -10,7 +10,16 @@ Small & fast DOM and event library for modern browsers.
 Having the same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`), it works great stand-alone or paired up with e.g. Backbone.
 The full version is only 7KB minified (2KB gzip), but it's easy to create a custom build to exclude parts you don't need.
 
-The [annotated](http://webpro.github.io/jquery-evergreen/doc/) source is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). And last but also least, the CommonJS version is "browserified".
+The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). And last but also least, the CommonJS version is "browserified".
+
+Quicklinks:
+[tests](http://webpro.github.io/jquery-evergreen/test/),
+[benchmarks](http://webpro.github.io/jquery-evergreen/benchmark/),
+[coverage report](http://webpro.github.io/jquery-evergreen/coverage/dist/jquery-evergreen.js.html),
+[docs](http://webpro.github.io/jquery-evergreen/doc/) (annotated source)
+
+[![Build Status](https://travis-ci.org/webpro/jquery-evergreen.png?branch=master)](https://travis-ci.org/webpro/jquery-evergreen)
+[![Coverage Status](https://coveralls.io/repos/webpro/jquery-evergreen/badge.png?branch=master)](https://coveralls.io/r/webpro/jquery-evergreen?branch=master)
 
 ## Quickstart
 
@@ -42,24 +51,24 @@ The [annotated](http://webpro.github.io/jquery-evergreen/doc/) source is written
 
 ## API
 
-### [Attr](http://webpro.github.io/jquery-evergreen/je/attr.html)
+### [Attr](http://webpro.github.io/jquery-evergreen/doc/attr.html)
 
 	attr
 
-### [Class](http://webpro.github.io/jquery-evergreen/je/class.html)
+### [Class](http://webpro.github.io/jquery-evergreen/doc/class.html)
 
 	addClass
 	removeClass
 	toggleClass
 	hasClass
 
-### [DOM](http://webpro.github.io/jquery-evergreen/je/dom.html)
+### [DOM](http://webpro.github.io/jquery-evergreen/doc/dom.html)
 
 	append
 	before
 	after
 
-### [Event](http://webpro.github.io/jquery-evergreen/je/event.html)
+### [Event](http://webpro.github.io/jquery-evergreen/doc/event.html)
 
 	on
 	off
@@ -67,20 +76,20 @@ The [annotated](http://webpro.github.io/jquery-evergreen/doc/) source is written
 	undelegate
 	trigger
 
-### [HTML](http://webpro.github.io/jquery-evergreen/je/html.html)
+### [HTML](http://webpro.github.io/jquery-evergreen/doc/html.html)
 
 	html
 
-### [Mode](http://webpro.github.io/jquery-evergreen/je/mode.html)
+### [Mode](http://webpro.github.io/jquery-evergreen/doc/mode.html)
 
 	isNative
 	native
 
-### [NoConflict](http://webpro.github.io/jquery-evergreen/je/noconflict.html)
+### [NoConflict](http://webpro.github.io/jquery-evergreen/doc/noconflict.html)
 
 	noConflict
 
-### [Selector](http://webpro.github.io/jquery-evergreen/je/selector.html)
+### [Selector](http://webpro.github.io/jquery-evergreen/doc/selector.html)
 
 	$
 	find
@@ -105,7 +114,7 @@ Run the [benchmark suite](http://webpro.github.io/jquery-evergreen/benchmark/) t
 
 ## Native Mode
 
-You can [opt-in](http://webpro.github.io/jquery-evergreen/je/mode.html) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
+You can [opt-in](http://webpro.github.io/jquery-evergreen/doc/mode.html) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
 
 ## Custom Build
 
