@@ -291,21 +291,19 @@ var matchesSelector = (function(global) {
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
- * Needed to support IE (9, 10, 11)
+ * Needed to support IE (9, 10, 11) & PhantomJS
  */
 
 (function() {
-    if (global.CustomEvent) {
-        var CustomEvent = function(event, params) {
-            params = params || { bubbles: false, cancelable: false, detail: undefined };
-            var evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
-        };
+    var CustomEvent = function(event, params) {
+        params = params || { bubbles: false, cancelable: false, detail: undefined };
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    };
 
-        CustomEvent.prototype = global.CustomEvent.prototype;
-        global.CustomEvent = CustomEvent;
-    }
+    CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
+    global.CustomEvent = CustomEvent;
 })();
 
 // Are events bubbling in detached DOM trees?
