@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><title>class</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="class"><meta name="groc-project-path" content="src/je/class.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/class.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="class-methods">Class methods</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { makeIterable, each } from <span class="hljs-string">'./util'</span>;</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="addclass">addClass</h2>
+<pre><code>$(&#39;.item&#39;).addClass(&#39;bar&#39;);</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><strong>value must be a string.</strong><br/>(The class name to add to the element(s).)</li>
+</ul>
+<p><strong>Returns a $Object</strong><br/>(or Node/List in native mode (<code>this</code>))</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> addClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> {</span>
+    each(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+        element.classList.add(value);
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="removeclass">removeClass</h2>
+<pre><code>$(&#39;.items&#39;).removeClass(&#39;bar&#39;);</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><strong>value must be a string.</strong><br/>(The class name to remove from the element(s).)</li>
+</ul>
+<p><strong>Returns a $Object</strong><br/>(or Node/List in native mode (<code>this</code>))</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> removeClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> {</span>
+    each(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+        element.classList.remove(value);
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="toggleclass">toggleClass</h2>
+<pre><code>$(&#39;.item&#39;).toggleClass(&#39;bar&#39;);</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><strong>value must be a string.</strong><br/>(The class name to toggle at the element(s).)</li>
+</ul>
+<p><strong>Returns a $Object</strong><br/>(or Node/List in native mode (<code>this</code>))</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> toggleClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> {</span>
+    each(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+        element.classList.toggle(value);
+    });
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="hasclass">hasClass</h2>
+<pre><code>$(&#39;.item&#39;).hasClass(&#39;bar&#39;);</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><strong>value must be a string.</strong><br/>(Check if the DOM element contains the class name. When applied to multiple elements, returns <code>true</code> if <em>any</em> of them contains the class name.)</li>
+</ul>
+<p><strong>Returns a boolean</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> hasClass = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value)</span> {</span>
+    <span class="hljs-keyword">return</span> makeIterable(<span class="hljs-keyword">this</span>).some(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+        <span class="hljs-keyword">return</span> element.classList.contains(value);
+    });
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { addClass, removeClass, toggleClass, hasClass };</div></div></div></div></body></html>
