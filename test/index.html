@@ -35,7 +35,14 @@
 
         <div id="testElement" style="display: none;"></div>
 
-        <script src="../dist/jquery-evergreen.js"></script>
+        <script>
+            if(location.search.indexOf('cov') === -1) {
+                document.write('<script src="../dist/jquery-evergreen.js"><\/script>')
+            } else {
+                document.write('<script src="../dist/jquery-evergreen.instrumented.js"><\/script>')
+            }
+        </script>
+
 
         <script src="spec/mode.js"></script>
         <script src="spec/selector.js"></script>
