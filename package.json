@@ -26,6 +26,9 @@
     "url": "https://github.com/webpro/jquery-evergreen/issues"
   },
   "main": "dist/commonjs/main.js",
+  "scripts": {
+    "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
@@ -41,7 +44,8 @@
     "mocha": "~1.17.0",
     "chai": "~1.8.1",
     "sinon": "~1.7.3",
-    "sinon-chai": "~2.4.0"
+    "sinon-chai": "~2.4.0",
+    "mocha-phantomjs": "~3.3.1"
   },
   "license": "MIT"
 }
