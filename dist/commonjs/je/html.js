@@ -15,7 +15,7 @@ var each = require("./util").each;
 
 var html = function(fragment) {
 
-    if(!fragment) {
+    if (!fragment) {
         return (this.nodeType ? this : this[0]).innerHTML;
     }
 

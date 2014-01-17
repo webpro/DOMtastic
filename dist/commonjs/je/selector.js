@@ -6,7 +6,7 @@
 var makeIterable = require("./util").makeIterable;
 
 var slice = [].slice,
-    hasProto = !Object.prototype.isPrototypeOf({__proto__: null}),
+    hasProto = !Object.prototype.isPrototypeOf({ __proto__: null }),
     reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
@@ -28,15 +28,15 @@ var $ = function(selector, context) {
 
     var collection;
 
-    if(!selector) {
+    if (!selector) {
 
         collection = document.querySelectorAll(null);
 
-    } else if(typeof selector !== 'string') {
+    } else if (typeof selector !== 'string') {
 
         collection = makeIterable(selector);
 
-    } else if(reFragment.test(selector)) {
+    } else if (reFragment.test(selector)) {
 
         collection = createFragment(selector);
 
@@ -78,11 +78,11 @@ var querySelector = function(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
-    if(isSimpleSelector && !$.isNative) {
-        if(selector[0] === '#') {
+    if (isSimpleSelector && !$.isNative) {
+        if (selector[0] === '#') {
             return (context.getElementById ? context : document).getElementById(selector.slice(1));
         }
-        if(selector[0] === '.') {
+        if (selector[0] === '.') {
             return context.getElementsByClassName(selector.slice(1));
         }
         return context.getElementsByTagName(selector);
@@ -103,7 +103,7 @@ var querySelector = function(selector, context) {
 
 var createFragment = function(html) {
 
-    if(reSingleTag.test(html)) {
+    if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
     }
 
@@ -113,7 +113,7 @@ var createFragment = function(html) {
 
     container.innerHTML = html;
 
-    for(var i = 0, l = children.length; i < l; i++) {
+    for (var i = 0, l = children.length; i < l; i++) {
         elements.push(children[i]);
     }
 
@@ -137,7 +137,7 @@ var wrap = function(collection) {
     if (hasProto) {
         wrapped.__proto__ = methods;
     } else {
-        for(var key in methods) {
+        for (var key in methods) {
             wrapped[key] = methods[key];
         }
     }

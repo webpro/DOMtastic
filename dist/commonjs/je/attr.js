@@ -13,13 +13,13 @@ var each = require("./util").each;
 
 var attr = function(key, value) {
 
-    if(typeof key === 'string' && typeof value === 'undefined') {
+    if (typeof key === 'string' && typeof value === 'undefined') {
         return (this.nodeType ? this : this[0]).getAttribute(key);
     }
 
     each(this, function(element) {
-        if(typeof key === 'object') {
-            for(var attr in key) {
+        if (typeof key === 'object') {
+            for (var attr in key) {
                 element.setAttribute(attr, key[attr]);
             }
         } else {

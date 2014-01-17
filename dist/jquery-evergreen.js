@@ -103,7 +103,7 @@ $.apiMethods = function(api, apiNodeList) {
     var methods = apiNodeList,
         key;
 
-    for(key in api) {
+    for (key in api) {
         methods[key] = api[key];
     }
 
@@ -130,13 +130,13 @@ var each = require("./util").each;
 
 var attr = function(key, value) {
 
-    if(typeof key === 'string' && typeof value === 'undefined') {
+    if (typeof key === 'string' && typeof value === 'undefined') {
         return (this.nodeType ? this : this[0]).getAttribute(key);
     }
 
     each(this, function(element) {
-        if(typeof key === 'object') {
-            for(var attr in key) {
+        if (typeof key === 'object') {
+            for (var attr in key) {
                 element.setAttribute(attr, key[attr]);
             }
         } else {
@@ -244,11 +244,11 @@ var toArray = require("./util").toArray;
  */
 
 var append = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === 'string') {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.appendChild(element);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -257,7 +257,7 @@ var append = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             append.call(this[l], elm);
         }
@@ -276,11 +276,11 @@ var append = function(element) {
  */
 
 var before = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === 'string') {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -289,7 +289,7 @@ var before = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             before.call(this[l], elm);
         }
@@ -308,11 +308,11 @@ var before = function(element) {
  */
 
 var after = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === 'string') {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this.nextSibling);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -321,7 +321,7 @@ var after = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             after.call(this[l], elm);
         }
@@ -337,11 +337,11 @@ var after = function(element) {
  */
 
 var clone = function(element) {
-    if(typeof element === 'string') {
-        return '' + element;
-    } else if(element instanceof Node) {
+    if (typeof element === 'string') {
+        return element;
+    } else if (element instanceof Node) {
         return element.cloneNode(true);
-    } else if('length' in element) {
+    } else if ('length' in element) {
         return [].map.call(element, function(el) {
             return el.cloneNode(true);
         });
@@ -378,7 +378,7 @@ var each = require("./util").each;
 
 var on = function(eventName, selector, handler, useCapture) {
 
-    if(typeof selector === 'function') {
+    if (typeof selector === 'function') {
         handler = selector;
         selector = null;
     }
@@ -391,7 +391,7 @@ var on = function(eventName, selector, handler, useCapture) {
 
     each(this, function(element) {
 
-        if(selector) {
+        if (selector) {
             eventListener = delegateHandler.bind(element, selector, handler);
         }
 
@@ -425,12 +425,12 @@ var on = function(eventName, selector, handler, useCapture) {
 
 var off = function(eventName, selector, handler, useCapture) {
 
-    if(typeof selector === 'function') {
+    if (typeof selector === 'function') {
         handler = selector;
         selector = null;
     }
 
-    if(eventName) {
+    if (eventName) {
         var parts = eventName.split('.');
         eventName = parts[0];
         var namespace = parts[1];
@@ -440,7 +440,7 @@ var off = function(eventName, selector, handler, useCapture) {
 
         var handlers = getHandlers(element) || [];
 
-        if(!eventName && !namespace && !selector && !handler) {
+        if (!eventName && !namespace && !selector && !handler) {
 
             each(handlers, function(item) {
                 element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
@@ -460,7 +460,7 @@ var off = function(eventName, selector, handler, useCapture) {
                 handlers.splice(handlers.indexOf(item), 1);
             });
 
-            if(handlers.length === 0) {
+            if (handlers.length === 0) {
                 clearHandlers(element);
             }
         }
@@ -523,7 +523,7 @@ var trigger = function(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
     each(this, function(element) {
-        if(!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+        if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
         } else {
             triggerForPath(element, type, params);
@@ -542,13 +542,13 @@ var trigger = function(type, params) {
  */
 
 var isAttachedToDocument = function(element) {
-    if(element === window || element === document) {
+    if (element === window || element === document) {
         return true;
     }
     var container = element.ownerDocument.documentElement;
-    if(container.contains) {
+    if (container.contains) {
         return container.contains(element);
-    } else if(container.compareDocumentPosition) {
+    } else if (container.compareDocumentPosition) {
         return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
     }
     return false;
@@ -574,7 +574,7 @@ var triggerForPath = function(element, type, params) {
     params.bubbles = false;
     var event = new CustomEvent(type, params);
     event._target = element;
-    while(element.parentNode) {
+    while (element.parentNode) {
         element.dispatchEvent(event);
         element = element.parentNode;
     }
@@ -595,7 +595,7 @@ var handlers = {};
 var unusedKeys = [];
 
 var getHandlers = function(element) {
-    if(!element[cacheKeyProp]) {
+    if (!element[cacheKeyProp]) {
         element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
     }
     var key = element[cacheKeyProp];
@@ -612,7 +612,7 @@ var getHandlers = function(element) {
 
 var clearHandlers = function(element) {
     var key = element[cacheKeyProp];
-    if(handlers[key]) {
+    if (handlers[key]) {
         handlers[key] = null;
         element[key] = null;
         unusedKeys.push(key);
@@ -633,8 +633,8 @@ var clearHandlers = function(element) {
 
 var delegateHandler = function(selector, handler, event) {
     var eventTarget = event._target || event.target;
-    if(matchesSelector.call(eventTarget, selector)) {
-        if(!event.currentTarget) {
+    if (matchesSelector.call(eventTarget, selector)) {
+        if (!event.currentTarget) {
             event.currentTarget = eventTarget;
         }
         handler.call(eventTarget, event);
@@ -643,46 +643,44 @@ var delegateHandler = function(selector, handler, event) {
 
 // Get the available `matches` or `matchesSelector` method.
 
-var matchesSelector = (function(global) {
+var matchesSelector = (function() {
     var context = typeof Element !== 'undefined' ? Element.prototype : global;
     return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
-})(this);
+})();
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
- * Needed to support IE (9, 10, 11)
+ * Needed to support IE (9, 10, 11) & PhantomJS
  */
 
 (function() {
-    if(global.CustomEvent) {
-        var CustomEvent = function(event, params) {
-            params = params || { bubbles: false, cancelable: false, detail: undefined };
-            var evt = document.createEvent('CustomEvent');
-            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-            return evt;
-        };
+    var CustomEvent = function(event, params) {
+        params = params || { bubbles: false, cancelable: false, detail: undefined };
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    };
 
-        CustomEvent.prototype = global.CustomEvent.prototype;
-        global.CustomEvent = CustomEvent;
-    }
+    CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
+    global.CustomEvent = CustomEvent;
 })();
 
 // Are events bubbling in detached DOM trees?
 
-var isEventBubblingInDetachedTree = (function(global) {
+var isEventBubblingInDetachedTree = (function() {
     var isBubbling = false,
         doc = global.document;
-    if(doc) {
+    if (doc) {
         var parent = doc.createElement('div'),
             child = parent.cloneNode();
         parent.appendChild(child);
         parent.addEventListener('e', function() {
             isBubbling = true;
         });
-        child.dispatchEvent(new CustomEvent('e', {bubbles:true}));
+        child.dispatchEvent(new CustomEvent('e', { bubbles: true }));
     }
     return isBubbling;
-})(this);
+})();
 
 // Export interface
 
@@ -709,7 +707,7 @@ var each = require("./util").each;
 
 var html = function(fragment) {
 
-    if(!fragment) {
+    if (!fragment) {
         return (this.nodeType ? this : this[0]).innerHTML;
     }
 
@@ -751,18 +749,20 @@ exports["default"] = html;
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
+var global = require("./util").global;
+
 var isNative = false;
 
 var native = function(native) {
     var wasNative = isNative;
     isNative = typeof native === 'boolean' ? native : true;
-    if($) {
-        $.isNative = isNative;
+    if (global.$) {
+        global.$.isNative = isNative;
     }
-    if(!wasNative && isNative) {
+    if (!wasNative && isNative) {
         augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
     }
-    if(wasNative && !isNative) {
+    if (wasNative && !isNative) {
         unaugmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
     }
     return isNative;
@@ -777,7 +777,7 @@ var NodeProto = typeof Node !== 'undefined' && Node.prototype,
  */
 
 var augment = function(obj, key, value) {
-    if(!obj.hasOwnProperty(key)) {
+    if (!obj.hasOwnProperty(key)) {
         Object.defineProperty(obj, key, {
             value: value,
             configurable: true,
@@ -802,12 +802,12 @@ var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
     var key;
 
-    for(key in methodsNode) {
+    for (key in methodsNode) {
         augment(NodeProto, key, methodsNode[key]);
         augment(NodeListProto, key, methodsNode[key]);
     }
 
-    for(key in methodsNodeList) {
+    for (key in methodsNodeList) {
         augment(NodeListProto, key, methodsNodeList[key]);
     }
 };
@@ -821,12 +821,12 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
     var key;
 
-    for(key in methodsNode) {
+    for (key in methodsNode) {
         unaugment(NodeProto, key);
         unaugment(NodeListProto, key);
     }
 
-    for(key in methodsNodeList) {
+    for (key in methodsNodeList) {
         unaugment(NodeListProto, key);
     }
 };
@@ -835,7 +835,7 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
 
 exports.isNative = isNative;
 exports.native = native;
-},{}],8:[function(require,module,exports){
+},{"./util":10}],8:[function(require,module,exports){
 "use strict";
 var global = require("./util").global;
 
@@ -870,7 +870,7 @@ exports["default"] = noConflict;
 var makeIterable = require("./util").makeIterable;
 
 var slice = [].slice,
-    hasProto = !Object.prototype.isPrototypeOf({__proto__: null}),
+    hasProto = !Object.prototype.isPrototypeOf({ __proto__: null }),
     reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
@@ -892,15 +892,15 @@ var $ = function(selector, context) {
 
     var collection;
 
-    if(!selector) {
+    if (!selector) {
 
         collection = document.querySelectorAll(null);
 
-    } else if(typeof selector !== 'string') {
+    } else if (typeof selector !== 'string') {
 
         collection = makeIterable(selector);
 
-    } else if(reFragment.test(selector)) {
+    } else if (reFragment.test(selector)) {
 
         collection = createFragment(selector);
 
@@ -942,11 +942,11 @@ var querySelector = function(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
-    if(isSimpleSelector && !$.isNative) {
-        if(selector[0] === '#') {
+    if (isSimpleSelector && !$.isNative) {
+        if (selector[0] === '#') {
             return (context.getElementById ? context : document).getElementById(selector.slice(1));
         }
-        if(selector[0] === '.') {
+        if (selector[0] === '.') {
             return context.getElementsByClassName(selector.slice(1));
         }
         return context.getElementsByTagName(selector);
@@ -967,7 +967,7 @@ var querySelector = function(selector, context) {
 
 var createFragment = function(html) {
 
-    if(reSingleTag.test(html)) {
+    if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
     }
 
@@ -977,7 +977,7 @@ var createFragment = function(html) {
 
     container.innerHTML = html;
 
-    for(var i = 0, l = children.length; i < l; i++) {
+    for (var i = 0, l = children.length; i < l; i++) {
         elements.push(children[i]);
     }
 
@@ -1001,7 +1001,7 @@ var wrap = function(collection) {
     if (hasProto) {
         wrapped.__proto__ = methods;
     } else {
-        for(var key in methods) {
+        for (var key in methods) {
             wrapped[key] = methods[key];
         }
     }
@@ -1019,7 +1019,7 @@ exports.find = find;
  * Reference to the global scope
  */
 
-var global = Function("return this")();
+var global = new Function("return this")();
 
 /**
  * ## toArray
@@ -1060,8 +1060,8 @@ var makeIterable = function(element) {
 
 var each = function(collection, callback) {
     var length = collection.length;
-    if(length !== undefined) {
-        for(var i = 0; i < length; i++){
+    if (length !== undefined) {
+        for (var i = 0; i < length; i++){
             callback(collection[i]);
         }
     } else {
