@@ -25,5 +25,6 @@ after_success:
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
   - "rm -rf $GHPAGES/doc && ./node_modules/groc/bin/groc --out=$GHPAGES/doc"
+  - "./node_modules/plato/bin/plato -r -d $GHPAGES/complexity --jshint ./.jshintrc dist/commonjs/"
   - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null && cd .."
   - "rm -rf ./coverage $GHPAGES"

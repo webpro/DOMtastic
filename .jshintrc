@@ -1,0 +1,10 @@
+{
+    "esnext": true,
+    "browser": true,
+    "globalstrict": true,
+    "globals": {
+        "require": true,
+        "exports": true,
+        "NodeList": true
+    }
+}
