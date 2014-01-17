@@ -11,7 +11,7 @@ branches:
 before_install:
   - "npm i coveralls grunt-cli"
 before_script:
-  - "./node_modules/grunt-cli/bin/grunt"
+  - "./node_modules/grunt-cli/bin/grunt build"
 script:
   - "npm test"
 after_success:
@@ -25,6 +25,7 @@ after_success:
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
   - "rm -rf $GHPAGES/doc && ./node_modules/groc/bin/groc --out=$GHPAGES/doc"
-  - "./node_modules/plato/bin/plato -r -d $GHPAGES/complexity --jshint ./.jshintrc dist/commonjs/"
+  - "cd && ./release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../$GHPAGES/complexity --jshint ../../.jshintrc . && cd ../.."
+  - "grunt clean:release"
   - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null && cd .."
   - "rm -rf ./coverage $GHPAGES"

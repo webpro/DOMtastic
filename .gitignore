@@ -3,5 +3,6 @@
 /doc
 /coverage
 /complexity
+/.release
 /tmp
 /.idea

@@ -15,14 +15,25 @@ module.exports = function(grunt) {
         config: {
             modules: ['main', 'je/api', 'je/util'],
             optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'noconflict', 'selector'],
-            modulesToExclude: [],
-            moduleImportsTemplate: 'import.*from.*(__MODULES__).*\n(api|\\$.*\n)+\n',
+            moduleImportsTemplate: 'import.*from.*(__MODULES__).*\n((api|\\$).*\n)+\n',
+            modulesToExclude: {
+                default: ['mode'],
+                bare: ['attr', 'html', 'mode'],
+                full: []
+            },
             processFiles: [],
             tmp: 'tmp/',
-            outputAMD: 'dist/amd/',
-            outputAMDBundle: 'dist/jquery-evergreen.amd.js',
-            outputCJS: 'dist/commonjs/',
-            outputFileGlobal: 'dist/jquery-evergreen.js'
+            output: {
+                dir: '.release',
+                amd: '<%= config.output.dir %>/amd',
+                cjs: '<%= config.output.dir %>/commonjs',
+                bundle: {
+                    default: '<%= config.output.dir %>/jquery-evergreen.js',
+                    bare: '<%= config.output.dir %>/bundle/bare/jquery-evergreen.js',
+                    full: '<%= config.output.dir %>/bundle/full/jquery-evergreen.js'
+                }
+
+            }
         },
 
         watch: {
@@ -36,7 +47,7 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            all: ['<%= config.tmp %>', 'dist/'],
+            release: ['<%= config.output.dir %>/'],
             tmp: ['<%= config.tmp %>']
         },
 
@@ -44,7 +55,7 @@ module.exports = function(grunt) {
             main: {
                 options: {
                     processContent: function(content) {
-                        var modulesToExclude = grunt.config.get('config.modulesToExclude'),
+                        var modulesToExclude = grunt.config.get('config.modulesToExclude.run'),
                             moduleImportsTemplate = grunt.config.get('config.moduleImportsTemplate'),
                             moduleImportsRE = new RegExp(moduleImportsTemplate.replace(/__MODULES__/g, modulesToExclude.join('|')), 'gm');
                         if(modulesToExclude.length) {
@@ -61,6 +72,12 @@ module.exports = function(grunt) {
                         dest: '<%= config.tmp %>'
                     }
                 ]
+            },
+            dist: {
+                expand: true,
+                cwd: '<%= config.output.dir %>/bundle/full',
+                src: ['jquery-evergreen.js', 'jquery-evergreen.min.js'],
+                dest: 'dist/'
             }
         },
 
@@ -73,7 +90,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: '<%= config.tmp %>',
                         src: ['**/*.js'],
-                        dest: '<%= config.outputAMD %>',
+                        dest: '<%= config.output.amd %>',
                         ext: '.js'
                     }
                 ]
@@ -85,7 +102,7 @@ module.exports = function(grunt) {
                         expand: true,
                         cwd: '<%= config.tmp %>',
                         src: '**/*.js',
-                        dest: '<%= config.outputCJS %>',
+                        dest: '<%= config.output.cjs %>',
                         ext: '.js'
                     }
                 ]
@@ -93,7 +110,7 @@ module.exports = function(grunt) {
         },
 
         jscs: {
-            src: 'dist/commonjs/**/*.js',
+            src: '<%= config.output.dir %>/commonjs/**/*.js',
             options: {
                 config: '.jscs.json'
             }
@@ -102,7 +119,7 @@ module.exports = function(grunt) {
         requirejs: {
             options: {
                 optimize: 'none',
-                baseUrl: '<%= config.outputAMD %>'
+                baseUrl: '<%= config.output.amd %>'
             },
             dist: {
                 options: {
@@ -110,17 +127,17 @@ module.exports = function(grunt) {
                     wrap: {
                         end: "define('jquery-evergreen',['main'],function(main){return main['default'];});"
                     },
-                    out: '<%= config.outputAMDBundle %>'
+                    out: '<%= config.output.bundle.amd %>'
                 }
             }
         },
 
         browserify: {
             dist: {
-                src: ['<%= config.outputCJS %>/main.js'],
-                dest: '<%= config.outputFileGlobal %>',
+                src: ['<%= config.output.cjs %>/main.js'],
+                dest: '<%= config.output.bundle.global %>',
                 options: {
-                    alias: '<%= config.outputCJS %>/main.js:jQueryEvergreen',
+                    alias: '<%= config.output.cjs %>/main.js:jQueryEvergreen',
                     postBundleCB: function(err, src, next) {
                         src += ";window.$=require('jQueryEvergreen')['default'];";
                         next(err, src);
@@ -135,18 +152,25 @@ module.exports = function(grunt) {
                 preserveComments: false,
                 compress: true
             },
-            amd: {
-                files: {
-                    'dist/jquery-evergreen.min.js': ['<%= config.outputFileGlobal %>'],
-                    'dist/jquery-evergreen.amd.min.js': ['<%= config.outputAMDBundle %>']
-                }
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.output.dir %>',
+                    src: ['*.js', 'bundle/**/*.js'],
+                    dest: '<%= config.output.dir %>',
+                    rename: function(dest, src) {
+                        return (dest + '/' + src).replace(/\.js$/, '.min.js')
+                    }
+                }]
             }
         }
     });
 
-    grunt.registerTask('excludeModules', function() {
+    grunt.registerTask('configure-run', function(set) {
 
-        var modulesToExclude = grunt.option('exclude') ? grunt.option('exclude').split(',') : grunt.config.get('config.modulesToExclude'),
+        set = set || 'default';
+
+        var modulesToExclude = grunt.option('exclude') ? grunt.option('exclude').split(',') : grunt.config.get('config.modulesToExclude.' + set),
             optionalModules = grunt.config.get('config.optionalModules'),
             processFiles = grunt.config.get('config.modules');
 
@@ -156,20 +180,48 @@ module.exports = function(grunt) {
             }
         });
 
-        grunt.config.set('config.modulesToExclude', modulesToExclude);
+        grunt.config.set('config.modulesToExclude.run', modulesToExclude);
         grunt.config.set('config.processFiles', processFiles.map(function(module) { return module + '.js'; }));
+
+        grunt.config.set('config.output.bundle.global', grunt.config.get('config.output.bundle.' + set));
+        grunt.config.set('config.output.bundle.amd', grunt.config.get('config.output.bundle.' + set).replace(/\.js$/, '.amd.js'));
 
     });
 
-    grunt.registerTask('default', [
-        'clean:all',
-        'excludeModules',
+    grunt.registerTask('default', ['build']);
+
+    grunt.registerTask('build', [
+        'clean',
+        'configure-run:full',
         'copy:main',
-        'transpile',
+        'transpile:cjs',
         'jscs',
-        'requirejs',
         'browserify',
+        'uglify',
+        'copy:dist',
+        'clean:tmp'
+    ]);
+
+    grunt.registerTask('release', [
+        'clean',
+        'build-set:bare',
+        'build-set:default',
+        'build-set:full',
         'uglify',
         'clean:tmp'
     ]);
+
+    grunt.registerTask('build-set', function(set) {
+
+        grunt.task.run([
+            'clean:tmp',
+            'configure-run:' + set,
+            'copy:main',
+            'transpile',
+            'requirejs',
+            'browserify'
+        ])
+
+    });
+
 };
