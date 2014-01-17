@@ -98,7 +98,7 @@
 var makeIterable = require(&quot;./util&quot;).makeIterable;
 
 var slice = [].slice,
-    hasProto = !Object.prototype.isPrototypeOf({__proto__: null}),
+    hasProto = !Object.prototype.isPrototypeOf({ __proto__: null }),
     reFragment = /^\s*&lt;(\w+|!)[^&gt;]*&gt;/,
     reSingleTag = /^&lt;(\w+)\s*\/?&gt;(?:&lt;\/\1&gt;|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
@@ -120,15 +120,15 @@ var $ = function(selector, context) {
 
     var collection;
 
-    if(!selector) {
+    if (!selector) {
 
         collection = document.querySelectorAll(null);
 
-    } else if(typeof selector !== &#039;string&#039;) {
+    } else if (typeof selector !== &#039;string&#039;) {
 
         collection = makeIterable(selector);
 
-    } else if(reFragment.test(selector)) {
+    } else if (reFragment.test(selector)) {
 
         collection = createFragment(selector);
 
@@ -170,11 +170,11 @@ var querySelector = function(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
-    if(isSimpleSelector &amp;&amp; !$.isNative) {
-        if(selector[0] === &#039;#&#039;) {
+    if (isSimpleSelector &amp;&amp; !$.isNative) {
+        if (selector[0] === &#039;#&#039;) {
             return (context.getElementById ? context : document).getElementById(selector.slice(1));
         }
-        if(selector[0] === &#039;.&#039;) {
+        if (selector[0] === &#039;.&#039;) {
             return context.getElementsByClassName(selector.slice(1));
         }
         return context.getElementsByTagName(selector);
@@ -195,7 +195,7 @@ var querySelector = function(selector, context) {
 
 var createFragment = function(html) {
 
-    if(reSingleTag.test(html)) {
+    if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
     }
 
@@ -205,7 +205,7 @@ var createFragment = function(html) {
 
     container.innerHTML = html;
 
-    for(var i = 0, l = children.length; i &lt; l; i++) {
+    for (var i = 0, l = children.length; i &lt; l; i++) {
         elements.push(children[i]);
     }
 
@@ -229,7 +229,7 @@ var wrap = function(collection) {
     if (hasProto) {
         wrapped.__proto__ = methods;
     } else {
-        for(var key in methods) {
+        for (var key in methods) {
             wrapped[key] = methods[key];
         }
     }

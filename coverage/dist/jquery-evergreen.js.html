@@ -199,7 +199,7 @@
     <h1>Code coverage report for <span class="entity">dist/jquery-evergreen.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">93.05% <small>(348 / 374)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">94.13% <small>(353 / 375)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">78.61% <small>(158 / 201)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -208,7 +208,7 @@
         Functions: <span class="metric">97.18% <small>(69 / 71)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">94.38% <small>(336 / 356)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">95.52% <small>(341 / 357)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -1309,7 +1309,9 @@
 1091
 1092
 1093
-1094</td><td class="line-coverage"><span class="cline-any cline-yes">32</span>
+1094
+1095
+1096</td><td class="line-coverage"><span class="cline-any cline-yes">33</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1966,10 +1968,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">28</span>
-<span class="cline-any cline-yes">28</span>
-<span class="cline-any cline-yes">28</span>
-<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-yes">29</span>
+<span class="cline-any cline-yes">29</span>
+<span class="cline-any cline-yes">29</span>
+<span class="cline-any cline-yes">29</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
@@ -1982,13 +1984,13 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2059,6 +2061,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3047,10 +3051,10 @@ var delegateHandler = function(selector, handler, event) {
 &nbsp;
 // Get the available `matches` or `matchesSelector` method.
 &nbsp;
-var matchesSelector = (function(global) {
+var matchesSelector = (function() {
     var context = typeof Element !== 'undefined' ? Element.prototype : <span class="branch-1 cbranch-no" title="branch not covered" >global;</span>
     return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || <span class="branch-4 cbranch-no" title="branch not covered" >context.msMatchesSelector </span>|| <span class="branch-5 cbranch-no" title="branch not covered" >context.oMatchesSelector;</span>
-})(this);
+})();
 &nbsp;
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
@@ -3071,20 +3075,20 @@ var matchesSelector = (function(global) {
 &nbsp;
 // Are events bubbling in detached DOM trees?
 &nbsp;
-var isEventBubblingInDetachedTree = (function(global) {
+var isEventBubblingInDetachedTree = (function() {
     var isBubbling = false,
         doc = global.document;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (doc) {
-<span class="cstat-no" title="statement not covered" >        var parent = doc.createElement('div'),</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (doc) {
+        var parent = doc.createElement('div'),
             child = parent.cloneNode();
-<span class="cstat-no" title="statement not covered" >        parent.appendChild(child);</span>
-<span class="cstat-no" title="statement not covered" >        parent.addEventListener('e', <span class="fstat-no" title="function not covered" >function() {</span></span>
+        parent.appendChild(child);
+        parent.addEventListener('e', <span class="fstat-no" title="function not covered" >function() {</span>
 <span class="cstat-no" title="statement not covered" >            isBubbling = true;</span>
         });
-<span class="cstat-no" title="statement not covered" >        child.dispatchEvent(new CustomEvent('e', { bubbles: true }));</span>
+        child.dispatchEvent(new CustomEvent('e', { bubbles: true }));
     }
     return isBubbling;
-})(this);
+})();
 &nbsp;
 // Export interface
 &nbsp;
@@ -3153,13 +3157,15 @@ exports["default"] = html;
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 &nbsp;
+var global = require("./util").global;
+&nbsp;
 var isNative = false;
 &nbsp;
 var native = function(native) {
     var wasNative = isNative;
     isNative = typeof native === 'boolean' ? native : true;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if ($) {
-        $.isNative = isNative;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (global.$) {
+        global.$.isNative = isNative;
     }
     if (!wasNative &amp;&amp; isNative) {
         augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
@@ -3237,7 +3243,7 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
 &nbsp;
 exports.isNative = isNative;
 exports.native = native;
-},{}],8:[function(require,module,exports){
+},{"./util":10}],8:[function(require,module,exports){
 "use strict";
 var global = require("./util").global;
 &nbsp;
@@ -3421,7 +3427,7 @@ exports.find = find;
  * Reference to the global scope
  */
 &nbsp;
-var global = Function("return this")();
+var global = new Function("return this")();
 &nbsp;
 /**
  * ## toArray
@@ -3500,7 +3506,7 @@ exports["default"] = $;
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Jan 16 2014 18:27:32 GMT+0000 (UTC)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 17 2014 10:46:39 GMT+0000 (UTC)</div>
 </div>
 
 <script src="../prettify.js"></script>

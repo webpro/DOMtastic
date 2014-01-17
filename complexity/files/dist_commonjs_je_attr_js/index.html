@@ -105,13 +105,13 @@ var each = require(&quot;./util&quot;).each;
 
 var attr = function(key, value) {
 
-    if(typeof key === &#039;string&#039; &amp;&amp; typeof value === &#039;undefined&#039;) {
+    if (typeof key === &#039;string&#039; &amp;&amp; typeof value === &#039;undefined&#039;) {
         return (this.nodeType ? this : this[0]).getAttribute(key);
     }
 
     each(this, function(element) {
-        if(typeof key === &#039;object&#039;) {
-            for(var attr in key) {
+        if (typeof key === &#039;object&#039;) {
+            for (var attr in key) {
                 element.setAttribute(attr, key[attr]);
             }
         } else {

@@ -45,7 +45,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">60.38</p>
+      <p class="stat">60.40</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">38.92</p>
+      <p class="stat">37.41</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.65</p>
+      <p class="stat">0.64</p>
     </div>
   </div>
 </div>
@@ -106,11 +106,11 @@ var toArray = require(&quot;./util&quot;).toArray;
  */
 
 var append = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === &#039;string&#039;) {
+    if (this instanceof Node) {
+        if (typeof element === &#039;string&#039;) {
             this.insertAdjacentHTML(&#039;beforeend&#039;, element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.appendChild(element);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -119,7 +119,7 @@ var append = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             append.call(this[l], elm);
         }
@@ -138,11 +138,11 @@ var append = function(element) {
  */
 
 var before = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === &#039;string&#039;) {
+    if (this instanceof Node) {
+        if (typeof element === &#039;string&#039;) {
             this.insertAdjacentHTML(&#039;beforebegin&#039;, element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -151,7 +151,7 @@ var before = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             before.call(this[l], elm);
         }
@@ -170,11 +170,11 @@ var before = function(element) {
  */
 
 var after = function(element) {
-    if(this instanceof Node) {
-        if(typeof element === &#039;string&#039;) {
+    if (this instanceof Node) {
+        if (typeof element === &#039;string&#039;) {
             this.insertAdjacentHTML(&#039;afterend&#039;, element);
         } else {
-            if(element instanceof Node) {
+            if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this.nextSibling);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
@@ -183,7 +183,7 @@ var after = function(element) {
         }
     } else {
         var l = this.length;
-        while(l--) {
+        while (l--) {
             var elm = l === 0 ? element : clone(element);
             after.call(this[l], elm);
         }
@@ -199,11 +199,11 @@ var after = function(element) {
  */
 
 var clone = function(element) {
-    if(typeof element === &#039;string&#039;) {
-        return &#039;&#039; + element;
-    } else if(element instanceof Node) {
+    if (typeof element === &#039;string&#039;) {
+        return element;
+    } else if (element instanceof Node) {
         return element.cloneNode(true);
-    } else if(&#039;length&#039; in element) {
+    } else if (&#039;length&#039; in element) {
         return [].map.call(element, function(el) {
             return el.cloneNode(true);
         });

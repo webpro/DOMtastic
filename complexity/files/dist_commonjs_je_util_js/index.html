@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">22.74</p>
+      <p class="stat">24.16</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.17</p>
+      <p class="stat">0.18</p>
     </div>
   </div>
 </div>
@@ -95,7 +95,7 @@
  * Reference to the global scope
  */
 
-var global = Function(&quot;return this&quot;)();
+var global = new Function(&quot;return this&quot;)();
 
 /**
  * ## toArray
@@ -136,8 +136,8 @@ var makeIterable = function(element) {
 
 var each = function(collection, callback) {
     var length = collection.length;
-    if(length !== undefined) {
-        for(var i = 0; i &lt; length; i++){
+    if (length !== undefined) {
+        for (var i = 0; i &lt; length; i++){
             callback(collection[i]);
         }
     } else {
