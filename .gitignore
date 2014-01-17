@@ -1,4 +1,7 @@
 /node_modules
 /bower_components
 /doc
+/coverage
+/complexity
 /tmp
+/.idea
