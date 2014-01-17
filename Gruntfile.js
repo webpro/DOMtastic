@@ -15,8 +15,8 @@ module.exports = function(grunt) {
         config: {
             modules: ['main', 'je/api', 'je/util'],
             optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'noconflict', 'selector'],
-            excludeModules: [],
-            excludeModuleComment: 'API:(__M__)[\\s\\S]*API:(__M__)',
+            modulesToExclude: [],
+            moduleImportsTemplate: 'import.*from.*(__MODULES__).*\n(api|\\$.*\n)+\n',
             processFiles: [],
             tmp: 'tmp/',
             outputAMD: 'dist/amd/',
@@ -44,11 +44,11 @@ module.exports = function(grunt) {
             main: {
                 options: {
                     processContent: function(content) {
-                        var excludeModules = grunt.config.get('config.excludeModules'),
-                            excludeModuleComment = grunt.config.get('config.excludeModuleComment'),
-                            excludeRegExp = new RegExp(excludeModuleComment.replace(/__M__/g, excludeModules.join('|')), 'gm');
-                        if(excludeModules.length) {
-                            content = content.replace(excludeRegExp, '');
+                        var modulesToExclude = grunt.config.get('config.modulesToExclude'),
+                            moduleImportsTemplate = grunt.config.get('config.moduleImportsTemplate'),
+                            moduleImportsRE = new RegExp(moduleImportsTemplate.replace(/__MODULES__/g, modulesToExclude.join('|')), 'gm');
+                        if(modulesToExclude.length) {
+                            content = content.replace(moduleImportsRE, '');
                         }
                         return content;
                     }
@@ -83,7 +83,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/',
+                        cwd: '<%= config.tmp %>',
                         src: '**/*.js',
                         dest: '<%= config.outputCJS %>',
                         ext: '.js'
@@ -146,18 +146,17 @@ module.exports = function(grunt) {
 
     grunt.registerTask('excludeModules', function() {
 
-        var excludeParam = grunt.option('exclude') || '',
-            excludeModules = grunt.config.get('config.excludeModules').concat(excludeParam.length ? excludeParam.split(',') : []),
+        var modulesToExclude = grunt.option('exclude') ? grunt.option('exclude').split(',') : grunt.config.get('config.modulesToExclude'),
             optionalModules = grunt.config.get('config.optionalModules'),
             processFiles = grunt.config.get('config.modules');
 
         optionalModules.forEach(function(module) {
-            if(excludeModules.indexOf(module) === -1) {
+            if(modulesToExclude.indexOf(module) === -1) {
                 processFiles.push('je/' + module);
             }
         });
 
-        grunt.config.set('config.excludeModules', excludeModules);
+        grunt.config.set('config.modulesToExclude', modulesToExclude);
         grunt.config.set('config.processFiles', processFiles.map(function(module) { return module + '.js'; }));
 
     });

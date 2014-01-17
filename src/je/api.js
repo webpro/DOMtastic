@@ -2,62 +2,44 @@
  * # API
  *
  * Import modules to build the API.
- *
- * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
  */
 
 var api = {},
     $ = {};
 
-/* API:attr */
 import attr from './attr';
 api.attr = attr;
-/* API:attr */
 
-/* API:class */
 import { addClass, removeClass, toggleClass, hasClass } from './class';
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
 api.hasClass = hasClass;
-/* API:class */
 
-/* API:dom */
 import { append, before, after } from './dom';
 api.append = append;
 api.before = before;
 api.after = after;
-/* API:dom */
 
-/* API:event */
 import { on, off, delegate, undelegate, trigger } from './event';
 api.on = on;
 api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
 api.trigger = trigger;
-/* API:event */
 
-/* API:html */
 import html from './html';
 api.html = html;
-/* API:html */
 
-/* API:selector */
 import { $, find } from './selector';
 api.find = find;
-/* API:selector */
 
-/* API:mode */
 import { isNative, native } from './mode';
 $.isNative = isNative;
 $.native = native;
-/* API:mode */
 
-/* API:noconflict */
 import noConflict from './noconflict';
 $.noConflict = noConflict;
-/* API:noconflict */
 
 /*
  * The `apiNodeList` object represents the API that gets augmented onto
