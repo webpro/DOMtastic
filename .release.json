@@ -1,3 +1,7 @@
 {
-    "pkgFiles": ["package.json", "bower.json"]
+    "pkgFiles": ["package.json", "bower.json"],
+    "buildCommand": "grunt release",
+    "distRepo": "https://github.com/webpro/jquery-evergreen-release.git",
+    "distFiles": [".release/**/*"],
+    "distBase": ".release"
 }
