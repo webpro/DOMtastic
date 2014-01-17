@@ -284,10 +284,10 @@ var delegateHandler = function(selector, handler, event) {
 
 // Get the available `matches` or `matchesSelector` method.
 
-var matchesSelector = (function(global) {
+var matchesSelector = (function() {
     var context = typeof Element !== 'undefined' ? Element.prototype : global;
     return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
-})(this);
+})();
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
@@ -308,7 +308,7 @@ var matchesSelector = (function(global) {
 
 // Are events bubbling in detached DOM trees?
 
-var isEventBubblingInDetachedTree = (function(global) {
+var isEventBubblingInDetachedTree = (function() {
     var isBubbling = false,
         doc = global.document;
     if (doc) {
@@ -321,7 +321,7 @@ var isEventBubblingInDetachedTree = (function(global) {
         child.dispatchEvent(new CustomEvent('e', { bubbles: true }));
     }
     return isBubbling;
-})(this);
+})();
 
 // Export interface
 

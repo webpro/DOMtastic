@@ -24,13 +24,15 @@
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
+import { global } from './util';
+
 var isNative = false;
 
 var native = function(native) {
     var wasNative = isNative;
     isNative = typeof native === 'boolean' ? native : true;
-    if ($) {
-        $.isNative = isNative;
+    if (global.$) {
+        global.$.isNative = isNative;
     }
     if (!wasNative && isNative) {
         augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());

@@ -2,7 +2,7 @@
  * Reference to the global scope
  */
 
-var global = Function("return this")();
+var global = new Function("return this")();
 
 /**
  * ## toArray
