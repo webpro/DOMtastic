@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome-ie7.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/jsoverson/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>je/event.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
+      <p class="stat">70.63</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
+      <p class="stat">334</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
+      <p class="stat">48.89</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
+      <p class="stat">1.86</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
+// # Events
+
+var global = require(&quot;./util&quot;).global;
+var each = require(&quot;./util&quot;).each;
+
+/**
+ * ## on
+ *
+ * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
+ *
+ *     $(&#039;.item&#039;).on(&#039;click&#039;, callback);
+ *     $(&#039;.container&#039;).on(&#039;click&#039;, &#039;.item&#039;, handler);
+ *
+ * @param {String} eventName
+ * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
+ * @param {Function} handler Event handler
+ * @param {Boolean} useCapture=false
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
+
+var on = function(eventName, selector, handler, useCapture) {
+
+    if (typeof selector === &#039;function&#039;) {
+        handler = selector;
+        selector = null;
+    }
+
+    var parts = eventName.split(&#039;.&#039;);
+    eventName = parts[0] || null;
+    var namespace = parts[1] || null;
+
+    var eventListener = handler;
+
+    each(this, function(element) {
+
+        if (selector) {
+            eventListener = delegateHandler.bind(element, selector, handler);
+        }
+
+        element.addEventListener(eventName, eventListener, useCapture || false);
+
+        getHandlers(element).push({
+            eventName: eventName,
+            handler: handler,
+            eventListener: eventListener,
+            selector: selector,
+            namespace: namespace
+        });
+    });
+
+    return this;
+};
+
+/**
+ * ## off
+ *
+ * Shorthand for `removeEventListener`. Delegates to `undelegate` if that signature is used.
+ *
+ *     $(&#039;.item&#039;).off(&#039;click&#039;, callback);
+ *
+ * @param {String} eventName Name or type of the event
+ * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
+ * @param {Function} handler Event handler
+ * @param {Boolean} useCapture=false
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
+
+var off = function(eventName, selector, handler, useCapture) {
+
+    if (typeof selector === &#039;function&#039;) {
+        handler = selector;
+        selector = null;
+    }
+
+    if (eventName) {
+        var parts = eventName.split(&#039;.&#039;);
+        eventName = parts[0];
+        var namespace = parts[1];
+    }
+
+    each(this, function(element) {
+
+        var handlers = getHandlers(element) || [];
+
+        if (!eventName &amp;&amp; !namespace &amp;&amp; !selector &amp;&amp; !handler) {
+
+            each(handlers, function(item) {
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+            });
+
+            clearHandlers(element);
+
+        } else {
+
+            each(handlers.filter(function(item) {
+                return ((!eventName || item.eventName === eventName) &amp;&amp;
+                    (!namespace || item.namespace === namespace) &amp;&amp;
+                    (!handler || item.handler === handler) &amp;&amp;
+                    (!selector || item.selector === selector));
+            }), function(item) {
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+                handlers.splice(handlers.indexOf(item), 1);
+            });
+
+            if (handlers.length === 0) {
+                clearHandlers(element);
+            }
+        }
+
+    });
+
+    return this;
+};
+
+/**
+ * ## delegate
+ *
+ * Delegate events triggered at descendants to element(s)
+ *
+ *     $(&#039;.container&#039;).delegate(&#039;.item&#039;, &#039;click&#039;, handler);
+ *
+ * @param {String} selector Selector to filter descendants that delegate the event to this element.
+ * @param {String} eventName Name or type of the event
+ * @param {Function} fn Event handler
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
+
+var delegate = function(selector, eventName, fn) {
+    return on.call(this, eventName, selector, fn);
+};
+
+/**
+ * ## undelegate
+ *
+ * Undelegate events triggered at descendants to element(s)
+ *
+ *     $(&#039;.container&#039;).undelegate(&#039;.item&#039;, &#039;click&#039;, handler);
+ *
+ * @param {String} selector Selector to filter descendants that undelegate the event to this element.
+ * @param {String} eventName Name or type of the event
+ * @param {Function} fn Event handler
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
+
+var undelegate = function(selector, eventName, fn) {
+    return off.call(this, eventName, selector, fn);
+};
+
+/**
+ * ## trigger
+ *
+ * Trigger event at element(s)
+ *
+ *     $(&#039;.item&#039;).trigger(&#039;anyEventType&#039;);
+ *
+ * @param {String} type Type of the event
+ * @param {Object} [params] Event parameters (optional)
+ * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
+ * @param {Boolean} params.cancelable=true Is the event cancelable or not.
+ * @param {Mixed} params.detail=undefined Additional information about the event.
+ * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ */
+
+var trigger = function(type, params) {
+    params = params || { bubbles: true, cancelable: true, detail: undefined };
+    var event = new CustomEvent(type, params);
+    each(this, function(element) {
+        if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+            element.dispatchEvent(event);
+        } else {
+            triggerForPath(element, type, params);
+        }
+    });
+    return this;
+};
+
+/**
+ * Check whether the element is attached to (or detached from) the document
+ *
+ * @method isAttachedToDocument
+ * @private
+ * @param {Node} element Element to test
+ * @return {Boolean}
+ */
+
+var isAttachedToDocument = function(element) {
+    if (element === window || element === document) {
+        return true;
+    }
+    var container = element.ownerDocument.documentElement;
+    if (container.contains) {
+        return container.contains(element);
+    } else if (container.compareDocumentPosition) {
+        return !(container.compareDocumentPosition(element) &amp; Node.DOCUMENT_POSITION_DISCONNECTED);
+    }
+    return false;
+};
+
+/**
+ * Dispatch the event at the element and its ancestors.
+ * Required to support delegated events in browsers that don&#039;t bubble events in detached DOM trees.
+ *
+ * @method triggerForPath
+ * @private
+ * @param {Node} element First element to dispatch the event
+ * @param {String} type Type of the event
+ * @param {Object} [params] Event parameters (optional)
+ * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
+ * Will be set to false (but shouldn&#039;t matter since events don&#039;t bubble anyway).
+ * @param {Boolean} params.cancelable=true Is the event cancelable or not.
+ * @param {Mixed} params.detail=undefined Additional information about the event.
+ */
+
+var triggerForPath = function(element, type, params) {
+    params = params || {};
+    params.bubbles = false;
+    var event = new CustomEvent(type, params);
+    event._target = element;
+    while (element.parentNode) {
+        element.dispatchEvent(event);
+        element = element.parentNode;
+    }
+};
+
+/**
+ * Get event handlers from an element
+ *
+ * @method getHandlers
+ * @private
+ * @param {Node} element
+ * @return {Array}
+ */
+
+var cacheKeyProp = &#039;_jeh&#039;;
+var id = 1;
+var handlers = {};
+var unusedKeys = [];
+
+var getHandlers = function(element) {
+    if (!element[cacheKeyProp]) {
+        element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
+    }
+    var key = element[cacheKeyProp];
+    return handlers[key] || (handlers[key] = []);
+};
+
+/**
+ * Clear event handlers for an element
+ *
+ * @method clearHandlers
+ * @private
+ * @param {Node} element
+ */
+
+var clearHandlers = function(element) {
+    var key = element[cacheKeyProp];
+    if (handlers[key]) {
+        handlers[key] = null;
+        element[key] = null;
+        unusedKeys.push(key);
+    }
+};
+
+/**
+ * Function to test whether delegated events match the provided `selector` (filter),
+ * and then actually call the provided event handler.
+ * Also sets `event.currentTarget` on the event object.
+ *
+ * @method delegateHandler
+ * @private
+ * @param {String} selector Selector to filter descendants that undelegate the event to this element.
+ * @param {Function} fn Event handler
+ * @param {Event} event
+ */
+
+var delegateHandler = function(selector, handler, event) {
+    var eventTarget = event._target || event.target;
+    if (matchesSelector.call(eventTarget, selector)) {
+        if (!event.currentTarget) {
+            event.currentTarget = eventTarget;
+        }
+        handler.call(eventTarget, event);
+    }
+};
+
+// Get the available `matches` or `matchesSelector` method.
+
+var matchesSelector = (function() {
+    var context = typeof Element !== &#039;undefined&#039; ? Element.prototype : global;
+    return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+})();
+
+/**
+ * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
+ * Needed to support IE (9, 10, 11) &amp; PhantomJS
+ */
+
+(function() {
+    var CustomEvent = function(event, params) {
+        params = params || { bubbles: false, cancelable: false, detail: undefined };
+        var evt = document.createEvent(&#039;CustomEvent&#039;);
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    };
+
+    CustomEvent.prototype = global.CustomEvent &amp;&amp; global.CustomEvent.prototype;
+    global.CustomEvent = CustomEvent;
+})();
+
+// Are events bubbling in detached DOM trees?
+
+var isEventBubblingInDetachedTree = (function() {
+    var isBubbling = false,
+        doc = global.document;
+    if (doc) {
+        var parent = doc.createElement(&#039;div&#039;),
+            child = parent.cloneNode();
+        parent.appendChild(child);
+        parent.addEventListener(&#039;e&#039;, function() {
+            isBubbling = true;
+        });
+        child.dispatchEvent(new CustomEvent(&#039;e&#039;, { bubbles: true }));
+    }
+    return isBubbling;
+})();
+
+// Export interface
+
+exports.on = on;
+exports.off = off;
+exports.delegate = delegate;
+exports.undelegate = undelegate;
+exports.trigger = trigger;</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

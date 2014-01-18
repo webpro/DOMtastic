@@ -12,11 +12,13 @@ The full version is only 7KB minified (2KB gzip), but it's easy to create a cust
 
 The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). And last but also least, the CommonJS version is "browserified".
 
-Quicklinks:
-[tests](http://webpro.github.io/jquery-evergreen/test/),
-[benchmarks](http://webpro.github.io/jquery-evergreen/benchmark/),
-[coverage report](http://webpro.github.io/jquery-evergreen/coverage/dist/jquery-evergreen.js.html),
-[docs](http://webpro.github.io/jquery-evergreen/doc/) (annotated source)
+## Quicklinks
+
+* [Docs](http://webpro.github.io/jquery-evergreen/doc/) (annotated source)
+* [Run tests](http://webpro.github.io/jquery-evergreen/test/)
+* [Run benchmarks](http://webpro.github.io/jquery-evergreen/benchmark/)
+* [Coverage report](http://webpro.github.io/jquery-evergreen/coverage/dist/jquery-evergreen.js.html)
+* [Complexity report](http://webpro.github.io/jquery-evergreen/complexity/)
 
 [![Build Status](https://travis-ci.org/webpro/jquery-evergreen.png?branch=master)](https://travis-ci.org/webpro/jquery-evergreen)
 [![Coverage Status](https://coveralls.io/repos/webpro/jquery-evergreen/badge.png?branch=master)](https://coveralls.io/r/webpro/jquery-evergreen?branch=master)

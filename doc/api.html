@@ -1,25 +1,40 @@
 <!DOCTYPE html><html lang="en"><head><title>api</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="api"><meta name="groc-project-path" content="src/je/api.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/api.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="api">API</h1>
-<p>Import modules to build the API.</p>
-<p>The special comments (e.g. <code>API:class</code>) are used to exclude modules for a custom build.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> api = {},
-    $ = {};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:attr </p></div></div><div class="code"><div class="wrapper">import attr from <span class="hljs-string">'./attr'</span>;
-api.attr = attr;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:attr </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:class </p></div></div><div class="code"><div class="wrapper">import { addClass, removeClass, toggleClass, hasClass } from <span class="hljs-string">'./class'</span>;
+<p>Import modules to build the API.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> api = {},
+    $ = {};
+
+import attr from <span class="hljs-string">'./attr'</span>;
+api.attr = attr;
+
+import { addClass, removeClass, toggleClass, hasClass } from <span class="hljs-string">'./class'</span>;
 api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
-api.hasClass = hasClass;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:class </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:dom </p></div></div><div class="code"><div class="wrapper">import { append, before, after } from <span class="hljs-string">'./dom'</span>;
+api.hasClass = hasClass;
+
+import { append, before, after } from <span class="hljs-string">'./dom'</span>;
 api.append = append;
 api.before = before;
-api.after = after;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:dom </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:event </p></div></div><div class="code"><div class="wrapper">import { on, off, delegate, undelegate, trigger } from <span class="hljs-string">'./event'</span>;
+api.after = after;
+
+import { on, off, delegate, undelegate, trigger } from <span class="hljs-string">'./event'</span>;
 api.on = on;
 api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
-api.trigger = trigger;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:event </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:html </p></div></div><div class="code"><div class="wrapper">import html from <span class="hljs-string">'./html'</span>;
-api.html = html;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:html </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:selector </p></div></div><div class="code"><div class="wrapper">import { $, find } from <span class="hljs-string">'./selector'</span>;
-api.find = find;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:selector </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:mode </p></div></div><div class="code"><div class="wrapper">import { isNative, native } from <span class="hljs-string">'./mode'</span>;
+api.trigger = trigger;
+
+import html from <span class="hljs-string">'./html'</span>;
+api.html = html;
+
+import { $, find } from <span class="hljs-string">'./selector'</span>;
+api.find = find;
+
+import { isNative, native } from <span class="hljs-string">'./mode'</span>;
 $.isNative = isNative;
-$.native = native;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:mode </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:noconflict </p></div></div><div class="code"><div class="wrapper">import noConflict from <span class="hljs-string">'./noconflict'</span>;
-$.noConflict = noConflict;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>API:noconflict </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>apiNodeList</code> object represents the API that gets augmented onto
+$.native = native;
+
+import noConflict from <span class="hljs-string">'./noconflict'</span>;
+$.noConflict = noConflict;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>apiNodeList</code> object represents the API that gets augmented onto
 either the wrapped array or the native <code>NodeList</code> object.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> apiNodeList = {};
 
 [<span class="hljs-string">'every'</span>, <span class="hljs-string">'filter'</span>, <span class="hljs-string">'forEach'</span>, <span class="hljs-string">'map'</span>, <span class="hljs-string">'reverse'</span>, <span class="hljs-string">'some'</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(methodName)</span> {</span>

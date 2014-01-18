@@ -1293,27 +1293,7 @@
 1075
 1076
 1077
-1078
-1079
-1080
-1081
-1082
-1083
-1084
-1085
-1086
-1087
-1088
-1089
-1090
-1091
-1092
-1093
-1094
-1095
-1096</td><td class="line-coverage"><span class="cline-any cline-yes">33</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+1078</td><td class="line-coverage"><span class="cline-any cline-yes">33</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1324,12 +1304,9 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
@@ -1338,8 +1315,6 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
@@ -1347,8 +1322,6 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
@@ -1361,29 +1334,20 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2412,19 +2376,14 @@
  * # API
  *
  * Import modules to build the API.
- *
- * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
  */
 &nbsp;
 var api = {},
     $ = {};
 &nbsp;
-/* API:attr */
 var attr = require("./attr")["default"];
 api.attr = attr;
-/* API:attr */
 &nbsp;
-/* API:class */
 var addClass = require("./class").addClass;
 var removeClass = require("./class").removeClass;
 var toggleClass = require("./class").toggleClass;
@@ -2433,18 +2392,14 @@ api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
 api.hasClass = hasClass;
-/* API:class */
 &nbsp;
-/* API:dom */
 var append = require("./dom").append;
 var before = require("./dom").before;
 var after = require("./dom").after;
 api.append = append;
 api.before = before;
 api.after = after;
-/* API:dom */
 &nbsp;
-/* API:event */
 var on = require("./event").on;
 var off = require("./event").off;
 var delegate = require("./event").delegate;
@@ -2455,30 +2410,21 @@ api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
 api.trigger = trigger;
-/* API:event */
 &nbsp;
-/* API:html */
 var html = require("./html")["default"];
 api.html = html;
-/* API:html */
 &nbsp;
-/* API:selector */
 var $ = require("./selector").$;
 var find = require("./selector").find;
 api.find = find;
-/* API:selector */
 &nbsp;
-/* API:mode */
 var isNative = require("./mode").isNative;
 var native = require("./mode").native;
 $.isNative = isNative;
 $.native = native;
-/* API:mode */
 &nbsp;
-/* API:noconflict */
 var noConflict = require("./noconflict")["default"];
 $.noConflict = noConflict;
-/* API:noconflict */
 &nbsp;
 /*
  * The `apiNodeList` object represents the API that gets augmented onto
@@ -3483,8 +3429,8 @@ exports.toArray = toArray;
 exports.makeIterable = makeIterable;
 exports.each = each;
 },{}],"jQueryEvergreen":[function(require,module,exports){
-module.exports=require('tD16L4');
-},{}],"tD16L4":[function(require,module,exports){
+module.exports=require('AExCZQ');
+},{}],"AExCZQ":[function(require,module,exports){
 "use strict";
 /**
  * # jQuery Evergreen
@@ -3501,12 +3447,12 @@ module.exports=require('tD16L4');
 var $ = require("./je/api")["default"];
 &nbsp;
 exports["default"] = $;
-},{"./je/api":1}]},{},["tD16L4"]);window.$=require('jQueryEvergreen')['default'];</pre></td></tr>
+},{"./je/api":1}]},{},["AExCZQ"]);window.$=require('jQueryEvergreen')['default'];</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 17 2014 10:46:39 GMT+0000 (UTC)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 18 2014 00:44:30 GMT+0000 (UTC)</div>
 </div>
 
 <script src="../prettify.js"></script>
