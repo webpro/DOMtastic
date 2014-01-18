@@ -46,7 +46,8 @@
     "mocha-phantomjs": "~3.3.1",
     "istanbul": "~0.2.3",
     "groc": "git://github.com/killercup/groc.git",
-    "plato": "~0.6.2"
+    "plato": "~0.6.2",
+    "grunt-release-it": "~0.1.0"
   },
   "license": "MIT"
 }

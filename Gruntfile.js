@@ -9,6 +9,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks('grunt-es6-module-transpiler');
     grunt.loadNpmTasks("grunt-jscs-checker");
+    grunt.loadNpmTasks("grunt-release-it");
 
     grunt.initConfig({
 
@@ -163,6 +164,16 @@ module.exports = function(grunt) {
                     }
                 }]
             }
+        },
+
+        'release-it': {
+            options: {
+                "pkgFiles": ["package.json", "bower.json"],
+                "buildCommand": "grunt build-release",
+                "distRepo": "https://github.com/webpro/jquery-evergreen-release.git",
+                "distFiles": [".release/**/*"],
+                "distBase": ".release"
+            }
         }
     });
 
@@ -190,6 +201,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['build']);
 
+    grunt.registerTask('release', ['release-it']);
+
     grunt.registerTask('build', [
         'clean',
         'configure-run:full',
@@ -202,7 +215,7 @@ module.exports = function(grunt) {
         'clean:tmp'
     ]);
 
-    grunt.registerTask('release', [
+    grunt.registerTask('build-release', [
         'clean',
         'build-set:bare',
         'build-set:default',
