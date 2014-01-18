@@ -4,19 +4,14 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
  * # API
  *
  * Import modules to build the API.
- *
- * The special comments (e.g. `API:class`) are used to exclude modules for a custom build.
  */
 
 var api = {},
     $ = {};
 
-/* API:attr */
 var attr = require("./attr")["default"];
 api.attr = attr;
-/* API:attr */
 
-/* API:class */
 var addClass = require("./class").addClass;
 var removeClass = require("./class").removeClass;
 var toggleClass = require("./class").toggleClass;
@@ -25,18 +20,14 @@ api.addClass = addClass;
 api.removeClass = removeClass;
 api.toggleClass = toggleClass;
 api.hasClass = hasClass;
-/* API:class */
 
-/* API:dom */
 var append = require("./dom").append;
 var before = require("./dom").before;
 var after = require("./dom").after;
 api.append = append;
 api.before = before;
 api.after = after;
-/* API:dom */
 
-/* API:event */
 var on = require("./event").on;
 var off = require("./event").off;
 var delegate = require("./event").delegate;
@@ -47,30 +38,21 @@ api.off = off;
 api.delegate = delegate;
 api.undelegate = undelegate;
 api.trigger = trigger;
-/* API:event */
 
-/* API:html */
 var html = require("./html")["default"];
 api.html = html;
-/* API:html */
 
-/* API:selector */
 var $ = require("./selector").$;
 var find = require("./selector").find;
 api.find = find;
-/* API:selector */
 
-/* API:mode */
 var isNative = require("./mode").isNative;
 var native = require("./mode").native;
 $.isNative = isNative;
 $.native = native;
-/* API:mode */
 
-/* API:noconflict */
 var noConflict = require("./noconflict")["default"];
 $.noConflict = noConflict;
-/* API:noconflict */
 
 /*
  * The `apiNodeList` object represents the API that gets augmented onto
@@ -1075,8 +1057,8 @@ exports.toArray = toArray;
 exports.makeIterable = makeIterable;
 exports.each = each;
 },{}],"jQueryEvergreen":[function(require,module,exports){
-module.exports=require('iOJE2k');
-},{}],"iOJE2k":[function(require,module,exports){
+module.exports=require('Jrwj7x');
+},{}],"Jrwj7x":[function(require,module,exports){
 "use strict";
 /**
  * # jQuery Evergreen
@@ -1093,4 +1075,4 @@ module.exports=require('iOJE2k');
 var $ = require("./je/api")["default"];
 
 exports["default"] = $;
-},{"./je/api":1}]},{},["iOJE2k"]);window.$=require('jQueryEvergreen')['default'];
+},{"./je/api":1}]},{},["Jrwj7x"]);window.$=require('jQueryEvergreen')['default'];
