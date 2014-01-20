@@ -35,10 +35,10 @@ var native = function(native) {
         global.$.isNative = isNative;
     }
     if (!wasNative && isNative) {
-        augmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
+        augmentNativePrototypes(this._api, this._apiNodeList);
     }
     if (wasNative && !isNative) {
-        unaugmentNativePrototypes(this.getNodeMethods(), this.getNodeListMethods());
+        unaugmentNativePrototypes(this._api, this._apiNodeList);
     }
     return isNative;
 };

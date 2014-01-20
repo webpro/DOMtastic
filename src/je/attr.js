@@ -31,4 +31,4 @@ var attr = function(key, value) {
 
 // Export interface
 
-export default attr;
+export { attr }

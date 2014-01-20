@@ -53,4 +53,26 @@ var each = function(collection, callback) {
     return collection;
 };
 
-export { global, toArray, makeIterable, each };
+/**
+ * ## extend
+ *
+ * Assign properties from source object(s) to target object
+ *
+ * @method extend
+ * @param {Object} obj Object to extend
+ * @param {Object} [source] Object to extend from
+ * @returns {Object} Extended object
+ */
+
+function extend(obj) {
+    [].slice.call(arguments, 1).forEach(function(source) {
+        if (source) {
+            for (var prop in source) {
+                obj[prop] = source[prop];
+            }
+        }
+    });
+    return obj;
+}
+
+export { global, toArray, makeIterable, each, extend };

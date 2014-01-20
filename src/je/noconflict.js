@@ -21,4 +21,4 @@ var noConflict = function() {
 
 // Export interface
 
-export default noConflict;
+export { noConflict };

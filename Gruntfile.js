@@ -15,8 +15,7 @@ module.exports = function(grunt) {
 
         config: {
             modules: ['main', 'je/api', 'je/util'],
-            optionalModules: ['attr', 'class', 'dom', 'event', 'html', 'mode', 'noconflict', 'selector'],
-            moduleImportsTemplate: 'import.*from.*(__MODULES__).*\n((api|\\$).*\n)+\n',
+            optionalModules: ['array', 'attr', 'class', 'dom', 'event', 'html', 'mode', 'noconflict', 'selector'],
             modulesToExclude: {
                 default: ['mode'],
                 bare: ['attr', 'html', 'mode'],
@@ -55,14 +54,8 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 options: {
-                    processContent: function(content) {
-                        var modulesToExclude = grunt.config.get('config.modulesToExclude.run'),
-                            moduleImportsTemplate = grunt.config.get('config.moduleImportsTemplate'),
-                            moduleImportsRE = new RegExp(moduleImportsTemplate.replace(/__MODULES__/g, modulesToExclude.join('|')), 'gm');
-                        if(modulesToExclude.length) {
-                            content = content.replace(moduleImportsRE, '');
-                        }
-                        return content;
+                    processContent: function(content, path) {
+                        return /api/.test(path) ? excludeModulesFromApi(content) : content;
                     }
                 },
                 files: [
@@ -237,5 +230,19 @@ module.exports = function(grunt) {
         ])
 
     });
+
+    function excludeModulesFromApi(content) {
+
+        var modulesToExclude = grunt.config.get('config.modulesToExclude.run'),
+            moduleImportRE = new RegExp('module[\\s\\S](__MODULES__).+\\n'.replace(/__MODULES__/g, modulesToExclude.join('|')), 'g'),
+            moduleExtendRE = new RegExp('(,\\ (__MODULES__))'.replace(/__MODULES__/g, modulesToExclude.join('|')), 'g');
+
+        if(modulesToExclude.length) {
+            content = content.replace(moduleImportRE, '').replace(moduleExtendRE, '');
+        }
+
+        return content;
+
+    }
 
 };
