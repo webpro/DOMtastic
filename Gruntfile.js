@@ -48,7 +48,7 @@ module.exports = function(grunt) {
         },
 
         clean: {
-            release: ['<%= config.output.dir %>/'],
+            release: ['<%= config.output.dir %>'],
             tmp: ['<%= config.tmp %>']
         },
 
@@ -168,11 +168,11 @@ module.exports = function(grunt) {
 
         'release-it': {
             options: {
-                "pkgFiles": ["package.json", "bower.json"],
-                "buildCommand": "grunt build-release",
-                "distRepo": "https://github.com/webpro/jquery-evergreen-release.git",
-                "distFiles": ["**/*"],
-                "distBase": ".release"
+                pkgFiles: ['package.json', 'bower.json'],
+                buildCommand: 'grunt build-release copy:dist',
+                distRepo: 'https://github.com/webpro/jquery-evergreen-release.git',
+                distFiles: ['**/*'],
+                distBase: '<%= config.output.dir %>'
             }
         }
     });
@@ -220,6 +220,7 @@ module.exports = function(grunt) {
         'build-set:bare',
         'build-set:default',
         'build-set:full',
+        'jscs',
         'uglify',
         'clean:tmp'
     ]);
