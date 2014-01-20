@@ -1,6 +1,6 @@
 // # Selector
 
-import { makeIterable } from './util';
+import { global, makeIterable } from './util';
 
 var slice = [].slice,
     hasProto = !Object.prototype.isPrototypeOf({ __proto__: null }),
@@ -60,6 +60,26 @@ var $ = function(selector, context) {
 var find = function(selector) {
     return $(selector, this);
 };
+
+/*
+ * ## Matches
+ *
+ * Returns true if the element would be selected by the specified selector string; otherwise, returns false.
+ *
+ *     $.matches(element, '.match');
+ *
+ * @param {Node} element Element to test
+ * @param {String} selector Selector to match against element
+ * @return {Boolean}
+ */
+
+var matches = (function() {
+    var context = typeof Element !== 'undefined' ? Element.prototype : global,
+        _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+    return function(element, selector) {
+        return _matches.call(element, selector);
+    }
+})();
 
 /*
  * Use the faster `getElementById` or `getElementsByClassName` over `querySelectorAll` if possible.
@@ -144,4 +164,4 @@ var wrap = function(collection) {
 
 // Export interface
 
-export { $, find };
+export { $, find, matches };

@@ -274,20 +274,13 @@ var clearHandlers = function(element) {
 
 var delegateHandler = function(selector, handler, event) {
     var eventTarget = event._target || event.target;
-    if (matchesSelector.call(eventTarget, selector)) {
+    if ($.matches(eventTarget, selector)) {
         if (!event.currentTarget) {
             event.currentTarget = eventTarget;
         }
         handler.call(eventTarget, event);
     }
 };
-
-// Get the available `matches` or `matchesSelector` method.
-
-var matchesSelector = (function() {
-    var context = typeof Element !== 'undefined' ? Element.prototype : global;
-    return context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
-})();
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
