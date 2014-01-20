@@ -171,7 +171,7 @@ module.exports = function(grunt) {
                 "pkgFiles": ["package.json", "bower.json"],
                 "buildCommand": "grunt build-release",
                 "distRepo": "https://github.com/webpro/jquery-evergreen-release.git",
-                "distFiles": [".release/**/*"],
+                "distFiles": ["**/*"],
                 "distBase": ".release"
             }
         }
