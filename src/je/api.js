@@ -1,3 +1,5 @@
+// # API
+
 import { extend } from './util';
 
 var api = {},

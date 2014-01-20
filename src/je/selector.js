@@ -1,6 +1,4 @@
-/*
- * # Selector
- */
+// # Selector
 
 import { makeIterable } from './util';
 
