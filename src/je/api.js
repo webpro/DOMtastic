@@ -30,6 +30,10 @@ module noconflict from './noconflict'; extend($, noconflict);
 extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
 
+// Util
+
+$.extend = extend;
+
 // Internal properties to switch between default and native mode
 
 $._api = api;
