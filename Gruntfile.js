@@ -106,7 +106,8 @@ module.exports = function(grunt) {
         jscs: {
             src: '<%= config.output.dir %>/commonjs/**/*.js',
             options: {
-                config: '.jscs.json'
+                config: '.jscs.json',
+                excludeFiles: ['<%= config.output.dir %>/commonjs/je/api.js']
             }
         },
 
