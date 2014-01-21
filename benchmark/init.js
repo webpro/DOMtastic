@@ -42,6 +42,9 @@
     bench.complete = function(results) {
 
         var data = {},
+            suiteNameParts,
+            suiteGroupName,
+            key,
             config = {
             'Class': {
                 key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw',
@@ -79,24 +82,30 @@
         }
 
         window.browserScopeCallback = function browserScopeCallback() {
-            log('Data successfully sent to BrowserScope');
+            log('Data sent to BrowserScope. Thanks!');
         };
 
         bench.libs.forEach(function(lib) {
-            config[lib.name] = (lib.name + '-' + lib.version).toLowerCase().replace('/[\s-]*/g', '_');
+            config[lib.name] = lib.name + ' ' + lib.version;
         });
 
         for(var suiteName in results) {
-            if(suiteName in config) {
-                data = {};
+            suiteNameParts = suiteName.split('.');
+            suiteGroupName = suiteNameParts[0];
+            if(suiteGroupName in config) {
+                data[suiteGroupName] = data[suiteGroupName] || {};
                 for(var lib in results[suiteName]) {
-                    var key = config[lib];
-                    data[key] = results[suiteName][lib].hz;
+                    key = [config[lib], suiteNameParts[1]].join(' ').trim();
+                    data[suiteGroupName][key] = parseInt(results[suiteName][lib].hz, 10);
                 }
-                log('\nSending data for "' + suiteName + '" to BrowserScope (' + config[suiteName].url + ')');
-                postToBrowserScope(config[suiteName].key, data);
             }
         }
+
+        for(var suiteGroup in data) {
+            log('\nSending data for "' + suiteGroup + '" to BrowserScope (' + config[suiteGroup].url + ')');
+            postToBrowserScope(config[suiteGroup].key, data[suiteGroup]);
+        }
+
     }
 
 }(typeof global == 'object' && global || this));

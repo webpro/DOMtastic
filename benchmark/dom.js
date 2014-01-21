@@ -22,7 +22,7 @@
             '<div id="dom"><div class="dom"></div></div>';
     });
 
-    suites.push(Benchmark.Suite('DOM')
+    suites.push(Benchmark.Suite('DOM.Manipulation')
         .add(libs[0].name, {
             setup: function() {
                 element = jQuery('.dom');
@@ -55,7 +55,7 @@
         })
     );
 
-    suites.push(Benchmark.Suite('Attr')
+    suites.push(Benchmark.Suite('DOM.Attr')
         .add(libs[0].name, {
             setup: function() {
                 element = jQuery('.attr');
