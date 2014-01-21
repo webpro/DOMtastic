@@ -63,7 +63,7 @@
 
         function log(text) {
             console.log(text + '');
-            var uiConsole = isBrowser ? document.getElementById('ui-console') : false;
+            var uiConsole = document && document.getElementById('ui-console');
             if(uiConsole) {
                 uiConsole.textContent += text + '\n';
             }
