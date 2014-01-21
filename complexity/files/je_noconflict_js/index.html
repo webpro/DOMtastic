@@ -63,7 +63,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">4.64</p>
+      <p class="stat">5.10</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
@@ -91,14 +91,14 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-var global = require(&quot;./util&quot;).global;
-
 /*
  * # noConflict
  *
  * In case another library sets the global `$` variable before jQuery Evergreen does,
  * this method can be used to return the global `$` to that other library.
  */
+
+var global = require(&quot;./util&quot;).global;
 
 // Save the previous value of the global `$` variable, so that it can be restored later on.
 
@@ -114,7 +114,7 @@ var noConflict = function() {
 
 // Export interface
 
-exports[&quot;default&quot;] = noConflict;</textarea>
+exports.noConflict = noConflict;</textarea>
   </div>
 </div>
 

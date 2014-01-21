@@ -25,10 +25,10 @@ Use <code>$.native()</code> to activate this behavior. The API is the same in bo
         global.$.isNative = isNative;
     }
     <span class="hljs-keyword">if</span> (!wasNative &amp;&amp; isNative) {
-        augmentNativePrototypes(<span class="hljs-keyword">this</span>.getNodeMethods(), <span class="hljs-keyword">this</span>.getNodeListMethods());
+        augmentNativePrototypes(<span class="hljs-keyword">this</span>._api, <span class="hljs-keyword">this</span>._apiNodeList);
     }
     <span class="hljs-keyword">if</span> (wasNative &amp;&amp; !isNative) {
-        unaugmentNativePrototypes(<span class="hljs-keyword">this</span>.getNodeMethods(), <span class="hljs-keyword">this</span>.getNodeListMethods());
+        unaugmentNativePrototypes(<span class="hljs-keyword">this</span>._api, <span class="hljs-keyword">this</span>._apiNodeList);
     }
     <span class="hljs-keyword">return</span> isNative;
 };

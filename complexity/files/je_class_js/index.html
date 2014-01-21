@@ -91,7 +91,7 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # Class methods
+// # Class
 
 var makeIterable = require(&quot;./util&quot;).makeIterable;
 var each = require(&quot;./util&quot;).each;
@@ -101,8 +101,8 @@ var each = require(&quot;./util&quot;).each;
  *
  *     $(&#039;.item&#039;).addClass(&#039;bar&#039;);
  *
- * @param {string} value The class name to add to the element(s).
- * @return {$Object} or Node/List in native mode (`this`)
+ * @param {String} value The class name to add to the element(s).
+ * @return {$Object} or Node/List in native mode
  */
 
 var addClass = function(value) {
@@ -117,8 +117,8 @@ var addClass = function(value) {
  *
  *     $(&#039;.items&#039;).removeClass(&#039;bar&#039;);
  *
- * @param {string} value The class name to remove from the element(s).
- * @return {$Object} or Node/List in native mode (`this`)
+ * @param {String} value The class name to remove from the element(s).
+ * @return {$Object} or Node/List in native mode
  */
 
 var removeClass = function(value) {
@@ -133,8 +133,8 @@ var removeClass = function(value) {
  *
  *     $(&#039;.item&#039;).toggleClass(&#039;bar&#039;);
  *
- * @param {string} value The class name to toggle at the element(s).
- * @return {$Object} or Node/List in native mode (`this`)
+ * @param {String} value The class name to toggle at the element(s).
+ * @return {$Object} or Node/List in native mode
  */
 
 var toggleClass = function(value) {
@@ -149,7 +149,7 @@ var toggleClass = function(value) {
  *
  *     $(&#039;.item&#039;).hasClass(&#039;bar&#039;);
  *
- * @param {string} value Check if the DOM element contains the class name. When applied to multiple elements,
+ * @param {String} value Check if the DOM element contains the class name. When applied to multiple elements,
  * returns `true` if _any_ of them contains the class name.
  * @return {boolean}
  */

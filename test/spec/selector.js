@@ -21,6 +21,11 @@ describe('selectors', function() {
         expect(elements.length).to.equal(5);
     });
 
+    it('should return queried elements within provided context (string)', function() {
+        var elements = $('li', '#testFragment');
+        expect(elements.length).to.equal(5);
+    });
+
     it('should return the provided element', function() {
         expect($(window)[0]).to.equal(window);
         expect($(document)[0]).to.equal(document);
@@ -30,6 +35,16 @@ describe('selectors', function() {
     it('should create a DOM fragment from string', function() {
         var fragment = $(html);
         expect(fragment[0].outerHTML).to.equal(html);
+    });
+
+    it('should create a DOM fragment from string (self-closing tag)', function() {
+        var fragment = $('<span/>');
+        expect(fragment[0].outerHTML).to.equal('<span></span>');
+    });
+
+    it('should create a DOM fragment from string (tag)', function() {
+        var fragment = $('<div></div>');
+        expect(fragment[0].outerHTML).to.equal('<div></div>');
     });
 
     it('should provide a chainable API', function() {

@@ -77,6 +77,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "JavaScript"
         },
+        "sourcePath": "/home/travis/build/webpro/jquery-evergreen/src/je/array.js",
+        "projectPath": "src/je/array.js",
+        "targetPath": "array",
+        "pageTitle": "array",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Array",
+            "slug": "array",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "Array"
+      },
+      "depth": 1,
+      "outline": []
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "JavaScript"
+        },
         "sourcePath": "/home/travis/build/webpro/jquery-evergreen/src/je/attr.js",
         "projectPath": "src/je/attr.js",
         "targetPath": "attr",
@@ -136,8 +166,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "Class methods",
-            "slug": "class-methods",
+            "title": "Class",
+            "slug": "class",
             "isFileHeader": true
           },
           "depth": 1,
@@ -177,7 +207,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             }
           ]
         },
-        "title": "Class methods"
+        "title": "Class"
       },
       "depth": 1,
       "outline": [
@@ -294,6 +324,89 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 2,
             "title": "after",
             "slug": "after"
+          },
+          "depth": 2
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "JavaScript"
+        },
+        "sourcePath": "/home/travis/build/webpro/jquery-evergreen/src/je/dom_extra.js",
+        "projectPath": "src/je/dom_extra.js",
+        "targetPath": "dom_extra",
+        "pageTitle": "dom_extra",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "DOM Manipulation (extra)",
+            "slug": "dom-manipulation-extra",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "appendTo",
+                "slug": "appendto"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "remove",
+                "slug": "remove"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "replaceWith",
+                "slug": "replacewith"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "DOM Manipulation (extra)"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "appendTo",
+            "slug": "appendto"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "remove",
+            "slug": "remove"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "replaceWith",
+            "slug": "replacewith"
           },
           "depth": 2
         }
@@ -510,20 +623,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "src/je/noconflict.js",
         "targetPath": "noconflict",
         "pageTitle": "noconflict",
-        "title": "noconflict"
-      },
-      "depth": 1,
-      "outline": [
-        {
+        "firstHeader": {
           "type": "heading",
           "data": {
             "level": 1,
             "title": "noConflict",
-            "slug": "noconflict"
+            "slug": "noconflict",
+            "isFileHeader": true
           },
           "depth": 1
-        }
-      ]
+        },
+        "title": "noConflict"
+      },
+      "depth": 1,
+      "outline": []
     }, {
       "type": "file",
       "data": {
@@ -566,6 +679,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "find"
               },
               "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Matches",
+                "slug": "matches"
+              },
+              "depth": 2
             }
           ]
         },
@@ -589,6 +710,113 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "slug": "find"
           },
           "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Matches",
+            "slug": "matches"
+          },
+          "depth": 2
+        }
+      ]
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
+          "ignorePrefix": "}",
+          "foldPrefix": "^",
+          "name": "JavaScript"
+        },
+        "sourcePath": "/home/travis/build/webpro/jquery-evergreen/src/je/selector_extra.js",
+        "projectPath": "src/je/selector_extra.js",
+        "targetPath": "selector_extra",
+        "pageTitle": "selector_extra",
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Selector (extra)",
+            "slug": "selector-extra",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "children",
+                "slug": "children"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "eq",
+                "slug": "eq"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "get",
+                "slug": "get"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "slice",
+                "slug": "slice"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "Selector (extra)"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "children",
+            "slug": "children"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "eq",
+            "slug": "eq"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "get",
+            "slug": "get"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "slice",
+            "slug": "slice"
+          },
+          "depth": 2
         }
       ]
     }, {
@@ -607,7 +835,52 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "src/je/util.js",
         "targetPath": "util",
         "pageTitle": "util",
-        "title": "util"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Util",
+            "slug": "util",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "toArray",
+                "slug": "toarray"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "makeIterable",
+                "slug": "makeiterable"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "each",
+                "slug": "each"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "extend",
+                "slug": "extend"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "Util"
       },
       "depth": 1,
       "outline": [
@@ -633,6 +906,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "level": 2,
             "title": "each",
             "slug": "each"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "extend",
+            "slug": "extend"
           },
           "depth": 2
         }

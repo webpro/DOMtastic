@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><title>event</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="event"><meta name="groc-project-path" content="src/je/event.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/event.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="events">Events</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { global, each } from <span class="hljs-string">'./util'</span>;</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="on">on</h2>
+<!DOCTYPE html><html lang="en"><head><title>event</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="event"><meta name="groc-project-path" content="src/je/event.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/event.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="events">Events</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { global, each } from <span class="hljs-string">'./util'</span>;
+import { matches } from <span class="hljs-string">'./selector'</span>;</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="on">on</h2>
 <p>Shorthand for <code>addEventListener</code>. Supports event delegation if a filter (<code>selector</code>) is provided.</p>
 <pre><code>$(&#39;.item&#39;).on(&#39;click&#39;, callback);
 $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></pre>
@@ -13,7 +14,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 <li><p><strong>useCapture must be a Boolean and has a default value of false.</strong></p>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> on = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> on = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> selector === <span class="hljs-string">'function'</span>) {
         handler = selector;
@@ -58,7 +59,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 <li><p><strong>useCapture must be a Boolean and has a default value of false.</strong></p>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> off = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> off = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> selector === <span class="hljs-string">'function'</span>) {
         handler = selector;
@@ -248,16 +249,13 @@ Also sets <code>event.currentTarget</code> on the event object.</p>
 </li>
 </ul></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> delegateHandler = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(selector, handler, event)</span> {</span>
     <span class="hljs-keyword">var</span> eventTarget = event._target || event.target;
-    <span class="hljs-keyword">if</span> (matchesSelector.call(eventTarget, selector)) {
+    <span class="hljs-keyword">if</span> (matches(eventTarget, selector)) {
         <span class="hljs-keyword">if</span> (!event.currentTarget) {
             event.currentTarget = eventTarget;
         }
         handler.call(eventTarget, event);
     }
-};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the available <code>matches</code> or <code>matchesSelector</code> method.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> matchesSelector = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-    <span class="hljs-keyword">var</span> context = <span class="hljs-keyword">typeof</span> Element !== <span class="hljs-string">'undefined'</span> ? Element.prototype : global;
-    <span class="hljs-keyword">return</span> context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
-})();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Polyfill for CustomEvent, borrowed from <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill">MDN</a>.
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Polyfill for CustomEvent, borrowed from <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill">MDN</a>.
 Needed to support IE (9, 10, 11) &amp; PhantomJS</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
     <span class="hljs-keyword">var</span> CustomEvent = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event, params)</span> {</span>
         params = params || { bubbles: <span class="hljs-literal">false</span>, cancelable: <span class="hljs-literal">false</span>, detail: <span class="hljs-literal">undefined</span> };

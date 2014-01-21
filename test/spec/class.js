@@ -1,4 +1,4 @@
-describe('old-school class methods', function() {
+describe('class methods', function() {
 
     it('should add a class', function() {
         var element = getElement(document.body);
@@ -34,10 +34,9 @@ describe('old-school class methods', function() {
     });
 
     it('should provide a chainable API', function() {
-        var element = getElement('#testFragment');
-        element.addClass('testClass5').removeClass('testClass5').toggleClass('testClass5');
-        expect(element.hasClass('testClass5')).to.equal(true);
-
+        var expected = getElement('#testFragment');
+        var actual = expected.addClass('testClass5').removeClass('testClass5').toggleClass('testClass5');
+        expect(actual).to.be.equal(expected);
     });
 
 });

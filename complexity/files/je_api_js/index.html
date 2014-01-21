@@ -45,11 +45,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">83.81</p>
+      <p class="stat">64.09</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">97</p>
+      <p class="stat">70</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">16.53</p>
+      <p class="stat">17.39</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.64</p>
+      <p class="stat">0.61</p>
     </div>
   </div>
 </div>
@@ -91,98 +91,71 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-/*
- * # API
- *
- * Import modules to build the API.
- */
+function __es6_transpiler_warn__(warning) {
+  if (typeof console === &#039;undefined&#039;) {
+  } else if (typeof console.warn === &quot;function&quot;) {
+    console.warn(warning);
+  } else if (typeof console.log === &quot;function&quot;) {
+    console.log(warning);
+  }
+}
+function __es6_transpiler_build_module_object__(name, imported) {
+  var moduleInstanceObject = Object.create ? Object.create(null) : {};
+  if (typeof imported === &quot;function&quot;) {
+    __es6_transpiler_warn__(&quot;imported module &#039;&quot;+name+&quot;&#039; exported a function - this may not work as expected&quot;);
+  }
+  for (var key in imported) {
+    if (Object.prototype.hasOwnProperty.call(imported, key)) {
+      moduleInstanceObject[key] = imported[key];
+    }
+  }
+  if (Object.freeze) {
+    Object.freeze(moduleInstanceObject);
+  }
+  return moduleInstanceObject;
+}
+// # API
+
+var extend = require(&quot;./util&quot;).extend;
 
 var api = {},
+    apiNodeList = {},
     $ = {};
 
-var attr = require(&quot;./attr&quot;)[&quot;default&quot;];
-api.attr = attr;
+// Import modules to build up the API
 
-var addClass = require(&quot;./class&quot;).addClass;
-var removeClass = require(&quot;./class&quot;).removeClass;
-var toggleClass = require(&quot;./class&quot;).toggleClass;
-var hasClass = require(&quot;./class&quot;).hasClass;
-api.addClass = addClass;
-api.removeClass = removeClass;
-api.toggleClass = toggleClass;
-api.hasClass = hasClass;
+var array = __es6_transpiler_build_module_object__(&quot;array&quot;, require(&quot;./array&quot;));
+var attr = __es6_transpiler_build_module_object__(&quot;attr&quot;, require(&quot;./attr&quot;));
+var className = __es6_transpiler_build_module_object__(&quot;className&quot;, require(&quot;./class&quot;));
+var dom = __es6_transpiler_build_module_object__(&quot;dom&quot;, require(&quot;./dom&quot;));
+var dom_extra = __es6_transpiler_build_module_object__(&quot;dom_extra&quot;, require(&quot;./dom_extra&quot;));
+var event = __es6_transpiler_build_module_object__(&quot;event&quot;, require(&quot;./event&quot;));
+var html = __es6_transpiler_build_module_object__(&quot;html&quot;, require(&quot;./html&quot;));
+var selector = __es6_transpiler_build_module_object__(&quot;selector&quot;, require(&quot;./selector&quot;));
+var selector_extra = __es6_transpiler_build_module_object__(&quot;selector_extra&quot;, require(&quot;./selector_extra&quot;));
 
-var append = require(&quot;./dom&quot;).append;
-var before = require(&quot;./dom&quot;).before;
-var after = require(&quot;./dom&quot;).after;
-api.append = append;
-api.before = before;
-api.after = after;
+if (selector !== undefined) {
+    $ = selector.$;
+    $.matches = selector.matches;
+    api.find = selector.find;
+}
 
-var on = require(&quot;./event&quot;).on;
-var off = require(&quot;./event&quot;).off;
-var delegate = require(&quot;./event&quot;).delegate;
-var undelegate = require(&quot;./event&quot;).undelegate;
-var trigger = require(&quot;./event&quot;).trigger;
-api.on = on;
-api.off = off;
-api.delegate = delegate;
-api.undelegate = undelegate;
-api.trigger = trigger;
+var mode = __es6_transpiler_build_module_object__(&quot;mode&quot;, require(&quot;./mode&quot;));
+extend($, mode);
+var noconflict = __es6_transpiler_build_module_object__(&quot;noconflict&quot;, require(&quot;./noconflict&quot;));
+extend($, noconflict);
 
-var html = require(&quot;./html&quot;)[&quot;default&quot;];
-api.html = html;
+extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
+extend(apiNodeList, array);
 
-var $ = require(&quot;./selector&quot;).$;
-var find = require(&quot;./selector&quot;).find;
-api.find = find;
+// Util
 
-var isNative = require(&quot;./mode&quot;).isNative;
-var native = require(&quot;./mode&quot;).native;
-$.isNative = isNative;
-$.native = native;
+$.extend = extend;
 
-var noConflict = require(&quot;./noconflict&quot;)[&quot;default&quot;];
-$.noConflict = noConflict;
+// Internal properties to switch between default and native mode
 
-/*
- * The `apiNodeList` object represents the API that gets augmented onto
- * either the wrapped array or the native `NodeList` object.
- */
-
-var apiNodeList = {};
-
-[&#039;every&#039;, &#039;filter&#039;, &#039;forEach&#039;, &#039;map&#039;, &#039;reverse&#039;, &#039;some&#039;].forEach(function(methodName) {
-    apiNodeList[methodName] = Array.prototype[methodName];
-});
-
-/*
- * Augment the `$` function to be able to:
- *
- * - wrap the `$` objects and add the API methods
- * - switch to native mode
- */
-
-$.getNodeMethods = function() {
-    return api;
-};
-
-$.getNodeListMethods = function() {
-    return apiNodeList;
-};
-
-$.apiMethods = function(api, apiNodeList) {
-
-    var methods = apiNodeList,
-        key;
-
-    for (key in api) {
-        methods[key] = api[key];
-    }
-
-    return methods;
-
-}(api, apiNodeList);
+$._api = api;
+$._apiNodeList = apiNodeList;
 
 // Export interface
 

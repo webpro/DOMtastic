@@ -53,6 +53,15 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 ## API
 
+### [Array](http://webpro.github.io/jquery-evergreen/doc/array.html)
+
+    each
+    every
+    filter
+    map
+    reverse
+    some
+
 ### [Attr](http://webpro.github.io/jquery-evergreen/doc/attr.html)
 
 	attr
@@ -66,9 +75,9 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 ### [DOM](http://webpro.github.io/jquery-evergreen/doc/dom.html)
 
+	after
 	append
 	before
-	after
 
 ### [Event](http://webpro.github.io/jquery-evergreen/doc/event.html)
 
@@ -82,11 +91,6 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 	html
 
-### [Mode](http://webpro.github.io/jquery-evergreen/doc/mode.html)
-
-	isNative
-	native
-
 ### [NoConflict](http://webpro.github.io/jquery-evergreen/doc/noconflict.html)
 
 	noConflict
@@ -95,6 +99,30 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 	$
 	find
+
+
+## API (custom builds)
+
+The pre-built "bare" package does not include the `attr` and `html` modules.
+The pre-built "full" package also includes the following modules:
+
+### [DOM (extra)](http://webpro.github.io/jquery-evergreen/doc/dom_extra.html)
+
+	appendTo
+    remove
+    replaceWith
+
+### [Mode](http://webpro.github.io/jquery-evergreen/doc/mode.html)
+
+	isNative
+	native
+
+### [Selector (extra)](http://webpro.github.io/jquery-evergreen/doc/selector_extra.html)
+
+	children
+	eq
+	get
+	slice
 
 ## But it doesn't even have ...!
 

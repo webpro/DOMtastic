@@ -17,4 +17,10 @@ describe('html', function() {
         expect(emptyContainer.html()).to.equal(html);
     });
 
+    it('should provide a chainable API', function() {
+        var expected = emptyContainer;
+        var actual = expected.html('');
+        expect(actual).to.be.equal(expected);
+    });
+
 });

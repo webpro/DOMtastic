@@ -45,11 +45,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">74.05</p>
+      <p class="stat">74.93</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">60</p>
+      <p class="stat">85</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">24.16</p>
+      <p class="stat">24.92</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.18</p>
+      <p class="stat">0.24</p>
     </div>
   </div>
 </div>
@@ -91,6 +91,8 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
+// # Util
+
 /**
  * Reference to the global scope
  */
@@ -106,23 +108,23 @@ var global = new Function(&quot;return this&quot;)();
  * @return {Array}
  */
 
-var toArray = function(collection) {
+function toArray(collection) {
     return [].slice.call(collection);
-};
+}
 
 /**
  * ## makeIterable
  *
- * Make sure to return something that can be iterated over (e.g. using `forEach`).
+ * Return something that can be iterated over (e.g. using `forEach`).
  * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
  *
  * @param {Node|NodeList|Array} element
  * @return {Array|NodeList}
  */
 
-var makeIterable = function(element) {
+function makeIterable(element) {
     return element.length === undefined || element === window ? [element] : element;
-};
+}
 
 /**
  * ## each
@@ -134,7 +136,7 @@ var makeIterable = function(element) {
  * @returns {Node|NodeList|Array}
  */
 
-var each = function(collection, callback) {
+function each(collection, callback) {
     var length = collection.length;
     if (length !== undefined) {
         for (var i = 0; i &lt; length; i++){
@@ -144,12 +146,35 @@ var each = function(collection, callback) {
         callback(collection);
     }
     return collection;
-};
+}
+
+/**
+ * ## extend
+ *
+ * Assign properties from source object(s) to target object
+ *
+ * @method extend
+ * @param {Object} obj Object to extend
+ * @param {Object} [source] Object to extend from
+ * @returns {Object} Extended object
+ */
+
+function extend(obj) {
+    [].slice.call(arguments, 1).forEach(function(source) {
+        if (source) {
+            for (var prop in source) {
+                obj[prop] = source[prop];
+            }
+        }
+    });
+    return obj;
+}
 
 exports.global = global;
 exports.toArray = toArray;
 exports.makeIterable = makeIterable;
-exports.each = each;</textarea>
+exports.each = each;
+exports.extend = extend;</textarea>
   </div>
 </div>
 

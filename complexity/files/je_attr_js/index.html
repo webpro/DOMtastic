@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">35</p>
+      <p class="stat">41</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,7 +63,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">14.03</p>
+      <p class="stat">14.81</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
@@ -98,9 +98,15 @@ var each = require(&quot;./util&quot;).each;
 /**
  * ## attr
  *
+ * Get the value of an attribute for the first element, or set one or more attributes for each element in the collection.
+ *
  *     $(&#039;.item&#039;).attr(&#039;attrName&#039;);
  *     $(&#039;.item&#039;).attr(&#039;attrName&#039;, &#039;attrValue&#039;);
  *     $(&#039;.item&#039;).attr({&#039;attr1&#039;, &#039;value1&#039;}, {&#039;attr2&#039;, &#039;value2});
+ *
+ * @param {String|Object} key The name of the attribute to get or set. Or an object containing key-value pairs to set as attributes.
+ * @param {String} [value] The value of the attribute to set.
+ * @return {$Object} or Node/List in native mode
  */
 
 var attr = function(key, value) {
@@ -124,7 +130,7 @@ var attr = function(key, value) {
 
 // Export interface
 
-exports[&quot;default&quot;] = attr;</textarea>
+exports.attr = attr;</textarea>
   </div>
 </div>
 

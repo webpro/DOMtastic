@@ -1,65 +1,26 @@
-<!DOCTYPE html><html lang="en"><head><title>api</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="api"><meta name="groc-project-path" content="src/je/api.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/api.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="api">API</h1>
-<p>Import modules to build the API.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> api = {},
-    $ = {};
+<!DOCTYPE html><html lang="en"><head><title>api</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="api"><meta name="groc-project-path" content="src/je/api.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/api.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="api">API</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { extend } from <span class="hljs-string">'./util'</span>;
 
-import attr from <span class="hljs-string">'./attr'</span>;
-api.attr = attr;
+<span class="hljs-keyword">var</span> api = {},
+    apiNodeList = {},
+    $ = {};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Import modules to build up the API</p></div></div><div class="code"><div class="wrapper">module array from <span class="hljs-string">'./array'</span>;
+module attr from <span class="hljs-string">'./attr'</span>;
+module className from <span class="hljs-string">'./class'</span>;
+module dom from <span class="hljs-string">'./dom'</span>;
+module dom_extra from <span class="hljs-string">'./dom_extra'</span>;
+module event from <span class="hljs-string">'./event'</span>;
+module html from <span class="hljs-string">'./html'</span>;
+module selector from <span class="hljs-string">'./selector'</span>;
+module selector_extra from <span class="hljs-string">'./selector_extra'</span>;
 
-import { addClass, removeClass, toggleClass, hasClass } from <span class="hljs-string">'./class'</span>;
-api.addClass = addClass;
-api.removeClass = removeClass;
-api.toggleClass = toggleClass;
-api.hasClass = hasClass;
+<span class="hljs-keyword">if</span> (selector !== <span class="hljs-literal">undefined</span>) {
+    $ = selector.$;
+    $.matches = selector.matches;
+    api.find = selector.find;
+}
 
-import { append, before, after } from <span class="hljs-string">'./dom'</span>;
-api.append = append;
-api.before = before;
-api.after = after;
+module mode from <span class="hljs-string">'./mode'</span>; extend($, mode);
+module noconflict from <span class="hljs-string">'./noconflict'</span>; extend($, noconflict);
 
-import { on, off, delegate, undelegate, trigger } from <span class="hljs-string">'./event'</span>;
-api.on = on;
-api.off = off;
-api.delegate = delegate;
-api.undelegate = undelegate;
-api.trigger = trigger;
-
-import html from <span class="hljs-string">'./html'</span>;
-api.html = html;
-
-import { $, find } from <span class="hljs-string">'./selector'</span>;
-api.find = find;
-
-import { isNative, native } from <span class="hljs-string">'./mode'</span>;
-$.isNative = isNative;
-$.native = native;
-
-import noConflict from <span class="hljs-string">'./noconflict'</span>;
-$.noConflict = noConflict;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <code>apiNodeList</code> object represents the API that gets augmented onto
-either the wrapped array or the native <code>NodeList</code> object.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> apiNodeList = {};
-
-[<span class="hljs-string">'every'</span>, <span class="hljs-string">'filter'</span>, <span class="hljs-string">'forEach'</span>, <span class="hljs-string">'map'</span>, <span class="hljs-string">'reverse'</span>, <span class="hljs-string">'some'</span>].forEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(methodName)</span> {</span>
-    apiNodeList[methodName] = <span class="hljs-built_in">Array</span>.prototype[methodName];
-});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Augment the <code>$</code> function to be able to:</p>
-<ul>
-<li>wrap the <code>$</code> objects and add the API methods</li>
-<li>switch to native mode</li>
-</ul></div></div><div class="code"><div class="wrapper">$.getNodeMethods = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-    <span class="hljs-keyword">return</span> api;
-};
-
-$.getNodeListMethods = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-    <span class="hljs-keyword">return</span> apiNodeList;
-};
-
-$.apiMethods = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(api, apiNodeList)</span> {</span>
-
-    <span class="hljs-keyword">var</span> methods = apiNodeList,
-        key;
-
-    <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> api) {
-        methods[key] = api[key];
-    }
-
-    <span class="hljs-keyword">return</span> methods;
-
-}(api, apiNodeList);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export <span class="hljs-keyword">default</span> $;</div></div></div></div></body></html>
+extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
+extend(apiNodeList, array);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Util</p></div></div><div class="code"><div class="wrapper">$.extend = extend;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Internal properties to switch between default and native mode</p></div></div><div class="code"><div class="wrapper">$._api = api;
+$._apiNodeList = apiNodeList;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export <span class="hljs-keyword">default</span> $;</div></div></div></div></body></html>

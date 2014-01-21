@@ -31,9 +31,9 @@ describe('mode', function() {
 
         it('should augment native objects', function() {
 
-            expect(Node.prototype).to.contain('find');
-            expect(NodeList.prototype).to.contain('find');
-            expect(NodeList.prototype).to.contain('forEach');
+            expect(Node.prototype.find).to.be.a('function')
+            expect(NodeList.prototype.find).to.be.a('function')
+            expect(NodeList.prototype.forEach).to.be.a('function')
 
         });
 
@@ -43,12 +43,12 @@ describe('mode', function() {
 
             expect(result).to.be.instanceof(NodeList);
 
-            expect(result).to.contain('find');
-            expect(result).to.contain('forEach');
+            expect(result.find).to.be.a('function');
+            expect(result.forEach).to.be.a('function');
 
             expect(result[0]).to.be.instanceof(Node);
-            expect(result[0]).to.contain('find');
-            expect(result[0]).not.to.contain('forEach');
+            expect(result[0].find).to.be.a('function');
+            expect(result[0].forEach).to.be.a('function');
 
         });
 
