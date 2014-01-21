@@ -15,10 +15,10 @@ module.exports = function(grunt) {
 
         config: {
             modules: ['main', 'je/api', 'je/util'],
-            optionalModules: ['array', 'attr', 'class', 'dom', 'event', 'html', 'mode', 'noconflict', 'selector'],
+            optionalModules: ['array', 'attr', 'class', 'dom', 'dom_extra', 'event', 'html', 'mode', 'noconflict', 'selector', 'selector_extra'],
             modulesToExclude: {
-                default: ['mode'],
-                bare: ['attr', 'html', 'mode'],
+                default: ['dom_extra', 'mode', 'selector_extra'],
+                bare: ['attr', 'dom_extra', 'html', 'mode', 'selector_extra'],
                 full: []
             },
             processFiles: [],
