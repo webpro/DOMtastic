@@ -18,7 +18,7 @@
             '<div id="class"><div class="class"></div></div>'
     });
 
-    suites.push(Benchmark.Suite('Class')
+    suites.push(Benchmark.Suite('Class.Single')
         .add(libs[0].name, {
             setup: function() {
                 element = jQuery('.class');

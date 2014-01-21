@@ -18,7 +18,7 @@
         EvergreenEl = $('#container');
     });
 
-    suites.push(Benchmark.Suite('Simple selector')
+    suites.push(Benchmark.Suite('Selector.Simple')
         .add(libs[0].name, function() {
             jQueryEl.find('.simple');
         })
@@ -30,7 +30,7 @@
         })
     );
 
-    suites.push(Benchmark.Suite('Complex selector')
+    suites.push(Benchmark.Suite('Selector.Complex')
         .add(libs[0].name, function() {
             jQueryEl.find('.a .b > .c + .c article > [data-foo] ul > li:first-child');
         })
