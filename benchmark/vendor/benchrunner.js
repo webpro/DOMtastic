@@ -15,8 +15,7 @@
         _ = (root._ || (root._ = load('./node_modules/lodash/dist/lodash.compat.min.js'))).noConflict(),
         Benchmark = root.Benchmark || (root.Benchmark = load('./node_modules/benchmark/benchmark.js')),
         isBrowser = Benchmark.support.browser,
-        results = {},
-        resultsBySuite = {};
+        results = {};
 
     /**
      * Logs text to the console and some UI "console", if present.
@@ -113,6 +112,49 @@
         root.benchrunner.suites[0].run({ async: true });
     }
 
+    function next() {
+
+        var suites = root.benchrunner.suites;
+
+        // Remove current suite from queue, and run the next or calculate/log the summary
+
+        suites.shift();
+
+        if (suites.length) {
+
+            suites[0].run({ async: true, maxTime: 0.1 });
+
+        } else {
+
+            logSummary(results);
+
+            if (root.phantom) {
+                phantom.exit();
+            }
+
+        }
+    }
+
+    function logSummary(results) {
+
+        log('\nSUMMARY');
+
+        _.map(results, function(result, benchName) {
+            return {
+                name: benchName,
+                meanHz: getGeometricMean(result)
+            }
+        }).sort(function(a, b) {
+                return a.meanHz > b.meanHz ? -1 : 1;
+        }).forEach(function(result, index, collection) {
+            if (index === 0) {
+                log(result.name + ' is fastest')
+            } else {
+                log(result.name + ' is ' + Math.round((1 - result.meanHz / collection[0].meanHz) * 100) + '% slower');
+            }
+        });
+    }
+
     _.extend(Benchmark.Suite.options, {
         onStart: function() {
             log('\n' + this.name);
@@ -123,7 +165,7 @@
         onComplete: function() {
 
             var suite = this,
-                suites = root.benchrunner.suites;
+                suiteResults = {};
 
             for (var index = 0, length = this.length; index < length; index++) {
                 var bench = this[index];
@@ -144,8 +186,8 @@
 
                 _.each(benches, function(bench) {
 
-                    resultsBySuite[suite.name] = resultsBySuite[suite.name] || {};
-                    resultsBySuite[suite.name][bench.name] = bench;
+                    suiteResults[suite.name] = suiteResults[suite.name] || {};
+                    suiteResults[suite.name][bench.name] = bench;
 
                     results[bench.name] = results[bench.name] || [];
                     results[bench.name].push(getHz(bench));
@@ -156,42 +198,15 @@
                         log('  ' + bench.name + ' is ' + Math.round((1 - bench.hz / fastest[0].hz) * 100) + '% slower');
                     }
                 });
+
             }
 
-            // Remove current suite from queue, and run the next or calculate/log the summary
-
-            suites.shift();
-
-            if (suites.length) {
-
-                suites[0].run({ async: true });
-
+            if(!errored && typeof root.benchrunner.onComplete === 'function') {
+                var onceNext = _.once(next);
+                root.benchrunner.onComplete(suiteResults, onceNext);
+                setTimeout(onceNext, 6000);
             } else {
-
-                log('\nSUMMARY');
-
-                _.map(results, function(result, benchName) {
-                    return {
-                        name: benchName,
-                        meanHz: getGeometricMean(result)
-                    }
-                }).sort(function(a, b) {
-                    return a.meanHz > b.meanHz ? -1 : 1;
-                }).forEach(function(result, index, collection) {
-                    if (index === 0) {
-                        log(result.name + ' is fastest')
-                    } else {
-                        log(result.name + ' is ' + Math.round((1 - result.meanHz / collection[0].meanHz) * 100) + '% slower');
-                    }
-                });
-
-                if(typeof root.benchrunner.complete === 'function') {
-                    root.benchrunner.complete(resultsBySuite);
-                }
-
-                if (root.phantom) {
-                    phantom.exit();
-                }
+                next();
             }
         }
     });

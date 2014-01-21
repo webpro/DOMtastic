@@ -39,7 +39,7 @@
         document.body.appendChild(div);
     });
 
-    bench.complete = function(results) {
+    bench.onComplete = function(results, callback) {
 
         var data = {},
             suiteNameParts,
@@ -48,19 +48,19 @@
             config = {
             'Class': {
                 key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw',
-                url: 'http://www.browserscope.org/browse?category=usertest_agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw'
+                url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple'
             },
             'Constructor': {
                 key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw',
-                url: 'http://www.browserscope.org/browse?category=usertest_agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw'
+                url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple'
             },
             'DOM': {
                 key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw',
-                url: 'http://www.browserscope.org/browse?category=usertest_agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw'
+                url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple'
             },
             'Selector': {
                 key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw',
-                url: 'http://www.browserscope.org/browse?category=usertest_agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw'
+                url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple'
             }
         };
 
@@ -83,6 +83,7 @@
 
         window.browserScopeCallback = function browserScopeCallback() {
             log('Data sent to BrowserScope. Thanks!');
+            callback();
         };
 
         bench.libs.forEach(function(lib) {
