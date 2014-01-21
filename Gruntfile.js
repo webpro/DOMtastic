@@ -195,8 +195,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['build']);
 
-    grunt.registerTask('release', ['release-it']);
-
     grunt.registerTask('build', [
         'clean',
         'configure-run:full',
