@@ -21,7 +21,7 @@ module selector_extra from './selector_extra';
 if (selector !== undefined) {
     $ = selector.$;
     $.matches = selector.matches;
-    api.find = selector.find
+    api.find = selector.find;
 }
 
 module mode from './mode'; extend($, mode);

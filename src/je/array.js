@@ -15,7 +15,7 @@ function filter(selector) {
 }
 
 function each(callback) {
-    return _each(this, callback)
+    return _each(this, callback);
 }
 
 function reverse() {

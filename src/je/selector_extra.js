@@ -19,7 +19,7 @@ var children = function(selector) {
             if (!selector || (selector && matches(child, selector))) {
                 nodes.push(child);
             }
-        })
+        });
     });
     return $(nodes);
 };
