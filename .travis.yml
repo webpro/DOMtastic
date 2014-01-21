@@ -20,6 +20,7 @@ after_success:
   - "git config --global user.email \"travis@travis-ci.org\" && git config --global user.name \"travis-ci\""
   - "git clone --branch=gh-pages https://${GH_TOKEN}@github.com/webpro/jquery-evergreen.git $GHPAGES"
   - "cat $GHPAGES/index.yml README.md > $GHPAGES/index.md"
+  - "rsync --recursive --delete dist/ $GHPAGES/dist/"
   - "rsync --recursive --delete test/ $GHPAGES/test/"
   - "rsync --recursive --delete benchmark/ $GHPAGES/benchmark/"
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
