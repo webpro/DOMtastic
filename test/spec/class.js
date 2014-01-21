@@ -1,4 +1,4 @@
-describe('old-school class methods', function() {
+describe('class methods', function() {
 
     it('should add a class', function() {
         var element = getElement(document.body);

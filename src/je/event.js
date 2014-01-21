@@ -14,7 +14,7 @@ import { global, each } from './util';
  * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 var on = function(eventName, selector, handler, useCapture) {
@@ -61,7 +61,7 @@ var on = function(eventName, selector, handler, useCapture) {
  * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 var off = function(eventName, selector, handler, useCapture) {
@@ -121,7 +121,7 @@ var off = function(eventName, selector, handler, useCapture) {
  * @param {String} selector Selector to filter descendants that delegate the event to this element.
  * @param {String} eventName Name or type of the event
  * @param {Function} fn Event handler
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 var delegate = function(selector, eventName, fn) {
@@ -138,7 +138,7 @@ var delegate = function(selector, eventName, fn) {
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
  * @param {String} eventName Name or type of the event
  * @param {Function} fn Event handler
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 var undelegate = function(selector, eventName, fn) {
@@ -157,7 +157,7 @@ var undelegate = function(selector, eventName, fn) {
  * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
  * @param {Boolean} params.cancelable=true Is the event cancelable or not.
  * @param {Mixed} params.detail=undefined Additional information about the event.
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 var trigger = function(type, params) {

@@ -1,4 +1,4 @@
-describe('DOM', function() {
+describe('dom', function() {
 
     var emptyContainer = getElement('#testEmpty'),
         container = getElement('#testElement'),

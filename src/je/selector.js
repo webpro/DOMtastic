@@ -54,7 +54,7 @@ var $ = function(selector, context) {
  *
  * Chaining for the `$` wrapper (aliasing `find` for `$`).
  *
- *     $('.selectors).find('.deep').$('.deepest');
+ *     $('.selector').find('.deep').$('.deepest');
  */
 
 var find = function(selector) {
