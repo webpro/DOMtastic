@@ -16,7 +16,7 @@ import { each } from './util';
  * @return {$Object} or Node/List in native mode
  */
 
-var attr = function(key, value) {
+function attr(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
         return (this.nodeType ? this : this[0]).getAttribute(key);
@@ -33,7 +33,7 @@ var attr = function(key, value) {
     });
 
     return this;
-};
+}
 
 // Export interface
 

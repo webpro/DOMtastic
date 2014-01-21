@@ -21,7 +21,7 @@ var slice = [].slice,
  * @return {NodeList|$Object}
  */
 
-var $ = function(selector, context) {
+function $(selector, context) {
 
     var collection;
 
@@ -47,7 +47,7 @@ var $ = function(selector, context) {
 
     return $.isNative ? collection : wrap(collection);
 
-};
+}
 
 /*
  * ## Find
@@ -57,9 +57,9 @@ var $ = function(selector, context) {
  *     $('.selector').find('.deep').$('.deepest');
  */
 
-var find = function(selector) {
+function find(selector) {
     return $(selector, this);
-};
+}
 
 /*
  * ## Matches
@@ -91,7 +91,7 @@ var matches = (function() {
  * @return {NodeList|Node}
  */
 
-var querySelector = function(selector, context) {
+function querySelector(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
@@ -107,7 +107,7 @@ var querySelector = function(selector, context) {
 
     return context.querySelectorAll(selector);
 
-};
+}
 
 /*
  * Create DOM fragment from an HTML string
@@ -118,7 +118,7 @@ var querySelector = function(selector, context) {
  * @return {NodeList}
  */
 
-var createFragment = function(html) {
+function createFragment(html) {
 
     if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
@@ -135,7 +135,7 @@ var createFragment = function(html) {
     }
 
     return elements;
-};
+}
 
 /*
  * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
@@ -146,7 +146,7 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 
-var wrap = function(collection) {
+function wrap(collection) {
 
     var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
         methods = $._api;
@@ -160,7 +160,7 @@ var wrap = function(collection) {
     }
 
     return wrapped;
-};
+}
 
 // Export interface
 

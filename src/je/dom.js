@@ -12,7 +12,7 @@ import { toArray } from './util';
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var append = function(element) {
+function append(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
@@ -32,7 +32,7 @@ var append = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * ## before
@@ -44,7 +44,7 @@ var append = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var before = function(element) {
+function before(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element);
@@ -64,7 +64,7 @@ var before = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * ## after
@@ -76,7 +76,7 @@ var before = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var after = function(element) {
+function after(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element);
@@ -96,7 +96,7 @@ var after = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * @method clone
@@ -105,7 +105,7 @@ var after = function(element) {
  * @return {String|Node|NodeList|Array} The cloned element(s)
  */
 
-var clone = function(element) {
+function clone(element) {
     if (typeof element === 'string') {
         return element;
     } else if (element instanceof Node) {
@@ -116,7 +116,7 @@ var clone = function(element) {
         });
     }
     return element;
-};
+}
 
 // Export interface
 

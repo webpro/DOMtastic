@@ -12,7 +12,7 @@ import { $, matches } from './selector';
  *     $('.selector').children('.filter');
  */
 
-var children = function(selector) {
+function children(selector) {
     var nodes = [];
     each(this, function(element) {
         each(element.children, function(child) {
@@ -22,7 +22,7 @@ var children = function(selector) {
         });
     });
     return $(nodes);
-};
+}
 
 /**
  * ## eq
@@ -33,9 +33,9 @@ var children = function(selector) {
  * @returns {$Object}
  */
 
-var eq = function(index) {
+function eq(index) {
     return slice.call(this, index, index + 1);
-};
+}
 
 /**
  * ## get
@@ -46,9 +46,9 @@ var eq = function(index) {
  * @returns {Node}
  */
 
-var get = function(index) {
+function get(index) {
     return this[index];
-};
+}
 
 /**
  * ## slice
@@ -60,8 +60,8 @@ var get = function(index) {
  * @returns {$Object}
  */
 
-var slice = function(start, end) {
+function slice(start, end) {
     return $([].slice.apply(this, arguments));
-};
+}
 
 export { children, eq, get, slice };
