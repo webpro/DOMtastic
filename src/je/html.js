@@ -16,13 +16,14 @@ import { each } from './util';
 
 var html = function(fragment) {
 
-    if (!fragment) {
+    if (typeof fragment !== 'string') {
         return (this.nodeType ? this : this[0]).innerHTML;
     }
 
     each(this, function(element) {
         element.innerHTML = fragment;
     });
+
     return this;
 
 };
