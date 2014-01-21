@@ -14,7 +14,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 <li><p><strong>useCapture must be a Boolean and has a default value of false.</strong></p>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> on = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">on</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> selector === <span class="hljs-string">'function'</span>) {
         handler = selector;
@@ -45,7 +45,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
     });
 
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="off">off</h2>
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="off">off</h2>
 <p>Shorthand for <code>removeEventListener</code>. Delegates to <code>undelegate</code> if that signature is used.</p>
 <pre><code>$(&#39;.item&#39;).off(&#39;click&#39;, callback);</code></pre>
 <p>Parameters:</p>
@@ -59,7 +59,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 <li><p><strong>useCapture must be a Boolean and has a default value of false.</strong></p>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> off = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">off</span><span class="hljs-params">(eventName, selector, handler, useCapture)</span> {</span>
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> selector === <span class="hljs-string">'function'</span>) {
         handler = selector;
@@ -104,7 +104,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
     });
 
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="delegate">delegate</h2>
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="delegate">delegate</h2>
 <p>Delegate events triggered at descendants to element(s)</p>
 <pre><code>$(&#39;.container&#39;).delegate(&#39;.item&#39;, &#39;click&#39;, handler);</code></pre>
 <p>Parameters:</p>
@@ -116,9 +116,9 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 <li><p><strong>fn must be a Function.</strong><br/>(Event handler)</p>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> delegate = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(selector, eventName, fn)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delegate</span><span class="hljs-params">(selector, eventName, fn)</span> {</span>
     <span class="hljs-keyword">return</span> on.call(<span class="hljs-keyword">this</span>, eventName, selector, fn);
-};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="undelegate">undelegate</h2>
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="undelegate">undelegate</h2>
 <p>Undelegate events triggered at descendants to element(s)</p>
 <pre><code>$(&#39;.container&#39;).undelegate(&#39;.item&#39;, &#39;click&#39;, handler);</code></pre>
 <p>Parameters:</p>
@@ -130,9 +130,9 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 <li><p><strong>fn must be a Function.</strong><br/>(Event handler)</p>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> undelegate = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(selector, eventName, fn)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">undelegate</span><span class="hljs-params">(selector, eventName, fn)</span> {</span>
     <span class="hljs-keyword">return</span> off.call(<span class="hljs-keyword">this</span>, eventName, selector, fn);
-};</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="trigger">trigger</h2>
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="trigger">trigger</h2>
 <p>Trigger event at element(s)</p>
 <pre><code>$(&#39;.item&#39;).trigger(&#39;anyEventType&#39;);</code></pre>
 <p>Parameters:</p>
@@ -150,7 +150,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
 </ul>
 </li>
 </ul>
-<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> trigger = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(type, params)</span> {</span>
+<p><strong>Returns a Node or a NodeList or a $Object</strong><br/>(Returns the object it was applied to (<code>this</code>).)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">trigger</span><span class="hljs-params">(type, params)</span> {</span>
     params = params || { bubbles: <span class="hljs-literal">true</span>, cancelable: <span class="hljs-literal">true</span>, detail: <span class="hljs-literal">undefined</span> };
     <span class="hljs-keyword">var</span> event = <span class="hljs-keyword">new</span> CustomEvent(type, params);
     each(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
@@ -161,13 +161,13 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
         }
     });
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method isAttachedToDocument</span></p>
+}</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method isAttachedToDocument</span></p>
 <p>Check whether the element is attached to (or detached from) the document</p>
 <p>Parameters:</p>
 <ul>
 <li><strong>element must be a Node.</strong><br/>(Element to test)</li>
 </ul>
-<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> isAttachedToDocument = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAttachedToDocument</span><span class="hljs-params">(element)</span> {</span>
     <span class="hljs-keyword">if</span> (element === window || element === document) {
         <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
     }
@@ -178,7 +178,7 @@ $(&#39;.container&#39;).on(&#39;click&#39;, &#39;.item&#39;, handler);</code></p
         <span class="hljs-keyword">return</span> !(container.compareDocumentPosition(element) &amp; Node.DOCUMENT_POSITION_DISCONNECTED);
     }
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method triggerForPath</span></p>
+}</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method triggerForPath</span></p>
 <p>Dispatch the event at the element and its ancestors.
 Required to support delegated events in browsers that don&#39;t bubble events in detached DOM trees.</p>
 <p>Parameters:</p>
@@ -197,7 +197,7 @@ Required to support delegated events in browsers that don&#39;t bubble events in
 </li>
 </ul>
 </li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> triggerForPath = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element, type, params)</span> {</span>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">triggerForPath</span><span class="hljs-params">(element, type, params)</span> {</span>
     params = params || {};
     params.bubbles = <span class="hljs-literal">false</span>;
     <span class="hljs-keyword">var</span> event = <span class="hljs-keyword">new</span> CustomEvent(type, params);
@@ -206,7 +206,7 @@ Required to support delegated events in browsers that don&#39;t bubble events in
         element.dispatchEvent(event);
         element = element.parentNode;
     }
-};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method getHandlers</span></p>
+}</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method getHandlers</span></p>
 <p>Get event handlers from an element</p>
 <p>Parameters:</p>
 <ul>
@@ -217,25 +217,25 @@ Required to support delegated events in browsers that don&#39;t bubble events in
 <span class="hljs-keyword">var</span> handlers = {};
 <span class="hljs-keyword">var</span> unusedKeys = [];
 
-<span class="hljs-keyword">var</span> getHandlers = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHandlers</span><span class="hljs-params">(element)</span> {</span>
     <span class="hljs-keyword">if</span> (!element[cacheKeyProp]) {
         element[cacheKeyProp] = unusedKeys.length === <span class="hljs-number">0</span> ? ++id : unusedKeys.pop();
     }
     <span class="hljs-keyword">var</span> key = element[cacheKeyProp];
     <span class="hljs-keyword">return</span> handlers[key] || (handlers[key] = []);
-};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method clearHandlers</span></p>
+}</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method clearHandlers</span></p>
 <p>Clear event handlers for an element</p>
 <p>Parameters:</p>
 <ul>
 <li><strong>element must be a Node.</strong></li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> clearHandlers = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clearHandlers</span><span class="hljs-params">(element)</span> {</span>
     <span class="hljs-keyword">var</span> key = element[cacheKeyProp];
     <span class="hljs-keyword">if</span> (handlers[key]) {
         handlers[key] = <span class="hljs-literal">null</span>;
         element[key] = <span class="hljs-literal">null</span>;
         unusedKeys.push(key);
     }
-};</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method delegateHandler</span></p>
+}</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method delegateHandler</span></p>
 <p>Function to test whether delegated events match the provided <code>selector</code> (filter),
 and then actually call the provided event handler.
 Also sets <code>event.currentTarget</code> on the event object.</p>
@@ -247,7 +247,7 @@ Also sets <code>event.currentTarget</code> on the event object.</p>
 </li>
 <li><p><strong>event must be an Event.</strong></p>
 </li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> delegateHandler = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(selector, handler, event)</span> {</span>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delegateHandler</span><span class="hljs-params">(selector, handler, event)</span> {</span>
     <span class="hljs-keyword">var</span> eventTarget = event._target || event.target;
     <span class="hljs-keyword">if</span> (matches(eventTarget, selector)) {
         <span class="hljs-keyword">if</span> (!event.currentTarget) {
@@ -255,14 +255,14 @@ Also sets <code>event.currentTarget</code> on the event object.</p>
         }
         handler.call(eventTarget, event);
     }
-};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Polyfill for CustomEvent, borrowed from <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill">MDN</a>.
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Polyfill for CustomEvent, borrowed from <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill">MDN</a>.
 Needed to support IE (9, 10, 11) &amp; PhantomJS</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-    <span class="hljs-keyword">var</span> CustomEvent = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event, params)</span> {</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">CustomEvent</span><span class="hljs-params">(event, params)</span> {</span>
         params = params || { bubbles: <span class="hljs-literal">false</span>, cancelable: <span class="hljs-literal">false</span>, detail: <span class="hljs-literal">undefined</span> };
         <span class="hljs-keyword">var</span> evt = document.createEvent(<span class="hljs-string">'CustomEvent'</span>);
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         <span class="hljs-keyword">return</span> evt;
-    };
+    }
 
     CustomEvent.prototype = global.CustomEvent &amp;&amp; global.CustomEvent.prototype;
     global.CustomEvent = CustomEvent;

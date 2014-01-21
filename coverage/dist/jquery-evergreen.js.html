@@ -2891,7 +2891,7 @@ var each = require("./util").each;
  * @return {$Object} or Node/List in native mode
  */
 &nbsp;
-var attr = function(key, value) {
+function attr(key, value) {
 &nbsp;
     if (typeof key === 'string' &amp;&amp; typeof value === 'undefined') {
         return (this.nodeType ? <span class="branch-0 cbranch-no" title="branch not covered" >this </span>: this[0]).getAttribute(key);
@@ -2908,7 +2908,7 @@ var attr = function(key, value) {
     });
 &nbsp;
     return this;
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -2929,12 +2929,12 @@ var each = require("./util").each;
  * @return {$Object} or Node/List in native mode
  */
 &nbsp;
-var addClass = function(value) {
+function addClass(value) {
     each(this, function(element) {
         element.classList.add(value);
     });
     return this;
-};
+}
 &nbsp;
 /**
  * ## removeClass
@@ -2945,12 +2945,12 @@ var addClass = function(value) {
  * @return {$Object} or Node/List in native mode
  */
 &nbsp;
-var removeClass = function(value) {
+function removeClass(value) {
     each(this, function(element) {
         element.classList.remove(value);
     });
     return this;
-};
+}
 &nbsp;
 /**
  * ## toggleClass
@@ -2961,12 +2961,12 @@ var removeClass = function(value) {
  * @return {$Object} or Node/List in native mode
  */
 &nbsp;
-var toggleClass = function(value) {
+function toggleClass(value) {
     each(this, function(element) {
         element.classList.toggle(value);
     });
     return this;
-};
+}
 &nbsp;
 /**
  * ## hasClass
@@ -2978,11 +2978,11 @@ var toggleClass = function(value) {
  * @return {boolean}
  */
 &nbsp;
-var hasClass = function(value) {
+function hasClass(value) {
     return makeIterable(this).some(function(element) {
         return element.classList.contains(value);
     });
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -3006,7 +3006,7 @@ var toArray = require("./util").toArray;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 &nbsp;
-var append = function(element) {
+function append(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
@@ -3026,7 +3026,7 @@ var append = function(element) {
         }
     }
     return this;
-};
+}
 &nbsp;
 /**
  * ## before
@@ -3038,7 +3038,7 @@ var append = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 &nbsp;
-var before = function(element) {
+function before(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element);
@@ -3058,7 +3058,7 @@ var before = function(element) {
         }
     }
     return this;
-};
+}
 &nbsp;
 /**
  * ## after
@@ -3070,7 +3070,7 @@ var before = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 &nbsp;
-var after = function(element) {
+function after(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element);
@@ -3090,7 +3090,7 @@ var after = function(element) {
         }
     }
     return this;
-};
+}
 &nbsp;
 /**
  * @method clone
@@ -3099,7 +3099,7 @@ var after = function(element) {
  * @return {String|Node|NodeList|Array} The cloned element(s)
  */
 &nbsp;
-var clone = function(element) {
+function clone(element) {
     if (typeof element === 'string') {
         return element;
     } else <span class="missing-if-branch" title="if path not taken" >I</span>if (element instanceof Node) {
@@ -3110,7 +3110,7 @@ var clone = function(element) {
         });
     }
 <span class="cstat-no" title="statement not covered" >    return element;</span>
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -3201,7 +3201,7 @@ var matches = require("./selector").matches;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 &nbsp;
-var on = function(eventName, selector, handler, useCapture) {
+function on(eventName, selector, handler, useCapture) {
 &nbsp;
     if (typeof selector === 'function') {
         handler = selector;
@@ -3232,7 +3232,7 @@ var on = function(eventName, selector, handler, useCapture) {
     });
 &nbsp;
     return this;
-};
+}
 &nbsp;
 /**
  * ## off
@@ -3248,7 +3248,7 @@ var on = function(eventName, selector, handler, useCapture) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 &nbsp;
-var off = function(eventName, selector, handler, useCapture) {
+function off(eventName, selector, handler, useCapture) {
 &nbsp;
     if (typeof selector === 'function') {
         handler = selector;
@@ -3293,7 +3293,7 @@ var off = function(eventName, selector, handler, useCapture) {
     });
 &nbsp;
     return this;
-};
+}
 &nbsp;
 /**
  * ## delegate
@@ -3308,9 +3308,9 @@ var off = function(eventName, selector, handler, useCapture) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 &nbsp;
-var delegate = function(selector, eventName, fn) {
+function delegate(selector, eventName, fn) {
     return on.call(this, eventName, selector, fn);
-};
+}
 &nbsp;
 /**
  * ## undelegate
@@ -3325,9 +3325,9 @@ var delegate = function(selector, eventName, fn) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 &nbsp;
-var undelegate = function(selector, eventName, fn) {
+function undelegate(selector, eventName, fn) {
     return off.call(this, eventName, selector, fn);
-};
+}
 &nbsp;
 /**
  * ## trigger
@@ -3344,7 +3344,7 @@ var undelegate = function(selector, eventName, fn) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 &nbsp;
-var trigger = function(type, params) {
+function trigger(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
     each(this, function(element) {
@@ -3355,7 +3355,7 @@ var trigger = function(type, params) {
         }
     });
     return this;
-};
+}
 &nbsp;
 /**
  * Check whether the element is attached to (or detached from) the document
@@ -3366,7 +3366,7 @@ var trigger = function(type, params) {
  * @return {Boolean}
  */
 &nbsp;
-var isAttachedToDocument = function(element) {
+function isAttachedToDocument(element) {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (element === window || element === document) {
 <span class="cstat-no" title="statement not covered" >        return true;</span>
     }
@@ -3377,7 +3377,7 @@ var isAttachedToDocument = function(element) {
 <span class="cstat-no" title="statement not covered" >        return !(container.compareDocumentPosition(element) &amp; Node.DOCUMENT_POSITION_DISCONNECTED);</span>
     }
 <span class="cstat-no" title="statement not covered" >    return false;</span>
-};
+}
 &nbsp;
 /**
  * Dispatch the event at the element and its ancestors.
@@ -3394,7 +3394,7 @@ var isAttachedToDocument = function(element) {
  * @param {Mixed} params.detail=undefined Additional information about the event.
  */
 &nbsp;
-var triggerForPath = function(element, type, params) {
+function triggerForPath(element, type, params) {
     params = params || <span class="branch-1 cbranch-no" title="branch not covered" >{};</span>
     params.bubbles = false;
     var event = new CustomEvent(type, params);
@@ -3403,7 +3403,7 @@ var triggerForPath = function(element, type, params) {
         element.dispatchEvent(event);
         element = element.parentNode;
     }
-};
+}
 &nbsp;
 /**
  * Get event handlers from an element
@@ -3419,13 +3419,13 @@ var id = 1;
 var handlers = {};
 var unusedKeys = [];
 &nbsp;
-var getHandlers = function(element) {
+function getHandlers(element) {
     if (!element[cacheKeyProp]) {
         element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : <span class="branch-1 cbranch-no" title="branch not covered" >unusedKeys.pop();</span>
     }
     var key = element[cacheKeyProp];
     return handlers[key] || (handlers[key] = []);
-};
+}
 &nbsp;
 /**
  * Clear event handlers for an element
@@ -3435,14 +3435,14 @@ var getHandlers = function(element) {
  * @param {Node} element
  */
 &nbsp;
-var clearHandlers = function(element) {
+function clearHandlers(element) {
     var key = element[cacheKeyProp];
     <span class="missing-if-branch" title="else path not taken" >E</span>if (handlers[key]) {
         handlers[key] = null;
         element[key] = null;
         unusedKeys.push(key);
     }
-};
+}
 &nbsp;
 /**
  * Function to test whether delegated events match the provided `selector` (filter),
@@ -3456,7 +3456,7 @@ var clearHandlers = function(element) {
  * @param {Event} event
  */
 &nbsp;
-var delegateHandler = function(selector, handler, event) {
+function delegateHandler(selector, handler, event) {
     var eventTarget = event._target || event.target;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (matches(eventTarget, selector)) {
         <span class="missing-if-branch" title="if path not taken" >I</span>if (!event.currentTarget) {
@@ -3464,7 +3464,7 @@ var delegateHandler = function(selector, handler, event) {
         }
         handler.call(eventTarget, event);
     }
-};
+}
 &nbsp;
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
@@ -3472,12 +3472,12 @@ var delegateHandler = function(selector, handler, event) {
  */
 &nbsp;
 (function() {
-    var CustomEvent = function(event, params) {
+    function CustomEvent(event, params) {
         params = params || <span class="branch-1 cbranch-no" title="branch not covered" >{ bubbles: false, cancelable: false, detail: undefined };</span>
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
-    };
+    }
 &nbsp;
     CustomEvent.prototype = global.CustomEvent &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >global.CustomEvent.prototype;</span>
     global.CustomEvent = CustomEvent;
@@ -3525,7 +3525,7 @@ var each = require("./util").each;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 &nbsp;
-var html = function(fragment) {
+function html(fragment) {
 &nbsp;
     if (typeof fragment !== 'string') {
         return (this.nodeType ? <span class="branch-0 cbranch-no" title="branch not covered" >this </span>: this[0]).innerHTML;
@@ -3537,7 +3537,7 @@ var html = function(fragment) {
 &nbsp;
     return this;
 &nbsp;
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -3574,7 +3574,7 @@ var global = require("./util").global;
 &nbsp;
 var isNative = false;
 &nbsp;
-var native = function(native) {
+function native(native) {
     var wasNative = isNative;
     isNative = typeof native === 'boolean' ? native : true;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (global.$) {
@@ -3587,7 +3587,7 @@ var native = function(native) {
         unaugmentNativePrototypes(this._api, this._apiNodeList);
     }
     return isNative;
-};
+}
 &nbsp;
 var NodeProto = typeof Node !== 'undefined' &amp;&amp; Node.prototype,
     NodeListProto = typeof NodeList !== 'undefined' &amp;&amp; NodeList.prototype;
@@ -3597,7 +3597,7 @@ var NodeProto = typeof Node !== 'undefined' &amp;&amp; Node.prototype,
  * Only add the method if object not already had it (non-inherited).
  */
 &nbsp;
-var augment = function(obj, key, value) {
+function augment(obj, key, value) {
     if (!obj.hasOwnProperty(key)) {
         Object.defineProperty(obj, key, {
             value: value,
@@ -3605,21 +3605,21 @@ var augment = function(obj, key, value) {
             enumerable: false
         });
     }
-};
+}
 &nbsp;
 /*
  * Remove property from object (only inherited properties will be removed).
  */
 &nbsp;
-var unaugment = function(obj, key) {
+function unaugment(obj, key) {
     delete obj[key];
-};
+}
 &nbsp;
 /*
  * Augment native `Node` and `NodeList` objects in native mode.
  */
 &nbsp;
-var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
+function augmentNativePrototypes(methodsNode, methodsNodeList) {
 &nbsp;
     var key;
 &nbsp;
@@ -3631,14 +3631,14 @@ var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
     for (key in methodsNodeList) {
         augment(NodeListProto, key, methodsNodeList[key]);
     }
-};
+}
 &nbsp;
 /*
  * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
  * Mainly used for tests.
  */
 &nbsp;
-var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
+function unaugmentNativePrototypes(methodsNode, methodsNodeList) {
 &nbsp;
     var key;
 &nbsp;
@@ -3650,7 +3650,7 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
     for (key in methodsNodeList) {
         unaugment(NodeListProto, key);
     }
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -3674,10 +3674,10 @@ var previousLib = global.$;
 // Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
 // Returns a reference to jQuery Evergreen.
 &nbsp;
-var noConflict = function() {
+function noConflict() {
     global.$ = previousLib;
     return this;
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -3708,7 +3708,7 @@ var slice = [].slice,
  * @return {NodeList|$Object}
  */
 &nbsp;
-var $ = function(selector, context) {
+function $(selector, context) {
 &nbsp;
     var collection;
 &nbsp;
@@ -3734,7 +3734,7 @@ var $ = function(selector, context) {
 &nbsp;
     return $.isNative ? collection : wrap(collection);
 &nbsp;
-};
+}
 &nbsp;
 /*
  * ## Find
@@ -3744,9 +3744,9 @@ var $ = function(selector, context) {
  *     $('.selector').find('.deep').$('.deepest');
  */
 &nbsp;
-var find = function(selector) {
+function find(selector) {
     return $(selector, this);
-};
+}
 &nbsp;
 /*
  * ## Matches
@@ -3778,7 +3778,7 @@ var matches = (function() {
  * @return {NodeList|Node}
  */
 &nbsp;
-var querySelector = function(selector, context) {
+function querySelector(selector, context) {
 &nbsp;
     var isSimpleSelector = reSimpleSelector.test(selector);
 &nbsp;
@@ -3794,7 +3794,7 @@ var querySelector = function(selector, context) {
 &nbsp;
     return context.querySelectorAll(selector);
 &nbsp;
-};
+}
 &nbsp;
 /*
  * Create DOM fragment from an HTML string
@@ -3805,7 +3805,7 @@ var querySelector = function(selector, context) {
  * @return {NodeList}
  */
 &nbsp;
-var createFragment = function(html) {
+function createFragment(html) {
 &nbsp;
     if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
@@ -3822,7 +3822,7 @@ var createFragment = function(html) {
     }
 &nbsp;
     return elements;
-};
+}
 &nbsp;
 /*
  * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
@@ -3833,7 +3833,7 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 &nbsp;
-var wrap = function(collection) {
+function wrap(collection) {
 &nbsp;
     var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
         methods = $._api;
@@ -3847,7 +3847,7 @@ var wrap = function(collection) {
     }
 &nbsp;
     return wrapped;
-};
+}
 &nbsp;
 // Export interface
 &nbsp;
@@ -3871,7 +3871,7 @@ var matches = require("./selector").matches;
  *     $('.selector').children('.filter');
  */
 &nbsp;
-var children = function(selector) {
+function children(selector) {
     var nodes = [];
     each(this, function(element) {
         each(element.children, function(child) {
@@ -3881,7 +3881,7 @@ var children = function(selector) {
         });
     });
     return $(nodes);
-};
+}
 &nbsp;
 /**
  * ## eq
@@ -3892,9 +3892,9 @@ var children = function(selector) {
  * @returns {$Object}
  */
 &nbsp;
-var eq = function(index) {
+function eq(index) {
     return slice.call(this, index, index + 1);
-};
+}
 &nbsp;
 /**
  * ## get
@@ -3905,9 +3905,9 @@ var eq = function(index) {
  * @returns {Node}
  */
 &nbsp;
-var get = function(index) {
+function get(index) {
     return this[index];
-};
+}
 &nbsp;
 /**
  * ## slice
@@ -3919,9 +3919,9 @@ var get = function(index) {
  * @returns {$Object}
  */
 &nbsp;
-var slice = function(start, end) {
+function slice(start, end) {
     return $([].slice.apply(this, arguments));
-};
+}
 &nbsp;
 exports.children = children;
 exports.eq = eq;
@@ -4037,7 +4037,7 @@ exports["default"] = $;
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jan 21 2014 16:15:34 GMT+0000 (UTC)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jan 21 2014 16:16:48 GMT+0000 (UTC)</div>
 </div>
 
 <script src="../prettify.js"></script>

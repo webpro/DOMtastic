@@ -63,7 +63,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">5.10</p>
+      <p class="stat">5.33</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
@@ -107,10 +107,10 @@ var previousLib = global.$;
 // Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
 // Returns a reference to jQuery Evergreen.
 
-var noConflict = function() {
+function noConflict() {
     global.$ = previousLib;
     return this;
-};
+}
 
 // Export interface
 

@@ -129,7 +129,7 @@ var each = require("./util").each;
  * @return {$Object} or Node/List in native mode
  */
 
-var attr = function(key, value) {
+function attr(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
         return (this.nodeType ? this : this[0]).getAttribute(key);
@@ -146,7 +146,7 @@ var attr = function(key, value) {
     });
 
     return this;
-};
+}
 
 // Export interface
 
@@ -167,12 +167,12 @@ var each = require("./util").each;
  * @return {$Object} or Node/List in native mode
  */
 
-var addClass = function(value) {
+function addClass(value) {
     each(this, function(element) {
         element.classList.add(value);
     });
     return this;
-};
+}
 
 /**
  * ## removeClass
@@ -183,12 +183,12 @@ var addClass = function(value) {
  * @return {$Object} or Node/List in native mode
  */
 
-var removeClass = function(value) {
+function removeClass(value) {
     each(this, function(element) {
         element.classList.remove(value);
     });
     return this;
-};
+}
 
 /**
  * ## toggleClass
@@ -199,12 +199,12 @@ var removeClass = function(value) {
  * @return {$Object} or Node/List in native mode
  */
 
-var toggleClass = function(value) {
+function toggleClass(value) {
     each(this, function(element) {
         element.classList.toggle(value);
     });
     return this;
-};
+}
 
 /**
  * ## hasClass
@@ -216,11 +216,11 @@ var toggleClass = function(value) {
  * @return {boolean}
  */
 
-var hasClass = function(value) {
+function hasClass(value) {
     return makeIterable(this).some(function(element) {
         return element.classList.contains(value);
     });
-};
+}
 
 // Export interface
 
@@ -244,7 +244,7 @@ var toArray = require("./util").toArray;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var append = function(element) {
+function append(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('beforeend', element);
@@ -264,7 +264,7 @@ var append = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * ## before
@@ -276,7 +276,7 @@ var append = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var before = function(element) {
+function before(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('beforebegin', element);
@@ -296,7 +296,7 @@ var before = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * ## after
@@ -308,7 +308,7 @@ var before = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var after = function(element) {
+function after(element) {
     if (this instanceof Node) {
         if (typeof element === 'string') {
             this.insertAdjacentHTML('afterend', element);
@@ -328,7 +328,7 @@ var after = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * @method clone
@@ -337,7 +337,7 @@ var after = function(element) {
  * @return {String|Node|NodeList|Array} The cloned element(s)
  */
 
-var clone = function(element) {
+function clone(element) {
     if (typeof element === 'string') {
         return element;
     } else if (element instanceof Node) {
@@ -348,7 +348,7 @@ var clone = function(element) {
         });
     }
     return element;
-};
+}
 
 // Export interface
 
@@ -439,7 +439,7 @@ var matches = require("./selector").matches;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var on = function(eventName, selector, handler, useCapture) {
+function on(eventName, selector, handler, useCapture) {
 
     if (typeof selector === 'function') {
         handler = selector;
@@ -470,7 +470,7 @@ var on = function(eventName, selector, handler, useCapture) {
     });
 
     return this;
-};
+}
 
 /**
  * ## off
@@ -486,7 +486,7 @@ var on = function(eventName, selector, handler, useCapture) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var off = function(eventName, selector, handler, useCapture) {
+function off(eventName, selector, handler, useCapture) {
 
     if (typeof selector === 'function') {
         handler = selector;
@@ -531,7 +531,7 @@ var off = function(eventName, selector, handler, useCapture) {
     });
 
     return this;
-};
+}
 
 /**
  * ## delegate
@@ -546,9 +546,9 @@ var off = function(eventName, selector, handler, useCapture) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
-var delegate = function(selector, eventName, fn) {
+function delegate(selector, eventName, fn) {
     return on.call(this, eventName, selector, fn);
-};
+}
 
 /**
  * ## undelegate
@@ -563,9 +563,9 @@ var delegate = function(selector, eventName, fn) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
-var undelegate = function(selector, eventName, fn) {
+function undelegate(selector, eventName, fn) {
     return off.call(this, eventName, selector, fn);
-};
+}
 
 /**
  * ## trigger
@@ -582,7 +582,7 @@ var undelegate = function(selector, eventName, fn) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
  */
 
-var trigger = function(type, params) {
+function trigger(type, params) {
     params = params || { bubbles: true, cancelable: true, detail: undefined };
     var event = new CustomEvent(type, params);
     each(this, function(element) {
@@ -593,7 +593,7 @@ var trigger = function(type, params) {
         }
     });
     return this;
-};
+}
 
 /**
  * Check whether the element is attached to (or detached from) the document
@@ -604,7 +604,7 @@ var trigger = function(type, params) {
  * @return {Boolean}
  */
 
-var isAttachedToDocument = function(element) {
+function isAttachedToDocument(element) {
     if (element === window || element === document) {
         return true;
     }
@@ -615,7 +615,7 @@ var isAttachedToDocument = function(element) {
         return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
     }
     return false;
-};
+}
 
 /**
  * Dispatch the event at the element and its ancestors.
@@ -632,7 +632,7 @@ var isAttachedToDocument = function(element) {
  * @param {Mixed} params.detail=undefined Additional information about the event.
  */
 
-var triggerForPath = function(element, type, params) {
+function triggerForPath(element, type, params) {
     params = params || {};
     params.bubbles = false;
     var event = new CustomEvent(type, params);
@@ -641,7 +641,7 @@ var triggerForPath = function(element, type, params) {
         element.dispatchEvent(event);
         element = element.parentNode;
     }
-};
+}
 
 /**
  * Get event handlers from an element
@@ -657,13 +657,13 @@ var id = 1;
 var handlers = {};
 var unusedKeys = [];
 
-var getHandlers = function(element) {
+function getHandlers(element) {
     if (!element[cacheKeyProp]) {
         element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
     }
     var key = element[cacheKeyProp];
     return handlers[key] || (handlers[key] = []);
-};
+}
 
 /**
  * Clear event handlers for an element
@@ -673,14 +673,14 @@ var getHandlers = function(element) {
  * @param {Node} element
  */
 
-var clearHandlers = function(element) {
+function clearHandlers(element) {
     var key = element[cacheKeyProp];
     if (handlers[key]) {
         handlers[key] = null;
         element[key] = null;
         unusedKeys.push(key);
     }
-};
+}
 
 /**
  * Function to test whether delegated events match the provided `selector` (filter),
@@ -694,7 +694,7 @@ var clearHandlers = function(element) {
  * @param {Event} event
  */
 
-var delegateHandler = function(selector, handler, event) {
+function delegateHandler(selector, handler, event) {
     var eventTarget = event._target || event.target;
     if (matches(eventTarget, selector)) {
         if (!event.currentTarget) {
@@ -702,7 +702,7 @@ var delegateHandler = function(selector, handler, event) {
         }
         handler.call(eventTarget, event);
     }
-};
+}
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
@@ -710,12 +710,12 @@ var delegateHandler = function(selector, handler, event) {
  */
 
 (function() {
-    var CustomEvent = function(event, params) {
+    function CustomEvent(event, params) {
         params = params || { bubbles: false, cancelable: false, detail: undefined };
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
-    };
+    }
 
     CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
     global.CustomEvent = CustomEvent;
@@ -763,7 +763,7 @@ var each = require("./util").each;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var html = function(fragment) {
+function html(fragment) {
 
     if (typeof fragment !== 'string') {
         return (this.nodeType ? this : this[0]).innerHTML;
@@ -775,7 +775,7 @@ var html = function(fragment) {
 
     return this;
 
-};
+}
 
 // Export interface
 
@@ -812,7 +812,7 @@ var global = require("./util").global;
 
 var isNative = false;
 
-var native = function(native) {
+function native(native) {
     var wasNative = isNative;
     isNative = typeof native === 'boolean' ? native : true;
     if (global.$) {
@@ -825,7 +825,7 @@ var native = function(native) {
         unaugmentNativePrototypes(this._api, this._apiNodeList);
     }
     return isNative;
-};
+}
 
 var NodeProto = typeof Node !== 'undefined' && Node.prototype,
     NodeListProto = typeof NodeList !== 'undefined' && NodeList.prototype;
@@ -835,7 +835,7 @@ var NodeProto = typeof Node !== 'undefined' && Node.prototype,
  * Only add the method if object not already had it (non-inherited).
  */
 
-var augment = function(obj, key, value) {
+function augment(obj, key, value) {
     if (!obj.hasOwnProperty(key)) {
         Object.defineProperty(obj, key, {
             value: value,
@@ -843,21 +843,21 @@ var augment = function(obj, key, value) {
             enumerable: false
         });
     }
-};
+}
 
 /*
  * Remove property from object (only inherited properties will be removed).
  */
 
-var unaugment = function(obj, key) {
+function unaugment(obj, key) {
     delete obj[key];
-};
+}
 
 /*
  * Augment native `Node` and `NodeList` objects in native mode.
  */
 
-var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
+function augmentNativePrototypes(methodsNode, methodsNodeList) {
 
     var key;
 
@@ -869,14 +869,14 @@ var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
     for (key in methodsNodeList) {
         augment(NodeListProto, key, methodsNodeList[key]);
     }
-};
+}
 
 /*
  * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
  * Mainly used for tests.
  */
 
-var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
+function unaugmentNativePrototypes(methodsNode, methodsNodeList) {
 
     var key;
 
@@ -888,7 +888,7 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
     for (key in methodsNodeList) {
         unaugment(NodeListProto, key);
     }
-};
+}
 
 // Export interface
 
@@ -912,10 +912,10 @@ var previousLib = global.$;
 // Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
 // Returns a reference to jQuery Evergreen.
 
-var noConflict = function() {
+function noConflict() {
     global.$ = previousLib;
     return this;
-};
+}
 
 // Export interface
 
@@ -946,7 +946,7 @@ var slice = [].slice,
  * @return {NodeList|$Object}
  */
 
-var $ = function(selector, context) {
+function $(selector, context) {
 
     var collection;
 
@@ -972,7 +972,7 @@ var $ = function(selector, context) {
 
     return $.isNative ? collection : wrap(collection);
 
-};
+}
 
 /*
  * ## Find
@@ -982,9 +982,9 @@ var $ = function(selector, context) {
  *     $('.selector').find('.deep').$('.deepest');
  */
 
-var find = function(selector) {
+function find(selector) {
     return $(selector, this);
-};
+}
 
 /*
  * ## Matches
@@ -1016,7 +1016,7 @@ var matches = (function() {
  * @return {NodeList|Node}
  */
 
-var querySelector = function(selector, context) {
+function querySelector(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
@@ -1032,7 +1032,7 @@ var querySelector = function(selector, context) {
 
     return context.querySelectorAll(selector);
 
-};
+}
 
 /*
  * Create DOM fragment from an HTML string
@@ -1043,7 +1043,7 @@ var querySelector = function(selector, context) {
  * @return {NodeList}
  */
 
-var createFragment = function(html) {
+function createFragment(html) {
 
     if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
@@ -1060,7 +1060,7 @@ var createFragment = function(html) {
     }
 
     return elements;
-};
+}
 
 /*
  * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
@@ -1071,7 +1071,7 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 
-var wrap = function(collection) {
+function wrap(collection) {
 
     var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
         methods = $._api;
@@ -1085,7 +1085,7 @@ var wrap = function(collection) {
     }
 
     return wrapped;
-};
+}
 
 // Export interface
 
@@ -1109,7 +1109,7 @@ var matches = require("./selector").matches;
  *     $('.selector').children('.filter');
  */
 
-var children = function(selector) {
+function children(selector) {
     var nodes = [];
     each(this, function(element) {
         each(element.children, function(child) {
@@ -1119,7 +1119,7 @@ var children = function(selector) {
         });
     });
     return $(nodes);
-};
+}
 
 /**
  * ## eq
@@ -1130,9 +1130,9 @@ var children = function(selector) {
  * @returns {$Object}
  */
 
-var eq = function(index) {
+function eq(index) {
     return slice.call(this, index, index + 1);
-};
+}
 
 /**
  * ## get
@@ -1143,9 +1143,9 @@ var eq = function(index) {
  * @returns {Node}
  */
 
-var get = function(index) {
+function get(index) {
     return this[index];
-};
+}
 
 /**
  * ## slice
@@ -1157,9 +1157,9 @@ var get = function(index) {
  * @returns {$Object}
  */
 
-var slice = function(start, end) {
+function slice(start, end) {
     return $([].slice.apply(this, arguments));
-};
+}
 
 exports.children = children;
 exports.eq = eq;

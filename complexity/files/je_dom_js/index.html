@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">37.41</p>
+      <p class="stat">36.54</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.64</p>
+      <p class="stat">0.62</p>
     </div>
   </div>
 </div>
@@ -105,7 +105,7 @@ var toArray = require(&quot;./util&quot;).toArray;
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var append = function(element) {
+function append(element) {
     if (this instanceof Node) {
         if (typeof element === &#039;string&#039;) {
             this.insertAdjacentHTML(&#039;beforeend&#039;, element);
@@ -125,7 +125,7 @@ var append = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * ## before
@@ -137,7 +137,7 @@ var append = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var before = function(element) {
+function before(element) {
     if (this instanceof Node) {
         if (typeof element === &#039;string&#039;) {
             this.insertAdjacentHTML(&#039;beforebegin&#039;, element);
@@ -157,7 +157,7 @@ var before = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * ## after
@@ -169,7 +169,7 @@ var before = function(element) {
  * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
-var after = function(element) {
+function after(element) {
     if (this instanceof Node) {
         if (typeof element === &#039;string&#039;) {
             this.insertAdjacentHTML(&#039;afterend&#039;, element);
@@ -189,7 +189,7 @@ var after = function(element) {
         }
     }
     return this;
-};
+}
 
 /**
  * @method clone
@@ -198,7 +198,7 @@ var after = function(element) {
  * @return {String|Node|NodeList|Array} The cloned element(s)
  */
 
-var clone = function(element) {
+function clone(element) {
     if (typeof element === &#039;string&#039;) {
         return element;
     } else if (element instanceof Node) {
@@ -209,7 +209,7 @@ var clone = function(element) {
         });
     }
     return element;
-};
+}
 
 // Export interface
 

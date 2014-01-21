@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">28.57</p>
+      <p class="stat">27.39</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.40</p>
+      <p class="stat">0.37</p>
     </div>
   </div>
 </div>
@@ -121,7 +121,7 @@ var global = require(&quot;./util&quot;).global;
 
 var isNative = false;
 
-var native = function(native) {
+function native(native) {
     var wasNative = isNative;
     isNative = typeof native === &#039;boolean&#039; ? native : true;
     if (global.$) {
@@ -134,7 +134,7 @@ var native = function(native) {
         unaugmentNativePrototypes(this._api, this._apiNodeList);
     }
     return isNative;
-};
+}
 
 var NodeProto = typeof Node !== &#039;undefined&#039; &amp;&amp; Node.prototype,
     NodeListProto = typeof NodeList !== &#039;undefined&#039; &amp;&amp; NodeList.prototype;
@@ -144,7 +144,7 @@ var NodeProto = typeof Node !== &#039;undefined&#039; &amp;&amp; Node.prototype,
  * Only add the method if object not already had it (non-inherited).
  */
 
-var augment = function(obj, key, value) {
+function augment(obj, key, value) {
     if (!obj.hasOwnProperty(key)) {
         Object.defineProperty(obj, key, {
             value: value,
@@ -152,21 +152,21 @@ var augment = function(obj, key, value) {
             enumerable: false
         });
     }
-};
+}
 
 /*
  * Remove property from object (only inherited properties will be removed).
  */
 
-var unaugment = function(obj, key) {
+function unaugment(obj, key) {
     delete obj[key];
-};
+}
 
 /*
  * Augment native `Node` and `NodeList` objects in native mode.
  */
 
-var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
+function augmentNativePrototypes(methodsNode, methodsNodeList) {
 
     var key;
 
@@ -178,14 +178,14 @@ var augmentNativePrototypes = function(methodsNode, methodsNodeList) {
     for (key in methodsNodeList) {
         augment(NodeListProto, key, methodsNodeList[key]);
     }
-};
+}
 
 /*
  * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
  * Mainly used for tests.
  */
 
-var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
+function unaugmentNativePrototypes(methodsNode, methodsNodeList) {
 
     var key;
 
@@ -197,7 +197,7 @@ var unaugmentNativePrototypes = function(methodsNode, methodsNodeList) {
     for (key in methodsNodeList) {
         unaugment(NodeListProto, key);
     }
-};
+}
 
 // Export interface
 

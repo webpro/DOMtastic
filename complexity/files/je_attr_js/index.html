@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">14.81</p>
+      <p class="stat">14.44</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.13</p>
+      <p class="stat">0.12</p>
     </div>
   </div>
 </div>
@@ -109,7 +109,7 @@ var each = require(&quot;./util&quot;).each;
  * @return {$Object} or Node/List in native mode
  */
 
-var attr = function(key, value) {
+function attr(key, value) {
 
     if (typeof key === &#039;string&#039; &amp;&amp; typeof value === &#039;undefined&#039;) {
         return (this.nodeType ? this : this[0]).getAttribute(key);
@@ -126,7 +126,7 @@ var attr = function(key, value) {
     });
 
     return this;
-};
+}
 
 // Export interface
 

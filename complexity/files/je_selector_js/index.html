@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">33.24</p>
+      <p class="stat">32.45</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.88</p>
+      <p class="stat">0.85</p>
     </div>
   </div>
 </div>
@@ -115,7 +115,7 @@ var slice = [].slice,
  * @return {NodeList|$Object}
  */
 
-var $ = function(selector, context) {
+function $(selector, context) {
 
     var collection;
 
@@ -141,7 +141,7 @@ var $ = function(selector, context) {
 
     return $.isNative ? collection : wrap(collection);
 
-};
+}
 
 /*
  * ## Find
@@ -151,9 +151,9 @@ var $ = function(selector, context) {
  *     $(&#039;.selector&#039;).find(&#039;.deep&#039;).$(&#039;.deepest&#039;);
  */
 
-var find = function(selector) {
+function find(selector) {
     return $(selector, this);
-};
+}
 
 /*
  * ## Matches
@@ -185,7 +185,7 @@ var matches = (function() {
  * @return {NodeList|Node}
  */
 
-var querySelector = function(selector, context) {
+function querySelector(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
@@ -201,7 +201,7 @@ var querySelector = function(selector, context) {
 
     return context.querySelectorAll(selector);
 
-};
+}
 
 /*
  * Create DOM fragment from an HTML string
@@ -212,7 +212,7 @@ var querySelector = function(selector, context) {
  * @return {NodeList}
  */
 
-var createFragment = function(html) {
+function createFragment(html) {
 
     if (reSingleTag.test(html)) {
         return document.createElement(RegExp.$1);
@@ -229,7 +229,7 @@ var createFragment = function(html) {
     }
 
     return elements;
-};
+}
 
 /*
  * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
@@ -240,7 +240,7 @@ var createFragment = function(html) {
  * @return {$Object} Array with augmented API.
  */
 
-var wrap = function(collection) {
+function wrap(collection) {
 
     var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
         methods = $._api;
@@ -254,7 +254,7 @@ var wrap = function(collection) {
     }
 
     return wrapped;
-};
+}
 
 // Export interface
 

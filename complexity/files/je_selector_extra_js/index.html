@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">16.85</p>
+      <p class="stat">15.92</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.23</p>
+      <p class="stat">0.21</p>
     </div>
   </div>
 </div>
@@ -106,7 +106,7 @@ var matches = require(&quot;./selector&quot;).matches;
  *     $(&#039;.selector&#039;).children(&#039;.filter&#039;);
  */
 
-var children = function(selector) {
+function children(selector) {
     var nodes = [];
     each(this, function(element) {
         each(element.children, function(child) {
@@ -116,7 +116,7 @@ var children = function(selector) {
         });
     });
     return $(nodes);
-};
+}
 
 /**
  * ## eq
@@ -127,9 +127,9 @@ var children = function(selector) {
  * @returns {$Object}
  */
 
-var eq = function(index) {
+function eq(index) {
     return slice.call(this, index, index + 1);
-};
+}
 
 /**
  * ## get
@@ -140,9 +140,9 @@ var eq = function(index) {
  * @returns {Node}
  */
 
-var get = function(index) {
+function get(index) {
     return this[index];
-};
+}
 
 /**
  * ## slice
@@ -154,9 +154,9 @@ var get = function(index) {
  * @returns {$Object}
  */
 
-var slice = function(start, end) {
+function slice(start, end) {
     return $([].slice.apply(this, arguments));
-};
+}
 
 exports.children = children;
 exports.eq = eq;

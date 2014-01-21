@@ -10,7 +10,7 @@ $(&#39;.item&#39;).attr({&#39;attr1&#39;, &#39;value1&#39;}, {&#39;attr2&#39;, &
 <li><p><strong>value is optional and must be a String.</strong><br/>(The value of the attribute to set.)</p>
 </li>
 </ul>
-<p><strong>Returns a $Object</strong><br/>(or Node/List in native mode)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> attr = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(key, value)</span> {</span>
+<p><strong>Returns a $Object</strong><br/>(or Node/List in native mode)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">attr</span><span class="hljs-params">(key, value)</span> {</span>
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> key === <span class="hljs-string">'string'</span> &amp;&amp; <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'undefined'</span>) {
         <span class="hljs-keyword">return</span> (<span class="hljs-keyword">this</span>.nodeType ? <span class="hljs-keyword">this</span> : <span class="hljs-keyword">this</span>[<span class="hljs-number">0</span>]).getAttribute(key);
@@ -27,4 +27,4 @@ $(&#39;.item&#39;).attr({&#39;attr1&#39;, &#39;value1&#39;}, {&#39;attr2&#39;, &
     });
 
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { attr }</div></div></div></div></body></html>
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { attr };</div></div></div></div></body></html>
