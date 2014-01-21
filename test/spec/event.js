@@ -241,9 +241,9 @@ describe('events', function() {
     describe('fluent', function() {
 
         it('should provide a chainable API', function() {
-            getElement(document.body).on('EVENT-chainable', spy).off('EVENT-chainable', spy).delegate('.two', 'EVENT-chainable', spy).undelegate('.two', 'EVENT-chainable', spy);
-            getElement('.two').trigger('EVENT-chainable');
-            expect(spy).not.to.have.been.called;
+            var expected = getElement(document.body);
+            var actual = expected.on('').off().delegate('', '').undelegate();
+            expect(actual).to.be.equal(expected);
         });
 
     });

@@ -134,7 +134,7 @@ describe('dom', function() {
     });
 
     it('should provide a chainable API', function() {
-        getElement('#testChild').append(html).before(html).after(html);
+        var element = getElement('#testChild').append(html).before(html).after(html);
         expect(container[0].innerHTML).to.equal(html + '<div id="testChild">' + html + '</div>' + html);
     });
 

@@ -18,4 +18,10 @@ describe('attr', function() {
         expect(getElement('.two')[0].getAttribute('foo')).to.equal('bar');
     });
 
+    it('should provide a chainable API', function() {
+        var expected = getElement('#testEmpty');
+        var actual = expected.html('');
+        expect(actual).to.be.equal(expected);
+    });
+
 });
