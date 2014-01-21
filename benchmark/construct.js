@@ -11,7 +11,7 @@
             '<div class="construct"></div>'
     });
 
-    suites.push(Benchmark.Suite('Constructor with simple selector')
+    suites.push(Benchmark.Suite('Constructor.Simple selector')
         .add(libs[0].name, function() {
             jQuery('.construct');
         })
@@ -23,7 +23,7 @@
         })
     );
 
-    suites.push(Benchmark.Suite('Constructor with single HTML element')
+    suites.push(Benchmark.Suite('Constructor.Single HTML element')
         .add(libs[0].name, function() {
             jQuery('<div></div>');
         })
@@ -35,7 +35,7 @@
         })
     );
 
-    suites.push(Benchmark.Suite('Constructor with HTML fragment')
+    suites.push(Benchmark.Suite('Constructor.HTML fragment')
         .add(libs[0].name, function() {
             jQuery('<div>1</div><div>2</div>');
         })
@@ -47,7 +47,7 @@
         })
     );
 
-    suites.push(Benchmark.Suite('Constructor with element')
+    suites.push(Benchmark.Suite('Constructor.Element')
         .add(libs[0].name, {
             setup: function() {
                 element = document.createElement('div');
