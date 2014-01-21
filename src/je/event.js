@@ -1,6 +1,7 @@
 // # Events
 
 import { global, each } from './util';
+import { matches } from './selector';
 
 /**
  * ## on
@@ -274,7 +275,7 @@ var clearHandlers = function(element) {
 
 var delegateHandler = function(selector, handler, event) {
     var eventTarget = event._target || event.target;
-    if ($.matches(eventTarget, selector)) {
+    if (matches(eventTarget, selector)) {
         if (!event.currentTarget) {
             event.currentTarget = eventTarget;
         }

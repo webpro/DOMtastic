@@ -1,6 +1,7 @@
 // # Array
 
 import { each as _each } from './util';
+import { $, matches } from './selector';
 
 var ArrayProto = Array.prototype;
 
@@ -8,7 +9,7 @@ var ArrayProto = Array.prototype;
 
 function filter(selector) {
     var callback = typeof selector === 'function' ? selector : function(element) {
-        return $.matches(element, selector);
+        return matches(element, selector);
     };
     return $(ArrayProto.filter.call(this, callback));
 }

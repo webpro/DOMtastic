@@ -2,6 +2,7 @@
 
 import { each } from './util';
 import { append, before, after } from './dom';
+import { $ } from './selector';
 
 /**
  * ## appendTo

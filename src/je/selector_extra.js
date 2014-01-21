@@ -1,6 +1,7 @@
 // # Selector (extra)
 
 var each = require('./util').each;
+import { $, matches } from './selector';
 
 /*
  * ## children
@@ -15,7 +16,7 @@ var children = function(selector) {
     var nodes = [];
     each(this, function(element) {
         each(element.children, function(child) {
-            if (!selector || (selector && $.matches(child, selector))) {
+            if (!selector || (selector && matches(child, selector))) {
                 nodes.push(child);
             }
         })
