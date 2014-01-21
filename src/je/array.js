@@ -28,4 +28,4 @@ var every = ArrayProto.every,
     map = ArrayProto.map,
     some = ArrayProto.some;
 
-export { each, every, filter, forEach, map, reverse, some  }
+export { each, every, filter, forEach, map, reverse, some };
