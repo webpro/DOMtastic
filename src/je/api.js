@@ -18,7 +18,7 @@ module html from './html';
 module selector from './selector';
 module selector_extra from './selector_extra';
 
-if(selector !== undefined) {
+if (selector !== undefined) {
     $ = selector.$;
     $.matches = selector.matches;
     api.find = selector.find

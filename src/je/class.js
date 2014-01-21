@@ -1,4 +1,4 @@
-// # Class methods
+// # Class
 
 import { makeIterable, each } from './util';
 

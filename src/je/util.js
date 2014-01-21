@@ -15,9 +15,9 @@ var global = new Function("return this")();
  * @return {Array}
  */
 
-var toArray = function(collection) {
+function toArray(collection) {
     return [].slice.call(collection);
-};
+}
 
 /**
  * ## makeIterable
@@ -29,9 +29,9 @@ var toArray = function(collection) {
  * @return {Array|NodeList}
  */
 
-var makeIterable = function(element) {
+function makeIterable(element) {
     return element.length === undefined || element === window ? [element] : element;
-};
+}
 
 /**
  * ## each
@@ -43,7 +43,7 @@ var makeIterable = function(element) {
  * @returns {Node|NodeList|Array}
  */
 
-var each = function(collection, callback) {
+function each(collection, callback) {
     var length = collection.length;
     if (length !== undefined) {
         for (var i = 0; i < length; i++){
@@ -53,7 +53,7 @@ var each = function(collection, callback) {
         callback(collection);
     }
     return collection;
-};
+}
 
 /**
  * ## extend
