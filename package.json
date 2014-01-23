@@ -30,7 +30,8 @@
     "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html -R dot",
     "coverage": "./node_modules/istanbul/lib/cli.js instrument dist/jquery-evergreen.js > dist/jquery-evergreen.instrumented.js && ./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && ./node_modules/istanbul/lib/cli.js report --root ./coverage/",
     "doc": "./node_modules/groc/bin/groc",
-    "complexity": "cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../complexity --jshint ../../.jshintrc ."
+    "complexity": "cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../complexity --jshint ../../.jshintrc .",
+    "benchmark": "phantomjs ./node_modules/benchrunner/benchrunner.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -47,7 +48,8 @@
     "istanbul": "~0.2.3",
     "groc": "git://github.com/killercup/groc.git",
     "plato": "~0.6.2",
-    "grunt-release-it": "~0.1.0"
+    "grunt-release-it": "~0.1.0",
+    "benchrunner": "0.0.3"
   },
   "license": "MIT"
 }

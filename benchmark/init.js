@@ -7,7 +7,7 @@
             name: 'jQuery',
             version: '2.0.3',
             script: {
-                src: './vendor/jquery.min.js',
+                src: 'vendor/jquery.min.js',
                 onload: function() {
                     root.jQuery = jQuery.noConflict();
                 }
@@ -17,7 +17,7 @@
             name: 'Zepto',
             version: '1.1.2',
             script: {
-                src: './vendor/zepto.min.js'
+                src: 'vendor/zepto.min.js'
             }
         },
         {
