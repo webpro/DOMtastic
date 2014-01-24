@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><title>selector</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="selector"><meta name="groc-project-path" content="src/je/selector.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/selector.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="selector">Selector</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { global, makeIterable } from <span class="hljs-string">'./util'</span>;
 
 <span class="hljs-keyword">var</span> slice = [].slice,
-    hasProto = !<span class="hljs-built_in">Object</span>.prototype.isPrototypeOf({ __proto__: <span class="hljs-literal">null</span> }),
+    isPrototypeSet = <span class="hljs-literal">false</span>,
     reFragment = <span class="hljs-regexp">/^\s*&lt;(\w+|!)[^&gt;]*&gt;/</span>,
     reSingleTag = <span class="hljs-regexp">/^&lt;(\w+)\s*\/?&gt;(?:&lt;\/\1&gt;|)$/</span>,
     reSimpleSelector = <span class="hljs-regexp">/^[\.#]?[\w-]*$/</span>;</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="">$</h2>
@@ -31,7 +31,7 @@
 
     } <span class="hljs-keyword">else</span> {
 
-        context = context ? <span class="hljs-keyword">typeof</span> context === <span class="hljs-string">'string'</span> ? document.querySelector(context) : context.length ? context[<span class="hljs-number">0</span>] : context : document;
+        context = context ? (<span class="hljs-keyword">typeof</span> context === <span class="hljs-string">'string'</span> ? document.querySelector(context) : context.length ? context[<span class="hljs-number">0</span>] : context) : document;
 
         collection = querySelector(selector, context);
 
@@ -74,7 +74,7 @@
 
     <span class="hljs-keyword">if</span> (isSimpleSelector &amp;&amp; !$.isNative) {
         <span class="hljs-keyword">if</span> (selector[<span class="hljs-number">0</span>] === <span class="hljs-string">'#'</span>) {
-            <span class="hljs-keyword">return</span> (context.getElementById ? context : document).getElementById(selector.slice(<span class="hljs-number">1</span>));
+            <span class="hljs-keyword">return</span> [(context.getElementById ? context : document).getElementById(selector.slice(<span class="hljs-number">1</span>))];
         }
         <span class="hljs-keyword">if</span> (selector[<span class="hljs-number">0</span>] === <span class="hljs-string">'.'</span>) {
             <span class="hljs-keyword">return</span> context.getElementsByClassName(selector.slice(<span class="hljs-number">1</span>));
@@ -93,7 +93,7 @@
 <p><strong>Returns a NodeList</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createFragment</span><span class="hljs-params">(html)</span> {</span>
 
     <span class="hljs-keyword">if</span> (reSingleTag.test(html)) {
-        <span class="hljs-keyword">return</span> document.createElement(<span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> [document.createElement(<span class="hljs-built_in">RegExp</span>.$<span class="hljs-number">1</span>)];
     }
 
     <span class="hljs-keyword">var</span> elements = [],
@@ -108,23 +108,25 @@
 
     <span class="hljs-keyword">return</span> elements;
 }</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method wrap</span></p>
-<p>Calling <code>$(selector)</code> returns a wrapped array of elements <a href="mode.html">by default</a>.</p>
+<p>Calling <code>$(selector)</code> returns a wrapped array-like object of elements <a href="mode.html">by default</a>.</p>
 <p>Parameters:</p>
 <ul>
-<li><strong>collection can be a NodeList, a Node, or an Array.</strong><br/>(Element(s) to wrap as a <code>$Object</code>.)</li>
+<li><strong>collection can be a NodeList or an Array.</strong><br/>(Element(s) to wrap as a <code>$Object</code>.)</li>
 </ul>
 <p><strong>Returns a $Object</strong><br/>(Array with augmented API.)</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrap</span><span class="hljs-params">(collection)</span> {</span>
 
-    <span class="hljs-keyword">var</span> wrapped = collection <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> ? collection : collection.length !== <span class="hljs-literal">undefined</span> ? slice.call(collection) : [collection],
-        methods = $._api;
-
-    <span class="hljs-keyword">if</span> (hasProto) {
-        wrapped.__proto__ = methods;
-    } <span class="hljs-keyword">else</span> {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> methods) {
-            wrapped[key] = methods[key];
-        }
+    <span class="hljs-keyword">if</span> (!isPrototypeSet) {
+        Wrapper.prototype = $._api;
+        Wrapper.prototype.constructor = Wrapper;
+        isPrototypeSet = <span class="hljs-literal">true</span>;
     }
 
-    <span class="hljs-keyword">return</span> wrapped;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Wrapper(collection);
+
+}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Constructor for the Object.prototype strategy</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Wrapper</span><span class="hljs-params">(collection)</span> {</span>
+    <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, length = collection.length;
+    <span class="hljs-keyword">for</span> (; i &lt; length;) {
+        <span class="hljs-keyword">this</span>[i] = collection[i++];
+    }
+    <span class="hljs-keyword">this</span>.length = length;
 }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export { $, find, matches };</div></div></div></div></body></html>
