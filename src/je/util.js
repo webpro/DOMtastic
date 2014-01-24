@@ -4,7 +4,8 @@
  * Reference to the global scope
  */
 
-var global = new Function("return this")();
+var global = new Function("return this")(),
+    slice = Array.prototype.slice;
 
 /**
  * ## toArray
@@ -16,7 +17,7 @@ var global = new Function("return this")();
  */
 
 function toArray(collection) {
-    return [].slice.call(collection);
+    return slice.call(collection);
 }
 
 /**
@@ -67,7 +68,7 @@ function each(collection, callback) {
  */
 
 function extend(obj) {
-    [].slice.call(arguments, 1).forEach(function(source) {
+    slice.call(arguments, 1).forEach(function(source) {
         if (source) {
             for (var prop in source) {
                 obj[prop] = source[prop];

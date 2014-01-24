@@ -7,7 +7,7 @@
             name: 'jQuery',
             version: '2.0.3',
             script: {
-                src: './vendor/jquery.min.js',
+                src: 'vendor/jquery.min.js',
                 onload: function() {
                     root.jQuery = jQuery.noConflict();
                 }
@@ -17,7 +17,7 @@
             name: 'Zepto',
             version: '1.1.2',
             script: {
-                src: './vendor/zepto.min.js'
+                src: 'vendor/zepto.min.js'
             }
         },
         {
@@ -72,17 +72,22 @@
             }
         }
 
-        function postToBrowserScope(key, data) {
-            window._bTestResults = data;
-            var newScript = document.createElement('script'),
-                firstScript = document.getElementsByTagName('script')[0];
-            newScript.src = 'http://www.browserscope.org/user/beacon/' + key;
-            newScript.src += '?callback=browserScopeCallback';
-            firstScript.parentNode.insertBefore(newScript, firstScript);
+        function postToBrowserScope(suiteKey, browserScopeKey, data) {
+            root._bTestResults = data;
+            if (root.document && !root.phantom) {
+                log('\nSending data for "' + suiteKey + '" to BrowserScope (' + config[suiteKey].url + ')');
+                var newScript = document.createElement('script'),
+                    firstScript = document.getElementsByTagName('script')[0];
+                newScript.src = 'http://www.browserscope.org/user/beacon/' + browserScopeKey;
+                newScript.src += '?callback=browserScopeCallback';
+                firstScript.parentNode.insertBefore(newScript, firstScript);
+            } else {
+                callback();
+            }
         }
 
-        window.browserScopeCallback = function browserScopeCallback() {
-            log('Data sent to BrowserScope. Thanks!');
+        root.browserScopeCallback = function browserScopeCallback() {
+            log('✓');
             callback();
         };
 
@@ -103,8 +108,7 @@
         }
 
         for(var suiteGroup in data) {
-            log('\nSending data for "' + suiteGroup + '" to BrowserScope (' + config[suiteGroup].url + ')');
-            postToBrowserScope(config[suiteGroup].key, data[suiteGroup]);
+            postToBrowserScope(suiteGroup, config[suiteGroup].key, data[suiteGroup]);
         }
 
     }

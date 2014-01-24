@@ -4,7 +4,14 @@
         suites = bench.suites,
         libs = bench.libs;
 
-    var element;
+    var element,
+        elements = [];
+
+    var setElements = function() {
+        elements = new Array(20).map(function() {
+            return document.createElement('div')
+        })
+    };
 
     bench.setup.push(function() {
         document.getElementById('container').innerHTML +=
@@ -70,6 +77,27 @@
             },
             fn: function() {
                 $(element);
+            }
+        })
+    );
+
+    suites.push(Benchmark.Suite('Constructor.ElementArray')
+        .add(libs[0].name, {
+            setup: setElements,
+            fn: function() {
+                jQuery(elements);
+            }
+        })
+        .add(libs[1].name, {
+            setup: setElements,
+            fn: function() {
+                Zepto(elements);
+            }
+        })
+        .add(libs[2].name, {
+            setup: setElements,
+            fn: function() {
+                $(elements);
             }
         })
     );
