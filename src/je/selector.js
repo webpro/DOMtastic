@@ -97,7 +97,7 @@ function querySelector(selector, context) {
 
     if (isSimpleSelector && !$.isNative) {
         if (selector[0] === '#') {
-            return (context.getElementById ? context : document).getElementById(selector.slice(1));
+            return [(context.getElementById ? context : document).getElementById(selector.slice(1))];
         }
         if (selector[0] === '.') {
             return context.getElementsByClassName(selector.slice(1));
@@ -121,7 +121,7 @@ function querySelector(selector, context) {
 function createFragment(html) {
 
     if (reSingleTag.test(html)) {
-        return document.createElement(RegExp.$1);
+        return [document.createElement(RegExp.$1)];
     }
 
     var elements = [],
