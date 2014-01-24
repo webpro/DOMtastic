@@ -39,7 +39,7 @@ function $(selector, context) {
 
     } else {
 
-        context = context ? typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context : document;
+        context = context ? (typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context) : document;
 
         collection = querySelector(selector, context);
 
