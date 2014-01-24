@@ -3,7 +3,7 @@
 import { global, makeIterable } from './util';
 
 var slice = [].slice,
-    hasProto = !Object.prototype.isPrototypeOf({ __proto__: null }),
+    isPrototypeSet = false,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
@@ -138,28 +138,34 @@ function createFragment(html) {
 }
 
 /*
- * Calling `$(selector)` returns a wrapped array of elements [by default](mode.html).
+ * Calling `$(selector)` returns a wrapped array-like object of elements [by default](mode.html).
  *
  * @method wrap
  * @private
- * @param {NodeList|Node|Array} collection Element(s) to wrap as a `$Object`.
+ * @param {NodeList|Array} collection Element(s) to wrap as a `$Object`.
  * @return {$Object} Array with augmented API.
  */
 
 function wrap(collection) {
 
-    var wrapped = collection instanceof Array ? collection : collection.length !== undefined ? slice.call(collection) : [collection],
-        methods = $._api;
-
-    if (hasProto) {
-        wrapped.__proto__ = methods;
-    } else {
-        for (var key in methods) {
-            wrapped[key] = methods[key];
-        }
+    if(!isPrototypeSet) {
+        Wrapper.prototype = $._api;
+        Wrapper.prototype.constructor = Wrapper;
+        isPrototypeSet = true;
     }
 
-    return wrapped;
+    return new Wrapper(collection);
+
+}
+
+// Constructor for the Object.prototype strategy
+
+function Wrapper(collection) {
+    var i = 0, length = collection.length;
+    for (; i < length;){
+        this[i] = collection[i++];
+    }
+    this.length = length;
 }
 
 // Export interface
