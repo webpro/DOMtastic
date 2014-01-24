@@ -148,7 +148,7 @@ function createFragment(html) {
 
 function wrap(collection) {
 
-    if(!isPrototypeSet) {
+    if (!isPrototypeSet) {
         Wrapper.prototype = $._api;
         Wrapper.prototype.constructor = Wrapper;
         isPrototypeSet = true;
@@ -162,7 +162,7 @@ function wrap(collection) {
 
 function Wrapper(collection) {
     var i = 0, length = collection.length;
-    for (; i < length;){
+    for (; i < length;) {
         this[i] = collection[i++];
     }
     this.length = length;
