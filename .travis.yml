@@ -5,11 +5,13 @@ env:
   global:
     - GHPAGES=".gh-pages"
     - secure: "TiAOsFfGlvE+wwDoMxYxlMnbJ/ey0c1KsHYahTA78zu5aHVGksOsjKKfZTcrl7Eiup5KSLcpcD1FXDIpUGNggO1b1w/nt8SLI8X0qTRpgVUUHVVnGAuSeg1+TmoVUcM//RSJwTaQrzqQCyqJtGehumV2Y9DA7WSLywzWx/4bPMQ="
+    - secure: "Vd/5T6hDx+XSbZsVVAICuYPKLj6DnEeX7uDR2C7n/JfXH1RaGmlhm2Q8Iv1KjduBk6ro6aSKYh/wlSnKWe3LJVxSN+f7XSkudohS/ogCzo4U740YQ8j/0NPF6SccYp9ukNvkH1hsawpxl/GBl2FKDUInNzLuTply23sn+LncUbE="
+    - secure: "FpgwXfgX7oDBSUMOjO9pvdjg2ZnzNr0oPUxz6sdiZCZE2P7Tda/AJqt4RQNOo+f+MwYMA818ykuIOrI7J88MH07KZSR86bYnTldls9T+IJ4TPskNstiCuZ9p+LQi0dWsC65vUhrNObGbQ+bAsf8cnMqd6kxVgaInhd+5ixxET6k="
 branches:
   only:
     - master
 before_install:
-  - "npm i coveralls grunt-cli"
+  - "npm i coveralls ecstatic grunt-cli request sauce-tunnel"
 before_script:
   - "./node_modules/grunt-cli/bin/grunt build"
 script:
@@ -31,4 +33,5 @@ after_success:
   - "grunt clean:release"
   - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null"
   - "cd $TRAVIS_BUILD_DIR"
+  - "node test/lib/sauce.js"
   - "rm -rf ./coverage $GHPAGES"

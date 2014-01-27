@@ -59,7 +59,10 @@
             if (window.mochaPhantomJS) {
                 mochaPhantomJS.run();
             } else {
-                mocha.run();
+                var runner = mocha.run();
+                runner.on('end', function() {
+                    window.mochaResults = runner.stats;
+                });
             }
         </script>
 
