@@ -26,6 +26,22 @@ describe('attr', function() {
         expect(actual).to.equal(expected);
     });
 
+    it('should not throw when trying to get attribute in empty collection', function() {
+        var element = getElement('#not-there'),
+            fn = element.attr.bind(element),
+            actual = element.attr('foo');
+        expect(fn).not.to.throw(TypeError);
+        expect(actual).to.be.undefined;
+    });
+
+    it('should not throw when trying to set attribute in empty collection', function() {
+        var element = getElement('#not-there'),
+            fn = element.attr.bind(element),
+            actual = element.attr('foo', 'bar');
+        expect(fn).not.to.throw(TypeError);
+        expect(actual).to.eql(element);
+    });
+
     it('should provide a chainable API', function() {
         var expected = getElement('#testEmpty');
         var actual = expected.html('');
