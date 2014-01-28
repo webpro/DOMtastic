@@ -5,7 +5,7 @@
     bench.libs = [
         {
             name: 'jQuery',
-            version: '2.0.3',
+            version: '2.1.0',
             script: {
                 src: 'vendor/jquery.min.js',
                 onload: function() {
