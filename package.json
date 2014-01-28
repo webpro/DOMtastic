@@ -34,21 +34,10 @@
     "benchmark": "phantomjs ./node_modules/benchrunner/benchrunner.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-requirejs": "~0.4.1",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-browserify": "~1.3.0",
-    "grunt-es6-module-transpiler": "~0.6.0",
-    "grunt-jscs-checker": "~0.3.2",
     "mocha-phantomjs": "~3.3.1",
     "istanbul": "~0.2.3",
     "groc": "git://github.com/killercup/groc.git",
     "plato": "~0.6.2",
-    "grunt-release-it": "~0.1.0",
     "benchrunner": "0.0.3"
   },
   "license": "MIT"
