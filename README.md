@@ -148,7 +148,7 @@ You can [opt-in](http://webpro.github.io/jquery-evergreen/doc/mode.html) to work
 	npm install jquery-evergreen
 	cd jquery-evergreen
 	npm install
-	grunt --exclude=attr,mode,html
+	gulp --exclude=attr,mode,html
 
 And find the AMD, CommonJS and browserified versions in the `/dist` folder.
 
