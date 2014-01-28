@@ -84,6 +84,22 @@ describe('html', function() {
         expect($select[0].innerHTML).to.equal(html);
     });
 
+    it('should not throw when trying to get html in empty collection', function() {
+        var element = getElement('#not-there'),
+            fn = element.html.bind(element),
+            actual = element.html();
+        expect(fn).not.to.throw(TypeError);
+        expect(actual).to.be.undefined;
+    });
+
+    it('should not throw when trying to set html in empty collection', function() {
+        var element = getElement('#not-there'),
+            fn = element.html.bind(element),
+            actual = element.html('brop');
+        expect(fn).not.to.throw(TypeError);
+        expect(actual).to.eql(element);
+    });
+
     it('should provide a chainable API', function() {
         var expected = emptyContainer;
         var actual = expected.html('');
