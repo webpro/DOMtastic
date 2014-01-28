@@ -78,7 +78,7 @@ var matches = (function() {
         _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
     return function(element, selector) {
         return _matches.call(element, selector);
-    }
+    };
 })();
 
 /*

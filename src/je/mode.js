@@ -28,9 +28,9 @@ import { global } from './util';
 
 var isNative = false;
 
-function native(native) {
+function native(goNative) {
     var wasNative = isNative;
-    isNative = typeof native === 'boolean' ? native : true;
+    isNative = typeof goNative === 'boolean' ? goNative : true;
     if (global.$) {
         global.$.isNative = isNative;
     }

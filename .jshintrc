@@ -2,6 +2,7 @@
     "esnext": true,
     "browser": true,
     "globalstrict": true,
+    "validthis": true,
     "globals": {
         "require": true,
         "exports": true,
