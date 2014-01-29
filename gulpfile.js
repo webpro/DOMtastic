@@ -139,6 +139,7 @@ function modify(modulesToExclude) {
     var pipe = lazypipe()
         .pipe(replace, /(jQueryEvergreen)=([^\(]\(\))/, '$=$2["default"]')
         .pipe(replace, /define\(([^\)])\)/, 'define(function(){return $1()["default"];})')
+        .pipe(replace, /(module\.exports[^\)]+\))/, '$1["default"]')
         .pipe(replace, getModuleBuilders(modulesToExclude), '')
         .pipe(replace, getModuleExtenders(modulesToExclude), '')
         .pipe(rename, fileName);
