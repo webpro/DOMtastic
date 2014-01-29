@@ -5,11 +5,12 @@
     bench.libs = [
         {
             name: 'jQuery',
-            version: '2.0.3',
+            version: '',
             script: {
                 src: 'vendor/jquery.min.js',
-                onload: function() {
-                    root.jQuery = jQuery.noConflict();
+                onload: function(jQuery) {
+                    bench.libs[0].version = jQuery.fn.jquery;
+                    root.jQuery = (jQuery || root.jQuery).noConflict();
                 }
             }
         },
@@ -22,11 +23,11 @@
         },
         {
             name: 'jQuery Evergreen',
-            version: '0.4.0',
+            version: '0.4.1',
             script: {
                 src: '../dist/jquery-evergreen.min.js',
-                onload: function() {
-                    root.$ = $.noConflict();
+                onload: function($) {
+                    root.$ = ($  || root.$).noConflict();
                 }
             }
         }

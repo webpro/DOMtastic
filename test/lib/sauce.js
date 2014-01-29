@@ -18,13 +18,14 @@ var env = process.env,
     port = 9001;
 
 var platforms = [
-    ['Windows 8.1', 'googlechrome', ''],
-    ['Windows 8.1', 'googlechrome', '26'],
-    ['OS X 10.9', 'googlechrome', ''],
-    ['Linux', 'googlechrome', ''],
+    ['Windows 8.1', 'googlechrome', '31'],
+    ['Windows 8', 'googlechrome', '31'],
+    ['OS X 10.9', 'googlechrome', '31'],
+    ['Linux', 'googlechrome', '30'],
     ['Windows 8.1', 'firefox', ''],
     ['OS X 10.9', 'firefox', ''],
     ['OS X 10.6', 'firefox', ''],
+    ['Linux', 'firefox', ''],
     ['Windows 8.1', 'internet explorer', '11'],
     ['Windows 8', 'internet explorer', '10'],
 //    ['Windows 7', 'internet explorer', '9'],
