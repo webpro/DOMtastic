@@ -9,8 +9,8 @@
             script: {
                 src: 'vendor/jquery.min.js',
                 onload: function(jQuery) {
-                    bench.libs[0].version = jQuery.fn.jquery;
                     root.jQuery = (jQuery || root.jQuery).noConflict();
+                    bench.libs[0].version = root.jQuery.fn.jquery;
                 }
             }
         },
