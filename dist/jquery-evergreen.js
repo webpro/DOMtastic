@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+!function(e){if("object"==typeof exports)module.exports=e()["default"];else if("function"==typeof define&&define.amd)define(function(){return e()["default"];});else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.$=e()["default"]}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 function __es6_transpiler_warn__(warning) {
   if (typeof console === 'undefined') {
@@ -132,7 +132,8 @@ var each = require("./util").each;
 function attr(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
-        return (this.nodeType ? this : this[0]).getAttribute(key);
+        var element = this.nodeType ? this : this[0];
+        return element ? element.getAttribute(key) : undefined;
     }
 
     each(this, function(element) {
@@ -766,7 +767,8 @@ var each = require("./util").each;
 function html(fragment) {
 
     if (typeof fragment !== 'string') {
-        return (this.nodeType ? this : this[0]).innerHTML;
+        var element = this.nodeType ? this : this[0];
+        return element ? element.innerHTML : undefined;
     }
 
     each(this, function(element) {
@@ -804,7 +806,7 @@ exports.html = html;
  *
  * Note that in native mode, `$(selector)` can stil be used. It returns a NodeList.
  *
- * Build the lib using Grunt with `mode` not excluded.
+ * Build the lib using gulp with `mode` not excluded.
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
@@ -812,9 +814,9 @@ var global = require("./util").global;
 
 var isNative = false;
 
-function native(native) {
+function native(goNative) {
     var wasNative = isNative;
-    isNative = typeof native === 'boolean' ? native : true;
+    isNative = typeof goNative === 'boolean' ? goNative : true;
     if (global.$) {
         global.$.isNative = isNative;
     }
@@ -1003,7 +1005,7 @@ var matches = (function() {
         _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
     return function(element, selector) {
         return _matches.call(element, selector);
-    }
+    };
 })();
 
 /*
@@ -1022,7 +1024,8 @@ function querySelector(selector, context) {
 
     if (isSimpleSelector && !$.isNative) {
         if (selector[0] === '#') {
-            return [(context.getElementById ? context : document).getElementById(selector.slice(1))];
+            var element = (context.getElementById ? context : document).getElementById(selector.slice(1));
+            return element ? [element] : [];
         }
         if (selector[0] === '.') {
             return context.getElementsByClassName(selector.slice(1));
@@ -1258,9 +1261,7 @@ exports.toArray = toArray;
 exports.makeIterable = makeIterable;
 exports.each = each;
 exports.extend = extend;
-},{}],"jQueryEvergreen":[function(require,module,exports){
-module.exports=require('Jrwj7x');
-},{}],"Jrwj7x":[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 "use strict";
 /**
  * # jQuery Evergreen
@@ -1277,4 +1278,6 @@ module.exports=require('Jrwj7x');
 var $ = require("./je/api")["default"];
 
 exports["default"] = $;
-},{"./je/api":1}]},{},["Jrwj7x"]);window.$=require('jQueryEvergreen')['default'];
+},{"./je/api":1}]},{},[14])
+(14)
+});
