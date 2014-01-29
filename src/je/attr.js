@@ -1,4 +1,6 @@
-// # Attr
+/**
+ * @module Attr
+ */
 
 import { each } from './util';
 

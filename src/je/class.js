@@ -1,14 +1,19 @@
-// # Class
+/**
+ * Manipulate element classes. Abstraction for the [element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList) API.
+ *
+ * @module Class
+ * @class Class
+ */
 
 import { makeIterable, each } from './util';
 
 /**
- * ## addClass
- *
- *     $('.item').addClass('bar');
- *
+ * @method addClass
  * @param {String} value The class name to add to the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return The wrapped object (or Node/List in native mode).
+ * @chainable
+ * @example
+ *     $('.item').addClass('bar');
  */
 
 function addClass(value) {
@@ -19,12 +24,12 @@ function addClass(value) {
 }
 
 /**
- * ## removeClass
- *
- *     $('.items').removeClass('bar');
- *
+ * @method removeClass
  * @param {String} value The class name to remove from the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return The wrapped object (or Node/List in native mode).
+ * @chainable
+ * @example
+ *     $('.items').removeClass('bar');
  */
 
 function removeClass(value) {
@@ -35,12 +40,12 @@ function removeClass(value) {
 }
 
 /**
- * ## toggleClass
- *
- *     $('.item').toggleClass('bar');
- *
+ * @method toggleClass
  * @param {String} value The class name to toggle at the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return The wrapped object (or Node/List in native mode).
+ * @chainable
+ * @example
+ *     $('.item').toggleClass('bar');
  */
 
 function toggleClass(value) {
@@ -51,13 +56,12 @@ function toggleClass(value) {
 }
 
 /**
- * ## hasClass
- *
- *     $('.item').hasClass('bar');
- *
+ * @method hasClass
  * @param {String} value Check if the DOM element contains the class name. When applied to multiple elements,
  * returns `true` if _any_ of them contains the class name.
- * @return {boolean}
+ * @return {Boolean} Whether the element's class attribute contains the class name.
+ * @example
+ *     $('.item').hasClass('bar');
  */
 
 function hasClass(value) {
