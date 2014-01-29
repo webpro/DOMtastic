@@ -108,8 +108,8 @@ gulp.task('uglify', ['browserify'], function() {
 gulp.task('uglify-bundles', ['browserify-bundles'], function() {
     return gulp.src([releaseFolder + '*.js', releaseFolder + 'bundle/**/*.js', '!' + releaseFolder + '**/*.min.js'], {base: releaseFolder})
         .pipe(uglifyTasks())
-        .pipe(gulp.dest(releaseFolder)
-        .pipe(gzip()))
+        .pipe(gulp.dest(releaseFolder))
+        .pipe(gzip())
         .pipe(size({showFiles: true}));
 });
 
