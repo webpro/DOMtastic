@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="en"><head><title>api</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="api"><meta name="groc-project-path" content="src/je/api.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/api.js</div></div><div id="document"><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Module API</span></p></div></div><div class="code"><div class="wrapper">import { extend } from <span class="hljs-string">'./util'</span>;
+
+<span class="hljs-keyword">var</span> api = {},
+    apiNodeList = {},
+    $ = {};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Import modules to build up the API</p></div></div><div class="code"><div class="wrapper">module array from <span class="hljs-string">'./array'</span>;
+module attr from <span class="hljs-string">'./attr'</span>;
+module className from <span class="hljs-string">'./class'</span>;
+module dom from <span class="hljs-string">'./dom'</span>;
+module dom_extra from <span class="hljs-string">'./dom_extra'</span>;
+module event from <span class="hljs-string">'./event'</span>;
+module html from <span class="hljs-string">'./html'</span>;
+module selector from <span class="hljs-string">'./selector'</span>;
+module selector_extra from <span class="hljs-string">'./selector_extra'</span>;
+
+<span class="hljs-keyword">if</span> (selector !== <span class="hljs-literal">undefined</span>) {
+    $ = selector.$;
+    $.matches = selector.matches;
+    api.find = selector.find;
+}
+
+module mode from <span class="hljs-string">'./mode'</span>; extend($, mode);
+module noconflict from <span class="hljs-string">'./noconflict'</span>; extend($, noconflict);
+
+extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
+extend(apiNodeList, array);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Util</p></div></div><div class="code"><div class="wrapper">$.extend = extend;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Internal properties to switch between default and native mode</p></div></div><div class="code"><div class="wrapper">$._api = api;
+$._apiNodeList = apiNodeList;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Export interface</p></div></div><div class="code"><div class="wrapper">export <span class="hljs-keyword">default</span> $;</div></div></div></div></body></html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><title>selector_extra</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="selector_extra"><meta name="groc-project-path" content="src/je/selector_extra.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/selector_extra.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="selector-extra">Selector (extra)</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> each = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./util'</span>).each;
+import { $, matches } from <span class="hljs-string">'./selector'</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="children">children</h2>
+<p>Return children of each element in the collection (optionally filtered by a selector).</p>
+<pre><code>$(&#39;.selector&#39;).children();
+$(&#39;.selector&#39;).children(&#39;.filter&#39;);</code></pre></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">children</span><span class="hljs-params">(selector)</span> {</span>
+    <span class="hljs-keyword">var</span> nodes = [];
+    each(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+        each(element.children, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(child)</span> {</span>
+            <span class="hljs-keyword">if</span> (!selector || (selector &amp;&amp; matches(child, selector))) {
+                nodes.push(child);
+            }
+        });
+    });
+    <span class="hljs-keyword">return</span> $(nodes);
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="eq">eq</h2>
+<p>Return a collection containing only the one at the specified index.</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>index must be a Number.</strong></li>
+</ul>
+<p><strong>Returns a $Object</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">eq</span><span class="hljs-params">(index)</span> {</span>
+    <span class="hljs-keyword">return</span> slice.call(<span class="hljs-keyword">this</span>, index, index + <span class="hljs-number">1</span>);
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="get">get</h2>
+<p>Return the DOM element at the provided index.</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>index must be a Number.</strong></li>
+</ul>
+<p><strong>Returns a Node</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span><span class="hljs-params">(index)</span> {</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[index];
+}</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h2 id="slice">slice</h2>
+<p>Return a new, sliced collection.</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>start must be a Number.</strong></p>
+</li>
+<li><p><strong>end must be a Number.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a $Object</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">slice</span><span class="hljs-params">(start, end)</span> {</span>
+    <span class="hljs-keyword">return</span> $([].slice.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>));
+}
+
+export { children, eq, get, slice };</div></div></div></div></body></html>

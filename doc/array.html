@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en"><head><title>array</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="array"><meta name="groc-project-path" content="src/je/array.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/je/array.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="array">Array</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper">import { each as _each } from <span class="hljs-string">'./util'</span>;
+import { $, matches } from <span class="hljs-string">'./selector'</span>;
+
+<span class="hljs-keyword">var</span> ArrayProto = <span class="hljs-built_in">Array</span>.prototype;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Filter the collection by selector or function.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter</span><span class="hljs-params">(selector)</span> {</span>
+    <span class="hljs-keyword">var</span> callback = <span class="hljs-keyword">typeof</span> selector === <span class="hljs-string">'function'</span> ? selector : <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element)</span> {</span>
+        <span class="hljs-keyword">return</span> matches(element, selector);
+    };
+    <span class="hljs-keyword">return</span> $(ArrayProto.filter.call(<span class="hljs-keyword">this</span>, callback));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">each</span><span class="hljs-params">(callback)</span> {</span>
+    <span class="hljs-keyword">return</span> _each(<span class="hljs-keyword">this</span>, callback);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reverse</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">var</span> elements = ArrayProto.slice.call(<span class="hljs-keyword">this</span>);
+    <span class="hljs-keyword">return</span> $(ArrayProto.reverse.call(elements));
+}
+
+<span class="hljs-keyword">var</span> every = ArrayProto.every,
+    forEach = each,
+    map = ArrayProto.map,
+    some = ArrayProto.some;
+
+export { each, every, filter, forEach, map, reverse, some };</div></div></div></div></body></html>
