@@ -8,7 +8,7 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 ## Quicklinks
 
-* [Docs](http://webpro.github.io/jquery-evergreen/doc/) (annotated source)
+* [API Docs](http://webpro.github.io/jquery-evergreen/doc/)
 * [Run tests](http://webpro.github.io/jquery-evergreen/test/)
 * [Run benchmarks](http://webpro.github.io/jquery-evergreen/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
 * [Coverage report](http://webpro.github.io/jquery-evergreen/coverage/dist/jquery-evergreen.js.html)
