@@ -6,7 +6,7 @@ describe('events', function() {
         spy = sinon.spy();
     });
 
-    describe('attach', function() {
+    describe('on', function() {
 
         it('should attach an event handler to an element', function() {
             var element = getElement(document.body);
@@ -129,7 +129,7 @@ describe('events', function() {
 
     });
 
-    describe('detach', function() {
+    describe('off', function() {
 
         it('should detach an event handler from an element', function() {
             var element = getElement(document.body);
