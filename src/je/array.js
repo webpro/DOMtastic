@@ -102,8 +102,20 @@ var every = ArrayProto.every;
 
 var some = ArrayProto.some;
 
+/**
+ * Returns the index of an element in the collection.
+ *
+ * @param {Node} element
+ * @return {Number} The zero-based index, -1 if not found.
+ * @example
+ *     $('.items').indexOf(element);
+ *     ➤ 2
+ */
+
+var indexOf = ArrayProto.indexOf;
+
 /*
  * Export interface
  */
 
-export { each, every, filter, forEach, map, reverse, some };
+export { each, every, filter, forEach, indexOf, map, reverse, some };
