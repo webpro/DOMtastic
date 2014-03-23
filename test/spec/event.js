@@ -6,7 +6,7 @@ describe('events', function() {
         spy = sinon.spy();
     });
 
-    describe('attach', function() {
+    describe('on', function() {
 
         it('should attach an event handler to an element', function() {
             var element = getElement(document.body);
@@ -129,7 +129,7 @@ describe('events', function() {
 
     });
 
-    describe('detach', function() {
+    describe('off', function() {
 
         it('should detach an event handler from an element', function() {
             var element = getElement(document.body);
@@ -162,6 +162,13 @@ describe('events', function() {
             elements.off('EVENT-detach-multi', spy);
             elements.trigger('EVENT-detach-multi');
             expect(spy).not.to.have.been.called;
+        });
+
+        it('should not throw for elements without event handlers', function() {
+            var elements = getElement('#testEmpty');
+            expect(function() {
+                elements.off('EVENT-no-handlers', function(){});
+            }).to.not.throw();
         });
 
     });

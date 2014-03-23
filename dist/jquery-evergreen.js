@@ -23,6 +23,10 @@ function __es6_transpiler_build_module_object__(name, imported) {
   }
   return moduleInstanceObject;
 }
+/**
+ * @module API
+ */
+
 var extend = require("./util").extend;
 
 var api = {},
@@ -54,6 +58,10 @@ extend($, noconflict);
 
 extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
+
+// Version
+
+$.version = '0.4.2';
 
 // Util
 
@@ -185,6 +193,7 @@ var some = ArrayProto.some;
  */
 
 var indexOf = ArrayProto.indexOf;
+
 /*
  * Export interface
  */
@@ -246,8 +255,6 @@ exports.attr = attr;
 },{"./util":13}],4:[function(require,module,exports){
 "use strict";
 /**
- * Manipulate element classes. Abstraction for the [element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList) API.
- *
  * @module Class
  */
 
@@ -338,7 +345,7 @@ exports.hasClass = hasClass;
 var toArray = require("./util").toArray;
 
 /**
- * Append stuff
+ * Append element(s) to each element in the collection.
  *
  * @param {String|Node|NodeList|Object} element What to append to the element(s).
  * Clones elements as necessary.
@@ -371,7 +378,7 @@ function append(element) {
 }
 
 /**
- * Put stuff before
+ * Place element(s) before each element in the collection.
  *
  * @param {String|Node|NodeList|Object} element What to place as sibling(s) before to the element(s).
  * Clones elements as necessary.
@@ -404,7 +411,7 @@ function before(element) {
 }
 
 /**
- * Put stuff after
+ * Place element(s) after each element in the collection.
  *
  * @param {String|Node|NodeList|Object} element What to place as sibling(s) after to the element(s). Clones elements as necessary.
  * @return {Object} The wrapped collection
@@ -436,7 +443,7 @@ function after(element) {
 }
 
 /**
- * Clone stuff
+ * Clone an object
  *
  * @param {String|Node|NodeList|Array} element The element(s) to clone.
  * @return {String|Node|NodeList|Array} The cloned element(s)
@@ -476,7 +483,7 @@ var after = require("./dom").after;
 var $ = require("./selector").$;
 
 /**
- * Inverse of [append](#dom-append).
+ * Append each element in the collection to the specified element(s).
  *
  * @param {Node|NodeList|Object} element What to append the element(s) to. Clones elements as necessary.
  * @return {Object} The wrapped collection
@@ -524,7 +531,9 @@ exports.remove = remove;
 exports.replaceWith = replaceWith;
 },{"./dom":5,"./selector":11,"./util":13}],7:[function(require,module,exports){
 "use strict";
-// # Events
+/**
+ * @module Events
+ */
 
 var global = require("./util").global;
 var each = require("./util").each;
@@ -605,7 +614,7 @@ function off(eventName, selector, handler, useCapture) {
 
     each(this, function(element) {
 
-        var handlers = getHandlers(element) || [];
+        var handlers = getHandlers(element);
 
         if (!eventName && !namespace && !selector && !handler) {
 
@@ -850,8 +859,6 @@ exports.trigger = trigger;
 "use strict";
 /**
  * @module HTML
- * @class HTML
- * @title HTML
  */
 
 var each = require("./util").each;
@@ -1404,7 +1411,7 @@ function makeIterable(element) {
  *
  * @param {Node|NodeList|Array} collection
  * @param {Function} callback
- * @returns {Node|NodeList|Array}
+ * @return {Node|NodeList|Array}
  * @private
  */
 
@@ -1426,7 +1433,7 @@ function each(collection, callback) {
  * @method extend
  * @param {Object} target Object to extend
  * @param {Object} [source] Object to extend from
- * @returns {Object} Extended object
+ * @return {Object} Extended object
  * @example
  *     $.extend({a: 1}, {b: 2});
  *     ➤ {a: 1, b: 2}

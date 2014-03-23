@@ -2180,7 +2180,7 @@ $(&#x27;.container&#x27;).on(&#x27;click&#x27;, &#x27;.item&#x27;, handler);
 
     each(this, function(element) {
 
-        var handlers = getHandlers(element) || [];
+        var handlers = getHandlers(element);
 
         if (!eventName &amp;&amp; !namespace &amp;&amp; !selector &amp;&amp; !handler) {
 
