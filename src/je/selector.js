@@ -1,4 +1,6 @@
-// # Selector
+/**
+ * @module Selector
+ */
 
 import { global, makeIterable } from './util';
 

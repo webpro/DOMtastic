@@ -1,4 +1,6 @@
-// # DOM Manipulation (extra)
+/**
+ * @module DOM (extra)
+ */
 
 import { each } from './util';
 import { append, before, after } from './dom';

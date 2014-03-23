@@ -1,4 +1,6 @@
-// # DOM Manipulation
+/**
+ * @module DOM
+ */
 
 import { toArray } from './util';
 

@@ -1,6 +1,5 @@
 /**
  * @module Array
- * @class Array
  */
 
 import { each as _each } from './util';

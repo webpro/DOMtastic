@@ -1,4 +1,6 @@
-// # Util
+/*
+ * @module Util
+ */
 
 /**
  * Reference to the global scope

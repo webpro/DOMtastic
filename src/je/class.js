@@ -1,8 +1,5 @@
 /**
- * Manipulate element classes. Abstraction for the [element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList) API.
- *
  * @module Class
- * @class Class
  */
 
 import { makeIterable, each } from './util';

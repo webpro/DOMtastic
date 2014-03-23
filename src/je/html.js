@@ -1,4 +1,6 @@
-// # HTML
+/**
+ * @module HTML
+ */
 
 import { each } from './util';
 

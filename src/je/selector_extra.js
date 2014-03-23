@@ -1,4 +1,6 @@
-// # Selector (extra)
+/**
+ * @module Selector (extra)
+ */
 
 var each = require('./util').each;
 import { $, matches } from './selector';

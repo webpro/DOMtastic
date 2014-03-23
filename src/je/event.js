@@ -1,4 +1,6 @@
-// # Events
+/**
+ * @module Events
+ */
 
 import { global, each } from './util';
 import { matches } from './selector';
