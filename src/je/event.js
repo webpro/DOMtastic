@@ -80,7 +80,7 @@ function off(eventName, selector, handler, useCapture) {
 
     each(this, function(element) {
 
-        var handlers = getHandlers(element) || [];
+        var handlers = getHandlers(element);
 
         if (!eventName && !namespace && !selector && !handler) {
 

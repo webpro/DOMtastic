@@ -164,6 +164,13 @@ describe('events', function() {
             expect(spy).not.to.have.been.called;
         });
 
+        it('should not throw for elements without event handlers', function() {
+            var elements = getElement('#testEmpty');
+            expect(function() {
+                elements.off('EVENT-no-handlers', function(){});
+            }).to.not.throw();
+        });
+
     });
 
      describe('delegate', function() {
