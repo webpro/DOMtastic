@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">35</p>
+      <p class="stat">38</p>
     </div>
   </div>
   <div class="row historical">
@@ -91,20 +91,21 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # HTML
+/**
+ * @module HTML
+ */
 
 var each = require(&quot;./util&quot;).each;
 
 /*
- * ## html
- *
  * Get the HTML contents of the first element, or set the HTML contents for each element in the collection.
  *
+ * @param {String} [fragment] HTML fragment to set for the element. If this argument is omitted, the HTML contents are returned.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $(&#039;.item&#039;).html();
  *     $(&#039;.item&#039;).html(&#039;&lt;span&gt;more&lt;/span&gt;&#039;);
- *
- * @param {String} [fragment] HTML fragment to set for the element
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 function html(fragment) {
@@ -122,7 +123,9 @@ function html(fragment) {
 
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.html = html;</textarea>
   </div>

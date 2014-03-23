@@ -45,11 +45,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">76.13</p>
+      <p class="stat">75.75</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">86</p>
+      <p class="stat">94</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">23.79</p>
+      <p class="stat">24.21</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.24</p>
+      <p class="stat">0.25</p>
     </div>
   </div>
 </div>
@@ -91,22 +91,24 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # Util
+/*
+ * @module Util
+ */
 
-/**
+/*
  * Reference to the global scope
+ * @private
  */
 
 var global = new Function(&quot;return this&quot;)(),
     slice = Array.prototype.slice;
 
 /**
- * ## toArray
- *
  * Convert `NodeList` to `Array`.
  *
  * @param {NodeList|Array} collection
  * @return {Array}
+ * @private
  */
 
 function toArray(collection) {
@@ -114,13 +116,12 @@ function toArray(collection) {
 }
 
 /**
- * ## makeIterable
- *
  * Return something that can be iterated over (e.g. using `forEach`).
- * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
+ * Arrays and NodeLists are returned as-is, but a Node will be wrapped in a `[]`.
  *
  * @param {Node|NodeList|Array} element
  * @return {Array|NodeList}
+ * @private
  */
 
 function makeIterable(element) {
@@ -128,48 +129,55 @@ function makeIterable(element) {
 }
 
 /**
- * ## each
- *
  * Faster alternative to [].forEach method
  *
  * @param {Node|NodeList|Array} collection
  * @param {Function} callback
- * @returns {Node|NodeList|Array}
+ * @return {Node|NodeList|Array}
+ * @private
  */
 
 function each(collection, callback) {
     var length = collection.length;
     if (length !== undefined) {
         for (var i = 0; i &lt; length; i++){
-            callback(collection[i]);
+            callback(collection[i], i, collection);
         }
     } else {
-        callback(collection);
+        callback(collection, 0);
     }
     return collection;
 }
 
 /**
- * ## extend
- *
  * Assign properties from source object(s) to target object
  *
  * @method extend
- * @param {Object} obj Object to extend
+ * @param {Object} target Object to extend
  * @param {Object} [source] Object to extend from
- * @returns {Object} Extended object
+ * @return {Object} Extended object
+ * @example
+ *     $.extend({a: 1}, {b: 2});
+ *     ➤ {a: 1, b: 2}
+ * @example
+ *     $.extend({a: 1}, {b: 2}, {a: 3});
+ *     ➤ {a: 3, b: 2}
  */
 
-function extend(obj) {
-    slice.call(arguments, 1).forEach(function(source) {
-        if (source) {
-            for (var prop in source) {
-                obj[prop] = source[prop];
+function extend(target, source) {
+    slice.call(arguments, 1).forEach(function(src) {
+        if (src) {
+            for (var prop in src) {
+                target[prop] = src[prop];
             }
         }
     });
-    return obj;
+    return target;
 }
+
+/*
+ * Export interface
+ */
 
 exports.global = global;
 exports.toArray = toArray;

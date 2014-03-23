@@ -47,6 +47,13 @@ describe('array', function() {
         expect(result[1]).to.equal($('.fourth')[0]);
     });
 
+    it('should return the index of the element in the collection', function() {
+        var elements = getElement('#testFragment li'),
+            element = elements[3];
+        var result = elements.indexOf(element);
+        expect(result).to.equal(3);
+    });
+
     it('should provide a chainable API', function() {
         var expected = getElement('#testFragment li');
         var actual = expected.each(noop).reverse().filter(noop).reverse();

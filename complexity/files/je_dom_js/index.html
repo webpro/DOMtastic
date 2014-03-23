@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">126</p>
+      <p class="stat">133</p>
     </div>
   </div>
   <div class="row historical">
@@ -91,18 +91,21 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # DOM Manipulation
+/**
+ * @module DOM
+ */
 
 var toArray = require(&quot;./util&quot;).toArray;
 
 /**
- * ## append
+ * Append element(s) to each element in the collection.
  *
- *     $(&#039;.item&#039;).append(&#039;&lt;p&gt;more&lt;/p&gt;&#039;);
- *
- * @param {String|Node|NodeList|$Object} element What to append to the element(s).
+ * @param {String|Node|NodeList|Object} element What to append to the element(s).
  * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).append(&#039;&lt;p&gt;more&lt;/p&gt;&#039;);
  */
 
 function append(element) {
@@ -128,13 +131,14 @@ function append(element) {
 }
 
 /**
- * ## before
+ * Place element(s) before each element in the collection.
  *
- *     $(&#039;.items&#039;).before(&#039;&lt;p&gt;prefix&lt;/p&gt;&#039;);
- *
- * @param {String|Node|NodeList|$Object} element What to place as sibling(s) before to the element(s).
+ * @param {String|Node|NodeList|Object} element What to place as sibling(s) before to the element(s).
  * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.items&#039;).before(&#039;&lt;p&gt;prefix&lt;/p&gt;&#039;);
  */
 
 function before(element) {
@@ -160,13 +164,13 @@ function before(element) {
 }
 
 /**
- * ## after
+ * Place element(s) after each element in the collection.
  *
+ * @param {String|Node|NodeList|Object} element What to place as sibling(s) after to the element(s). Clones elements as necessary.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $(&#039;.items&#039;).after(&#039;&lt;span&gt;suf&lt;/span&gt;&lt;span&gt;fix&lt;/span&gt;&#039;);
- *
- * @param {String|Node|NodeList|$Object} element What to place as sibling(s) after to the element(s).
- * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 function after(element) {
@@ -192,10 +196,11 @@ function after(element) {
 }
 
 /**
- * @method clone
- * @private
+ * Clone an object
+ *
  * @param {String|Node|NodeList|Array} element The element(s) to clone.
  * @return {String|Node|NodeList|Array} The cloned element(s)
+ * @private
  */
 
 function clone(element) {
@@ -211,7 +216,9 @@ function clone(element) {
     return element;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.append = append;
 exports.before = before;

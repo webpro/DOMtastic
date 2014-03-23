@@ -1,8 +1,3778 @@
-<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="src/main.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/main.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="jquery-evergreen">jQuery Evergreen</h1>
-<p>Small &amp; fast DOM and event library for modern browsers.
-Having the same familiar API as jQuery (but without the extra &quot;weight&quot; of modules like <code>$.ajax</code>, <code>$.animate</code>, and <code>$.Deferred</code>), it works great stand-alone or paired up with e.g. Backbone.
-The full version is only 7KB minified (2KB gzip), but it&#39;s easy to create a custom build to exclude parts you don&#39;t need.</p>
-<p>The <a href="https://github.com/webpro/jquery-evergreen">source</a> is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the <a href="http://square.github.io/es6-module-transpiler/">ES6 Module Transpiler</a>. And last but also least, the CommonJS version is &quot;browserified&quot;.</p>
-<p>Please find the table of contents in upper right.</p></div></div><div class="code"><div class="wrapper">import $ from <span class="hljs-string">'./je/api'</span>;
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>jQuery Evergreen</title>
 
-export <span class="hljs-keyword">default</span> $;</div></div></div></div></body></html>
+        <link rel="stylesheet" href="static/bootstrap.min.css">
+        <link rel="stylesheet" href="static/prism.css">
+
+        <style type="text/css">
+
+            .wrap {
+                display: -webkit-flex;
+                display: flex;
+            }
+
+            h1 {
+                color: #FFF;
+                background-color: #333;
+                margin: 0 0 0.3em 0;
+                padding: 5px;
+                font-size: 20px;
+            }
+
+            nav {
+                width: 200px;
+            }
+
+            .content {
+                -webkit-flex: 1;
+                flex: 1;
+                max-width: 1000px;
+            }
+
+            section > .block {
+                padding-left: 3em;
+            }
+
+            h3 {
+                font-size: 28px;
+                letter-spacing: 2px;
+            }
+
+            h3 em {
+                letter-spacing: 0;
+                color: #DDD;
+            }
+
+            pre code {
+                font-family: Courier, monospace !important;
+                font-weight: normal;
+                color: #222222 !important;
+            }
+
+            pre[class*="language-"] {
+                margin-top: 0;
+                /*padding-top: 0;*/
+            }
+
+            nav ul {
+                padding-left: 1em;
+                list-style: none;
+            }
+
+            .nav ul ul a {
+                padding: 0 10px;
+            }
+
+            .nav-tabs {
+                margin-top: 1em;
+            }
+
+            .nav-tabs li a {
+                padding: 4px 15px;
+                font-weight: 700;
+            }
+
+            .nav-tabs li.active a {
+                border-color: #ccc;
+                border-bottom-color: transparent;
+                background-color: #f5f2f0;
+                color: #333;
+            }
+            .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+                background-color: #f5f2f0;
+            }
+
+            /*code,*/
+            pre {
+                /*background-color: #FFF !important;*/
+                border-top: none;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            .table {
+                border: none;
+                width: auto;
+            }
+            .table>tbody>tr>td,
+            .table>thead>tr>th {
+                border: none;
+            }
+            .table-condensed>thead>tr>th,
+            .table-condensed>tbody>tr>td {
+                padding: 3px 10px 3px 0;
+            }
+            section {
+                margin: 0;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <h1>jQuery Evergreen</h1>
+
+        <div class="wrap">
+
+            <nav>
+                <ul>
+                
+                    <li>
+                        <a href="#array"><strong>Array</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#array-filter">filter</a></li>
+                            
+                                <li><a href="#array-each">each</a></li>
+                            
+                                <li><a href="#array-map">map</a></li>
+                            
+                                <li><a href="#array-reverse">reverse</a></li>
+                            
+                                <li><a href="#array-every">every</a></li>
+                            
+                                <li><a href="#array-some">some</a></li>
+                            
+                                <li><a href="#array-indexOf">indexOf</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#attr"><strong>Attr</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#attr-attr">attr</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#class"><strong>Class</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#class-addClass">addClass</a></li>
+                            
+                                <li><a href="#class-removeClass">removeClass</a></li>
+                            
+                                <li><a href="#class-toggleClass">toggleClass</a></li>
+                            
+                                <li><a href="#class-hasClass">hasClass</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#dom"><strong>DOM</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#dom-append">append</a></li>
+                            
+                                <li><a href="#dom-before">before</a></li>
+                            
+                                <li><a href="#dom-after">after</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#dom_extra"><strong>DOM (extra)</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#dom_extra-appendTo">appendTo</a></li>
+                            
+                                <li><a href="#dom_extra-remove">remove</a></li>
+                            
+                                <li><a href="#dom_extra-replaceWith">replaceWith</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#event"><strong>Event</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#event-on">on</a></li>
+                            
+                                <li><a href="#event-off">off</a></li>
+                            
+                                <li><a href="#event-delegate">delegate</a></li>
+                            
+                                <li><a href="#event-undelegate">undelegate</a></li>
+                            
+                                <li><a href="#event-trigger">trigger</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#html"><strong>HTML</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#html-html">html</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#noconflict"><strong>noConflict</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#noconflict-noConflict">noConflict</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#selector"><strong>Selector</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#selector-dollar">$</a></li>
+                            
+                                <li><a href="#selector-find">find</a></li>
+                            
+                                <li><a href="#selector-matches">matches</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#selector_extra"><strong>Selector (extra)</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#selector_extra-each">each</a></li>
+                            
+                                <li><a href="#selector_extra-children">children</a></li>
+                            
+                                <li><a href="#selector_extra-closest">closest</a></li>
+                            
+                                <li><a href="#selector_extra-parent">parent</a></li>
+                            
+                                <li><a href="#selector_extra-eq">eq</a></li>
+                            
+                                <li><a href="#selector_extra-get">get</a></li>
+                            
+                                <li><a href="#selector_extra-slice">slice</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#util"><strong>Util</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#util-extend">extend</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                </ul>
+            </nav>
+
+            <div class="content">
+
+                
+                    
+                    <section id="array">
+
+                        <h2>Array</h2>
+
+                        
+
+                            
+                            
+                            <section id="array-filter">
+
+                            
+
+                                <h3>
+                                    filter
+                                    <em> (selector)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Filter the collection by selector or function.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Selector or function to filter the collection.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#filter-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#filter-example-1" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#filter-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="filter-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).filter(&#x27;.active&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="filter-example-1">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).filter(function(element) {
+return element.hasAttribute(&#x27;active&#x27;)
+});
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="filter-source">
+                                            <pre><code class="language-javascript">function filter(selector) {
+    var callback = typeof selector === &#x27;function&#x27; ? selector : function(element) {
+        return matches(element, selector);
+    };
+    return $(ArrayProto.filter.call(this, callback));
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="array-each">
+
+                            
+
+                                <h3>
+                                    each
+                                    <em> (callback)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Execute a function for each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>callback</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Function to execute for each element, invoked with `element` as argument.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#each-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#each-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="each-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).each(function(element) {
+element.style.color = &#x27;evergreen&#x27;;
+);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="each-source">
+                                            <pre><code class="language-javascript">function each(callback) {
+    return _each(this, callback);
+}
+
+var forEach = each;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="array-map">
+
+                            
+
+                                <h3>
+                                    map
+                                    <em> (callback)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Create a new collection by executing the callback for each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>callback</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Function to execute for each element, invoked with `element` as argument.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Array</span>
+                                        &nbsp;
+                                        Collection with the return value of the executed callback for each element.
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#map-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#map-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="map-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).map(function(element) {
+return element.getAttribute(&#x27;name&#x27;)
+});
+➤ [&#x27;ever&#x27;, &#x27;green&#x27;]
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="map-source">
+                                            <pre><code class="language-javascript">var map = ArrayProto.map;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="array-reverse">
+
+                            
+
+                                <h3>
+                                    reverse
+                                    <em> ()</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Reverses an array in place. The first array element becomes the last and the last becomes the first.</p>
+
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection, reversed
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#reverse-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#reverse-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="reverse-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).reverse();
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="reverse-source">
+                                            <pre><code class="language-javascript">function reverse() {
+    var elements = ArrayProto.slice.call(this);
+    return $(ArrayProto.reverse.call(elements));
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="array-every">
+
+                            
+
+                                <h3>
+                                    every
+                                    <em> (callback)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Checks if the given callback returns a true(-ish) value for each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>callback</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Function to execute for each element, invoked with `element` as argument.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Boolean</span>
+                                        &nbsp;
+                                        Whether each element passed the callback check.
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#every-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#every-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="every-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).every(function(element) {
+return element.hasAttribute(&#x27;active&#x27;)
+});
+➤ true/false
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="every-source">
+                                            <pre><code class="language-javascript">var every = ArrayProto.every;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="array-some">
+
+                            
+
+                                <h3>
+                                    some
+                                    <em> (callback)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Checks if the given callback returns a true(-ish) value for any of the elements in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>callback</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Function to execute for each element, invoked with `element` as argument.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Boolean</span>
+                                        &nbsp;
+                                        Whether any element passed the callback check.
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#some-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#some-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="some-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).some(function(element) {
+return element.hasAttribute(&#x27;active&#x27;)
+});
+➤ true/false
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="some-source">
+                                            <pre><code class="language-javascript">var some = ArrayProto.some;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="array-indexOf">
+
+                            
+
+                                <h3>
+                                    indexOf
+                                    <em> (element)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Returns the index of an element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>element</em></td>
+                                                <td><span class="label label-primary">Node</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Number</span>
+                                        &nbsp;
+                                        The zero-based index, -1 if not found.
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#indexOf-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#indexOf-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="indexOf-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).indexOf(element);
+➤ 2
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="indexOf-source">
+                                            <pre><code class="language-javascript">var indexOf = ArrayProto.indexOf;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="attr">
+
+                        <h2>Attr</h2>
+
+                        
+
+                            
+                            
+                            <section id="attr-attr">
+
+                            
+
+                                <h3>
+                                    attr
+                                    <em> (key, value)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Get the value of an attribute for the first element, or set one or more attributes for each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>key</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    The name of the attribute to get or set. Or an object containing key-value pairs to set as attributes.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>value</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    The value of the attribute to set.
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#attr-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#attr-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="attr-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).attr(&#x27;attrName&#x27;);
+$(&#x27;.item&#x27;).attr(&#x27;attrName&#x27;, &#x27;attrValue&#x27;);
+$(&#x27;.item&#x27;).attr({&#x27;attr1&#x27;, &#x27;value1&#x27;}, {&#x27;attr2&#x27;, &#x27;value2});
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="attr-source">
+                                            <pre><code class="language-javascript">function attr(key, value) {
+
+    if (typeof key === &#x27;string&#x27; &amp;&amp; typeof value === &#x27;undefined&#x27;) {
+        var element = this.nodeType ? this : this[0];
+        return element ? element.getAttribute(key) : undefined;
+    }
+
+    each(this, function(element) {
+        if (typeof key === &#x27;object&#x27;) {
+            for (var attr in key) {
+                element.setAttribute(attr, key[attr]);
+            }
+        } else {
+            element.setAttribute(key, value);
+        }
+    });
+
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="class">
+
+                        <h2>Class</h2>
+
+                        
+
+                            
+                            
+                            <section id="class-addClass">
+
+                            
+
+                                <h3>
+                                    addClass
+                                    <em> (value)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Add a class to the element(s)</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>value</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    The class name to add to the element(s).
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#addClass-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#addClass-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="addClass-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).addClass(&#x27;bar&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="addClass-source">
+                                            <pre><code class="language-javascript">function addClass(value) {
+    each(this, function(element) {
+        element.classList.add(value);
+    });
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="class-removeClass">
+
+                            
+
+                                <h3>
+                                    removeClass
+                                    <em> (value)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Remove a class from the element(s)</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>value</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    The class name to remove from the element(s).
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#removeClass-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#removeClass-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="removeClass-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).removeClass(&#x27;bar&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="removeClass-source">
+                                            <pre><code class="language-javascript">function removeClass(value) {
+    each(this, function(element) {
+        element.classList.remove(value);
+    });
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="class-toggleClass">
+
+                            
+
+                                <h3>
+                                    toggleClass
+                                    <em> (value)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Toggle a class at the element(s)</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>value</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    The class name to toggle at the element(s).
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#toggleClass-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#toggleClass-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="toggleClass-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).toggleClass(&#x27;bar&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="toggleClass-source">
+                                            <pre><code class="language-javascript">function toggleClass(value) {
+    each(this, function(element) {
+        element.classList.toggle(value);
+    });
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="class-hasClass">
+
+                            
+
+                                <h3>
+                                    hasClass
+                                    <em> (value)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Check if the element(s) have a class.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>value</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Check if the DOM element contains the class name. When applied to multiple elements,
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Boolean</span>
+                                        &nbsp;
+                                        Whether the element's class attribute contains the class name.
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#hasClass-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#hasClass-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="hasClass-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).hasClass(&#x27;bar&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="hasClass-source">
+                                            <pre><code class="language-javascript">function hasClass(value) {
+    return makeIterable(this).some(function(element) {
+        return element.classList.contains(value);
+    });
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="dom">
+
+                        <h2>DOM</h2>
+
+                        
+
+                            
+                            
+                            <section id="dom-append">
+
+                            
+
+                                <h3>
+                                    append
+                                    <em> (element)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Append element(s) to each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>element</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span> or <span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    What to append to the element(s).
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#append-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#append-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="append-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).append(&#x27;&lt;p&gt;more&lt;/p&gt;&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="append-source">
+                                            <pre><code class="language-javascript">function append(element) {
+    if (this instanceof Node) {
+        if (typeof element === &#x27;string&#x27;) {
+            this.insertAdjacentHTML(&#x27;beforeend&#x27;, element);
+        } else {
+            if (element instanceof Node) {
+                this.appendChild(element);
+            } else {
+                var elements = element instanceof NodeList ? toArray(element) : element;
+                elements.forEach(this.appendChild.bind(this));
+            }
+        }
+    } else {
+        var l = this.length;
+        while (l--) {
+            var elm = l === 0 ? element : clone(element);
+            append.call(this[l], elm);
+        }
+    }
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="dom-before">
+
+                            
+
+                                <h3>
+                                    before
+                                    <em> (element)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Place element(s) before each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>element</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span> or <span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    What to place as sibling(s) before to the element(s).
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#before-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#before-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="before-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).before(&#x27;&lt;p&gt;prefix&lt;/p&gt;&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="before-source">
+                                            <pre><code class="language-javascript">function before(element) {
+    if (this instanceof Node) {
+        if (typeof element === &#x27;string&#x27;) {
+            this.insertAdjacentHTML(&#x27;beforebegin&#x27;, element);
+        } else {
+            if (element instanceof Node) {
+                this.parentNode.insertBefore(element, this);
+            } else {
+                var elements = element instanceof NodeList ? toArray(element) : element;
+                elements.forEach(before.bind(this));
+            }
+        }
+    } else {
+        var l = this.length;
+        while (l--) {
+            var elm = l === 0 ? element : clone(element);
+            before.call(this[l], elm);
+        }
+    }
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="dom-after">
+
+                            
+
+                                <h3>
+                                    after
+                                    <em> (element)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Place element(s) after each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>element</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span> or <span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    What to place as sibling(s) after to the element(s). Clones elements as necessary.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#after-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#after-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="after-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).after(&#x27;&lt;span&gt;suf&lt;/span&gt;&lt;span&gt;fix&lt;/span&gt;&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="after-source">
+                                            <pre><code class="language-javascript">function after(element) {
+    if (this instanceof Node) {
+        if (typeof element === &#x27;string&#x27;) {
+            this.insertAdjacentHTML(&#x27;afterend&#x27;, element);
+        } else {
+            if (element instanceof Node) {
+                this.parentNode.insertBefore(element, this.nextSibling);
+            } else {
+                var elements = element instanceof NodeList ? toArray(element) : element;
+                elements.reverse().forEach(after.bind(this));
+            }
+        }
+    } else {
+        var l = this.length;
+        while (l--) {
+            var elm = l === 0 ? element : clone(element);
+            after.call(this[l], elm);
+        }
+    }
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="dom_extra">
+
+                        <h2>DOM (extra)</h2>
+
+                        
+
+                            
+                            
+                            <section id="dom_extra-appendTo">
+
+                            
+
+                                <h3>
+                                    appendTo
+                                    <em> (element)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Append each element in the collection to the specified element(s).</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>element</em></td>
+                                                <td><span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span> or <span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    What to append the element(s) to. Clones elements as necessary.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#appendTo-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#appendTo-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="appendTo-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).appendTo(container);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="appendTo-source">
+                                            <pre><code class="language-javascript">function appendTo(element) {
+    var context = typeof element === &#x27;string&#x27; ? $(element) : element;
+    append.call(context, this);
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="dom_extra-remove">
+
+                            
+
+                                <h3>
+                                    remove
+                                    <em> ()</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Remove the collection from the DOM.</p>
+
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Array</span>
+                                        &nbsp;
+                                        Array containing the removed elements
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#remove-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#remove-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="remove-example-0">
+                                            <pre><code class="language-javascript">// Sorry, no example available.</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="remove-source">
+                                            <pre><code class="language-javascript">function remove() {
+    return each(this, function(element) {
+        if (element.parentNode) {
+            element.parentNode.removeChild(element);
+        }
+    });
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="dom_extra-replaceWith">
+
+                            
+
+                                <h3>
+                                    replaceWith
+                                    <em> ()</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Replace each element in the collection with the provided new content, and return the array of elements that were replaced.</p>
+
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Array</span>
+                                        &nbsp;
+                                        Array containing the replaced elements
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#replaceWith-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#replaceWith-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="replaceWith-example-0">
+                                            <pre><code class="language-javascript">// Sorry, no example available.</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="replaceWith-source">
+                                            <pre><code class="language-javascript">function replaceWith() {
+    return before.apply(this, arguments).remove();
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="event">
+
+                        <h2>Event</h2>
+
+                        
+
+                            
+                            
+                            <section id="event-on">
+
+                            
+
+                                <h3>
+                                    on
+                                    <em> (eventName, selector, handler, useCapture)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Shorthand for <code>addEventListener</code>. Supports event delegation if a filter (<code>selector</code>) is provided.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>eventName</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Selector to filter descendants that delegate the event to this element.
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>handler</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Event handler
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>useCapture</em></td>
+                                                <td><span class="label label-primary">Boolean</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    (default: <code>false</code>)
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#on-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#on-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="on-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).on(&#x27;click&#x27;, callback);
+$(&#x27;.container&#x27;).on(&#x27;click&#x27;, &#x27;.item&#x27;, handler);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="on-source">
+                                            <pre><code class="language-javascript">function on(eventName, selector, handler, useCapture) {
+
+    if (typeof selector === &#x27;function&#x27;) {
+        handler = selector;
+        selector = null;
+    }
+
+    var parts = eventName.split(&#x27;.&#x27;);
+    eventName = parts[0] || null;
+    var namespace = parts[1] || null;
+
+    var eventListener = handler;
+
+    each(this, function(element) {
+
+        if (selector) {
+            eventListener = delegateHandler.bind(element, selector, handler);
+        }
+
+        element.addEventListener(eventName, eventListener, useCapture || false);
+
+        getHandlers(element).push({
+            eventName: eventName,
+            handler: handler,
+            eventListener: eventListener,
+            selector: selector,
+            namespace: namespace
+        });
+    });
+
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="event-off">
+
+                            
+
+                                <h3>
+                                    off
+                                    <em> (eventName, selector, handler, useCapture)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Shorthand for <code>removeEventListener</code>. Delegates to <code>undelegate</code> if that signature is used.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>eventName</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Name or type of the event
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Selector to filter descendants that undelegate the event to this element.
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>handler</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Event handler
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>useCapture</em></td>
+                                                <td><span class="label label-primary">Boolean</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    (default: <code>false</code>)
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#off-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#off-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="off-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).off(&#x27;click&#x27;, callback);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="off-source">
+                                            <pre><code class="language-javascript">function off(eventName, selector, handler, useCapture) {
+
+    if (typeof selector === &#x27;function&#x27;) {
+        handler = selector;
+        selector = null;
+    }
+
+    if (eventName) {
+        var parts = eventName.split(&#x27;.&#x27;);
+        eventName = parts[0];
+        var namespace = parts[1];
+    }
+
+    each(this, function(element) {
+
+        var handlers = getHandlers(element) || [];
+
+        if (!eventName &amp;&amp; !namespace &amp;&amp; !selector &amp;&amp; !handler) {
+
+            each(handlers, function(item) {
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+            });
+
+            clearHandlers(element);
+
+        } else {
+
+            each(handlers.filter(function(item) {
+                return ((!eventName || item.eventName === eventName) &amp;&amp;
+                    (!namespace || item.namespace === namespace) &amp;&amp;
+                    (!handler || item.handler === handler) &amp;&amp;
+                    (!selector || item.selector === selector));
+            }), function(item) {
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+                handlers.splice(handlers.indexOf(item), 1);
+            });
+
+            if (handlers.length === 0) {
+                clearHandlers(element);
+            }
+        }
+
+    });
+
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="event-delegate">
+
+                            
+
+                                <h3>
+                                    delegate
+                                    <em> (selector, eventName, handler)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Delegate events triggered at descendants to element(s)</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Selector to filter descendants that delegate the event to this element.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>eventName</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Name or type of the event
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>handler</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Event handler
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#delegate-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#delegate-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="delegate-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.container&#x27;).delegate(&#x27;.item&#x27;, &#x27;click&#x27;, handler);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="delegate-source">
+                                            <pre><code class="language-javascript">function delegate(selector, eventName, handler) {
+    return on.call(this, eventName, selector, handler);
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="event-undelegate">
+
+                            
+
+                                <h3>
+                                    undelegate
+                                    <em> (selector, eventName, handler)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Undelegate events triggered at descendants to element(s)</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Selector to filter descendants that undelegate the event to this element.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>eventName</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Name or type of the event
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>handler</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    Event handler
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#undelegate-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#undelegate-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="undelegate-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.container&#x27;).undelegate(&#x27;.item&#x27;, &#x27;click&#x27;, handler);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="undelegate-source">
+                                            <pre><code class="language-javascript">function undelegate(selector, eventName, handler) {
+    return off.call(this, eventName, selector, handler);
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="event-trigger">
+
+                            
+
+                                <h3>
+                                    trigger
+                                    <em> (type, params)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Trigger event at element(s)</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>type</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Type of the event
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>params</em></td>
+                                                <td><span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    Event parameters (optional)
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>params.bubbles</em></td>
+                                                <td><span class="label label-primary">Boolean</span></td>
+                                                <td>
+                                                    Does the event bubble up through the DOM or not.
+                                                    
+                                                    (default: <code>true</code>)
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>params.cancelable</em></td>
+                                                <td><span class="label label-primary">Boolean</span></td>
+                                                <td>
+                                                    Is the event cancelable or not.
+                                                    
+                                                    (default: <code>true</code>)
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>params.detail</em></td>
+                                                <td><span class="label label-primary">Mixed</span></td>
+                                                <td>
+                                                    Additional information about the event.
+                                                    
+                                                    (default: <code>undefined</code>)
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#trigger-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#trigger-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="trigger-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).trigger(&#x27;anyEventType&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="trigger-source">
+                                            <pre><code class="language-javascript">function trigger(type, params) {
+    params = params || { bubbles: true, cancelable: true, detail: undefined };
+    var event = new CustomEvent(type, params);
+    each(this, function(element) {
+        if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+            element.dispatchEvent(event);
+        } else {
+            triggerForPath(element, type, params);
+        }
+    });
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="html">
+
+                        <h2>HTML</h2>
+
+                        
+
+                            
+                            
+                            <section id="html-html">
+
+                            
+
+                                <h3>
+                                    html
+                                    <em> (fragment)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Get the HTML contents of the first element, or set the HTML contents for each element in the collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>fragment</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    HTML fragment to set for the element. If this argument is omitted, the HTML contents are returned.
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#html-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#html-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="html-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.item&#x27;).html();
+$(&#x27;.item&#x27;).html(&#x27;&lt;span&gt;more&lt;/span&gt;&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="html-source">
+                                            <pre><code class="language-javascript">function html(fragment) {
+
+    if (typeof fragment !== &#x27;string&#x27;) {
+        var element = this.nodeType ? this : this[0];
+        return element ? element.innerHTML : undefined;
+    }
+
+    each(this, function(element) {
+        element.innerHTML = fragment;
+    });
+
+    return this;
+
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="noconflict">
+
+                        <h2>noConflict</h2>
+
+                        
+
+                            
+                            
+                            <section id="noconflict-noConflict">
+
+                            
+
+                                <h3>
+                                    noConflict
+                                    <em> ()</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>In case another library sets the global <code>$</code> variable before jQuery Evergreen does,<br />this method can be used to return the global <code>$</code> to that other library.</p>
+
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        Reference to jQuery Evergreen.
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#noConflict-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#noConflict-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="noConflict-example-0">
+                                            <pre><code class="language-javascript">var $E = $.noConflict();
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="noConflict-source">
+                                            <pre><code class="language-javascript">function noConflict() {
+    global.$ = previousLib;
+    return this;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="selector">
+
+                        <h2>Selector</h2>
+
+                        
+
+                            
+                            
+                            <section id="selector-dollar">
+
+                            
+
+                                <h3>
+                                    $
+                                    <em> (selector, context)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Versatile wrapper for <code>querySelectorAll</code>.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span> or <span class="label label-primary">Array</span></td>
+                                                <td>
+                                                    Query selector, `Node`, `NodeList`, array of elements, or HTML fragment string.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>context</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span></td>
+                                                <td>
+                                                    The context for the selector to query elements.
+                                                    
+                                                    (default: <code>document</code>)
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#dollar-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#dollar-example-1" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#dollar-example-2" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#dollar-example-3" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#dollar-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="dollar-example-0">
+                                            <pre><code class="language-javascript">var $items = $(.items&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="dollar-example-1">
+                                            <pre><code class="language-javascript">var $element = $(domElement);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="dollar-example-2">
+                                            <pre><code class="language-javascript">var $list = $(nodeList, document.body);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="dollar-example-3">
+                                            <pre><code class="language-javascript">var $element = $(&#x27;&lt;p&gt;evergreen&lt;/p&gt;&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="dollar-source">
+                                            <pre><code class="language-javascript">function $(selector, context) {
+
+    var collection;
+
+    if (!selector) {
+
+        collection = document.querySelectorAll(null);
+
+    } else if (typeof selector !== &#x27;string&#x27;) {
+
+        collection = makeIterable(selector);
+
+    } else if (reFragment.test(selector)) {
+
+        collection = createFragment(selector);
+
+    } else {
+
+        context = context ? (typeof context === &#x27;string&#x27; ? document.querySelector(context) : context.length ? context[0] : context) : document;
+
+        collection = querySelector(selector, context);
+
+    }
+
+    return $.isNative ? collection : wrap(collection);
+
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector-find">
+
+                            
+
+                                <h3>
+                                    find
+                                    <em> (selector)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Chaining for the <code>$</code> wrapper (aliasing <code>find</code> for <code>$</code>).</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span> or <span class="label label-primary">Node</span> or <span class="label label-primary">NodeList</span> or <span class="label label-primary">Array</span></td>
+                                                <td>
+                                                    Query selector, `Node`, `NodeList`, array of elements, or HTML fragment string.
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        The wrapped collection
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#find-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#find-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="find-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.selector&#x27;).find(&#x27;.deep&#x27;).$(&#x27;.deepest&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="find-source">
+                                            <pre><code class="language-javascript">function find(selector) {
+    return $(selector, this);
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector-matches">
+
+                            
+
+                                <h3>
+                                    matches
+                                    <em> (element, selector)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Returns <code>true</code> if the element would be selected by the specified selector string; otherwise, returns <code>false</code>.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>element</em></td>
+                                                <td><span class="label label-primary">Node</span></td>
+                                                <td>
+                                                    Element to test
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Selector to match against element
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Boolean</span>
+                                        &nbsp;
+                                        
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#matches-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#matches-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="matches-example-0">
+                                            <pre><code class="language-javascript">$.matches(element, &#x27;.match&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="matches-source">
+                                            <pre><code class="language-javascript">var matches = (function() {
+    var context = typeof Element !== &#x27;undefined&#x27; ? Element.prototype : global,
+        _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+    return function(element, selector) {
+        return _matches.call(element, selector);
+    };
+})();</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="selector_extra">
+
+                        <h2>Selector (extra)</h2>
+
+                        
+
+                            
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector_extra-children">
+
+                            
+
+                                <h3>
+                                    children
+                                    <em> (selector)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Return children of each element in the collection, optionally filtered by a selector.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Filter
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        New wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#children-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#children-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="children-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.selector&#x27;).children();
+$(&#x27;.selector&#x27;).children(&#x27;.filter&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="children-source">
+                                            <pre><code class="language-javascript">function children(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        each(element.children, function(child) {
+            if (!selector || (selector &amp;&amp; matches(child, selector))) {
+                nodes.push(child);
+            }
+        });
+    });
+    return $(nodes);
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector_extra-closest">
+
+                            
+
+                                <h3>
+                                    closest
+                                    <em> (selector)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Return the closest element matching the selector (starting by itself).</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Filter
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        New wrapped collection (containing zero or one element)
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#closest-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#closest-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="closest-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.selector&#x27;).closest(&#x27;.container&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="closest-source">
+                                            <pre><code class="language-javascript">function closest(selector) {
+    var node = this[0];
+    for (; node.nodeType !== node.DOCUMENT_NODE; node = node.parentNode) {
+        if (matches(node, selector)) {
+            return $(node);
+        }
+    }
+    return $();
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector_extra-parent">
+
+                            
+
+                                <h3>
+                                    parent
+                                    <em> (selector)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Return the parent elements of each element in the collection, optionally filtered by a selector.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>selector</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    Filter
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        New wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#parent-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#parent-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="parent-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.selector&#x27;).parent();
+$(&#x27;.selector&#x27;).parent(&#x27;.filter&#x27;);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="parent-source">
+                                            <pre><code class="language-javascript">function parent(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        if (!selector || (selector &amp;&amp; matches(element.parentNode, selector))) {
+            nodes.push(element.parentNode);
+        }
+    });
+    return $(nodes);
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector_extra-eq">
+
+                            
+
+                                <h3>
+                                    eq
+                                    <em> (index)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Return a collection containing only the one at the specified index.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>index</em></td>
+                                                <td><span class="label label-primary">Number</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        New wrapped collection
+                                        <span class="label label-default">chainable</span>
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#eq-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#eq-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="eq-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).eq(1)
+➤ The second item; result is the same as doing $($(&#x27;.items&#x27;)[1]);
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="eq-source">
+                                            <pre><code class="language-javascript">function eq(index) {
+    return slice.call(this, index, index + 1);
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector_extra-get">
+
+                            
+
+                                <h3>
+                                    get
+                                    <em> (index)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Return the DOM element at the specified index.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>index</em></td>
+                                                <td><span class="label label-primary">Number</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Node</span>
+                                        &nbsp;
+                                        Element at the specified index
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#get-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#get-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="get-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).get(1)
+➤ The second element; result is the same as doing $(&#x27;.items&#x27;)[1];
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="get-source">
+                                            <pre><code class="language-javascript">function get(index) {
+    return this[index];
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="selector_extra-slice">
+
+                            
+
+                                <h3>
+                                    slice
+                                    <em> (start, end)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Create a new, sliced collection.</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>start</em></td>
+                                                <td><span class="label label-primary">Number</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>end</em></td>
+                                                <td><span class="label label-primary">Number</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        New wrapped collection
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#slice-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#slice-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="slice-example-0">
+                                            <pre><code class="language-javascript">$(&#x27;.items&#x27;).slice(1, 3)
+➤ New wrapped collection containing the second, third, and fourth element.
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="slice-source">
+                                            <pre><code class="language-javascript">function slice(start, end) {
+    return $([].slice.apply(this, arguments));
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="util">
+
+                        <h2>Util</h2>
+
+                        
+
+                            
+                            
+                            <section id="util-extend">
+
+                            
+
+                                <h3>
+                                    extend
+                                    <em> (target, source)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Assign properties from source object(s) to target object</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>target</em></td>
+                                                <td><span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    Object to extend
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>source</em></td>
+                                                <td><span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    Object to extend from
+                                                    <span class="label label-default">optional</span>
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Object</span>
+                                        &nbsp;
+                                        Extended object
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#extend-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#extend-example-1" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#extend-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="extend-example-0">
+                                            <pre><code class="language-javascript">$.extend({a: 1}, {b: 2});
+➤ {a: 1, b: 2}
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="extend-example-1">
+                                            <pre><code class="language-javascript">$.extend({a: 1}, {b: 2}, {a: 3});
+➤ {a: 3, b: 2}
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="extend-source">
+                                            <pre><code class="language-javascript">function extend(target, source) {
+    slice.call(arguments, 1).forEach(function(src) {
+        if (src) {
+            for (var prop in src) {
+                target[prop] = src[prop];
+            }
+        }
+    });
+    return target;
+}</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+            </div>
+        </div>
+        <script src="static/jquery-evergreen.min.js"></script>
+        <script>
+            $('.content').on('click', '.nav-tabs a', function(event) {
+
+                event.preventDefault();
+
+                var tabContainer = $(event.target).closest('.nav-tabs'),
+                        tabs = tabContainer.find('li'),
+                        tabsContent = tabContainer.parent().find('.tab-pane'),
+                        index = tabContainer.find('a').indexOf(event.target);
+
+                tabs.removeClass('active').eq(index).addClass('active');
+                tabsContent.removeClass('active').eq(index).addClass('active');
+
+            });
+        </script>
+        <script src="static/prism.js"></script>
+    </body>
+</html>

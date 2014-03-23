@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">60</p>
+      <p class="stat">58</p>
     </div>
   </div>
   <div class="row historical">
@@ -91,7 +91,9 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # DOM Manipulation (extra)
+/**
+ * @module DOM (extra)
+ */
 
 var each = require(&quot;./util&quot;).each;
 var append = require(&quot;./dom&quot;).append;
@@ -100,15 +102,13 @@ var after = require(&quot;./dom&quot;).after;
 var $ = require(&quot;./selector&quot;).$;
 
 /**
- * ## appendTo
+ * Append each element in the collection to the specified element(s).
  *
- * Inverse of [append](dom.html#append).
- *
+ * @param {Node|NodeList|Object} element What to append the element(s) to. Clones elements as necessary.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $(&#039;.item&#039;).appendTo(container);
- *
- * @param {Node|NodeList|$Object} element What to append the element(s) to.
- * Clones elements as necessary.
- * @return {$Object}
  */
 
 function appendTo(element) {
@@ -118,11 +118,9 @@ function appendTo(element) {
 }
 
 /**
- * ## remove
- *
  * Remove the collection from the DOM.
  *
- * @return {Array} Removed elements
+ * @return {Array} Array containing the removed elements
  */
 
 function remove() {
@@ -134,18 +132,18 @@ function remove() {
 }
 
 /**
- * ## replaceWith
+ * Replace each element in the collection with the provided new content, and return the array of elements that were replaced.
  *
- * Replace each element in the collection with the provided new content, and return the array of elements that were removed.
- *
- * @return {Array}
+ * @return {Array} Array containing the replaced elements
  */
 
 function replaceWith() {
     return before.apply(this, arguments).remove();
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.appendTo = appendTo;
 exports.remove = remove;

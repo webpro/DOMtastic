@@ -45,11 +45,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">85.41</p>
+      <p class="stat">81.22</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">72</p>
+      <p class="stat">127</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">15.92</p>
+      <p class="stat">23.97</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.21</p>
+      <p class="stat">0.38</p>
     </div>
   </div>
 </div>
@@ -91,17 +91,21 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # Selector (extra)
+/**
+ * @module Selector (extra)
+ */
 
 var each = require(&#039;./util&#039;).each;
 var $ = require(&quot;./selector&quot;).$;
 var matches = require(&quot;./selector&quot;).matches;
 
-/*
- * ## children
+/**
+ * Return children of each element in the collection, optionally filtered by a selector.
  *
- * Return children of each element in the collection (optionally filtered by a selector).
- *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
  *     $(&#039;.selector&#039;).children();
  *     $(&#039;.selector&#039;).children(&#039;.filter&#039;);
  */
@@ -119,12 +123,55 @@ function children(selector) {
 }
 
 /**
- * ## eq
+ * Return the closest element matching the selector (starting by itself).
  *
+ * @param {String} selector Filter
+ * @return {Object} New wrapped collection (containing zero or one element)
+ * @chainable
+ * @example
+ *     $(&#039;.selector&#039;).closest(&#039;.container&#039;);
+ */
+
+function closest(selector) {
+    var node = this[0];
+    for (; node.nodeType !== node.DOCUMENT_NODE; node = node.parentNode) {
+        if (matches(node, selector)) {
+            return $(node);
+        }
+    }
+    return $();
+}
+
+/**
+ * Return the parent elements of each element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.selector&#039;).parent();
+ *     $(&#039;.selector&#039;).parent(&#039;.filter&#039;);
+ */
+
+function parent(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        if (!selector || (selector &amp;&amp; matches(element.parentNode, selector))) {
+            nodes.push(element.parentNode);
+        }
+    });
+    return $(nodes);
+}
+
+/**
  * Return a collection containing only the one at the specified index.
  *
  * @param {Number} index
- * @returns {$Object}
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.items&#039;).eq(1)
+ *     ➤ The second item; result is the same as doing $($(&#039;.items&#039;)[1]);
  */
 
 function eq(index) {
@@ -132,12 +179,13 @@ function eq(index) {
 }
 
 /**
- * ## get
- *
- * Return the DOM element at the provided index.
+ * Return the DOM element at the specified index.
  *
  * @param {Number} index
- * @returns {Node}
+ * @return {Node} Element at the specified index
+ * @example
+ *     $(&#039;.items&#039;).get(1)
+ *     ➤ The second element; result is the same as doing $(&#039;.items&#039;)[1];
  */
 
 function get(index) {
@@ -145,20 +193,27 @@ function get(index) {
 }
 
 /**
- * ## slice
- *
- * Return a new, sliced collection.
+ * Create a new, sliced collection.
  *
  * @param {Number} start
  * @param {Number} end
- * @returns {$Object}
+ * @return {Object} New wrapped collection
+ * @example
+ *     $(&#039;.items&#039;).slice(1, 3)
+ *     ➤ New wrapped collection containing the second, third, and fourth element.
  */
 
 function slice(start, end) {
     return $([].slice.apply(this, arguments));
 }
 
+/*
+ * Export interface
+ */
+
 exports.children = children;
+exports.closest = closest;
+exports.parent = parent;
 exports.eq = eq;
 exports.get = get;
 exports.slice = slice;</textarea>

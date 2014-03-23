@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">42</p>
+      <p class="stat">45</p>
     </div>
   </div>
   <div class="row historical">
@@ -91,22 +91,23 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # Attr
+/**
+ * @module Attr
+ */
 
 var each = require(&quot;./util&quot;).each;
 
 /**
- * ## attr
- *
  * Get the value of an attribute for the first element, or set one or more attributes for each element in the collection.
- *
- *     $(&#039;.item&#039;).attr(&#039;attrName&#039;);
- *     $(&#039;.item&#039;).attr(&#039;attrName&#039;, &#039;attrValue&#039;);
- *     $(&#039;.item&#039;).attr({&#039;attr1&#039;, &#039;value1&#039;}, {&#039;attr2&#039;, &#039;value2});
  *
  * @param {String|Object} key The name of the attribute to get or set. Or an object containing key-value pairs to set as attributes.
  * @param {String} [value] The value of the attribute to set.
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).attr(&#039;attrName&#039;);
+ *     $(&#039;.item&#039;).attr(&#039;attrName&#039;, &#039;attrValue&#039;);
+ *     $(&#039;.item&#039;).attr({&#039;attr1&#039;, &#039;value1&#039;}, {&#039;attr2&#039;, &#039;value2});
  */
 
 function attr(key, value) {
@@ -129,7 +130,9 @@ function attr(key, value) {
     return this;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.attr = attr;</textarea>
   </div>

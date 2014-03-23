@@ -14,7 +14,7 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 ## Quicklinks
 
-* [Docs](http://webpro.github.io/jquery-evergreen/doc/) (annotated source)
+* [API Docs](http://webpro.github.io/jquery-evergreen/doc/)
 * [Run tests](http://webpro.github.io/jquery-evergreen/test/)
 * [Run benchmarks](http://webpro.github.io/jquery-evergreen/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
 * [Coverage report](http://webpro.github.io/jquery-evergreen/coverage/dist/jquery-evergreen.js.html)
@@ -54,33 +54,34 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 
 ## API
 
-### [Array](http://webpro.github.io/jquery-evergreen/doc/array.html)
+### [Array](http://webpro.github.io/jquery-evergreen/doc/#array)
 
     each
     every
     filter
+    indexOf
     map
     reverse
     some
 
-### [Attr](http://webpro.github.io/jquery-evergreen/doc/attr.html)
+### [Attr](http://webpro.github.io/jquery-evergreen/doc#attr)
 
 	attr
 
-### [Class](http://webpro.github.io/jquery-evergreen/doc/class.html)
+### [Class](http://webpro.github.io/jquery-evergreen/doc#class)
 
 	addClass
 	removeClass
 	toggleClass
 	hasClass
 
-### [DOM](http://webpro.github.io/jquery-evergreen/doc/dom.html)
+### [DOM](http://webpro.github.io/jquery-evergreen/doc#dom)
 
 	after
 	append
 	before
 
-### [Event](http://webpro.github.io/jquery-evergreen/doc/event.html)
+### [Event](http://webpro.github.io/jquery-evergreen/doc#event)
 
 	on
 	off
@@ -88,41 +89,46 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 	undelegate
 	trigger
 
-### [HTML](http://webpro.github.io/jquery-evergreen/doc/html.html)
+### [HTML](http://webpro.github.io/jquery-evergreen/doc#html)
 
 	html
 
-### [NoConflict](http://webpro.github.io/jquery-evergreen/doc/noconflict.html)
+### [NoConflict](http://webpro.github.io/jquery-evergreen/doc#noconflict)
 
 	noConflict
 
-### [Selector](http://webpro.github.io/jquery-evergreen/doc/selector.html)
+### [Selector](http://webpro.github.io/jquery-evergreen/doc#selector)
 
 	$
 	find
 
 
-## API (custom builds)
+## API (bare)
 
 The pre-built "bare" package does not include the `attr` and `html` modules.
+
+## API (full)
+
 The pre-built "full" package also includes the following modules:
 
-### [DOM (extra)](http://webpro.github.io/jquery-evergreen/doc/dom_extra.html)
+### [DOM (extra)](http://webpro.github.io/jquery-evergreen/doc#dom_extra)
 
 	appendTo
     remove
     replaceWith
 
-### [Mode](http://webpro.github.io/jquery-evergreen/doc/mode.html)
+### [Mode](http://webpro.github.io/jquery-evergreen/doc#mode)
 
 	isNative
 	native
 
-### [Selector (extra)](http://webpro.github.io/jquery-evergreen/doc/selector_extra.html)
+### [Selector (extra)](http://webpro.github.io/jquery-evergreen/doc#selector_extra)
 
 	children
+	closest
 	eq
 	get
+	parent
 	slice
 
 ## But it doesn't even have ...!
@@ -147,7 +153,7 @@ Run the [benchmark suite](http://webpro.github.io/jquery-evergreen/benchmark/) t
 
 ## Native Mode
 
-You can [opt-in](http://webpro.github.io/jquery-evergreen/doc/mode.html) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
+You can [opt-in](https://github.com/webpro/jquery-evergreen/blob/master/src/je/mode.js) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
 
 ## Custom Build
 

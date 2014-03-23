@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">328</p>
+      <p class="stat">325</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">47.02</p>
+      <p class="stat">47.54</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">1.68</p>
+      <p class="stat">1.67</p>
     </div>
   </div>
 </div>
@@ -91,25 +91,26 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # Events
+/**
+ * @module Events
+ */
 
 var global = require(&quot;./util&quot;).global;
 var each = require(&quot;./util&quot;).each;
 var matches = require(&quot;./selector&quot;).matches;
 
 /**
- * ## on
- *
  * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
- *
- *     $(&#039;.item&#039;).on(&#039;click&#039;, callback);
- *     $(&#039;.container&#039;).on(&#039;click&#039;, &#039;.item&#039;, handler);
  *
  * @param {String} eventName
  * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).on(&#039;click&#039;, callback);
+ *     $(&#039;.container&#039;).on(&#039;click&#039;, &#039;.item&#039;, handler);
  */
 
 function on(eventName, selector, handler, useCapture) {
@@ -146,17 +147,16 @@ function on(eventName, selector, handler, useCapture) {
 }
 
 /**
- * ## off
- *
  * Shorthand for `removeEventListener`. Delegates to `undelegate` if that signature is used.
- *
- *     $(&#039;.item&#039;).off(&#039;click&#039;, callback);
  *
  * @param {String} eventName Name or type of the event
  * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).off(&#039;click&#039;, callback);
  */
 
 function off(eventName, selector, handler, useCapture) {
@@ -207,52 +207,49 @@ function off(eventName, selector, handler, useCapture) {
 }
 
 /**
- * ## delegate
- *
  * Delegate events triggered at descendants to element(s)
- *
- *     $(&#039;.container&#039;).delegate(&#039;.item&#039;, &#039;click&#039;, handler);
  *
  * @param {String} selector Selector to filter descendants that delegate the event to this element.
  * @param {String} eventName Name or type of the event
- * @param {Function} fn Event handler
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @param {Function} handler Event handler
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.container&#039;).delegate(&#039;.item&#039;, &#039;click&#039;, handler);
  */
 
-function delegate(selector, eventName, fn) {
-    return on.call(this, eventName, selector, fn);
+function delegate(selector, eventName, handler) {
+    return on.call(this, eventName, selector, handler);
 }
 
 /**
- * ## undelegate
- *
  * Undelegate events triggered at descendants to element(s)
- *
- *     $(&#039;.container&#039;).undelegate(&#039;.item&#039;, &#039;click&#039;, handler);
  *
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
  * @param {String} eventName Name or type of the event
- * @param {Function} fn Event handler
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @param {Function} handler Event handler
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.container&#039;).undelegate(&#039;.item&#039;, &#039;click&#039;, handler);
  */
 
-function undelegate(selector, eventName, fn) {
-    return off.call(this, eventName, selector, fn);
+function undelegate(selector, eventName, handler) {
+    return off.call(this, eventName, selector, handler);
 }
 
 /**
- * ## trigger
- *
  * Trigger event at element(s)
- *
- *     $(&#039;.item&#039;).trigger(&#039;anyEventType&#039;);
  *
  * @param {String} type Type of the event
  * @param {Object} [params] Event parameters (optional)
  * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
  * @param {Boolean} params.cancelable=true Is the event cancelable or not.
  * @param {Mixed} params.detail=undefined Additional information about the event.
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).trigger(&#039;anyEventType&#039;);
  */
 
 function trigger(type, params) {
@@ -271,7 +268,6 @@ function trigger(type, params) {
 /**
  * Check whether the element is attached to (or detached from) the document
  *
- * @method isAttachedToDocument
  * @private
  * @param {Node} element Element to test
  * @return {Boolean}
@@ -294,7 +290,6 @@ function isAttachedToDocument(element) {
  * Dispatch the event at the element and its ancestors.
  * Required to support delegated events in browsers that don&#039;t bubble events in detached DOM trees.
  *
- * @method triggerForPath
  * @private
  * @param {Node} element First element to dispatch the event
  * @param {String} type Type of the event
@@ -319,7 +314,6 @@ function triggerForPath(element, type, params) {
 /**
  * Get event handlers from an element
  *
- * @method getHandlers
  * @private
  * @param {Node} element
  * @return {Array}
@@ -341,7 +335,6 @@ function getHandlers(element) {
 /**
  * Clear event handlers for an element
  *
- * @method clearHandlers
  * @private
  * @param {Node} element
  */
@@ -360,10 +353,9 @@ function clearHandlers(element) {
  * and then actually call the provided event handler.
  * Also sets `event.currentTarget` on the event object.
  *
- * @method delegateHandler
  * @private
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
- * @param {Function} fn Event handler
+ * @param {Function} handler Event handler
  * @param {Event} event
  */
 
@@ -394,7 +386,10 @@ function delegateHandler(selector, handler, event) {
     global.CustomEvent = CustomEvent;
 })();
 
-// Are events bubbling in detached DOM trees?
+/*
+ * Are events bubbling in detached DOM trees?
+ * @private
+ */
 
 var isEventBubblingInDetachedTree = (function() {
     var isBubbling = false,
@@ -411,7 +406,9 @@ var isEventBubblingInDetachedTree = (function() {
     return isBubbling;
 })();
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.on = on;
 exports.off = off;

@@ -23,8 +23,6 @@ function __es6_transpiler_build_module_object__(name, imported) {
   }
   return moduleInstanceObject;
 }
-// # API
-
 var extend = require("./util").extend;
 
 var api = {},
@@ -71,7 +69,9 @@ $._apiNodeList = apiNodeList;
 exports["default"] = $;
 },{"./array":2,"./attr":3,"./class":4,"./dom":5,"./dom_extra":6,"./event":7,"./html":8,"./mode":9,"./noconflict":10,"./selector":11,"./selector_extra":12,"./util":13}],2:[function(require,module,exports){
 "use strict";
-// # Array
+/**
+ * @module Array
+ */
 
 var _each = require("./util").each;
 var $ = require("./selector").$;
@@ -79,7 +79,19 @@ var matches = require("./selector").matches;
 
 var ArrayProto = Array.prototype;
 
-// Filter the collection by selector or function.
+/**
+ * Filter the collection by selector or function.
+ *
+ * @param {String|Function} selector Selector or function to filter the collection.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').filter('.active');
+ * @example
+ *     $('.items').filter(function(element) {
+ *         return element.hasAttribute('active')
+ *     });
+ */
 
 function filter(selector) {
     var callback = typeof selector === 'function' ? selector : function(element) {
@@ -88,45 +100,122 @@ function filter(selector) {
     return $(ArrayProto.filter.call(this, callback));
 }
 
+/**
+ * Execute a function for each element in the collection.
+ *
+ * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').each(function(element) {
+ *         element.style.color = 'evergreen';
+ *     );
+ */
+
 function each(callback) {
     return _each(this, callback);
 }
+
+var forEach = each;
+
+/**
+ * Create a new collection by executing the callback for each element in the collection.
+ *
+ * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @return {Array} Collection with the return value of the executed callback for each element.
+ * @example
+ *     $('.items').map(function(element) {
+ *         return element.getAttribute('name')
+ *     });
+ *     ➤ ['ever', 'green']
+ */
+
+var map = ArrayProto.map;
+
+/**
+ * Reverses an array in place. The first array element becomes the last and the last becomes the first.
+ *
+ * @return {Object} The wrapped collection, reversed
+ * @chainable
+ * @example
+ *     $('.items').reverse();
+ */
 
 function reverse() {
     var elements = ArrayProto.slice.call(this);
     return $(ArrayProto.reverse.call(elements));
 }
 
-var every = ArrayProto.every,
-    forEach = each,
-    map = ArrayProto.map,
-    some = ArrayProto.some;
+/**
+ * Checks if the given callback returns a true(-ish) value for each element in the collection.
+ *
+ * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @return {Boolean} Whether each element passed the callback check.
+ * @example
+ *     $('.items').every(function(element) {
+ *         return element.hasAttribute('active')
+ *     });
+ *     ➤ true/false
+ */
+
+var every = ArrayProto.every;
+
+/**
+ * Checks if the given callback returns a true(-ish) value for any of the elements in the collection.
+ *
+ * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @return {Boolean} Whether any element passed the callback check.
+ * @example
+ *     $('.items').some(function(element) {
+ *         return element.hasAttribute('active')
+ *     });
+ *     ➤ true/false
+ */
+
+var some = ArrayProto.some;
+
+/**
+ * Returns the index of an element in the collection.
+ *
+ * @param {Node} element
+ * @return {Number} The zero-based index, -1 if not found.
+ * @example
+ *     $('.items').indexOf(element);
+ *     ➤ 2
+ */
+
+var indexOf = ArrayProto.indexOf;
+/*
+ * Export interface
+ */
 
 exports.each = each;
 exports.every = every;
 exports.filter = filter;
 exports.forEach = forEach;
+exports.indexOf = indexOf;
 exports.map = map;
 exports.reverse = reverse;
 exports.some = some;
 },{"./selector":11,"./util":13}],3:[function(require,module,exports){
 "use strict";
-// # Attr
+/**
+ * @module Attr
+ */
 
 var each = require("./util").each;
 
 /**
- * ## attr
- *
  * Get the value of an attribute for the first element, or set one or more attributes for each element in the collection.
- *
- *     $('.item').attr('attrName');
- *     $('.item').attr('attrName', 'attrValue');
- *     $('.item').attr({'attr1', 'value1'}, {'attr2', 'value2});
  *
  * @param {String|Object} key The name of the attribute to get or set. Or an object containing key-value pairs to set as attributes.
  * @param {String} [value] The value of the attribute to set.
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').attr('attrName');
+ *     $('.item').attr('attrName', 'attrValue');
+ *     $('.item').attr({'attr1', 'value1'}, {'attr2', 'value2});
  */
 
 function attr(key, value) {
@@ -149,23 +238,30 @@ function attr(key, value) {
     return this;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.attr = attr;
 },{"./util":13}],4:[function(require,module,exports){
 "use strict";
-// # Class
+/**
+ * Manipulate element classes. Abstraction for the [element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList) API.
+ *
+ * @module Class
+ */
 
 var makeIterable = require("./util").makeIterable;
 var each = require("./util").each;
 
 /**
- * ## addClass
- *
- *     $('.item').addClass('bar');
+ * Add a class to the element(s)
  *
  * @param {String} value The class name to add to the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').addClass('bar');
  */
 
 function addClass(value) {
@@ -176,12 +272,13 @@ function addClass(value) {
 }
 
 /**
- * ## removeClass
- *
- *     $('.items').removeClass('bar');
+ * Remove a class from the element(s)
  *
  * @param {String} value The class name to remove from the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').removeClass('bar');
  */
 
 function removeClass(value) {
@@ -192,12 +289,13 @@ function removeClass(value) {
 }
 
 /**
- * ## toggleClass
- *
- *     $('.item').toggleClass('bar');
+ * Toggle a class at the element(s)
  *
  * @param {String} value The class name to toggle at the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').toggleClass('bar');
  */
 
 function toggleClass(value) {
@@ -208,13 +306,13 @@ function toggleClass(value) {
 }
 
 /**
- * ## hasClass
- *
- *     $('.item').hasClass('bar');
+ * Check if the element(s) have a class.
  *
  * @param {String} value Check if the DOM element contains the class name. When applied to multiple elements,
  * returns `true` if _any_ of them contains the class name.
- * @return {boolean}
+ * @return {Boolean} Whether the element's class attribute contains the class name.
+ * @example
+ *     $('.item').hasClass('bar');
  */
 
 function hasClass(value) {
@@ -223,7 +321,9 @@ function hasClass(value) {
     });
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.addClass = addClass;
 exports.removeClass = removeClass;
@@ -231,18 +331,21 @@ exports.toggleClass = toggleClass;
 exports.hasClass = hasClass;
 },{"./util":13}],5:[function(require,module,exports){
 "use strict";
-// # DOM Manipulation
+/**
+ * @module DOM
+ */
 
 var toArray = require("./util").toArray;
 
 /**
- * ## append
+ * Append stuff
  *
- *     $('.item').append('<p>more</p>');
- *
- * @param {String|Node|NodeList|$Object} element What to append to the element(s).
+ * @param {String|Node|NodeList|Object} element What to append to the element(s).
  * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').append('<p>more</p>');
  */
 
 function append(element) {
@@ -268,13 +371,14 @@ function append(element) {
 }
 
 /**
- * ## before
+ * Put stuff before
  *
- *     $('.items').before('<p>prefix</p>');
- *
- * @param {String|Node|NodeList|$Object} element What to place as sibling(s) before to the element(s).
+ * @param {String|Node|NodeList|Object} element What to place as sibling(s) before to the element(s).
  * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').before('<p>prefix</p>');
  */
 
 function before(element) {
@@ -300,13 +404,13 @@ function before(element) {
 }
 
 /**
- * ## after
+ * Put stuff after
  *
+ * @param {String|Node|NodeList|Object} element What to place as sibling(s) after to the element(s). Clones elements as necessary.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $('.items').after('<span>suf</span><span>fix</span>');
- *
- * @param {String|Node|NodeList|$Object} element What to place as sibling(s) after to the element(s).
- * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 function after(element) {
@@ -332,10 +436,11 @@ function after(element) {
 }
 
 /**
- * @method clone
- * @private
+ * Clone stuff
+ *
  * @param {String|Node|NodeList|Array} element The element(s) to clone.
  * @return {String|Node|NodeList|Array} The cloned element(s)
+ * @private
  */
 
 function clone(element) {
@@ -351,14 +456,18 @@ function clone(element) {
     return element;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.append = append;
 exports.before = before;
 exports.after = after;
 },{"./util":13}],6:[function(require,module,exports){
 "use strict";
-// # DOM Manipulation (extra)
+/**
+ * @module DOM (extra)
+ */
 
 var each = require("./util").each;
 var append = require("./dom").append;
@@ -367,15 +476,13 @@ var after = require("./dom").after;
 var $ = require("./selector").$;
 
 /**
- * ## appendTo
+ * Inverse of [append](#dom-append).
  *
- * Inverse of [append](dom.html#append).
- *
+ * @param {Node|NodeList|Object} element What to append the element(s) to. Clones elements as necessary.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $('.item').appendTo(container);
- *
- * @param {Node|NodeList|$Object} element What to append the element(s) to.
- * Clones elements as necessary.
- * @return {$Object}
  */
 
 function appendTo(element) {
@@ -385,11 +492,9 @@ function appendTo(element) {
 }
 
 /**
- * ## remove
- *
  * Remove the collection from the DOM.
  *
- * @return {Array} Removed elements
+ * @return {Array} Array containing the removed elements
  */
 
 function remove() {
@@ -401,18 +506,18 @@ function remove() {
 }
 
 /**
- * ## replaceWith
+ * Replace each element in the collection with the provided new content, and return the array of elements that were replaced.
  *
- * Replace each element in the collection with the provided new content, and return the array of elements that were removed.
- *
- * @return {Array}
+ * @return {Array} Array containing the replaced elements
  */
 
 function replaceWith() {
     return before.apply(this, arguments).remove();
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.appendTo = appendTo;
 exports.remove = remove;
@@ -426,18 +531,17 @@ var each = require("./util").each;
 var matches = require("./selector").matches;
 
 /**
- * ## on
- *
  * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
- *
- *     $('.item').on('click', callback);
- *     $('.container').on('click', '.item', handler);
  *
  * @param {String} eventName
  * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').on('click', callback);
+ *     $('.container').on('click', '.item', handler);
  */
 
 function on(eventName, selector, handler, useCapture) {
@@ -474,17 +578,16 @@ function on(eventName, selector, handler, useCapture) {
 }
 
 /**
- * ## off
- *
  * Shorthand for `removeEventListener`. Delegates to `undelegate` if that signature is used.
- *
- *     $('.item').off('click', callback);
  *
  * @param {String} eventName Name or type of the event
  * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').off('click', callback);
  */
 
 function off(eventName, selector, handler, useCapture) {
@@ -535,52 +638,49 @@ function off(eventName, selector, handler, useCapture) {
 }
 
 /**
- * ## delegate
- *
  * Delegate events triggered at descendants to element(s)
- *
- *     $('.container').delegate('.item', 'click', handler);
  *
  * @param {String} selector Selector to filter descendants that delegate the event to this element.
  * @param {String} eventName Name or type of the event
- * @param {Function} fn Event handler
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @param {Function} handler Event handler
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.container').delegate('.item', 'click', handler);
  */
 
-function delegate(selector, eventName, fn) {
-    return on.call(this, eventName, selector, fn);
+function delegate(selector, eventName, handler) {
+    return on.call(this, eventName, selector, handler);
 }
 
 /**
- * ## undelegate
- *
  * Undelegate events triggered at descendants to element(s)
- *
- *     $('.container').undelegate('.item', 'click', handler);
  *
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
  * @param {String} eventName Name or type of the event
- * @param {Function} fn Event handler
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @param {Function} handler Event handler
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.container').undelegate('.item', 'click', handler);
  */
 
-function undelegate(selector, eventName, fn) {
-    return off.call(this, eventName, selector, fn);
+function undelegate(selector, eventName, handler) {
+    return off.call(this, eventName, selector, handler);
 }
 
 /**
- * ## trigger
- *
  * Trigger event at element(s)
- *
- *     $('.item').trigger('anyEventType');
  *
  * @param {String} type Type of the event
  * @param {Object} [params] Event parameters (optional)
  * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
  * @param {Boolean} params.cancelable=true Is the event cancelable or not.
  * @param {Mixed} params.detail=undefined Additional information about the event.
- * @return {Node|NodeList|$Object} Returns the object it was applied to (`this`).
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').trigger('anyEventType');
  */
 
 function trigger(type, params) {
@@ -599,7 +699,6 @@ function trigger(type, params) {
 /**
  * Check whether the element is attached to (or detached from) the document
  *
- * @method isAttachedToDocument
  * @private
  * @param {Node} element Element to test
  * @return {Boolean}
@@ -622,7 +721,6 @@ function isAttachedToDocument(element) {
  * Dispatch the event at the element and its ancestors.
  * Required to support delegated events in browsers that don't bubble events in detached DOM trees.
  *
- * @method triggerForPath
  * @private
  * @param {Node} element First element to dispatch the event
  * @param {String} type Type of the event
@@ -647,7 +745,6 @@ function triggerForPath(element, type, params) {
 /**
  * Get event handlers from an element
  *
- * @method getHandlers
  * @private
  * @param {Node} element
  * @return {Array}
@@ -669,7 +766,6 @@ function getHandlers(element) {
 /**
  * Clear event handlers for an element
  *
- * @method clearHandlers
  * @private
  * @param {Node} element
  */
@@ -688,10 +784,9 @@ function clearHandlers(element) {
  * and then actually call the provided event handler.
  * Also sets `event.currentTarget` on the event object.
  *
- * @method delegateHandler
  * @private
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
- * @param {Function} fn Event handler
+ * @param {Function} handler Event handler
  * @param {Event} event
  */
 
@@ -722,7 +817,10 @@ function delegateHandler(selector, handler, event) {
     global.CustomEvent = CustomEvent;
 })();
 
-// Are events bubbling in detached DOM trees?
+/*
+ * Are events bubbling in detached DOM trees?
+ * @private
+ */
 
 var isEventBubblingInDetachedTree = (function() {
     var isBubbling = false,
@@ -739,7 +837,9 @@ var isEventBubblingInDetachedTree = (function() {
     return isBubbling;
 })();
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.on = on;
 exports.off = off;
@@ -748,20 +848,23 @@ exports.undelegate = undelegate;
 exports.trigger = trigger;
 },{"./selector":11,"./util":13}],8:[function(require,module,exports){
 "use strict";
-// # HTML
+/**
+ * @module HTML
+ * @class HTML
+ * @title HTML
+ */
 
 var each = require("./util").each;
 
 /*
- * ## html
- *
  * Get the HTML contents of the first element, or set the HTML contents for each element in the collection.
  *
+ * @param {String} [fragment] HTML fragment to set for the element. If this argument is omitted, the HTML contents are returned.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $('.item').html();
  *     $('.item').html('<span>more</span>');
- *
- * @param {String} [fragment] HTML fragment to set for the element
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 function html(fragment) {
@@ -779,7 +882,9 @@ function html(fragment) {
 
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.html = html;
 },{"./util":13}],9:[function(require,module,exports){
@@ -835,6 +940,8 @@ var NodeProto = typeof Node !== 'undefined' && Node.prototype,
 /*
  * Add a property (i.e. method) to an object in a safe and reversible manner.
  * Only add the method if object not already had it (non-inherited).
+ *
+ * @private
  */
 
 function augment(obj, key, value) {
@@ -849,6 +956,8 @@ function augment(obj, key, value) {
 
 /*
  * Remove property from object (only inherited properties will be removed).
+ *
+ * @private
  */
 
 function unaugment(obj, key) {
@@ -857,6 +966,8 @@ function unaugment(obj, key) {
 
 /*
  * Augment native `Node` and `NodeList` objects in native mode.
+ *
+ * @private
  */
 
 function augmentNativePrototypes(methodsNode, methodsNodeList) {
@@ -876,6 +987,8 @@ function augmentNativePrototypes(methodsNode, methodsNodeList) {
 /*
  * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
  * Mainly used for tests.
+ *
+ * @private
  */
 
 function unaugmentNativePrototypes(methodsNode, methodsNodeList) {
@@ -898,33 +1011,43 @@ exports.isNative = isNative;
 exports.native = native;
 },{"./util":13}],10:[function(require,module,exports){
 "use strict";
-/*
- * # noConflict
- *
- * In case another library sets the global `$` variable before jQuery Evergreen does,
- * this method can be used to return the global `$` to that other library.
+/**
+ * @module noConflict
  */
 
 var global = require("./util").global;
 
-// Save the previous value of the global `$` variable, so that it can be restored later on.
+/*
+ * Save the previous value of the global `$` variable, so that it can be restored later on.
+ * @private
+ */
 
 var previousLib = global.$;
 
-// Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
-// Returns a reference to jQuery Evergreen.
+/**
+ * In case another library sets the global `$` variable before jQuery Evergreen does,
+ * this method can be used to return the global `$` to that other library.
+ *
+ * @return {Object} Reference to jQuery Evergreen.
+ * @example
+ *     var $E = $.noConflict();
+ */
 
 function noConflict() {
     global.$ = previousLib;
     return this;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.noConflict = noConflict;
 },{"./util":13}],11:[function(require,module,exports){
 "use strict";
-// # Selector
+/**
+ * @module Selector
+ */
 
 var global = require("./util").global;
 var makeIterable = require("./util").makeIterable;
@@ -936,16 +1059,20 @@ var slice = [].slice,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
 
 /*
- * ## $
- *
  * Versatile wrapper for `querySelectorAll`.
  *
- * @param {String|Node|NodeList} selector Query selector.
- * Providing a selector string gives the default behavior.
- * Providing a Node or NodeList will return a NodeList or $Object containing the same element(s).
- * Providing a string that looks like HTML (i.e. starts with a `<tag>`) results in an attempt to create a DOM Fragment from it.
- * @param {String|Node|NodeList} context=`document` The context for the selector to query elements.
- * @return {NodeList|$Object}
+ * @param {String|Node|NodeList|Array} selector Query selector, `Node`, `NodeList`, array of elements, or HTML fragment string.
+ * @param {String|Node|NodeList} context=document The context for the selector to query elements.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     var $items = $(.items');
+ * @example
+ *     var $element = $(domElement);
+ * @example
+ *     var $list = $(nodeList, document.body);
+ * @example
+ *     var $element = $('<p>evergreen</p>');
  */
 
 function $(selector, context) {
@@ -977,10 +1104,11 @@ function $(selector, context) {
 }
 
 /*
- * ## Find
- *
  * Chaining for the `$` wrapper (aliasing `find` for `$`).
  *
+ * @param {String|Node|NodeList|Array} selector Query selector, `Node`, `NodeList`, array of elements, or HTML fragment string.
+ * @return {Object} The wrapped collection
+ * @example
  *     $('.selector').find('.deep').$('.deepest');
  */
 
@@ -989,15 +1117,14 @@ function find(selector) {
 }
 
 /*
- * ## Matches
- *
- * Returns true if the element would be selected by the specified selector string; otherwise, returns false.
- *
- *     $.matches(element, '.match');
+ * Returns `true` if the element would be selected by the specified selector string; otherwise, returns `false`.
  *
  * @param {Node} element Element to test
  * @param {String} selector Selector to match against element
  * @return {Boolean}
+ *
+ * @example
+ *     $.matches(element, '.match');
  */
 
 var matches = (function() {
@@ -1009,13 +1136,12 @@ var matches = (function() {
 })();
 
 /*
- * Use the faster `getElementById` or `getElementsByClassName` over `querySelectorAll` if possible.
+ * Use the faster `getElementById`, `getElementsByClassName` or `getElementsByTagName` over `querySelectorAll` if possible.
  *
- * @method querySelector
  * @private
  * @param {String} selector Query selector.
  * @param {Node} context The context for the selector to query elements.
- * @return {NodeList|Node}
+ * @return {Object} NodeList, HTMLCollection, or Array of matching elements (depending on method used).
  */
 
 function querySelector(selector, context) {
@@ -1040,7 +1166,6 @@ function querySelector(selector, context) {
 /*
  * Create DOM fragment from an HTML string
  *
- * @method createFragment
  * @private
  * @param {String} html String representing HTML.
  * @return {NodeList}
@@ -1066,12 +1191,11 @@ function createFragment(html) {
 }
 
 /*
- * Calling `$(selector)` returns a wrapped array-like object of elements [by default](mode.html).
+ * Calling `$(selector)` returns a wrapped collection of elements.
  *
- * @method wrap
  * @private
- * @param {NodeList|Array} collection Element(s) to wrap as a `$Object`.
- * @return {$Object} Array with augmented API.
+ * @param {NodeList|Array} collection Element(s) to wrap.
+ * @return (Object) The wrapped collection
  */
 
 function wrap(collection) {
@@ -1083,10 +1207,15 @@ function wrap(collection) {
     }
 
     return new Wrapper(collection);
-
 }
 
-// Constructor for the Object.prototype strategy
+/*
+ * Constructor for the Object.prototype strategy
+ *
+ * @constructor
+ * @private
+ * @param {NodeList|Array} collection Element(s) to wrap.
+ */
 
 function Wrapper(collection) {
     var i = 0, length = collection.length;
@@ -1096,24 +1225,30 @@ function Wrapper(collection) {
     this.length = length;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.$ = $;
 exports.find = find;
 exports.matches = matches;
 },{"./util":13}],12:[function(require,module,exports){
 "use strict";
-// # Selector (extra)
+/**
+ * @module Selector (extra)
+ */
 
 var each = require('./util').each;
 var $ = require("./selector").$;
 var matches = require("./selector").matches;
 
-/*
- * ## children
+/**
+ * Return children of each element in the collection, optionally filtered by a selector.
  *
- * Return children of each element in the collection (optionally filtered by a selector).
- *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
  *     $('.selector').children();
  *     $('.selector').children('.filter');
  */
@@ -1131,12 +1266,55 @@ function children(selector) {
 }
 
 /**
- * ## eq
+ * Return the closest element matching the selector (starting by itself).
  *
+ * @param {String} selector Filter
+ * @return {Object} New wrapped collection (containing zero or one element)
+ * @chainable
+ * @example
+ *     $('.selector').closest('.container');
+ */
+
+function closest(selector) {
+    var node = this[0];
+    for (; node.nodeType !== node.DOCUMENT_NODE; node = node.parentNode) {
+        if (matches(node, selector)) {
+            return $(node);
+        }
+    }
+    return $();
+}
+
+/**
+ * Return the parent elements of each element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').parent();
+ *     $('.selector').parent('.filter');
+ */
+
+function parent(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        if (!selector || (selector && matches(element.parentNode, selector))) {
+            nodes.push(element.parentNode);
+        }
+    });
+    return $(nodes);
+}
+
+/**
  * Return a collection containing only the one at the specified index.
  *
  * @param {Number} index
- * @returns {$Object}
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').eq(1)
+ *     ➤ The second item; result is the same as doing $($('.items')[1]);
  */
 
 function eq(index) {
@@ -1144,12 +1322,13 @@ function eq(index) {
 }
 
 /**
- * ## get
- *
- * Return the DOM element at the provided index.
+ * Return the DOM element at the specified index.
  *
  * @param {Number} index
- * @returns {Node}
+ * @return {Node} Element at the specified index
+ * @example
+ *     $('.items').get(1)
+ *     ➤ The second element; result is the same as doing $('.items')[1];
  */
 
 function get(index) {
@@ -1157,41 +1336,50 @@ function get(index) {
 }
 
 /**
- * ## slice
- *
- * Return a new, sliced collection.
+ * Create a new, sliced collection.
  *
  * @param {Number} start
  * @param {Number} end
- * @returns {$Object}
+ * @return {Object} New wrapped collection
+ * @example
+ *     $('.items').slice(1, 3)
+ *     ➤ New wrapped collection containing the second, third, and fourth element.
  */
 
 function slice(start, end) {
     return $([].slice.apply(this, arguments));
 }
 
+/*
+ * Export interface
+ */
+
 exports.children = children;
+exports.closest = closest;
+exports.parent = parent;
 exports.eq = eq;
 exports.get = get;
 exports.slice = slice;
 },{"./selector":11,"./util":13}],13:[function(require,module,exports){
 "use strict";
-// # Util
+/*
+ * @module Util
+ */
 
-/**
+/*
  * Reference to the global scope
+ * @private
  */
 
 var global = new Function("return this")(),
     slice = Array.prototype.slice;
 
 /**
- * ## toArray
- *
  * Convert `NodeList` to `Array`.
  *
  * @param {NodeList|Array} collection
  * @return {Array}
+ * @private
  */
 
 function toArray(collection) {
@@ -1199,13 +1387,12 @@ function toArray(collection) {
 }
 
 /**
- * ## makeIterable
- *
  * Return something that can be iterated over (e.g. using `forEach`).
- * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
+ * Arrays and NodeLists are returned as-is, but a Node will be wrapped in a `[]`.
  *
  * @param {Node|NodeList|Array} element
  * @return {Array|NodeList}
+ * @private
  */
 
 function makeIterable(element) {
@@ -1213,48 +1400,55 @@ function makeIterable(element) {
 }
 
 /**
- * ## each
- *
  * Faster alternative to [].forEach method
  *
  * @param {Node|NodeList|Array} collection
  * @param {Function} callback
  * @returns {Node|NodeList|Array}
+ * @private
  */
 
 function each(collection, callback) {
     var length = collection.length;
     if (length !== undefined) {
         for (var i = 0; i < length; i++){
-            callback(collection[i]);
+            callback(collection[i], i, collection);
         }
     } else {
-        callback(collection);
+        callback(collection, 0);
     }
     return collection;
 }
 
 /**
- * ## extend
- *
  * Assign properties from source object(s) to target object
  *
  * @method extend
- * @param {Object} obj Object to extend
+ * @param {Object} target Object to extend
  * @param {Object} [source] Object to extend from
  * @returns {Object} Extended object
+ * @example
+ *     $.extend({a: 1}, {b: 2});
+ *     ➤ {a: 1, b: 2}
+ * @example
+ *     $.extend({a: 1}, {b: 2}, {a: 3});
+ *     ➤ {a: 3, b: 2}
  */
 
-function extend(obj) {
-    slice.call(arguments, 1).forEach(function(source) {
-        if (source) {
-            for (var prop in source) {
-                obj[prop] = source[prop];
+function extend(target, source) {
+    slice.call(arguments, 1).forEach(function(src) {
+        if (src) {
+            for (var prop in src) {
+                target[prop] = src[prop];
             }
         }
     });
-    return obj;
+    return target;
 }
+
+/*
+ * Export interface
+ */
 
 exports.global = global;
 exports.toArray = toArray;
@@ -1273,6 +1467,8 @@ exports.extend = extend;
  * The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). And last but also least, the CommonJS version is "browserified".
  *
  * Please find the table of contents in upper right.
+ *
+ * @module main
  */
 
 var $ = require("./je/api")["default"];

@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">76</p>
+      <p class="stat">83</p>
     </div>
   </div>
   <div class="row historical">
@@ -91,18 +91,21 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-// # Class
+/**
+ * @module Class
+ */
 
 var makeIterable = require(&quot;./util&quot;).makeIterable;
 var each = require(&quot;./util&quot;).each;
 
 /**
- * ## addClass
- *
- *     $(&#039;.item&#039;).addClass(&#039;bar&#039;);
+ * Add a class to the element(s)
  *
  * @param {String} value The class name to add to the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).addClass(&#039;bar&#039;);
  */
 
 function addClass(value) {
@@ -113,12 +116,13 @@ function addClass(value) {
 }
 
 /**
- * ## removeClass
- *
- *     $(&#039;.items&#039;).removeClass(&#039;bar&#039;);
+ * Remove a class from the element(s)
  *
  * @param {String} value The class name to remove from the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.items&#039;).removeClass(&#039;bar&#039;);
  */
 
 function removeClass(value) {
@@ -129,12 +133,13 @@ function removeClass(value) {
 }
 
 /**
- * ## toggleClass
- *
- *     $(&#039;.item&#039;).toggleClass(&#039;bar&#039;);
+ * Toggle a class at the element(s)
  *
  * @param {String} value The class name to toggle at the element(s).
- * @return {$Object} or Node/List in native mode
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $(&#039;.item&#039;).toggleClass(&#039;bar&#039;);
  */
 
 function toggleClass(value) {
@@ -145,13 +150,13 @@ function toggleClass(value) {
 }
 
 /**
- * ## hasClass
- *
- *     $(&#039;.item&#039;).hasClass(&#039;bar&#039;);
+ * Check if the element(s) have a class.
  *
  * @param {String} value Check if the DOM element contains the class name. When applied to multiple elements,
  * returns `true` if _any_ of them contains the class name.
- * @return {boolean}
+ * @return {Boolean} Whether the element&#039;s class attribute contains the class name.
+ * @example
+ *     $(&#039;.item&#039;).hasClass(&#039;bar&#039;);
  */
 
 function hasClass(value) {
@@ -160,7 +165,9 @@ function hasClass(value) {
     });
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 exports.addClass = addClass;
 exports.removeClass = removeClass;
