@@ -4,9 +4,9 @@ node_js:
 env:
   global:
     - GHPAGES=".gh-pages"
-    - secure: "TiAOsFfGlvE+wwDoMxYxlMnbJ/ey0c1KsHYahTA78zu5aHVGksOsjKKfZTcrl7Eiup5KSLcpcD1FXDIpUGNggO1b1w/nt8SLI8X0qTRpgVUUHVVnGAuSeg1+TmoVUcM//RSJwTaQrzqQCyqJtGehumV2Y9DA7WSLywzWx/4bPMQ="
-    - secure: "Vd/5T6hDx+XSbZsVVAICuYPKLj6DnEeX7uDR2C7n/JfXH1RaGmlhm2Q8Iv1KjduBk6ro6aSKYh/wlSnKWe3LJVxSN+f7XSkudohS/ogCzo4U740YQ8j/0NPF6SccYp9ukNvkH1hsawpxl/GBl2FKDUInNzLuTply23sn+LncUbE="
-    - secure: "FpgwXfgX7oDBSUMOjO9pvdjg2ZnzNr0oPUxz6sdiZCZE2P7Tda/AJqt4RQNOo+f+MwYMA818ykuIOrI7J88MH07KZSR86bYnTldls9T+IJ4TPskNstiCuZ9p+LQi0dWsC65vUhrNObGbQ+bAsf8cnMqd6kxVgaInhd+5ixxET6k="
+    - SAUCE_USERNAME="webpro"
+    - secure: "JFR5yb2JmkzHPQY0KigOXX92B4CRbKI61Dq84+Rs+f69ekpfy1CRLcUfBuT1TzkcrkSnMj/CQjILK9ll6EZMmodxvzDpSw6sgiqwF2/XAaEchxpcFXdjA0Fvyo5h2ZwLWaOYWjDCKczAYLkT5Mj/oRd2orYbTqj+9PTo3W1Cv+E="
+    - secure: "ZguNnybtl6L0Ww7IO8+wol2r/OZcr39ADAm+sT3hYDHbMV7z5SMP2oJLT4jyeudPMhpdyrkGUygjMY6ofAj6QjFEjhWXIJNnRR5eh0sMDBD3+aa/UnDq0zymMt/VCeg0JPN+RpizwLnEv+i/QfoWmAsZwpLheKGUW+//GP8CsYk="
 branches:
   only:
     - master

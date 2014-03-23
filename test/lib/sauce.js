@@ -18,19 +18,18 @@ var env = process.env,
     port = 9001;
 
 var platforms = [
-    ['Windows 8.1', 'googlechrome', '31'],
-    ['Windows 8', 'googlechrome', '31'],
-    ['OS X 10.9', 'googlechrome', '31'],
-    ['Linux', 'googlechrome', '30'],
-    ['Windows 8.1', 'firefox', ''],
+    ['Windows 8.1', 'googlechrome', '33'],
+    ['Windows 8.1', 'googlechrome', '32'],
+    ['Windows 8', 'googlechrome', '33'],
+    ['OS X 10.9', 'googlechrome', '33'],
+    ['Linux', 'googlechrome', '32'],
+    ['Windows 8.1', 'firefox', '27'],
+    ['Windows 8.1', 'firefox', '26'],
     ['OS X 10.9', 'firefox', ''],
     ['OS X 10.6', 'firefox', ''],
     ['Linux', 'firefox', ''],
     ['Windows 8.1', 'internet explorer', '11'],
     ['Windows 8', 'internet explorer', '10'],
-//    ['Windows 7', 'internet explorer', '9'],
-//    ['Windows 7', 'opera', '12'],
-//    ['Linux', 'opera', '12'],
     ['OS X 10.9', 'safari', '7'],
     ['OS X 10.8', 'safari', '6'],
     ['Windows 7', 'safari', '5']
@@ -166,8 +165,7 @@ http.createServer(
     ecstatic({ root: process.cwd(), cache: false })
 ).listen(port);
 
-var tunnelTimeout = 10000,
-    tunnel = new SauceTunnel(username, accessKey, tunnelId, true, tunnelTimeout);
+var tunnel = new SauceTunnel(username, accessKey, tunnelId, true, ['--verbose']);
 
 console.log('Opening Sauce Connect tunnel...');
 
