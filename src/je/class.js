@@ -5,9 +5,10 @@
 import { makeIterable, each } from './util';
 
 /**
- * @method addClass
+ * Add a class to the element(s)
+ *
  * @param {String} value The class name to add to the element(s).
- * @return The wrapped object (or Node/List in native mode).
+ * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.item').addClass('bar');
@@ -21,9 +22,10 @@ function addClass(value) {
 }
 
 /**
- * @method removeClass
+ * Remove a class from the element(s)
+ *
  * @param {String} value The class name to remove from the element(s).
- * @return The wrapped object (or Node/List in native mode).
+ * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.items').removeClass('bar');
@@ -37,9 +39,10 @@ function removeClass(value) {
 }
 
 /**
- * @method toggleClass
+ * Toggle a class at the element(s)
+ *
  * @param {String} value The class name to toggle at the element(s).
- * @return The wrapped object (or Node/List in native mode).
+ * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.item').toggleClass('bar');
@@ -53,7 +56,8 @@ function toggleClass(value) {
 }
 
 /**
- * @method hasClass
+ * Check if the element(s) have a class.
+ *
  * @param {String} value Check if the DOM element contains the class name. When applied to multiple elements,
  * returns `true` if _any_ of them contains the class name.
  * @return {Boolean} Whether the element's class attribute contains the class name.
@@ -67,6 +71,8 @@ function hasClass(value) {
     });
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 export { addClass, removeClass, toggleClass, hasClass };

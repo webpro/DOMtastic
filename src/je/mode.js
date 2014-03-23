@@ -49,6 +49,8 @@ var NodeProto = typeof Node !== 'undefined' && Node.prototype,
 /*
  * Add a property (i.e. method) to an object in a safe and reversible manner.
  * Only add the method if object not already had it (non-inherited).
+ *
+ * @private
  */
 
 function augment(obj, key, value) {
@@ -63,6 +65,8 @@ function augment(obj, key, value) {
 
 /*
  * Remove property from object (only inherited properties will be removed).
+ *
+ * @private
  */
 
 function unaugment(obj, key) {
@@ -71,6 +75,8 @@ function unaugment(obj, key) {
 
 /*
  * Augment native `Node` and `NodeList` objects in native mode.
+ *
+ * @private
  */
 
 function augmentNativePrototypes(methodsNode, methodsNodeList) {
@@ -90,6 +96,8 @@ function augmentNativePrototypes(methodsNode, methodsNodeList) {
 /*
  * Unaugment native `Node` and `NodeList` objects to switch back to default mode.
  * Mainly used for tests.
+ *
+ * @private
  */
 
 function unaugmentNativePrototypes(methodsNode, methodsNodeList) {

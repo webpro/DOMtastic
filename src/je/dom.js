@@ -5,13 +5,14 @@
 import { toArray } from './util';
 
 /**
- * ## append
+ * Append element(s) to each element in the collection.
  *
- *     $('.item').append('<p>more</p>');
- *
- * @param {String|Node|NodeList|$Object} element What to append to the element(s).
+ * @param {String|Node|NodeList|Object} element What to append to the element(s).
  * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').append('<p>more</p>');
  */
 
 function append(element) {
@@ -37,13 +38,14 @@ function append(element) {
 }
 
 /**
- * ## before
+ * Place element(s) before each element in the collection.
  *
- *     $('.items').before('<p>prefix</p>');
- *
- * @param {String|Node|NodeList|$Object} element What to place as sibling(s) before to the element(s).
+ * @param {String|Node|NodeList|Object} element What to place as sibling(s) before to the element(s).
  * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').before('<p>prefix</p>');
  */
 
 function before(element) {
@@ -69,13 +71,13 @@ function before(element) {
 }
 
 /**
- * ## after
+ * Place element(s) after each element in the collection.
  *
+ * @param {String|Node|NodeList|Object} element What to place as sibling(s) after to the element(s). Clones elements as necessary.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
  *     $('.items').after('<span>suf</span><span>fix</span>');
- *
- * @param {String|Node|NodeList|$Object} element What to place as sibling(s) after to the element(s).
- * Clones elements as necessary.
- * @return {Node|NodeList|$Object} Returns the object it was applied to.
  */
 
 function after(element) {
@@ -101,10 +103,11 @@ function after(element) {
 }
 
 /**
- * @method clone
- * @private
+ * Clone an object
+ *
  * @param {String|Node|NodeList|Array} element The element(s) to clone.
  * @return {String|Node|NodeList|Array} The cloned element(s)
+ * @private
  */
 
 function clone(element) {
@@ -120,6 +123,8 @@ function clone(element) {
     return element;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 export { append, before, after };
