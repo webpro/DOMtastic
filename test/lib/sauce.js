@@ -18,10 +18,10 @@ var env = process.env,
     port = 9001;
 
 var platforms = [
-    ['Windows 8.1', 'googlechrome', '31'],
-    ['Windows 8', 'googlechrome', '31'],
-    ['OS X 10.9', 'googlechrome', '31'],
-    ['Linux', 'googlechrome', '30'],
+    ['Windows 8.1', 'googlechrome', '33'],
+    ['Windows 8', 'googlechrome', '33'],
+    ['OS X 10.9', 'googlechrome', '33'],
+    ['Linux', 'googlechrome', '32'],
     ['Windows 8.1', 'firefox', ''],
     ['OS X 10.9', 'firefox', ''],
     ['OS X 10.6', 'firefox', ''],
@@ -166,8 +166,7 @@ http.createServer(
     ecstatic({ root: process.cwd(), cache: false })
 ).listen(port);
 
-var tunnelTimeout = 10000,
-    tunnel = new SauceTunnel(username, accessKey, tunnelId, true, tunnelTimeout);
+var tunnel = new SauceTunnel(username, accessKey, tunnelId, true, ['--verbose']);
 
 console.log('Opening Sauce Connect tunnel...');
 
