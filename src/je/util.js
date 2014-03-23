@@ -1,19 +1,21 @@
-// # Util
+/*
+ * @module Util
+ */
 
-/**
+/*
  * Reference to the global scope
+ * @private
  */
 
 var global = new Function("return this")(),
     slice = Array.prototype.slice;
 
 /**
- * ## toArray
- *
  * Convert `NodeList` to `Array`.
  *
  * @param {NodeList|Array} collection
  * @return {Array}
+ * @private
  */
 
 function toArray(collection) {
@@ -21,13 +23,12 @@ function toArray(collection) {
 }
 
 /**
- * ## makeIterable
- *
  * Return something that can be iterated over (e.g. using `forEach`).
- * Arrays and NodeLists are returned as-is, but `Node`s are wrapped in a `[]`.
+ * Arrays and NodeLists are returned as-is, but a Node will be wrapped in a `[]`.
  *
  * @param {Node|NodeList|Array} element
  * @return {Array|NodeList}
+ * @private
  */
 
 function makeIterable(element) {
@@ -35,47 +36,54 @@ function makeIterable(element) {
 }
 
 /**
- * ## each
- *
  * Faster alternative to [].forEach method
  *
  * @param {Node|NodeList|Array} collection
  * @param {Function} callback
- * @returns {Node|NodeList|Array}
+ * @return {Node|NodeList|Array}
+ * @private
  */
 
 function each(collection, callback) {
     var length = collection.length;
     if (length !== undefined) {
         for (var i = 0; i < length; i++){
-            callback(collection[i]);
+            callback(collection[i], i, collection);
         }
     } else {
-        callback(collection);
+        callback(collection, 0);
     }
     return collection;
 }
 
 /**
- * ## extend
- *
  * Assign properties from source object(s) to target object
  *
  * @method extend
- * @param {Object} obj Object to extend
+ * @param {Object} target Object to extend
  * @param {Object} [source] Object to extend from
- * @returns {Object} Extended object
+ * @return {Object} Extended object
+ * @example
+ *     $.extend({a: 1}, {b: 2});
+ *     ➤ {a: 1, b: 2}
+ * @example
+ *     $.extend({a: 1}, {b: 2}, {a: 3});
+ *     ➤ {a: 3, b: 2}
  */
 
-function extend(obj) {
-    slice.call(arguments, 1).forEach(function(source) {
-        if (source) {
-            for (var prop in source) {
-                obj[prop] = source[prop];
+function extend(target, source) {
+    slice.call(arguments, 1).forEach(function(src) {
+        if (src) {
+            for (var prop in src) {
+                target[prop] = src[prop];
             }
         }
     });
-    return obj;
+    return target;
 }
+
+/*
+ * Export interface
+ */
 
 export { global, toArray, makeIterable, each, extend };

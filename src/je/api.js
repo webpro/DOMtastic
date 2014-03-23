@@ -1,4 +1,6 @@
-// # API
+/**
+ * @module API
+ */
 
 import { extend } from './util';
 

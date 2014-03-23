@@ -1,24 +1,32 @@
-/*
- * # noConflict
- *
- * In case another library sets the global `$` variable before jQuery Evergreen does,
- * this method can be used to return the global `$` to that other library.
+/**
+ * @module noConflict
  */
 
 import { global } from './util';
 
-// Save the previous value of the global `$` variable, so that it can be restored later on.
+/*
+ * Save the previous value of the global `$` variable, so that it can be restored later on.
+ * @private
+ */
 
 var previousLib = global.$;
 
-// Put jQuery Evergreen in noConflict mode, returning the `$` variable to its previous owner.
-// Returns a reference to jQuery Evergreen.
+/**
+ * In case another library sets the global `$` variable before jQuery Evergreen does,
+ * this method can be used to return the global `$` to that other library.
+ *
+ * @return {Object} Reference to jQuery Evergreen.
+ * @example
+ *     var $E = $.noConflict();
+ */
 
 function noConflict() {
     global.$ = previousLib;
     return this;
 }
 
-// Export interface
+/*
+ * Export interface
+ */
 
 export { noConflict };

@@ -27,7 +27,7 @@ after_success:
   - "rsync --recursive --delete benchmark/ $GHPAGES/benchmark/"
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
-  - "rm -rf $GHPAGES/doc && ./node_modules/groc/bin/groc --out=$GHPAGES/doc"
+  - "rm -rf $GHPAGES/doc && ./node_modules/doxstrap/bin/doxstrap.js --title \"jQuery Evergreen\" --output $GHPAGES/doc"
   - "cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../$GHPAGES/complexity --jshint ../../.jshintrc ."
   - "cd $TRAVIS_BUILD_DIR"
   - "gulp clean"
