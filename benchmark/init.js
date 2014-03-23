@@ -23,11 +23,12 @@
         },
         {
             name: 'jQuery Evergreen',
-            version: '0.4.1',
+            version: '',
             script: {
                 src: '../dist/jquery-evergreen.min.js',
                 onload: function($) {
                     root.$ = ($  || root.$).noConflict();
+                    bench.libs[2].version = root.$.version;
                 }
             }
         }

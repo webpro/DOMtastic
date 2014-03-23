@@ -32,6 +32,10 @@ module noconflict from './noconflict'; extend($, noconflict);
 extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
 
+// Version
+
+$.version = '__VERSION__';
+
 // Util
 
 $.extend = extend;

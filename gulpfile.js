@@ -18,7 +18,8 @@ var srcFiles = './src/**/*.js',
     fileName = 'jquery-evergreen.js',
     browserifyEntryPoint = './.release/commonjs/main.js',
     distFolder = 'dist/',
-    releaseFolder = '.release/';
+    releaseFolder = '.release/',
+    pkg = require('./package.json');
 
 var bundlePresets = {
     default: {
@@ -60,11 +61,17 @@ gulp.task('watch', function () {
 // Transpile ES6 Modules to CommonJS/AMD
 
 gulp.task('transpile-cjs', ['clean'], function() {
-    return gulp.src(srcFiles).pipe(es6ModuleTranspiler({type: 'cjs'})).pipe(gulp.dest(releaseFolder + 'commonjs'));
+    return gulp.src(srcFiles)
+        .pipe(es6ModuleTranspiler({type: 'cjs'}))
+        .pipe(replace(/__VERSION__/, pkg.version))
+        .pipe(gulp.dest(releaseFolder + 'commonjs'));
 });
 
 gulp.task('transpile-amd', ['clean'], function() {
-    return gulp.src(srcFiles).pipe(es6ModuleTranspiler({type: 'amd', anonymous: true})).pipe(gulp.dest(releaseFolder + 'amd'));
+    return gulp.src(srcFiles)
+        .pipe(es6ModuleTranspiler({type: 'amd', anonymous: true}))
+        .pipe(replace(/__VERSION__/, pkg.version))
+        .pipe(gulp.dest(releaseFolder + 'amd'));
 });
 
 // JSCS (QA/lint)
