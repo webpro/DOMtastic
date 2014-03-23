@@ -29,6 +29,47 @@ function children(selector) {
 }
 
 /**
+ * Return the closest element matching the selector (starting by itself).
+ *
+ * @param {String} selector Filter
+ * @return {Object} New wrapped collection (containing zero or one element)
+ * @chainable
+ * @example
+ *     $('.selector').closest('.container');
+ */
+
+function closest(selector) {
+    var node = this[0];
+    for (; node.nodeType !== node.DOCUMENT_NODE; node = node.parentNode) {
+        if (matches(node, selector)) {
+            return $(node);
+        }
+    }
+    return $();
+}
+
+/**
+ * Return the parent elements of each element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').parent();
+ *     $('.selector').parent('.filter');
+ */
+
+function parent(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        if (!selector || (selector && matches(element.parentNode, selector))) {
+            nodes.push(element.parentNode);
+        }
+    });
+    return $(nodes);
+}
+
+/**
  * Return a collection containing only the one at the specified index.
  *
  * @param {Number} index
@@ -76,4 +117,4 @@ function slice(start, end) {
  * Export interface
  */
 
-export { children, eq, get, slice };
+export { children, closest, parent, eq, get, slice };
