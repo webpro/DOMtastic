@@ -1,63 +1,70 @@
 describe('array', function() {
 
-    var noop = function(){
+    var noop = function() {
         return true;
     };
 
-    it('should have each/forEach', function() {
-        var count = 0;
-        var elements = getElement('#testFragment li').each(function() {
-            count++;
+    it('should have proper each/forEach', function() {
+        var expected = getElement('#testFragment li'),
+            actual = [];
+        expected.each(function(element) {
+            actual.push(element);
         });
-        expect(count).to.equal(5);
-        expect(elements.forEach).to.equal(elements.each);
+        expect(actual).to.have.length(5);
+        expect(expected.forEach).to.equal(expected.each);
+        expect(actual[0]).to.equal(expected[0]);
     });
 
-    it('should have every', function() {
-        var elements = getElement('#testFragment li');
-        var result = elements.every(function(el) {
-            return el.nodeType === 1;
-        });
-        expect(result).to.be.ok;
+    it('should have proper every', function() {
+        var expected = getElement('#testFragment li'),
+            actual = expected.every(function(element) {
+                return element.nodeType === 1;
+            });
+        expect(actual).to.be.true;
     });
 
-    it('should have filter (selector)', function() {
-        var elements = getElement('#testFragment li').filter('li');
-        expect(elements.length).to.equal(5);
+    it('should have proper filter (selector)', function() {
+        var expected = getElement('#testFragment li[class]'),
+            actual = getElement('#testFragment li').filter('[class]');
+        expect(actual).to.eql(expected);
+        expect(actual).to.have.length(3);
     });
 
-    it('should have filter (function)', function() {
-        var elements = getElement('#testFragment li').filter(function(el) {
-            return el.className;
-        });
-        expect(elements.length).to.equal(3);
+    it('should have proper filter (function)', function() {
+        var expected = getElement('#testFragment li[class]'),
+            actual = getElement('#testFragment li').filter(function(element) {
+                return !!element.className;
+            });
+        expect(actual).to.eql(expected);
+        expect(actual).to.have.length(3);
     });
 
-    it('should have map', function() {
-        var elements = getElement('#testFragment li');
-        var result = elements.map(function(el) {
-            return el.nodeType
-        });
-        expect(result).to.deep.equal([1, 1, 1, 1, 1]);
+    it('should have proper map', function() {
+        var expected = [1, 1, 1, 1, 1],
+            actual = getElement('#testFragment li').map(function(element) {
+                return element.nodeType
+            });
+        expect(actual).to.deep.equal(expected);
     });
 
-    it('should have reverse', function() {
-        var elements = getElement('#testFragment li');
-        var result = elements.reverse();
-        expect(result[1]).to.equal($('.fourth')[0]);
+    it('should have proper reverse', function() {
+        var expected = getElement('#testFragment li')[0],
+            actual = getElement('#testFragment li').reverse()[4];
+        expect(actual).to.equal(expected);
     });
 
-    it('should return the index of the element in the collection', function() {
-        var elements = getElement('#testFragment li'),
-            element = elements[3];
-        var result = elements.indexOf(element);
-        expect(result).to.equal(3);
+    it('should have proper indexOf', function() {
+        var expected = 3,
+            elements = getElement('#testFragment li'),
+            element = elements[3],
+            actual = elements.indexOf(element);
+        expect(actual).to.equal(expected);
     });
 
     it('should provide a chainable API', function() {
-        var expected = getElement('#testFragment li');
-        var actual = expected.each(noop).reverse().filter(noop).reverse();
-        expect(actual[0]).to.be.equal(expected[0]);
+        var expected = getElement('#testFragment li'),
+            actual = expected.each(noop).reverse().filter(noop).reverse();
+        expect(actual).to.eql(expected);
     });
 
 });

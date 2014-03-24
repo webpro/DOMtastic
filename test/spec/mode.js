@@ -4,9 +4,9 @@ describe('mode', function() {
 
         it('should not augment native objects', function() {
 
-            expect(Node.prototype.find).to.be.an('undefined');
-            expect(NodeList.prototype.find).to.be.an('undefined');
-            expect(NodeList.prototype.forEach).to.be.an('undefined');
+            expect(Node.prototype.find).to.be.undefined;
+            expect(NodeList.prototype.find).to.be.undefined;
+            expect(NodeList.prototype.forEach).to.be.undefined;
 
         });
 
@@ -20,8 +20,8 @@ describe('mode', function() {
             expect(result.forEach).to.be.a('function');
 
             expect(result[0]).to.be.instanceof(Node);
-            expect(result[0].find).to.be.an('undefined');
-            expect(result[0].forEach).to.be.an('undefined');
+            expect(result[0].find).to.be.undefined;
+            expect(result[0].forEach).to.be.undefined;
 
         });
 
@@ -31,9 +31,9 @@ describe('mode', function() {
 
         it('should augment native objects', function() {
 
-            expect(Node.prototype.find).to.be.a('function')
-            expect(NodeList.prototype.find).to.be.a('function')
-            expect(NodeList.prototype.forEach).to.be.a('function')
+            expect(Node.prototype.find).to.be.a('function');
+            expect(NodeList.prototype.find).to.be.a('function');
+            expect(NodeList.prototype.forEach).to.be.a('function');
 
         });
 
@@ -58,7 +58,7 @@ describe('mode', function() {
 
         // Most browsers actually have [window.find](https://developer.mozilla.org/en-US/docs/Web/API/Window.find).
         expect(window.find).not.to.equal(getElement(document).find);
-        expect(window.forEach).to.be.an('undefined');
+        expect(window.forEach).to.be.undefined;
 
     });
 
@@ -92,9 +92,9 @@ describe('mode', function() {
 
         $.native(false);
 
-        expect(Node.prototype.find).to.be.an('undefined');
-        expect(NodeList.prototype.find).to.be.an('undefined');
-        expect(NodeList.prototype.forEach).to.be.an('undefined');
+        expect(Node.prototype.find).to.be.undefined;
+        expect(NodeList.prototype.find).to.be.undefined;
+        expect(NodeList.prototype.forEach).to.be.undefined;
 
         result = $('#testFragment li');
 
