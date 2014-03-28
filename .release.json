@@ -2,6 +2,6 @@
     "pkgFiles": ["package.json", "bower.json"],
     "buildCommand": "gulp build-release",
     "distRepo": "https://github.com/webpro/jquery-evergreen-release.git",
-    "distFiles": [".release/**/*"],
-    "distBase": ".release"
+    "distBase": ".release",
+    "distFiles": ["**/*"]
 }
