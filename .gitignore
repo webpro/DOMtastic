@@ -1,8 +1,8 @@
-/node_modules
-/bower_components
-/doc
-/coverage
-/complexity
-/.release
-/tmp
-/.idea
+node_modules
+bower_components
+doc
+coverage
+complexity
+.release
+.stage
+.idea
