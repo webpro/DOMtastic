@@ -1,4 +1,4 @@
-var getElement = function(element) {
+function getElement(element) {
     return typeof $ === 'function' && !$.isNative ?
         $(element) :
         typeof element !== 'string' ?
@@ -6,9 +6,9 @@ var getElement = function(element) {
             /^\s*<(\w+|!)[^>]*>/.test(element) ?
                 _createFragment(element) :
                 document.querySelectorAll(element);
-};
+}
 
-var _createFragment = function(html) {
+function _createFragment(html) {
 
     var fragment = document.createDocumentFragment(),
         container = document.createElement('div');
@@ -20,4 +20,8 @@ var _createFragment = function(html) {
     }
 
     return fragment.childNodes;
-};
+}
+
+function getRndStr() {
+    return (Math.random() + 1).toString(36).substring(7);
+}
