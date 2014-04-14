@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Plato - je/array.js</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -26,7 +26,7 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="http://github.com/jsoverson/plato">Plato on Github</a>
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
     <ul class="nav navbar-nav">
       <li>
         <a href="../../index.html">Report Home</a>
@@ -44,12 +44,12 @@
 <div class="container aggregate-stats">
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">85.37</p>
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">89.95</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">130</p>
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">53</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,12 +62,12 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">13.98</p>
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">15.37</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.28</p>
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.33</p>
     </div>
   </div>
 </div>
@@ -78,11 +78,11 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity"></i></a></h3>
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
       <div id="fn-by-complexity" class="stat"></div>
     </div>
     <div class="col-md-6">
-      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h3>
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
       <div id="fn-by-sloc" class="stat"></div>
     </div>
   </div>
@@ -91,135 +91,58 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-/**
- * @module Array
- */
-
-var _each = require(&quot;./util&quot;).each;
-var $ = require(&quot;./selector&quot;).$;
-var matches = require(&quot;./selector&quot;).matches;
-
+var __moduleName = &quot;array&quot;;
+var _each = require(&#039;./util&#039;).each;
+var $__0 = require(&#039;./selector&#039;),
+    $ = $__0.$,
+    matches = $__0.matches;
 var ArrayProto = Array.prototype;
-
-/**
- * Filter the collection by selector or function.
- *
- * @param {String|Function} selector Selector or function to filter the collection.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $(&#039;.items&#039;).filter(&#039;.active&#039;);
- * @example
- *     $(&#039;.items&#039;).filter(function(element) {
- *         return element.hasAttribute(&#039;active&#039;)
- *     });
- */
-
 function filter(selector) {
-    var callback = typeof selector === &#039;function&#039; ? selector : function(element) {
-        return matches(element, selector);
-    };
-    return $(ArrayProto.filter.call(this, callback));
+  var callback = typeof selector === &#039;function&#039; ? selector : function(element) {
+    return matches(element, selector);
+  };
+  return $(ArrayProto.filter.call(this, callback));
 }
-
-/**
- * Execute a function for each element in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $(&#039;.items&#039;).each(function(element) {
- *         element.style.color = &#039;evergreen&#039;;
- *     );
- */
-
 function each(callback) {
-    return _each(this, callback);
+  return _each(this, callback);
 }
-
 var forEach = each;
-
-/**
- * Create a new collection by executing the callback for each element in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
- * @return {Array} Collection with the return value of the executed callback for each element.
- * @example
- *     $(&#039;.items&#039;).map(function(element) {
- *         return element.getAttribute(&#039;name&#039;)
- *     });
- *     ➤ [&#039;ever&#039;, &#039;green&#039;]
- */
-
 var map = ArrayProto.map;
-
-/**
- * Reverses an array in place. The first array element becomes the last and the last becomes the first.
- *
- * @return {Object} The wrapped collection, reversed
- * @chainable
- * @example
- *     $(&#039;.items&#039;).reverse();
- */
-
 function reverse() {
-    var elements = ArrayProto.slice.call(this);
-    return $(ArrayProto.reverse.call(elements));
+  var elements = ArrayProto.slice.call(this);
+  return $(ArrayProto.reverse.call(elements));
 }
-
-/**
- * Checks if the given callback returns a true(-ish) value for each element in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
- * @return {Boolean} Whether each element passed the callback check.
- * @example
- *     $(&#039;.items&#039;).every(function(element) {
- *         return element.hasAttribute(&#039;active&#039;)
- *     });
- *     ➤ true/false
- */
-
 var every = ArrayProto.every;
-
-/**
- * Checks if the given callback returns a true(-ish) value for any of the elements in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
- * @return {Boolean} Whether any element passed the callback check.
- * @example
- *     $(&#039;.items&#039;).some(function(element) {
- *         return element.hasAttribute(&#039;active&#039;)
- *     });
- *     ➤ true/false
- */
-
 var some = ArrayProto.some;
-
-/**
- * Returns the index of an element in the collection.
- *
- * @param {Node} element
- * @return {Number} The zero-based index, -1 if not found.
- * @example
- *     $(&#039;.items&#039;).indexOf(element);
- *     ➤ 2
- */
-
 var indexOf = ArrayProto.indexOf;
-
-/*
- * Export interface
- */
-
-exports.each = each;
-exports.every = every;
-exports.filter = filter;
-exports.forEach = forEach;
-exports.indexOf = indexOf;
-exports.map = map;
-exports.reverse = reverse;
-exports.some = some;</textarea>
+;
+module.exports = {
+  get each() {
+    return each;
+  },
+  get every() {
+    return every;
+  },
+  get filter() {
+    return filter;
+  },
+  get forEach() {
+    return forEach;
+  },
+  get indexOf() {
+    return indexOf;
+  },
+  get map() {
+    return map;
+  },
+  get reverse() {
+    return reverse;
+  },
+  get some() {
+    return some;
+  },
+  __esModule: true
+};</textarea>
   </div>
 </div>
 

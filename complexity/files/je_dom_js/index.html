@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Plato - je/dom.js</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -26,7 +26,7 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="http://github.com/jsoverson/plato">Plato on Github</a>
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
     <ul class="nav navbar-nav">
       <li>
         <a href="../../index.html">Report Home</a>
@@ -44,12 +44,12 @@
 <div class="container aggregate-stats">
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">60.40</p>
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.35</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">133</p>
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">91</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,12 +62,12 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">36.54</p>
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">38.63</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.62</p>
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.66</p>
     </div>
   </div>
 </div>
@@ -78,11 +78,11 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity"></i></a></h3>
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
       <div id="fn-by-complexity" class="stat"></div>
     </div>
     <div class="col-md-6">
-      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h3>
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
       <div id="fn-by-sloc" class="stat"></div>
     </div>
   </div>
@@ -91,138 +91,96 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-/**
- * @module DOM
- */
-
-var toArray = require(&quot;./util&quot;).toArray;
-
-/**
- * Append element(s) to each element in the collection.
- *
- * @param {String|Node|NodeList|Object} element What to append to the element(s).
- * Clones elements as necessary.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $(&#039;.item&#039;).append(&#039;&lt;p&gt;more&lt;/p&gt;&#039;);
- */
-
+var __moduleName = &quot;dom&quot;;
+var toArray = require(&#039;./util&#039;).toArray;
 function append(element) {
-    if (this instanceof Node) {
-        if (typeof element === &#039;string&#039;) {
-            this.insertAdjacentHTML(&#039;beforeend&#039;, element);
-        } else {
-            if (element instanceof Node) {
-                this.appendChild(element);
-            } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.forEach(this.appendChild.bind(this));
-            }
-        }
-    } else {
-        var l = this.length;
-        while (l--) {
-            var elm = l === 0 ? element : clone(element);
-            append.call(this[l], elm);
-        }
-    }
-    return this;
-}
-
-/**
- * Place element(s) before each element in the collection.
- *
- * @param {String|Node|NodeList|Object} element What to place as sibling(s) before to the element(s).
- * Clones elements as necessary.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $(&#039;.items&#039;).before(&#039;&lt;p&gt;prefix&lt;/p&gt;&#039;);
- */
-
-function before(element) {
-    if (this instanceof Node) {
-        if (typeof element === &#039;string&#039;) {
-            this.insertAdjacentHTML(&#039;beforebegin&#039;, element);
-        } else {
-            if (element instanceof Node) {
-                this.parentNode.insertBefore(element, this);
-            } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.forEach(before.bind(this));
-            }
-        }
-    } else {
-        var l = this.length;
-        while (l--) {
-            var elm = l === 0 ? element : clone(element);
-            before.call(this[l], elm);
-        }
-    }
-    return this;
-}
-
-/**
- * Place element(s) after each element in the collection.
- *
- * @param {String|Node|NodeList|Object} element What to place as sibling(s) after to the element(s). Clones elements as necessary.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $(&#039;.items&#039;).after(&#039;&lt;span&gt;suf&lt;/span&gt;&lt;span&gt;fix&lt;/span&gt;&#039;);
- */
-
-function after(element) {
-    if (this instanceof Node) {
-        if (typeof element === &#039;string&#039;) {
-            this.insertAdjacentHTML(&#039;afterend&#039;, element);
-        } else {
-            if (element instanceof Node) {
-                this.parentNode.insertBefore(element, this.nextSibling);
-            } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.reverse().forEach(after.bind(this));
-            }
-        }
-    } else {
-        var l = this.length;
-        while (l--) {
-            var elm = l === 0 ? element : clone(element);
-            after.call(this[l], elm);
-        }
-    }
-    return this;
-}
-
-/**
- * Clone an object
- *
- * @param {String|Node|NodeList|Array} element The element(s) to clone.
- * @return {String|Node|NodeList|Array} The cloned element(s)
- * @private
- */
-
-function clone(element) {
+  if (this instanceof Node) {
     if (typeof element === &#039;string&#039;) {
-        return element;
-    } else if (element instanceof Node) {
-        return element.cloneNode(true);
-    } else if (&#039;length&#039; in element) {
-        return [].map.call(element, function(el) {
-            return el.cloneNode(true);
-        });
+      this.insertAdjacentHTML(&#039;beforeend&#039;, element);
+    } else {
+      if (element instanceof Node) {
+        this.appendChild(element);
+      } else {
+        var elements = element instanceof NodeList ? toArray(element) : element;
+        elements.forEach(this.appendChild.bind(this));
+      }
     }
-    return element;
+  } else {
+    var l = this.length;
+    while (l--) {
+      var elm = l === 0 ? element : clone(element);
+      append.call(this[l], elm);
+    }
+  }
+  return this;
 }
-
-/*
- * Export interface
- */
-
-exports.append = append;
-exports.before = before;
-exports.after = after;</textarea>
+function before(element) {
+  if (this instanceof Node) {
+    if (typeof element === &#039;string&#039;) {
+      this.insertAdjacentHTML(&#039;beforebegin&#039;, element);
+    } else {
+      if (element instanceof Node) {
+        this.parentNode.insertBefore(element, this);
+      } else {
+        var elements = element instanceof NodeList ? toArray(element) : element;
+        elements.forEach(before.bind(this));
+      }
+    }
+  } else {
+    var l = this.length;
+    while (l--) {
+      var elm = l === 0 ? element : clone(element);
+      before.call(this[l], elm);
+    }
+  }
+  return this;
+}
+function after(element) {
+  if (this instanceof Node) {
+    if (typeof element === &#039;string&#039;) {
+      this.insertAdjacentHTML(&#039;afterend&#039;, element);
+    } else {
+      if (element instanceof Node) {
+        this.parentNode.insertBefore(element, this.nextSibling);
+      } else {
+        var elements = element instanceof NodeList ? toArray(element) : element;
+        elements.reverse().forEach(after.bind(this));
+      }
+    }
+  } else {
+    var l = this.length;
+    while (l--) {
+      var elm = l === 0 ? element : clone(element);
+      after.call(this[l], elm);
+    }
+  }
+  return this;
+}
+function clone(element) {
+  if (typeof element === &#039;string&#039;) {
+    return element;
+  } else if (element instanceof Node) {
+    return element.cloneNode(true);
+  } else if (&#039;length&#039; in element) {
+    return [].map.call(element, function(el) {
+      return el.cloneNode(true);
+    });
+  }
+  return element;
+}
+;
+module.exports = {
+  get append() {
+    return append;
+  },
+  get before() {
+    return before;
+  },
+  get after() {
+    return after;
+  },
+  __esModule: true
+};</textarea>
   </div>
 </div>
 

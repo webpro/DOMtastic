@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Plato - je/api.js</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -26,7 +26,7 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="http://github.com/jsoverson/plato">Plato on Github</a>
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
     <ul class="nav navbar-nav">
       <li>
         <a href="../../index.html">Report Home</a>
@@ -44,12 +44,12 @@
 <div class="container aggregate-stats">
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">64.09</p>
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">100.00</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">76</p>
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">37</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,12 +62,12 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">17.22</p>
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">11.11</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.62</p>
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.34</p>
     </div>
   </div>
 </div>
@@ -78,11 +78,11 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity"></i></a></h3>
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
       <div id="fn-by-complexity" class="stat"></div>
     </div>
     <div class="col-md-6">
-      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h3>
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
       <div id="fn-by-sloc" class="stat"></div>
     </div>
   </div>
@@ -91,81 +91,42 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-function __es6_transpiler_warn__(warning) {
-  if (typeof console === &#039;undefined&#039;) {
-  } else if (typeof console.warn === &quot;function&quot;) {
-    console.warn(warning);
-  } else if (typeof console.log === &quot;function&quot;) {
-    console.log(warning);
-  }
-}
-function __es6_transpiler_build_module_object__(name, imported) {
-  var moduleInstanceObject = Object.create ? Object.create(null) : {};
-  if (typeof imported === &quot;function&quot;) {
-    __es6_transpiler_warn__(&quot;imported module &#039;&quot;+name+&quot;&#039; exported a function - this may not work as expected&quot;);
-  }
-  for (var key in imported) {
-    if (Object.prototype.hasOwnProperty.call(imported, key)) {
-      moduleInstanceObject[key] = imported[key];
-    }
-  }
-  if (Object.freeze) {
-    Object.freeze(moduleInstanceObject);
-  }
-  return moduleInstanceObject;
-}
-/**
- * @module API
- */
-
-var extend = require(&quot;./util&quot;).extend;
-
+var __moduleName = &quot;api&quot;;
+var extend = require(&#039;./util&#039;).extend;
 var api = {},
     apiNodeList = {},
     $ = {};
-
-// Import modules to build up the API
-
-var array = __es6_transpiler_build_module_object__(&quot;array&quot;, require(&quot;./array&quot;));
-var attr = __es6_transpiler_build_module_object__(&quot;attr&quot;, require(&quot;./attr&quot;));
-var className = __es6_transpiler_build_module_object__(&quot;className&quot;, require(&quot;./class&quot;));
-var dom = __es6_transpiler_build_module_object__(&quot;dom&quot;, require(&quot;./dom&quot;));
-var dom_extra = __es6_transpiler_build_module_object__(&quot;dom_extra&quot;, require(&quot;./dom_extra&quot;));
-var event = __es6_transpiler_build_module_object__(&quot;event&quot;, require(&quot;./event&quot;));
-var html = __es6_transpiler_build_module_object__(&quot;html&quot;, require(&quot;./html&quot;));
-var selector = __es6_transpiler_build_module_object__(&quot;selector&quot;, require(&quot;./selector&quot;));
-var selector_extra = __es6_transpiler_build_module_object__(&quot;selector_extra&quot;, require(&quot;./selector_extra&quot;));
-
+var array = require(&#039;./array&#039;);
+var attr = require(&#039;./attr&#039;);
+var className = require(&#039;./class&#039;);
+var dom = require(&#039;./dom&#039;);
+var dom_extra = require(&#039;./dom_extra&#039;);
+var event = require(&#039;./event&#039;);
+var html = require(&#039;./html&#039;);
+var selector = require(&#039;./selector&#039;);
+var selector_extra = require(&#039;./selector_extra&#039;);
 if (selector !== undefined) {
-    $ = selector.$;
-    $.matches = selector.matches;
-    api.find = selector.find;
+  $ = selector.$;
+  $.matches = selector.matches;
+  api.find = selector.find;
 }
-
-var mode = __es6_transpiler_build_module_object__(&quot;mode&quot;, require(&quot;./mode&quot;));
+var mode = require(&#039;./mode&#039;);
 extend($, mode);
-var noconflict = __es6_transpiler_build_module_object__(&quot;noconflict&quot;, require(&quot;./noconflict&quot;));
+var noconflict = require(&#039;./noconflict&#039;);
 extend($, noconflict);
-
 extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
-
-// Version
-
-$.version = &#039;0.4.3&#039;;
-
-// Util
-
+$.version = &#039;0.5.0&#039;;
 $.extend = extend;
-
-// Internal properties to switch between default and native mode
-
 $._api = api;
 $._apiNodeList = apiNodeList;
-
-// Export interface
-
-exports[&quot;default&quot;] = $;</textarea>
+var $__default = $;
+module.exports = {
+  get default() {
+    return $__default;
+  },
+  __esModule: true
+};</textarea>
   </div>
 </div>
 

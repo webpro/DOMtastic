@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Plato - je/util.js</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -26,7 +26,7 @@
 
 <div class="navbar navbar-fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="http://github.com/jsoverson/plato">Plato on Github</a>
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
     <ul class="nav navbar-nav">
       <li>
         <a href="../../index.html">Report Home</a>
@@ -44,12 +44,12 @@
 <div class="container aggregate-stats">
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"></i></a></h2>
-      <p class="stat">75.75</p>
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">81.16</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h2>
-      <p class="stat">94</p>
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">50</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,12 +62,12 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty"></i></a></h2>
-      <p class="stat">24.21</p>
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">25.00</p>
     </div>
     <div class="col-md-6">
-      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs"></i></a></h2>
-      <p class="stat">0.25</p>
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.30</p>
     </div>
   </div>
 </div>
@@ -78,11 +78,11 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity"></i></a></h3>
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
       <div id="fn-by-complexity" class="stat"></div>
     </div>
     <div class="col-md-6">
-      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC"></i></h3>
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
       <div id="fn-by-sloc" class="stat"></div>
     </div>
   </div>
@@ -91,99 +91,55 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
-/*
- * @module Util
- */
-
-/*
- * Reference to the global scope
- * @private
- */
-
+var __moduleName = &quot;util&quot;;
 var global = new Function(&quot;return this&quot;)(),
     slice = Array.prototype.slice;
-
-/**
- * Convert `NodeList` to `Array`.
- *
- * @param {NodeList|Array} collection
- * @return {Array}
- * @private
- */
-
 function toArray(collection) {
-    return slice.call(collection);
+  return slice.call(collection);
 }
-
-/**
- * Return something that can be iterated over (e.g. using `forEach`).
- * Arrays and NodeLists are returned as-is, but a Node will be wrapped in a `[]`.
- *
- * @param {Node|NodeList|Array} element
- * @return {Array|NodeList}
- * @private
- */
-
 function makeIterable(element) {
-    return element.length === undefined || element === window ? [element] : element;
+  return element.length === undefined || element === window ? [element] : element;
 }
-
-/**
- * Faster alternative to [].forEach method
- *
- * @param {Node|NodeList|Array} collection
- * @param {Function} callback
- * @return {Node|NodeList|Array}
- * @private
- */
-
 function each(collection, callback) {
-    var length = collection.length;
-    if (length !== undefined) {
-        for (var i = 0; i &lt; length; i++){
-            callback(collection[i], i, collection);
-        }
-    } else {
-        callback(collection, 0);
+  var length = collection.length;
+  if (length !== undefined) {
+    for (var i = 0; i &lt; length; i++) {
+      callback(collection[i], i, collection);
     }
-    return collection;
+  } else {
+    callback(collection, 0);
+  }
+  return collection;
 }
-
-/**
- * Assign properties from source object(s) to target object
- *
- * @method extend
- * @param {Object} target Object to extend
- * @param {Object} [source] Object to extend from
- * @return {Object} Extended object
- * @example
- *     $.extend({a: 1}, {b: 2});
- *     ➤ {a: 1, b: 2}
- * @example
- *     $.extend({a: 1}, {b: 2}, {a: 3});
- *     ➤ {a: 3, b: 2}
- */
-
 function extend(target, source) {
-    slice.call(arguments, 1).forEach(function(src) {
-        if (src) {
-            for (var prop in src) {
-                target[prop] = src[prop];
-            }
-        }
-    });
-    return target;
+  slice.call(arguments, 1).forEach(function(src) {
+    if (src) {
+      for (var prop in src) {
+        target[prop] = src[prop];
+      }
+    }
+  });
+  return target;
 }
-
-/*
- * Export interface
- */
-
-exports.global = global;
-exports.toArray = toArray;
-exports.makeIterable = makeIterable;
-exports.each = each;
-exports.extend = extend;</textarea>
+;
+module.exports = {
+  get global() {
+    return global;
+  },
+  get toArray() {
+    return toArray;
+  },
+  get makeIterable() {
+    return makeIterable;
+  },
+  get each() {
+    return each;
+  },
+  get extend() {
+    return extend;
+  },
+  __esModule: true
+};</textarea>
   </div>
 </div>
 
