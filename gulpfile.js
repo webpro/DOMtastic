@@ -26,7 +26,8 @@ var srcFiles = './src/**/*.js',
     uglifyOptions = {
         mangle: true,
         preserveComments: false,
-        compress: true
+        compress: true,
+        'screw-ie8': true
     };
 
 var bundlePresets = {
@@ -158,11 +159,11 @@ function dollar(data) {
 }
 
 function exclude(preset) {
+    var modulesToExclude = bundlePresets[preset].modulesToExclude,
+        removeDeReqsRE = new RegExp('.+_dereq_.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g'),
+        removeExtendsRE = new RegExp('(,\\ (__M__))'.replace(/__M__/g, modulesToExclude.join('|')), 'g');
     return function(data) {
-        var modulesToExclude = bundlePresets[preset].modulesToExclude;
-        var removeModulesRE = new RegExp('.+_dereq_.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g');
-        var removeModulesRE2 = new RegExp('(,\\ (__M__))'.replace(/__M__/g, modulesToExclude.join('|')), 'g')
-        return data.replace(removeModulesRE, '').replace(removeModulesRE2, '');
+        return modulesToExclude.length ? data.replace(removeDeReqsRE, '').replace(removeExtendsRE, '') : data;
     }
 }
 
