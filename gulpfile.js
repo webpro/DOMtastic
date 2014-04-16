@@ -13,7 +13,8 @@ var path = require('path'),
     jscs = require('gulp-jscs'),
     traceur = require('gulp-traceur'),
     source = require('vinyl-source-stream'),
-    map = require('through2-map');
+    map = require('through2-map')
+    es = require('event-stream');
 
 // Configuration
 
@@ -97,20 +98,32 @@ gulp.task('jscs', ['transpile-cjs'], function() {
 
 gulp.task('bundle', ['clean'], function() {
 
-    var bundle = browserify()
-        .require(require.resolve(browserifyEntryPoint), {
-            entry: true
-        })
-        .transform(es6ify)
-        .bundle({
-            standalone: 'jQueryEvergreen'
-        })
-        .pipe(modify([version, dollar, unget]));
+    function bundle(preset) {
 
-    bundle.pipe(source(fileName)).pipe(gulp.dest(distFolder));
-    bundle.pipe(source(fileName)).pipe(gulp.dest(bundlePresets['full'].dest));
-    bundle.pipe(modify([exclude('default')])).pipe(source(fileName)).pipe(gulp.dest(bundlePresets['default'].dest));
-    return bundle.pipe(modify([exclude('bare')])).pipe(source(fileName)).pipe(gulp.dest(bundlePresets['bare'].dest));
+        var b = browserify()
+            .require(require.resolve(browserifyEntryPoint), {
+                entry: true
+            })
+            .transform(es6ify);
+
+        bundlePresets[preset].modulesToExclude.map(function(moduleName) {
+            return './' + moduleName;
+        }).map(b.exclude.bind(b));
+
+        return b
+            .bundle({
+                standalone: 'jQueryEvergreen'
+            })
+            .pipe(modify([version, dollar, unget]))
+            .pipe(modify(exclude(preset))).pipe(source(fileName)).pipe(gulp.dest(bundlePresets[preset].dest));
+    }
+
+    return es.concat(
+        bundle('custom'),
+        bundle('full'),
+        bundle('default'),
+        bundle('bare')
+    )
 
 });
 

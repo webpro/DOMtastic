@@ -52,7 +52,8 @@
     "plato": "^1.0.1",
     "benchrunner": "0.0.3",
     "vinyl-source-stream": "^0.1.1",
-    "through2-map": "^1.2.1"
+    "through2-map": "^1.2.1",
+    "event-stream": "^3.1.2"
   },
   "license": "MIT"
 }
