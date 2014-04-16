@@ -7,7 +7,7 @@
 var http = require('http'),
     ecstatic = require('ecstatic'),
     request = require('request'),
-    SauceTunnel = require('sauce-tunnel');
+    SauceTunnel = require('sauce-tunnel-sc3-1');
 
 var env = process.env,
     accessKey = env.SAUCE_ACCESS_KEY,
