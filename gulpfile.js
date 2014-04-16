@@ -174,10 +174,9 @@ function modify(modifiers) {
     return map({
         wantStrings: true
     }, function(data) {
-        var result = data;
-        modifiers.forEach(function(modifier) {
-            result = modifier(result);
-        }.bind(this));
-        return result;
+        (typeof modifiers === 'function' ? [modifiers] : modifiers).forEach(function(modifier) {
+            data = modifier(data);
+        });
+        return data;
     })
 }
