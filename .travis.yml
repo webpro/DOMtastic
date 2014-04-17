@@ -11,7 +11,7 @@ branches:
   only:
     - master
 before_install:
-  - "npm i coveralls ecstatic request sauce-tunnel-sc3-1"
+  - "npm i coveralls ecstatic request sauce-tunnel"
 before_script:
   - "./node_modules/gulp/bin/gulp.js build-release"
 script:
