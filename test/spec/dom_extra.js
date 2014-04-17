@@ -38,6 +38,15 @@ describe('dom (extra)', function() {
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo' + htmlList + '</p><p>bar' + htmlList + '</p><p>baz' + htmlList + '</p>');
         });
 
+        it('should appendTo DOM string', function() {
+            var element = getElement(htmlSmall);
+            var unexpected = element[0].parentNode;
+            element.appendTo('<p/>');
+            var actual = element[0].parentNode
+            expect(actual).not.to.equal(unexpected);
+            expect(actual.nodeName.toLowerCase()).to.equal('p');
+        });
+
     });
 
     describe('remove', function() {
