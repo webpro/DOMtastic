@@ -61,6 +61,13 @@ describe('dom', function() {
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo' + htmlList + '</p><p>bar' + htmlList + '</p><p>baz' + htmlList + '</p>');
         });
 
+        it('should append NodeList to element', function() {
+            container[0].innerHTML = htmlList;
+            var nodeList = container[0].querySelectorAll('p');
+            emptyContainer.append(nodeList);
+            expect(emptyContainer[0].innerHTML).to.equal(htmlList);
+        });
+
     });
 
     describe('before', function() {
@@ -82,8 +89,8 @@ describe('dom', function() {
         });
 
         it('should insert DOM elements as previous sibling', function() {
-            var child = getElement(htmlList);
-            getElement('#testChild').before(child);
+            var children = getElement(htmlList);
+            getElement('#testChild').before(children);
             expect(container[0].innerHTML).to.equal(htmlList + containerHTML);
         });
 
@@ -103,6 +110,13 @@ describe('dom', function() {
             emptyContainer.append(htmlList);
             getElement('#testEmpty > *').before(getElement(htmlList));
             expect(emptyContainer[0].innerHTML).to.equal(htmlList + '<p>foo</p>' + htmlList + '<p>bar</p>' + htmlList + '<p>baz</p>');
+        });
+
+        it('should insert NodeList as previous sibling', function() {
+            emptyContainer[0].innerHTML = htmlList;
+            var nodeList = emptyContainer[0].querySelectorAll('p');
+            getElement('#testChild').before(nodeList);
+            expect(container[0].innerHTML).to.equal(htmlList + containerHTML);
         });
 
     });
@@ -146,6 +160,13 @@ describe('dom', function() {
         it('should insert DOM elements as next sibling', function() {
             var child = getElement(htmlList);
             getElement('#testChild').after(child);
+            expect(container[0].innerHTML).to.equal(containerHTML + htmlList);
+        });
+
+        it('should insert NodeList as next sibling', function() {
+            emptyContainer[0].innerHTML = htmlList;
+            var nodeList = emptyContainer[0].querySelectorAll('p');
+            getElement('#testChild').after(nodeList);
             expect(container[0].innerHTML).to.equal(containerHTML + htmlList);
         });
 
