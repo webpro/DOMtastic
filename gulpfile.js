@@ -109,7 +109,7 @@ gulp.task('bundle', ['clean'], function() {
             .bundle({
                 standalone: 'domtastic'
             })
-            .pipe(modify([version, dollar, unget]))
+            .pipe(modify([version, exportDefault, dollar, unget]))
             .pipe(modify(exclude(preset))).pipe(source(fileName)).pipe(gulp.dest(bundlePresets[preset].dest));
     }
 
@@ -168,8 +168,12 @@ function version(data) {
     return data.replace(/__VERSION__/, pkg.version);
 }
 
+function exportDefault(data) {
+    return data.replace(/^(!function\()([a-z])(\)\{)/, '$1_$2$3var $2=function(){return _$2()["default"]};')
+}
+
 function dollar(data) {
-    return data.replace(/(domtastic)=([^\(])\(\)/, '$=$2()["default"]');
+    return data.replace(/domtastic/, '$');
 }
 
 function exclude(preset) {
