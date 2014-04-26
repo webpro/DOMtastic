@@ -10,7 +10,6 @@ var path = require('path'),
     replace = require('gulp-replace'),
     size = require('gulp-size'),
     gzip = require("gulp-gzip"),
-    jscs = require('gulp-jscs'),
     traceur = require('gulp-traceur'),
     source = require('vinyl-source-stream'),
     map = require('through2-map')
@@ -88,12 +87,6 @@ gulp.task('transpile-amd', ['clean'], function() {
         .pipe(replace(/__VERSION__/, pkg.version))
         .pipe(gulp.dest(releaseFolder + 'amd'));
 
-});
-
-// JSCS (QA/lint)
-
-gulp.task('jscs', ['transpile-cjs'], function() {
-    return gulp.src([releaseFolder + 'commonjs/**/*.js', '!' + releaseFolder + 'commonjs/je/api.js']).pipe(jscs());
 });
 
 gulp.task('bundle', ['clean'], function() {

@@ -43,7 +43,6 @@
     "gulp-replace": "^0.2.0",
     "gulp-size": "^0.3.0",
     "gulp-gzip": "0.0.6",
-    "gulp-jscs": "^0.4.1",
     "browserify": "^3.41.0",
     "es6ify": "^1.0.3",
     "mocha-phantomjs": "^3.3.1",
