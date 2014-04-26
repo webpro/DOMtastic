@@ -69,9 +69,7 @@ function augment(obj, key, value) {
  * @private
  */
 
-function unaugment(obj, key) {
-    delete obj[key];
-}
+var unaugment = (obj, key) => { delete obj[key] };
 
 /*
  * Augment native `Node` and `NodeList` objects in native mode.

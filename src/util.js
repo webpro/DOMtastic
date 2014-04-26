@@ -18,9 +18,7 @@ var global = new Function("return this")(),
  * @private
  */
 
-function toArray(collection) {
-    return slice.call(collection);
-}
+var toArray = (collection) => slice.call(collection);
 
 /**
  * Return something that can be iterated over (e.g. using `forEach`).
@@ -31,9 +29,7 @@ function toArray(collection) {
  * @private
  */
 
-function makeIterable(element) {
-    return element.length === undefined || element === window ? [element] : element;
-}
+var makeIterable = (element) => element.length === undefined || element === window ? [element] : element;
 
 /**
  * Faster alternative to [].forEach method
