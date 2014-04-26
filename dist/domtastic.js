@@ -25,7 +25,7 @@ var noconflict = _dereq_('./noconflict');
 extend($, noconflict);
 extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
-$.version = '0.5.1';
+$.version = '0.5.2';
 $.extend = extend;
 $._api = api;
 $._apiNodeList = apiNodeList;
@@ -331,8 +331,8 @@ function delegate(selector, eventName, handler) {
 function undelegate(selector, eventName, handler) {
   return off.call(this, eventName, selector, handler);
 }
-function trigger(type, params) {
-  params = params || {
+function trigger(type) {
+  var params = arguments[1] !== (void 0) ? arguments[1] : {
     bubbles: true,
     cancelable: true,
     detail: undefined
@@ -359,8 +359,8 @@ function isAttachedToDocument(element) {
   }
   return false;
 }
-function triggerForPath(element, type, params) {
-  params = params || {};
+function triggerForPath(element, type) {
+  var params = arguments[2] !== (void 0) ? arguments[2] : {};
   params.bubbles = false;
   var event = new CustomEvent(type, params);
   event._target = element;
@@ -369,7 +369,7 @@ function triggerForPath(element, type, params) {
     element = element.parentNode;
   }
 }
-var cacheKeyProp = '_jeh';
+var cacheKeyProp = '__domtastic';
 var id = 1;
 var handlers = {};
 var unusedKeys = [];
@@ -398,8 +398,8 @@ function delegateHandler(selector, handler, event) {
   }
 }
 (function() {
-  function CustomEvent(event, params) {
-    params = params || {
+  function CustomEvent(event) {
+    var params = arguments[1] !== (void 0) ? arguments[1] : {
       bubbles: false,
       cancelable: false,
       detail: undefined
@@ -473,9 +473,10 @@ module.exports = {
 var __moduleName = "src/mode";
 var global = _dereq_('./util').global;
 var isNative = false;
-function native(goNative) {
+function native() {
+  var goNative = arguments[0] !== (void 0) ? arguments[0] : true;
   var wasNative = isNative;
-  isNative = typeof goNative === 'boolean' ? goNative : true;
+  isNative = goNative;
   if (global.$) {
     global.$.isNative = isNative;
   }
@@ -498,9 +499,9 @@ function augment(obj, key, value) {
     });
   }
 }
-function unaugment(obj, key) {
+var unaugment = (function(obj, key) {
   delete obj[key];
-}
+});
 function augmentNativePrototypes(methodsNode, methodsNodeList) {
   var key;
   for (key in methodsNode) {
@@ -556,7 +557,8 @@ var slice = [].slice,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
-function $(selector, context) {
+function $(selector) {
+  var context = arguments[1] !== (void 0) ? arguments[1] : document;
   var collection;
   if (!selector) {
     collection = document.querySelectorAll(null);
@@ -565,7 +567,7 @@ function $(selector, context) {
   } else if (reFragment.test(selector)) {
     collection = createFragment(selector);
   } else {
-    context = context ? (typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context) : document;
+    context = typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context;
     collection = querySelector(selector, context);
   }
   return $.isNative ? collection : wrap(collection);
@@ -695,12 +697,12 @@ module.exports = {
 var __moduleName = "src/util";
 var global = new Function("return this")(),
     slice = Array.prototype.slice;
-function toArray(collection) {
+var toArray = (function(collection) {
   return slice.call(collection);
-}
-function makeIterable(element) {
+});
+var makeIterable = (function(element) {
   return element.length === undefined || element === window ? [element] : element;
-}
+});
 function each(collection, callback) {
   var length = collection.length;
   if (length !== undefined) {
@@ -712,8 +714,11 @@ function each(collection, callback) {
   }
   return collection;
 }
-function extend(target, source) {
-  slice.call(arguments, 1).forEach(function(src) {
+function extend(target) {
+  for (var sources = [],
+      $__0 = 1; $__0 < arguments.length; $__0++)
+    sources[$__0 - 1] = arguments[$__0];
+  sources.forEach(function(src) {
     if (src) {
       for (var prop in src) {
         target[prop] = src[prop];

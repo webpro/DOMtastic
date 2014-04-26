@@ -2548,8 +2548,7 @@ $(&#x27;.container&#x27;).on(&#x27;click&#x27;, &#x27;.item&#x27;, handler);
                                         </div>
                                         
                                         <div class="tab-pane" id="trigger-source">
-                                            <pre><code class="language-javascript">function trigger(type, params) {
-    params = params || { bubbles: true, cancelable: true, detail: undefined };
+                                            <pre><code class="language-javascript">function trigger(type, params = { bubbles: true, cancelable: true, detail: undefined }) {
     var event = new CustomEvent(type, params);
     each(this, function(element) {
         if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
@@ -2859,7 +2858,7 @@ $(&#x27;.item&#x27;).html(&#x27;&lt;span&gt;more&lt;/span&gt;&#x27;);
                                         </div>
                                         
                                         <div class="tab-pane" id="dollar-source">
-                                            <pre><code class="language-javascript">function $(selector, context) {
+                                            <pre><code class="language-javascript">function $(selector, context = document) {
 
     var collection;
 
@@ -2877,7 +2876,7 @@ $(&#x27;.item&#x27;).html(&#x27;&lt;span&gt;more&lt;/span&gt;&#x27;);
 
     } else {
 
-        context = context ? (typeof context === &#x27;string&#x27; ? document.querySelector(context) : context.length ? context[0] : context) : document;
+        context = typeof context === &#x27;string&#x27; ? document.querySelector(context) : context.length ? context[0] : context;
 
         collection = querySelector(selector, context);
 
@@ -3733,8 +3732,8 @@ $(&#x27;.selector&#x27;).parent(&#x27;.filter&#x27;);
                                         </div>
                                         
                                         <div class="tab-pane" id="extend-source">
-                                            <pre><code class="language-javascript">function extend(target, source) {
-    slice.call(arguments, 1).forEach(function(src) {
+                                            <pre><code class="language-javascript">function extend(target, ...sources) {
+    sources.forEach(function(src) {
         if (src) {
             for (var prop in src) {
                 target[prop] = src[prop];

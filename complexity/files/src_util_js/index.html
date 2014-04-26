@@ -45,11 +45,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">81.16</p>
+      <p class="stat">78.73</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">50</p>
+      <p class="stat">53</p>
     </div>
   </div>
   <div class="row historical">
@@ -63,11 +63,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">25.00</p>
+      <p class="stat">28.80</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.30</p>
+      <p class="stat">0.35</p>
     </div>
   </div>
 </div>
@@ -94,12 +94,12 @@
 var __moduleName = &quot;util&quot;;
 var global = new Function(&quot;return this&quot;)(),
     slice = Array.prototype.slice;
-function toArray(collection) {
+var toArray = (function(collection) {
   return slice.call(collection);
-}
-function makeIterable(element) {
+});
+var makeIterable = (function(element) {
   return element.length === undefined || element === window ? [element] : element;
-}
+});
 function each(collection, callback) {
   var length = collection.length;
   if (length !== undefined) {
@@ -111,8 +111,11 @@ function each(collection, callback) {
   }
   return collection;
 }
-function extend(target, source) {
-  slice.call(arguments, 1).forEach(function(src) {
+function extend(target) {
+  for (var sources = [],
+      $__0 = 1; $__0 &lt; arguments.length; $__0++)
+    sources[$__0 - 1] = arguments[$__0];
+  sources.forEach(function(src) {
     if (src) {
       for (var prop in src) {
         target[prop] = src[prop];
