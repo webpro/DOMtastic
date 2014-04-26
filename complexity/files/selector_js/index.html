@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - selector.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome-ie7.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>selector.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.54</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">92</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">34.04</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.92</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">&quot;use strict&quot;;
+var __moduleName = &quot;selector&quot;;
+var $__0 = require(&#039;./util&#039;),
+    global = $__0.global,
+    makeIterable = $__0.makeIterable;
+var slice = [].slice,
+    isPrototypeSet = false,
+    reFragment = /^\s*&lt;(\w+|!)[^&gt;]*&gt;/,
+    reSingleTag = /^&lt;(\w+)\s*\/?&gt;(?:&lt;\/\1&gt;|)$/,
+    reSimpleSelector = /^[\.#]?[\w-]*$/;
+function $(selector) {
+  var context = arguments[1] !== (void 0) ? arguments[1] : document;
+  var collection;
+  if (!selector) {
+    collection = document.querySelectorAll(null);
+  } else if (typeof selector !== &#039;string&#039;) {
+    collection = makeIterable(selector);
+  } else if (reFragment.test(selector)) {
+    collection = createFragment(selector);
+  } else {
+    context = typeof context === &#039;string&#039; ? document.querySelector(context) : context.length ? context[0] : context;
+    collection = querySelector(selector, context);
+  }
+  return $.isNative ? collection : wrap(collection);
+}
+function find(selector) {
+  return $(selector, this);
+}
+var matches = (function() {
+  var context = typeof Element !== &#039;undefined&#039; ? Element.prototype : global,
+      _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+  return function(element, selector) {
+    return _matches.call(element, selector);
+  };
+})();
+function querySelector(selector, context) {
+  var isSimpleSelector = reSimpleSelector.test(selector);
+  if (isSimpleSelector &amp;&amp; !$.isNative) {
+    if (selector[0] === &#039;#&#039;) {
+      var element = (context.getElementById ? context : document).getElementById(selector.slice(1));
+      return element ? [element] : [];
+    }
+    if (selector[0] === &#039;.&#039;) {
+      return context.getElementsByClassName(selector.slice(1));
+    }
+    return context.getElementsByTagName(selector);
+  }
+  return context.querySelectorAll(selector);
+}
+function createFragment(html) {
+  if (reSingleTag.test(html)) {
+    return [document.createElement(RegExp.$1)];
+  }
+  var elements = [],
+      container = document.createElement(&#039;div&#039;),
+      children = container.childNodes;
+  container.innerHTML = html;
+  for (var i = 0,
+      l = children.length; i &lt; l; i++) {
+    elements.push(children[i]);
+  }
+  return elements;
+}
+function wrap(collection) {
+  if (!isPrototypeSet) {
+    Wrapper.prototype = $._api;
+    Wrapper.prototype.constructor = Wrapper;
+    isPrototypeSet = true;
+  }
+  return new Wrapper(collection);
+}
+function Wrapper(collection) {
+  var i = 0,
+      length = collection.length;
+  for (; i &lt; length; ) {
+    this[i] = collection[i++];
+  }
+  this.length = length;
+}
+;
+module.exports = {
+  get $() {
+    return $;
+  },
+  get find() {
+    return find;
+  },
+  get matches() {
+    return matches;
+  },
+  __esModule: true
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
