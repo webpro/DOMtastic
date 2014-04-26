@@ -223,7 +223,7 @@ function triggerForPath(element, type, params = {}) {
  * @return {Array}
  */
 
-var cacheKeyProp = '_jeh';
+var cacheKeyProp = '__domtastic';
 var id = 1;
 var handlers = {};
 var unusedKeys = [];
