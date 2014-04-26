@@ -50,14 +50,6 @@ var bundlePresets = {
     }
 };
 
-// Fix for Gulp hanging in some environments
-
-gulp.on('stop', function() {
-    process.nextTick(function() {
-        process.exit(0);
-    });
-});
-
 // Task grouping
 
 gulp.task('default', ['build']);
