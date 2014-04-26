@@ -98,7 +98,7 @@ function runTests() {
         'record-screenshots': true,
         'record-video': false,
         'video-upload-on-pass': false,
-        name: 'jQuery Evergreen tests',
+        name: 'DOMtastic tests',
         public: 'public'
     };
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for dist/jquery-evergreen.js</title>
+    <title>Code coverage report for dist/domtastic.js</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="../prettify.css">
@@ -196,7 +196,7 @@
 </head>
 <body>
 <div class="header high">
-    <h1>Code coverage report for <span class="entity">dist/jquery-evergreen.js</span></h1>
+    <h1>Code coverage report for <span class="entity">dist/domtastic.js</span></h1>
     <h2>
         
         Statements: <span class="metric">96.06% <small>(414 / 431)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -212,7 +212,7 @@
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
-    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">dist/</a> &#187; jquery-evergreen.js</div>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">dist/</a> &#187; domtastic.js</div>
 </div>
 <div class="body">
 <pre><table class="coverage">
@@ -1418,6 +1418,17 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">3</span>
 <span class="cline-any cline-yes">3</span>
 <span class="cline-any cline-yes">3</span>
@@ -1679,20 +1690,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="missing-if-branch" title="if path not taken" >I</span>!function(e){if("object"==typeof exports)<span class="cstat-no" title="statement not covered" >module.ex<span class="missing-if-branch" title="if path not taken" >I</span>ports=e();e</span>lse if("function"==typeof define&amp;&amp;<span class="branch-1 cbranch-no" title="branch not covered" >define.amd)<span class="cstat-no" title="statement not covered" ></span>define(e);e</span>lse{var f;"undefined"!=typeof window?f=window:<span class="branch-1 cbranch-no" title="branch not covered" >"undefined"!=typeof global?f=global:"undefined"!=typeof self&amp;&amp;(f=self),</span>f.$=e()["default"]}}(function(){var define,module,exports;return (function e(t,n,r){function s(<span class="missing-if-branch" title="if path not taken" >I</span>o,u){if(!n[o]){if(!t[o]){<span class="cstat-no" title="statement not covered" >var a=typeof require=="function"&amp;&amp;require;<span class="cstat-no" title="statement not covered" >i</span>f(!u&amp;&amp;a)<span class="cstat-no" title="statement not covered" >return a(o,!0);<span class="cstat-no" title="statement not covered" >i</span></span>f(i)<span class="cstat-no" title="statement not covered" >return i(o,!0);<span class="cstat-no" title="statement not covered" >t</span></span>hrow new Error("Cannot find module '"+o+"'")}</span>var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:<span class="branch-1 cbranch-no" title="branch not covered" >e)</span>},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&amp;&amp;<span class="branch-1 cbranch-no" title="branch not covered" >require;</span>for(var o=0;o&lt;r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/api";
+var __moduleName = "src/api";
 var extend = _dereq_('./util').extend;
 var api = {},
     apiNodeList = {},
@@ -1728,9 +1728,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./array":2,"./attr":3,"./class":4,"./dom":5,"./dom_extra":6,"./event":7,"./html":8,"./mode":9,"./noconflict":10,"./selector":11,"./selector_extra":12,"./util":13}],2:[function(_dereq_,module,exports){
+},{"./array":2,"./attr":3,"./class":4,"./dom":5,"./dom_extra":6,"./event":7,"./html":8,"./mode":10,"./noconflict":11,"./selector":12,"./selector_extra":13,"./util":14}],2:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/array";
+var __moduleName = "src/array";
 var _each = _dereq_('./util').each;
 var $__0 = _dereq_('./selector'),
     $ = $__0.$,
@@ -1768,9 +1768,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./selector":11,"./util":13}],3:[function(_dereq_,module,exports){
+},{"./selector":12,"./util":14}],3:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/attr";
+var __moduleName = "src/attr";
 var each = _dereq_('./util').each;
 function attr(key, value) {
   if (typeof key === 'string' &amp;&amp; typeof value === 'undefined') {
@@ -1795,9 +1795,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],4:[function(_dereq_,module,exports){
+},{"./util":14}],4:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/class";
+var __moduleName = "src/class";
 var $__0 = _dereq_('./util'),
     makeIterable = $__0.makeIterable,
     each = $__0.each;
@@ -1834,9 +1834,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],5:[function(_dereq_,module,exports){
+},{"./util":14}],5:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/dom";
+var __moduleName = "src/dom";
 var toArray = _dereq_('./util').toArray;
 function append(element) {
   if (this instanceof Node) {
@@ -1922,9 +1922,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],6:[function(_dereq_,module,exports){
+},{"./util":14}],6:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/dom_extra";
+var __moduleName = "src/dom_extra";
 var each = _dereq_('./util').each;
 var $__0 = _dereq_('./dom'),
     append = $__0.append,
@@ -1955,9 +1955,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./dom":5,"./selector":11,"./util":13}],7:[function(_dereq_,module,exports){
+},{"./dom":5,"./selector":12,"./util":14}],7:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/event";
+var __moduleName = "src/event";
 var $__0 = _dereq_('./util'),
     global = $__0.global,
     each = $__0.each;
@@ -2128,9 +2128,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./selector":11,"./util":13}],8:[function(_dereq_,module,exports){
+},{"./selector":12,"./util":14}],8:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/html";
+var __moduleName = "src/html";
 var each = _dereq_('./util').each;
 function html(fragment) {
   if (typeof fragment !== 'string') {
@@ -2149,9 +2149,20 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],9:[function(_dereq_,module,exports){
+},{"./util":14}],9:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/mode";
+var __moduleName = "src/index";
+var $ = _dereq_('./api').default;
+var $__default = $;
+module.exports = {
+  default: $__default,
+  __esModule: true
+};
+&nbsp;
+&nbsp;
+},{"./api":1}],10:[function(_dereq_,module,exports){
+"use strict";
+var __moduleName = "src/mode";
 var global = _dereq_('./util').global;
 var isNative = false;
 function native(goNative) {
@@ -2210,9 +2221,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],10:[function(_dereq_,module,exports){
+},{"./util":14}],11:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/noconflict";
+var __moduleName = "src/noconflict";
 var global = _dereq_('./util').global;
 var previousLib = global.$;
 function noConflict() {
@@ -2226,9 +2237,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],11:[function(_dereq_,module,exports){
+},{"./util":14}],12:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/selector";
+var __moduleName = "src/selector";
 var $__0 = _dereq_('./util'),
     global = $__0.global,
     makeIterable = $__0.makeIterable;
@@ -2314,9 +2325,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./util":13}],12:[function(_dereq_,module,exports){
+},{"./util":14}],13:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/selector_extra";
+var __moduleName = "src/selector_extra";
 var each = _dereq_('./util').each;
 var $__0 = _dereq_('./selector'),
     $ = $__0.$,
@@ -2371,9 +2382,9 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{"./selector":11,"./util":13}],13:[function(_dereq_,module,exports){
+},{"./selector":12,"./util":14}],14:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/util";
+var __moduleName = "src/util";
 var global = new Function("return this")(),
     slice = Array.prototype.slice;
 function toArray(collection) {
@@ -2414,25 +2425,14 @@ module.exports = {
 };
 &nbsp;
 &nbsp;
-},{}],14:[function(_dereq_,module,exports){
-"use strict";
-var __moduleName = "src/main";
-var $ = _dereq_('./je/api').default;
-var $__default = $;
-module.exports = {
-  default: $__default,
-  __esModule: true
-};
-&nbsp;
-&nbsp;
-},{"./je/api":1}]},{},[14])
-(14)
+},{}]},{},[9])
+(9)
 });</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 17 2014 09:33:13 GMT+0000 (UTC)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Apr 26 2014 11:20:34 GMT+0000 (UTC)</div>
 </div>
 
 <script src="../prettify.js"></script>
