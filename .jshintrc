@@ -6,6 +6,7 @@
     "globals": {
         "require": true,
         "exports": true,
+        "module": true,
         "NodeList": true
     }
 }
