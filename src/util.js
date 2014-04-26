@@ -71,8 +71,8 @@ function each(collection, callback) {
  *     ➤ {a: 3, b: 2}
  */
 
-function extend(target, source) {
-    slice.call(arguments, 1).forEach(function(src) {
+function extend(target, ...sources) {
+    sources.forEach(function(src) {
         if (src) {
             for (var prop in src) {
                 target[prop] = src[prop];
