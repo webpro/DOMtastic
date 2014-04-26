@@ -1,6 +1,6 @@
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.$=e()["default"]}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/api";
+var __moduleName = "src/api";
 var extend = _dereq_('./util').extend;
 var api = {},
     apiNodeList = {},
@@ -36,9 +36,9 @@ module.exports = {
 };
 
 
-},{"./array":2,"./attr":3,"./class":4,"./dom":5,"./dom_extra":6,"./event":7,"./html":8,"./mode":9,"./noconflict":10,"./selector":11,"./selector_extra":12,"./util":13}],2:[function(_dereq_,module,exports){
+},{"./array":2,"./attr":3,"./class":4,"./dom":5,"./dom_extra":6,"./event":7,"./html":8,"./mode":10,"./noconflict":11,"./selector":12,"./selector_extra":13,"./util":14}],2:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/array";
+var __moduleName = "src/array";
 var _each = _dereq_('./util').each;
 var $__0 = _dereq_('./selector'),
     $ = $__0.$,
@@ -76,9 +76,9 @@ module.exports = {
 };
 
 
-},{"./selector":11,"./util":13}],3:[function(_dereq_,module,exports){
+},{"./selector":12,"./util":14}],3:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/attr";
+var __moduleName = "src/attr";
 var each = _dereq_('./util').each;
 function attr(key, value) {
   if (typeof key === 'string' && typeof value === 'undefined') {
@@ -103,9 +103,9 @@ module.exports = {
 };
 
 
-},{"./util":13}],4:[function(_dereq_,module,exports){
+},{"./util":14}],4:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/class";
+var __moduleName = "src/class";
 var $__0 = _dereq_('./util'),
     makeIterable = $__0.makeIterable,
     each = $__0.each;
@@ -142,9 +142,9 @@ module.exports = {
 };
 
 
-},{"./util":13}],5:[function(_dereq_,module,exports){
+},{"./util":14}],5:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/dom";
+var __moduleName = "src/dom";
 var toArray = _dereq_('./util').toArray;
 function append(element) {
   if (this instanceof Node) {
@@ -230,9 +230,9 @@ module.exports = {
 };
 
 
-},{"./util":13}],6:[function(_dereq_,module,exports){
+},{"./util":14}],6:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/dom_extra";
+var __moduleName = "src/dom_extra";
 var each = _dereq_('./util').each;
 var $__0 = _dereq_('./dom'),
     append = $__0.append,
@@ -263,9 +263,9 @@ module.exports = {
 };
 
 
-},{"./dom":5,"./selector":11,"./util":13}],7:[function(_dereq_,module,exports){
+},{"./dom":5,"./selector":12,"./util":14}],7:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/event";
+var __moduleName = "src/event";
 var $__0 = _dereq_('./util'),
     global = $__0.global,
     each = $__0.each;
@@ -436,9 +436,9 @@ module.exports = {
 };
 
 
-},{"./selector":11,"./util":13}],8:[function(_dereq_,module,exports){
+},{"./selector":12,"./util":14}],8:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/html";
+var __moduleName = "src/html";
 var each = _dereq_('./util').each;
 function html(fragment) {
   if (typeof fragment !== 'string') {
@@ -457,9 +457,20 @@ module.exports = {
 };
 
 
-},{"./util":13}],9:[function(_dereq_,module,exports){
+},{"./util":14}],9:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/mode";
+var __moduleName = "src/index";
+var $ = _dereq_('./api').default;
+var $__default = $;
+module.exports = {
+  default: $__default,
+  __esModule: true
+};
+
+
+},{"./api":1}],10:[function(_dereq_,module,exports){
+"use strict";
+var __moduleName = "src/mode";
 var global = _dereq_('./util').global;
 var isNative = false;
 function native(goNative) {
@@ -518,9 +529,9 @@ module.exports = {
 };
 
 
-},{"./util":13}],10:[function(_dereq_,module,exports){
+},{"./util":14}],11:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/noconflict";
+var __moduleName = "src/noconflict";
 var global = _dereq_('./util').global;
 var previousLib = global.$;
 function noConflict() {
@@ -534,9 +545,9 @@ module.exports = {
 };
 
 
-},{"./util":13}],11:[function(_dereq_,module,exports){
+},{"./util":14}],12:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/selector";
+var __moduleName = "src/selector";
 var $__0 = _dereq_('./util'),
     global = $__0.global,
     makeIterable = $__0.makeIterable;
@@ -622,9 +633,9 @@ module.exports = {
 };
 
 
-},{"./util":13}],12:[function(_dereq_,module,exports){
+},{"./util":14}],13:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/selector_extra";
+var __moduleName = "src/selector_extra";
 var each = _dereq_('./util').each;
 var $__0 = _dereq_('./selector'),
     $ = $__0.$,
@@ -679,9 +690,9 @@ module.exports = {
 };
 
 
-},{"./selector":11,"./util":13}],13:[function(_dereq_,module,exports){
+},{"./selector":12,"./util":14}],14:[function(_dereq_,module,exports){
 "use strict";
-var __moduleName = "src/je/util";
+var __moduleName = "src/util";
 var global = new Function("return this")(),
     slice = Array.prototype.slice;
 function toArray(collection) {
@@ -722,17 +733,6 @@ module.exports = {
 };
 
 
-},{}],14:[function(_dereq_,module,exports){
-"use strict";
-var __moduleName = "src/main";
-var $ = _dereq_('./je/api').default;
-var $__default = $;
-module.exports = {
-  default: $__default,
-  __esModule: true
-};
-
-
-},{"./je/api":1}]},{},[14])
-(14)
+},{}]},{},[9])
+(9)
 });
