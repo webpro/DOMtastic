@@ -72,7 +72,9 @@ gulp.task('watch', function() {
 // Transpile ES6 Modules to CommonJS/AMD
 
 gulp.task('transpile-cjs', ['clean'], function() {
-    return gulp.src(srcFiles)
+    return gulp.src('**/*.js', {
+            cwd: srcDir
+        })
         .pipe(traceur())
         .pipe(replace(/__VERSION__/, pkg.version))
         .pipe(gulp.dest(releaseFolder + 'commonjs'));
@@ -80,7 +82,9 @@ gulp.task('transpile-cjs', ['clean'], function() {
 });
 
 gulp.task('transpile-amd', ['clean'], function() {
-    return gulp.src(srcFiles)
+    return gulp.src('**/*.js', {
+            cwd: srcDir
+        })
         .pipe(traceur({
             modules: 'amd'
         }))
