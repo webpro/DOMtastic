@@ -158,8 +158,7 @@ function undelegate(selector, eventName, handler) {
  *     $('.item').trigger('anyEventType');
  */
 
-function trigger(type, params) {
-    params = params || { bubbles: true, cancelable: true, detail: undefined };
+function trigger(type, params = { bubbles: true, cancelable: true, detail: undefined }) {
     var event = new CustomEvent(type, params);
     each(this, function(element) {
         if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
@@ -206,8 +205,7 @@ function isAttachedToDocument(element) {
  * @param {Mixed} params.detail=undefined Additional information about the event.
  */
 
-function triggerForPath(element, type, params) {
-    params = params || {};
+function triggerForPath(element, type, params = {}) {
     params.bubbles = false;
     var event = new CustomEvent(type, params);
     event._target = element;
@@ -281,8 +279,7 @@ function delegateHandler(selector, handler, event) {
  */
 
 (function() {
-    function CustomEvent(event, params) {
-        params = params || { bubbles: false, cancelable: false, detail: undefined };
+    function CustomEvent(event, params = { bubbles: false, cancelable: false, detail: undefined }) {
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;

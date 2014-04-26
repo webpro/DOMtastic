@@ -27,7 +27,7 @@ var slice = [].slice,
  *     var $element = $('<p>evergreen</p>');
  */
 
-function $(selector, context) {
+function $(selector, context = document) {
 
     var collection;
 
@@ -45,7 +45,7 @@ function $(selector, context) {
 
     } else {
 
-        context = context ? (typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context) : document;
+        context = typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context;
 
         collection = querySelector(selector, context);
 
