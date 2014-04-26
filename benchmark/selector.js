@@ -6,7 +6,7 @@
 
     var jQueryEl,
         ZeptoEl,
-        EvergreenEl;
+        DOMtasticEl;
 
     bench.setup.push(function() {
         document.getElementById('container').innerHTML +=
@@ -15,7 +15,7 @@
 
         jQueryEl = jQuery('#container');
         ZeptoEl = Zepto('#container');
-        EvergreenEl = $('#container');
+        DOMtasticEl = $('#container');
     });
 
     suites.push(Benchmark.Suite('Selector.Simple')
@@ -26,7 +26,7 @@
             ZeptoEl.find('.simple');
         })
         .add(libs[2].name, function() {
-            EvergreenEl.find('.simple');
+            DOMtasticEl.find('.simple');
         })
     );
 
@@ -38,7 +38,7 @@
             ZeptoEl.find('.a .b > .c + .c article > [data-foo] ul > li:first-child');
         })
         .add(libs[2].name, function() {
-            EvergreenEl.find('.a .b > .c + .c article > [data-foo] ul > li:first-child');
+            DOMtasticEl.find('.a .b > .c + .c article > [data-foo] ul > li:first-child');
         })
     );
 

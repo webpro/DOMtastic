@@ -1,8 +1,9 @@
 {
-  "name": "jquery-evergreen",
+  "name": "domtastic",
   "version": "0.5.1",
   "description": "Small and fast DOM and event library for modern browsers. It has the same familiar API as jQuery, and is lean & mean with small, optional modules.",
   "keywords": [
+    "domtastic",
     "jquery",
     "evergreen",
     "attr",
@@ -19,12 +20,12 @@
       "homepage": "http://webpro.nl"
     }
   ],
-  "homepage": "http://webpro.github.io/jquery-evergreen/",
+  "homepage": "http://webpro.github.io/DOMtastic/",
   "repository": {
     "type": "git",
-    "url": "git://github.com/webpro/jquery-evergreen.git"
+    "url": "git://github.com/webpro/DOMtastic.git"
   },
-  "main": "dist/jquery-evergreen.amd.js",
+  "main": "dist/domtastic.js",
   "ignore": [
     "src",
     "test",

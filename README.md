@@ -1,54 +1,64 @@
-# jQuery Evergreen
+# DOMtastic
 
 Small & fast DOM and event library for modern browsers.
 Having the same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`), it works great stand-alone or paired up with e.g. Backbone.
 The full version is only 7KB minified (2KB gzip), but it's easy to create a custom build to exclude parts you don't need.
 
-The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
+The [source](https://github.com/webpro/DOMtastic) is written in the ES6 Modules format, and transpiled to an AMD and a CommonJS version using the [ES6 Module Transpiler](http://square.github.io/es6-module-transpiler/). Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
+
+This library was recently renamed from "jQuery Evergreen".
 
 ## Quicklinks
 
-* [API Docs](http://webpro.github.io/jquery-evergreen/doc/)
-* [Run tests](http://webpro.github.io/jquery-evergreen/test/)
-* [Run benchmarks](http://webpro.github.io/jquery-evergreen/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
-* [Coverage report](http://webpro.github.io/jquery-evergreen/coverage/dist/jquery-evergreen.js.html)
-* [Complexity report](http://webpro.github.io/jquery-evergreen/complexity/)
+* [API Docs](http://webpro.github.io/DOMtastic/doc/)
+* [Run tests](http://webpro.github.io/DOMtastic/test/)
+* [Run benchmarks](http://webpro.github.io/DOMtastic/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
+* [Coverage report](http://webpro.github.io/DOMtastic/coverage/dist/domtastic.js.html)
+* [Complexity report](http://webpro.github.io/DOMtastic/complexity/)
 
-[![Build Status](https://travis-ci.org/webpro/jquery-evergreen.png?branch=master)](https://travis-ci.org/webpro/jquery-evergreen)
-[![Coverage Status](https://coveralls.io/repos/webpro/jquery-evergreen/badge.png?branch=master)](https://coveralls.io/r/webpro/jquery-evergreen?branch=master)
+[![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
+[![Coverage Status](https://coveralls.io/repos/webpro/DOMtastic/badge.png?branch=master)](https://coveralls.io/r/webpro/DOMtastic?branch=master)
 [![Selenium Test Status](https://saucelabs.com/buildstatus/webpro)](https://saucelabs.com/u/webpro)
 
 ## Quickstart
 
+### CommonJS
+
+    # Install
+	npm install domtastic
+
+	# Use
+	var $ = require('domtastic');
+
 ### AMD
 
     # Install
-	bower install jquery-evergreen
+	bower install domtastic
 
 	# Configure
 	paths: {
-		'jquery-evergreen': 'lib/jquery-evergreen/dist/jquery-evergreen'
+		'domtastic': 'bower_components/domtastic/domtastic'
 	}
 
 	# Use
-	define(['jquery-evergreen'], function($) {
+	define(['domtastic'], function($) {
 		$('.earth').addClass('evergreen').on('sunrise', '.people', awake);
 	});
 
 ### Browser Global
 
     # Install
-	bower/npm install jquery-evergreen
+	bower/npm install domtastic
 
 	# Configure
-	<script src="dist/jquery-evergreen.js"></script>
+	<script src="path/to/domtastic.js"></script>
 
 	# Use
 	$('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
 
 ## API
 
-### [Array](http://webpro.github.io/jquery-evergreen/doc/#array)
+### [Array](http://webpro.github.io/DOMtastic/doc/#array)
 
     each
     every
@@ -58,24 +68,24 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
     reverse
     some
 
-### [Attr](http://webpro.github.io/jquery-evergreen/doc#attr)
+### [Attr](http://webpro.github.io/DOMtastic/doc#attr)
 
 	attr
 
-### [Class](http://webpro.github.io/jquery-evergreen/doc#class)
+### [Class](http://webpro.github.io/DOMtastic/doc#class)
 
 	addClass
 	removeClass
 	toggleClass
 	hasClass
 
-### [DOM](http://webpro.github.io/jquery-evergreen/doc#dom)
+### [DOM](http://webpro.github.io/DOMtastic/doc#dom)
 
 	after
 	append
 	before
 
-### [Event](http://webpro.github.io/jquery-evergreen/doc#event)
+### [Event](http://webpro.github.io/DOMtastic/doc#event)
 
 	on
 	off
@@ -83,15 +93,15 @@ The [source](https://github.com/webpro/jquery-evergreen) is written in the ES6 M
 	undelegate
 	trigger
 
-### [HTML](http://webpro.github.io/jquery-evergreen/doc#html)
+### [HTML](http://webpro.github.io/DOMtastic/doc#html)
 
 	html
 
-### [NoConflict](http://webpro.github.io/jquery-evergreen/doc#noconflict)
+### [NoConflict](http://webpro.github.io/DOMtastic/doc#noconflict)
 
 	noConflict
 
-### [Selector](http://webpro.github.io/jquery-evergreen/doc#selector)
+### [Selector](http://webpro.github.io/DOMtastic/doc#selector)
 
 	$
 	find
@@ -105,18 +115,18 @@ The pre-built "bare" package does not include the `attr` and `html` modules.
 
 The pre-built "full" package also includes the following modules:
 
-### [DOM (extra)](http://webpro.github.io/jquery-evergreen/doc#dom_extra)
+### [DOM (extra)](http://webpro.github.io/DOMtastic/doc#dom_extra)
 
 	appendTo
     remove
     replaceWith
 
-### [Mode](http://webpro.github.io/jquery-evergreen/doc#mode)
+### [Mode](http://webpro.github.io/DOMtastic/doc#mode)
 
 	isNative
 	native
 
-### [Selector (extra)](http://webpro.github.io/jquery-evergreen/doc#selector_extra)
+### [Selector (extra)](http://webpro.github.io/DOMtastic/doc#selector_extra)
 
 	children
 	closest
@@ -127,13 +137,13 @@ The pre-built "full" package also includes the following modules:
 
 ## But it doesn't even have ...!
 
-As mentioned in the introduction, jQuery Evergreen doesn't have methods for your Ajax, Animation and Deferred needs. Please find your own libraries to fill in the gaps as needed. Here are just some examples:
+As mentioned in the introduction, DOMtastic doesn't have methods for your Ajax, Animation and Deferred needs. Please find your own libraries to fill in the gaps as needed. Here are just some examples:
 
 * Ajax: [microjs#ajax](http://microjs.com/#ajax), [rest.js](https://github.com/cujojs/rest)
 * Animation: [microjs#animation](http://microjs.com/#animation), [Move.js](http://visionmedia.github.io/move.js/), [Animate.css](https://daneden.me/animate/)
 * Deferred (aka promises): [when.js](https://github.com/cujojs/when), [RSVP.js](https://github.com/tildeio/rsvp.js)
 
-However, feel free to [open an issue](https://github.com/webpro/jquery-evergreen/issues) if you feel an important method is missing.
+However, feel free to [open an issue](https://github.com/webpro/DOMtastic/issues) if you feel an important method is missing.
 
 ## Browser Support
 
@@ -143,16 +153,16 @@ Latest versions of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile
 
 ## Performance
 
-Run the [benchmark suite](http://webpro.github.io/jquery-evergreen/benchmark/) to compare the performance of various methods of jQuery, Zepto and jQuery Evergreen.
+Run the [benchmark suite](http://webpro.github.io/DOMtastic/benchmark/) to compare the performance of various methods of jQuery, Zepto and DOMtastic.
 
 ## Native Mode
 
-You can [opt-in](https://github.com/webpro/jquery-evergreen/blob/master/src/je/mode.js) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
+You can [opt-in](https://github.com/webpro/DOMtastic/blob/master/src/mode.js) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object.
 
 ## Custom Build
 
-	npm install jquery-evergreen
-	cd jquery-evergreen
+	npm install domtastic
+	cd domtastic
 	npm install
 	gulp --exclude=attr,mode,html
 
@@ -160,7 +170,7 @@ And find the AMD, CommonJS and browserified versions in the `/dist` folder.
 
 ## Test
 
-Run the [test suite](http://webpro.github.io/jquery-evergreen/test/). You can also get it from Github or npm, and find the `/test` folder.
+Run the [test suite](http://webpro.github.io/DOMtastic/test/). You can also get it from Github or npm, and find the `/test` folder.
 
 ## Credits
 

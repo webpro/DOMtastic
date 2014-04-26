@@ -12,17 +12,17 @@ var path = require('path'),
     gzip = require("gulp-gzip"),
     traceur = require('gulp-traceur'),
     source = require('vinyl-source-stream'),
-    map = require('through2-map')
-    es = require('event-stream');
+    map = require('through2-map'),
+    es = require('event-stream'),
+    pkg = require('./package.json');
 
 // Configuration
 
-var srcFiles = './src/**/*.js',
-    fileName = 'jquery-evergreen.js',
-    browserifyEntryPoint = './src/main.js',
+var srcDir = path.resolve('src'),
+    srcFiles = srcDir + '**/*.js',
+    fileName = 'domtastic.js',
     distFolder = 'dist/',
     releaseFolder = '.release/',
-    pkg = require('./package.json'),
     uglifyOptions = {
         mangle: true,
         preserveComments: false,
@@ -94,18 +94,16 @@ gulp.task('bundle', ['clean'], function() {
     function bundle(preset) {
 
         var b = browserify()
-            .require(require.resolve(browserifyEntryPoint), {
+            .require(srcDir, {
                 entry: true
             })
             .transform(es6ify);
 
-        bundlePresets[preset].modulesToExclude.map(function(moduleName) {
-            return './' + moduleName;
-        }).map(b.exclude.bind(b));
+        bundlePresets[preset].modulesToExclude.map(resolveModulePath).map(b.exclude.bind(b));
 
         return b
             .bundle({
-                standalone: 'jQueryEvergreen'
+                standalone: 'domtastic'
             })
             .pipe(modify([version, dollar, unget]))
             .pipe(modify(exclude(preset))).pipe(source(fileName)).pipe(gulp.dest(bundlePresets[preset].dest));
@@ -154,6 +152,12 @@ gulp.task('uglify-bundles', ['bundle'], function() {
 
 gulp.task('uglify', ['uglify-dist', 'uglify-bundles']);
 
+// Util
+
+function resolveModulePath(moduleName) {
+    return './' + moduleName;
+}
+
 // Text-based modifiers
 
 function version(data) {
@@ -161,7 +165,7 @@ function version(data) {
 }
 
 function dollar(data) {
-    return data.replace(/(jQueryEvergreen)=([^\(])\(\)/, '$=$2()["default"]');
+    return data.replace(/(domtastic)=([^\(])\(\)/, '$=$2()["default"]');
 }
 
 function exclude(preset) {

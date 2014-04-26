@@ -12,10 +12,10 @@ import { global } from './util';
 var previousLib = global.$;
 
 /**
- * In case another library sets the global `$` variable before jQuery Evergreen does,
+ * In case another library sets the global `$` variable before DOMtastic does,
  * this method can be used to return the global `$` to that other library.
  *
- * @return {Object} Reference to jQuery Evergreen.
+ * @return {Object} Reference to DOMtastic.
  * @example
  *     var $E = $.noConflict();
  */

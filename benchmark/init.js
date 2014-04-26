@@ -22,10 +22,10 @@
             }
         },
         {
-            name: 'jQuery Evergreen',
+            name: 'DOMtastic',
             version: '',
             script: {
-                src: '../dist/jquery-evergreen.min.js',
+                src: '../dist/domtastic.min.js',
                 onload: function($) {
                     root.$ = ($  || root.$).noConflict();
                     bench.libs[2].version = root.$.version;

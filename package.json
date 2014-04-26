@@ -1,8 +1,9 @@
 {
-  "name": "jquery-evergreen",
+  "name": "domtastic",
   "version": "0.5.1",
   "description": "Small and fast DOM and event library for modern browsers. It has the same familiar API as jQuery, and is lean & mean with small, optional modules.",
   "keywords": [
+    "domtastic",
     "jquery",
     "evergreen",
     "attr",
@@ -17,20 +18,20 @@
     "email": "lars@webpro.nl",
     "url": "http://webpro.nl"
   },
-  "homepage": "http://webpro.github.io/jquery-evergreen/",
+  "homepage": "http://webpro.github.io/DOMtastic/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/webpro/jquery-evergreen.git"
+    "url": "https://github.com/webpro/DOMtastic.git"
   },
   "bugs": {
-    "url": "https://github.com/webpro/jquery-evergreen/issues"
+    "url": "https://github.com/webpro/DOMtastic/issues"
   },
-  "main": "dist/commonjs/main.js",
+  "main": "dist/domtastic.js",
   "scripts": {
     "test": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html -R dot",
-    "coverage": "./node_modules/istanbul/lib/cli.js instrument dist/jquery-evergreen.js > dist/jquery-evergreen.instrumented.js && ./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && ./node_modules/istanbul/lib/cli.js report --root ./coverage/",
-    "doc": "./node_modules/doxstrap/bin/doxstrap.js --title \"jQuery Evergreen\" --output doc",
-    "complexity": "cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../complexity --jshint ../../.jshintrc .",
+    "coverage": "./node_modules/istanbul/lib/cli.js instrument dist/domtastic.js > dist/domtastic.instrumented.js && ./node_modules/mocha-phantomjs/bin/mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && ./node_modules/istanbul/lib/cli.js report --root ./coverage/",
+    "doc": "./node_modules/doxstrap/bin/doxstrap.js --title \"DOMtastic\" --output doc",
+    "complexity": "gulp transpile-cjs && cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../complexity --jshint ../../.jshintrc .",
     "benchmark": "phantomjs ./node_modules/benchrunner/benchrunner.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
