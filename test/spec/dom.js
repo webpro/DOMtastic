@@ -1,7 +1,7 @@
 describe('dom', function() {
 
-    var emptyContainer = getElement('#testEmpty'),
-        container = getElement('#testElement'),
+    var emptyContainer = $('#testEmpty'),
+        container = $('#testElement'),
         containerHTML = '<div id="testChild"></div>',
         html = '<article><section><p>foo</p><p>bar</p></section></article>',
         htmlSmall = '<span>1</span>',
@@ -26,38 +26,38 @@ describe('dom', function() {
         });
 
         it('should append DOM element', function() {
-            var element = getElement(html);
+            var element = $(html);
             emptyContainer.append(element);
             expect(emptyContainer[0].innerHTML).to.equal(html);
         });
 
         it('should append DOM element', function() {
-            var element = getElement(htmlSmall)[0];
+            var element = $(htmlSmall)[0];
             emptyContainer.append(element);
             expect(emptyContainer[0].innerHTML).to.equal(htmlSmall);
         });
 
         it('should append DOM elements', function() {
-            var element = getElement(htmlList);
+            var element = $(htmlList);
             emptyContainer.append(element);
             expect(emptyContainer[0].innerHTML).to.equal(htmlList);
         });
 
         it('should append DOM string to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').append(htmlSmall);
+            $('#testEmpty > *').append(htmlSmall);
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo' + htmlSmall + '</p><p>bar' + htmlSmall + '</p><p>baz' + htmlSmall + '</p>');
         });
 
         it('should append DOM element to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').append(getElement(htmlSmall));
+            $('#testEmpty > *').append($(htmlSmall));
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo' + htmlSmall + '</p><p>bar' + htmlSmall + '</p><p>baz' + htmlSmall + '</p>');
         });
 
         it('should append DOM elements to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').append(getElement(htmlList));
+            $('#testEmpty > *').append($(htmlList));
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo' + htmlList + '</p><p>bar' + htmlList + '</p><p>baz' + htmlList + '</p>');
         });
 
@@ -73,49 +73,49 @@ describe('dom', function() {
     describe('before', function() {
 
         it('should insert DOM string as previous sibling', function() {
-            getElement('#testChild').before(html);
+            $('#testChild').before(html);
             expect(container[0].innerHTML).to.equal(html + containerHTML);
         });
 
         it('should insert DOM string (text node) as previous sibling', function() {
-            getElement('#testChild').before(htmlText);
+            $('#testChild').before(htmlText);
             expect(container[0].innerHTML).to.equal(htmlText + containerHTML);
         });
 
         it('should insert DOM element as previous sibling', function() {
-            var child = getElement(html);
-            getElement('#testChild').before(child);
+            var child = $(html);
+            $('#testChild').before(child);
             expect(container[0].innerHTML).to.equal(html + containerHTML);
         });
 
         it('should insert DOM elements as previous sibling', function() {
-            var children = getElement(htmlList);
-            getElement('#testChild').before(children);
+            var children = $(htmlList);
+            $('#testChild').before(children);
             expect(container[0].innerHTML).to.equal(htmlList + containerHTML);
         });
 
         it('should insert DOM string as previous sibling to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').before(htmlSmall);
+            $('#testEmpty > *').before(htmlSmall);
             expect(emptyContainer[0].innerHTML).to.equal(htmlSmall + '<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>');
         });
 
         it('should insert DOM element as previous sibling to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').before(getElement(htmlSmall));
+            $('#testEmpty > *').before($(htmlSmall));
             expect(emptyContainer[0].innerHTML).to.equal(htmlSmall + '<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>');
         });
 
         it('should insert DOM elements as previous siblings to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').before(getElement(htmlList));
+            $('#testEmpty > *').before($(htmlList));
             expect(emptyContainer[0].innerHTML).to.equal(htmlList + '<p>foo</p>' + htmlList + '<p>bar</p>' + htmlList + '<p>baz</p>');
         });
 
         it('should insert NodeList as previous sibling', function() {
             emptyContainer[0].innerHTML = htmlList;
             var nodeList = emptyContainer[0].querySelectorAll('p');
-            getElement('#testChild').before(nodeList);
+            $('#testChild').before(nodeList);
             expect(container[0].innerHTML).to.equal(htmlList + containerHTML);
         });
 
@@ -124,56 +124,56 @@ describe('dom', function() {
     describe('after', function() {
 
         it('should insert DOM string as next sibling', function() {
-            getElement('#testChild').after(html);
+            $('#testChild').after(html);
             expect(container[0].innerHTML).to.equal(containerHTML + html);
         });
 
         it('should insert DOM string (text node) as next sibling', function() {
-            getElement('#testChild').after(htmlText);
+            $('#testChild').after(htmlText);
             expect(container[0].innerHTML).to.equal(containerHTML + htmlText);
         });
 
         it('should insert DOM element as next sibling', function() {
-            var child = getElement(html);
-            getElement('#testChild').after(child);
+            var child = $(html);
+            $('#testChild').after(child);
             expect(container[0].innerHTML).to.equal(containerHTML + html);
         });
 
         it('should insert DOM string as next sibling to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').after(htmlSmall);
+            $('#testEmpty > *').after(htmlSmall);
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>' + htmlSmall);
         });
 
         it('should insert DOM element as next sibling to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').after(getElement(htmlSmall));
+            $('#testEmpty > *').after($(htmlSmall));
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo</p>' + htmlSmall + '<p>bar</p>' + htmlSmall + '<p>baz</p>' + htmlSmall);
         });
 
         it('should insert DOM elements as next siblings to each element in NodeList', function() {
             emptyContainer.append(htmlList);
-            getElement('#testEmpty > *').after(getElement(htmlList));
+            $('#testEmpty > *').after($(htmlList));
             expect(emptyContainer[0].innerHTML).to.equal('<p>foo</p>' + htmlList + '<p>bar</p>' + htmlList + '<p>baz</p>' + htmlList);
         });
 
         it('should insert DOM elements as next sibling', function() {
-            var child = getElement(htmlList);
-            getElement('#testChild').after(child);
+            var child = $(htmlList);
+            $('#testChild').after(child);
             expect(container[0].innerHTML).to.equal(containerHTML + htmlList);
         });
 
         it('should insert NodeList as next sibling', function() {
             emptyContainer[0].innerHTML = htmlList;
             var nodeList = emptyContainer[0].querySelectorAll('p');
-            getElement('#testChild').after(nodeList);
+            $('#testChild').after(nodeList);
             expect(container[0].innerHTML).to.equal(containerHTML + htmlList);
         });
 
     });
 
     it('should provide a chainable API', function() {
-        var element = getElement('#testChild').append(html).before(html).after(html);
+        var element = $('#testChild').append(html).before(html).after(html);
         expect(container[0].innerHTML).to.equal(html + '<div id="testChild">' + html + '</div>' + html);
     });
 
