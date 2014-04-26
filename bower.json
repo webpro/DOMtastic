@@ -11,7 +11,8 @@
     "DOM",
     "event",
     "html",
-    "selector"
+    "selector",
+    "es6"
   ],
   "authors": [
     {
