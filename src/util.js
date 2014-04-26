@@ -47,7 +47,7 @@ function each(collection, callback) {
             callback(collection[i], i, collection);
         }
     } else {
-        callback(collection, 0);
+        callback(collection, 0, collection);
     }
     return collection;
 }
