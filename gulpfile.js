@@ -9,8 +9,9 @@ var path = require('path'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace'),
     size = require('gulp-size'),
-    gzip = require("gulp-gzip"),
     traceur = require('gulp-traceur'),
+    footer = require('gulp-footer'),
+    Orchestrator = require('orchestrator'),
     source = require('vinyl-source-stream'),
     map = require('through2-map'),
     es = require('event-stream'),
@@ -21,13 +22,16 @@ var path = require('path'),
 var srcDir = path.resolve('src'),
     srcFiles = srcDir + '**/*.js',
     fileName = 'domtastic.js',
+    fileNameMin = 'domtastic.min.js',
+    fileNameMap = fileNameMin + '.map',
     distFolder = 'dist/',
     releaseFolder = '.release/',
     uglifyOptions = {
         mangle: true,
         preserveComments: false,
         compress: true,
-        'screw-ie8': true
+        'screw-ie8': true,
+        outSourceMap: true
     };
 
 var bundlePresets = {
@@ -122,41 +126,63 @@ gulp.task('bundle', ['clean'], function() {
 
 });
 
-gulp.task('uglify-dist', ['bundle'], function() {
-    return gulp.src(distFolder + '*.js')
-        .pipe(uglify(uglifyOptions))
-        .pipe(rename(function(path) {
-            path.basename += '.min';
-        }))
-        .pipe(gulp.dest(distFolder))
-        .pipe(gzip())
-        .pipe(size({
-            showFiles: true
-        }));
+gulp.task('uglify-dist', ['bundle'], function(done) {
+    return _uglify({
+        srcPath: path.resolve(bundlePresets['custom'].dest, fileName)
+    }, done);
 });
 
-gulp.task('uglify-bundles', ['bundle'], function() {
-    return gulp.src([
-        releaseFolder + '**/*.js',
-        '!' + releaseFolder + 'amd/**/*.js',
-        '!' + releaseFolder + 'commonjs/**/*.js'
-    ], {
-        base: releaseFolder
-    })
-        .pipe(uglify(uglifyOptions))
-        .pipe(rename(function(path) {
-            path.basename += '.min';
-        }))
-        .pipe(gulp.dest(releaseFolder))
-        .pipe(gzip())
-        .pipe(size({
-            showFiles: true
+gulp.task('uglify', ['bundle'], function(done) {
+    var orchestrator = new Orchestrator();
+    for (var preset in bundlePresets) {
+        orchestrator.add(preset, _uglify.bind(null, {
+            srcPath: path.resolve(bundlePresets[preset].dest, fileName),
+            title: preset
         }));
+    }
+    orchestrator.start.call(orchestrator, Object.keys(bundlePresets), done);
 });
-
-gulp.task('uglify', ['uglify-dist', 'uglify-bundles']);
 
 // Util
+
+function _uglify(options, done) {
+
+    var orchestrator = new Orchestrator(),
+        dir = path.dirname(options.srcPath);
+
+    orchestrator.add('uglify', function() {
+        return gulp
+            .src(options.srcPath, {
+                cwd: dir
+            })
+            .pipe(rename(function(path) {
+                path.extname = '.min.js';
+            }))
+            .pipe(uglify(uglifyOptions))
+            .pipe(gulp.dest(dir))
+    });
+
+    orchestrator.add('addSourceMapUrl', ['uglify'], function() {
+        return gulp.src(path.resolve(dir, fileNameMin))
+            .pipe(footer('\n//# sourceMappingURL=' + fileNameMap))
+            .pipe(gulp.dest(dir))
+            .pipe(size({
+                title: options.title || '',
+                gzip: true,
+                showFiles: true
+            }));
+    });
+
+    orchestrator.add('fixSourceMapSources', ['uglify'], function() {
+        return gulp.src(path.resolve(dir, fileNameMap))
+            .pipe(replace('"file":"' + fileNameMap + '"', '"file":"' + fileNameMin + '"'))
+            .pipe(replace('"sources":["' + fileNameMin + '"]', '"sources":["' + fileName + '"]'))
+            .pipe(gulp.dest(dir));
+    });
+
+    orchestrator.start('addSourceMapUrl', 'fixSourceMapSources', done);
+
+}
 
 function resolveModulePath(moduleName) {
     return './' + moduleName;
