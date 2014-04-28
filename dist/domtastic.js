@@ -25,7 +25,7 @@ var noconflict = _dereq_('./noconflict');
 extend($, noconflict);
 extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
-$.version = '0.6.1';
+$.version = '0.6.2';
 $.extend = extend;
 $._api = api;
 $._apiNodeList = apiNodeList;
