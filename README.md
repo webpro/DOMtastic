@@ -47,11 +47,8 @@ This library was recently renamed from "jQuery Evergreen".
 
 ### Browser Global
 
-    # Install
-	bower/npm install domtastic
-
 	# Configure
-	<script src="path/to/domtastic.js"></script>
+	<script src="//cdn.jsdelivr.net/domtastic/latest/domtastic.min.js"></script>
 
 	# Use
 	$('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
@@ -161,16 +158,16 @@ You can [opt-in](https://github.com/webpro/DOMtastic/blob/master/src/mode.js) to
 
 ## Custom Build
 
-	npm install domtastic
-	cd domtastic
+	git clone git@github.com:webpro/DOMtastic.git
+	cd DOMtastic
 	npm install
 	gulp --exclude=attr,mode,html
 
-And find the AMD, CommonJS and browserified versions in the `/dist` folder.
+And find the output in the `dist/` folder.
 
 ## Test
 
-Run the [test suite](http://webpro.github.io/DOMtastic/test/). You can also get it from Github or npm, and find the `/test` folder.
+Run the [test suite](http://webpro.github.io/DOMtastic/test/). You can also clone/fork the sources from Github and run tests locally.
 
 ## Credits
 
@@ -180,6 +177,8 @@ Many thanks to these sources of inspiration:
 * [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
 * [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
 * [madrobby/zepto](https://github.com/madrobby/zepto/)
+
+Thanks to [jsDelivr](http://www.jsdelivr.com/) for [hosting DOMtastic](http://www.jsdelivr.com/#!domtastic).
 
 ## License
 
