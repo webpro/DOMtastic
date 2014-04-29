@@ -10,6 +10,7 @@ This library was recently renamed from "jQuery Evergreen".
 
 ## Quicklinks
 
+* [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/latest/domtastic.min.js)
 * [API Docs](http://webpro.github.io/DOMtastic/doc/)
 * [Run tests](http://webpro.github.io/DOMtastic/test/)
 * [Run benchmarks](http://webpro.github.io/DOMtastic/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
