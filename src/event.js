@@ -30,7 +30,7 @@ function on(eventName, selector, handler, useCapture) {
     eventName = parts[0] || null;
     var namespace = parts[1] || null;
 
-    var eventListener = handler;
+    var eventListener = createHandler(handler);
 
     each(this, function(element) {
 
@@ -148,6 +148,7 @@ function undelegate(selector, eventName, handler) {
  * Trigger event at element(s)
  *
  * @param {String} type Type of the event
+ * @param {Object} data Data to be sent with the event (`params.detail` will be set to this).
  * @param {Object} [params] Event parameters (optional)
  * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
  * @param {Boolean} params.cancelable=true Is the event cancelable or not.
@@ -158,7 +159,10 @@ function undelegate(selector, eventName, handler) {
  *     $('.item').trigger('anyEventType');
  */
 
-function trigger(type, params = { bubbles: true, cancelable: true, detail: undefined }) {
+function trigger(type, data, params = {}) {
+    params.bubbles = typeof params.bubbles === 'boolean' ? params.bubbles : true;
+    params.cancelable = typeof params.cancelable === 'boolean' ? params.cancelable : true;
+    params.detail = data;
     var event = new CustomEvent(type, params);
     each(this, function(element) {
         if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
@@ -268,6 +272,20 @@ function clearHandlers(element) {
         element[key] = null;
         unusedKeys.push(key);
     }
+}
+
+/**
+ * Function to create a handler that augments the event object with some extra methods,
+ * and executes the callback with the event and the event data (i.e. `event.detail`).
+ *
+ * @param handler Callback to execute as `handler(event, data)`
+ * @returns {Function}
+ */
+
+function createHandler(handler) {
+    return function(event) {
+        handler(event, event.detail);
+    };
 }
 
 /**

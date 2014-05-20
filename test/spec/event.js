@@ -130,14 +130,6 @@ describe('events', function() {
             expect(spy).to.have.been.calledOnce;
         });
 
-        it('should not receive events bubbling up to an element when `bubbles` is set to false', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.on(eventType, spy);
-            $('.two').trigger(eventType, {bubbles: false});
-            expect(spy).not.to.have.been.called;
-        });
-
     });
 
     describe('off', function() {
@@ -286,6 +278,27 @@ describe('events', function() {
             element.trigger(eventType);
             expect(spy).to.have.been.called;
         });
+
+        it('should execute handler and pass the data as event detail', function() {
+            var element = $('#testFragment'),
+                eventType = getRndStr(),
+                eventData = {a: 1};
+            element.on(eventType, spy);
+            element.trigger(eventType, eventData);
+            expect(spy).to.have.been.called;
+            expect(spy.firstCall.args[1]).to.equal(eventData);
+            expect(spy.firstCall.args[0].detail).to.equal(eventData);
+        });
+
+        it('should be able send non-bubbling events', function() {
+            var element = $(document.body),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            $('.two').trigger(eventType, null, {bubbles: false});
+            expect(spy).not.to.have.been.called;
+        });
+
+    });
 
     describe('ready', function() {
 
