@@ -9,6 +9,18 @@
             expect(actual).to.eql(expected);
         });
 
+        it('should return only elements', function() {
+            var children = $('<ul><li></li><!-- --><li></li>foo<li></li></ul>').children();
+            expect(children.length).to.equal(3);
+            expect(children[1].nodeType).to.equal(1);
+            expect(children[2].nodeType).to.equal(1);
+        });
+
+        it('should not return elements from comment node', function() {
+            var children = $('<!--warning-->').children();
+            expect(children.length).to.equal(0);
+        });
+
         it('should return filtered children', function() {
             var actual = $('#testFragment ul').children('[class]'),
                 expected = $('#testFragment li[class]');

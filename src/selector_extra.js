@@ -19,11 +19,13 @@ import { $, matches } from './selector';
 function children(selector) {
     var nodes = [];
     each(this, function(element) {
-        each(element.children, function(child) {
-            if (!selector || (selector && matches(child, selector))) {
-                nodes.push(child);
-            }
-        });
+        if(element.children) {
+            each(element.children, function(child) {
+                if (!selector || (selector && matches(child, selector))) {
+                    nodes.push(child);
+                }
+            });
+        }
     });
     return $(nodes);
 }
