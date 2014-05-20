@@ -35,6 +35,10 @@ function $(selector, context = document) {
 
         collection = document.querySelectorAll(null);
 
+    } else if (selector instanceof Wrapper) {
+
+        return selector;
+
     } else if (typeof selector !== 'string') {
 
         collection = makeIterable(selector);

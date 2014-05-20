@@ -2,6 +2,12 @@ describe('selectors', function() {
 
     var html = '<article><section><p>foo</p><p>bar</p></section></article>';
 
+    it('should return the wrapped object', function() {
+        var expected = $('#testFragment li'),
+            actual = $(expected);
+        expect(actual).to.equal(expected);
+    });
+
     it('should return an empty NodeList for falsey selectors', function() {
 
         expect($().forEach).to.be.a('function');
