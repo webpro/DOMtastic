@@ -68,6 +68,22 @@ describe('dom (extra)', function() {
 
     });
 
+    describe('empty', function() {
+
+        it('should empty the element', function() {
+            var element = $(html).empty();
+            expect(element[0].outerHTML).to.equal('<article></article>');
+        });
+
+        it('should empty each element', function() {
+            var expected = $(html).find('p'),
+                actual = expected.empty();
+            expect(actual[0].parentNode.innerHTML).to.equal('<p></p><p></p>');
+            expect(actual[0]).to.equal(expected[0]);
+        });
+
+    });
+
     describe('replaceWith', function() {
 
         it('should replace element (DOM string)', function() {

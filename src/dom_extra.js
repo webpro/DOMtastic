@@ -36,6 +36,21 @@ function remove() {
     });
 }
 
+/*
+ * Empty each element in the collection.
+ *
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').empty();
+ */
+
+function empty(){
+    return each(this, function(element) {
+        element.innerHTML = '';
+    });
+}
+
 /**
  * Replace each element in the collection with the provided new content, and return the array of elements that were replaced.
  *
@@ -50,4 +65,4 @@ function replaceWith() {
  * Export interface
  */
 
-export { appendTo, remove, replaceWith };
+export { appendTo, remove, empty, replaceWith };
