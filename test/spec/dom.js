@@ -172,7 +172,7 @@ describe('dom', function() {
 
     });
 
-    describe.only('clone', function() {
+    describe('clone', function() {
 
         it('should clone the wrapped object', function() {
             var element = $('<div></div>'),

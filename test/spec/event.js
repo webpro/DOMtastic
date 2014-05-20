@@ -66,8 +66,8 @@ describe('events', function() {
                 eventSpy = sinon.spy(event, 'stopPropagation');
 
             parent.on(eventType, spy);
-            child.on(eventType, function(evt){
-                evt.stopPropagation();
+            child.on(eventType, function(event) {
+                event.stopPropagation();
             });
 
             child[0].dispatchEvent(event);
@@ -86,7 +86,7 @@ describe('events', function() {
                 eventSpy = sinon.spy(event, 'preventDefault');
 
             parent.on(eventType, spy);
-            child.on(eventType, function(event){
+            child.on(eventType, function(event) {
                 event.preventDefault();
             });
 
@@ -100,7 +100,7 @@ describe('events', function() {
     });
 
 
-     describe('bubbling', function() {
+    describe('bubbling', function() {
 
         it('should receive events bubbling up to an element', function() {
             var element = $(document.body),
@@ -110,7 +110,7 @@ describe('events', function() {
             expect(spy).to.have.been.called;
         });
 
-        it('should receive events bubbling up to an element not in the DOM', function() {
+        it('should receive events bubbling up to a detached element', function() {
             var element = $('<div><p></p></div>'),
                 child = $(element[0].querySelector('p')),
                 eventType = getRndStr();
@@ -120,7 +120,7 @@ describe('events', function() {
             expect(spy).to.have.been.calledOnce;
         });
 
-        it('should receive delegated events bubbling up to an element not in the DOM', function() {
+        it('should receive delegated events bubbling up to a detached element', function() {
             var element = $('<div><p></p></div>'),
                 child = $(element[0].querySelector('p')),
                 eventType = getRndStr();
@@ -189,7 +189,7 @@ describe('events', function() {
 
     });
 
-     describe('delegate', function() {
+    describe('delegate', function() {
 
         it('should receive a delegated event from a child element', function() {
             var element = $(document.body),
@@ -235,7 +235,7 @@ describe('events', function() {
 
     });
 
-     describe('undelegate', function() {
+    describe('undelegate', function() {
 
         it('should detach a delegated event handler from an element', function() {
             var element = $(document.body),
