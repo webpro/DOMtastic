@@ -209,10 +209,9 @@ function triggerForPath(element, type, params = {}) {
     params.bubbles = false;
     var event = new CustomEvent(type, params);
     event._target = element;
-    while (element.parentNode) {
+    do {
         element.dispatchEvent(event);
-        element = element.parentNode;
-    }
+    } while (element = element.parentNode);
 }
 
 /**

@@ -199,6 +199,14 @@ describe('events', function() {
             expect(spy).to.have.been.called;
         });
 
+        it('should receive a delegated event in detached nodes', function() {
+            var element = $('<div><span></span></div>'),
+                eventType = getRndStr();
+            element.delegate('span', eventType, spy);
+            element.find('span').trigger(eventType);
+            expect(spy).to.have.been.called;
+        });
+
         it('should receive delegated events from multiple child elements', function() {
             var elements = $('#testFragment li'),
                 eventType = getRndStr();
@@ -265,6 +273,18 @@ describe('events', function() {
             element.off(eventType, 'li', spy);
             $('.fourth').trigger(eventType);
             expect(spy).not.to.have.been.called;
+        });
+
+    });
+
+    describe('trigger', function() {
+
+        it('should execute handler for detached nodes', function() {
+            var element = $('<div></div>'),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.trigger(eventType);
+            expect(spy).to.have.been.called;
         });
 
     });
