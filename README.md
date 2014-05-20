@@ -92,6 +92,7 @@ This library was recently renamed from "jQuery Evergreen".
 	delegate
 	undelegate
 	trigger
+	ready
 
 ### [HTML](http://webpro.github.io/DOMtastic/doc#html)
 
