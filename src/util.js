@@ -29,7 +29,7 @@ var toArray = (collection) => slice.call(collection);
  * @private
  */
 
-var makeIterable = (element) => element.length === undefined || element === window ? [element] : element;
+var makeIterable = (element) => element.nodeType || element === window ? [element] : element;
 
 /**
  * Faster alternative to [].forEach method
