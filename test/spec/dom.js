@@ -70,6 +70,63 @@ describe('dom', function() {
 
     });
 
+    describe('prepend', function() {
+
+        it('should prepend DOM string', function() {
+            emptyContainer.prepend(html);
+            expect(emptyContainer[0].innerHTML).to.equal(html);
+        });
+
+        it('should prepend DOM string (text node)', function() {
+            emptyContainer.prepend(htmlText);
+            expect(emptyContainer[0].innerHTML).to.equal(htmlText);
+        });
+
+        it('should prepend DOM element', function() {
+            var element = $(html);
+            emptyContainer.prepend(element);
+            expect(emptyContainer[0].innerHTML).to.equal(html);
+        });
+
+        it('should prepend DOM element', function() {
+            var element = $(htmlSmall)[0];
+            emptyContainer.prepend(element);
+            expect(emptyContainer[0].innerHTML).to.equal(htmlSmall);
+        });
+
+        it('should prepend DOM elements', function() {
+            var element = $(htmlList);
+            emptyContainer.prepend(element);
+            expect(emptyContainer[0].innerHTML).to.equal(htmlList);
+        });
+
+        it('should prepend DOM string to each element in NodeList', function() {
+            emptyContainer.prepend(htmlList);
+            $('#testEmpty > *').prepend(htmlSmall);
+            expect(emptyContainer[0].innerHTML).to.equal('<p>' + htmlSmall + 'foo</p><p>' + htmlSmall + 'bar</p><p>' + htmlSmall + 'baz</p>');
+        });
+
+        it('should prepend DOM element to each element in NodeList', function() {
+            emptyContainer.prepend(htmlList);
+            $('#testEmpty > *').prepend($(htmlSmall));
+            expect(emptyContainer[0].innerHTML).to.equal('<p>' + htmlSmall + 'foo</p><p>' + htmlSmall + 'bar</p><p>' + htmlSmall + 'baz</p>');
+        });
+
+        it('should prepend DOM elements to each element in NodeList', function() {
+            emptyContainer.prepend(htmlList);
+            $('#testEmpty > *').prepend($(htmlList));
+            expect(emptyContainer[0].innerHTML).to.equal('<p>' + htmlList + 'foo</p><p>' + htmlList + 'bar</p><p>' + htmlList + 'baz</p>');
+        });
+
+        it('should prepend NodeList to element', function() {
+            container[0].innerHTML = htmlList;
+            var nodeList = container[0].querySelectorAll('p');
+            emptyContainer.prepend(nodeList);
+            expect(emptyContainer[0].innerHTML).to.equal(htmlList);
+        });
+
+    });
+
     describe('before', function() {
 
         it('should insert DOM string as previous sibling', function() {

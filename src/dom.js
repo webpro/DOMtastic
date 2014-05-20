@@ -38,6 +38,39 @@ function append(element) {
 }
 
 /**
+ * Place element(s) at the beginning of each element in the collection.
+ *
+ * @param {String|Node|NodeList|Object} element What to place at the beginning of the element(s).
+ * Clones elements as necessary.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').prepend('<span>start</span>');
+ */
+
+function prepend(element) {
+    if (this instanceof Node) {
+        if (typeof element === 'string') {
+            this.insertAdjacentHTML('afterbegin', element);
+        } else {
+            if (element instanceof Node) {
+                this.insertBefore(element, this.firstChild);
+            } else {
+                var elements = element instanceof NodeList ? toArray(element) : element;
+                elements.reverse().forEach(prepend.bind(this));
+            }
+        }
+    } else {
+        var l = this.length;
+        while (l--) {
+            var elm = l === 0 ? element : _clone(element);
+            prepend.call(this[l], elm);
+        }
+    }
+    return this;
+}
+
+/**
  * Place element(s) before each element in the collection.
  *
  * @param {String|Node|NodeList|Object} element What to place as sibling(s) before to the element(s).
@@ -139,4 +172,4 @@ function _clone(element) {
  * Export interface
  */
 
-export { append, before, after, clone };
+export { append, prepend, before, after, clone };
