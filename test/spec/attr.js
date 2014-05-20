@@ -50,6 +50,24 @@ describe('attr', function() {
 
     });
 
+    describe('removeAttr', function() {
+
+        it('should remove attribute from element', function() {
+            var element = $('<div data-foo="1"></div>');
+            expect(element[0].attributes).to.have.length(1);
+            element.removeAttr('data-foo');
+            expect(element[0].attributes).to.have.length(0);
+        });
+
+        it('should remove attribute from elements', function() {
+            var element = $('<span a="1"></span><span a="2"></span>');
+            element.removeAttr('a');
+            expect(element[0].attributes).to.have.length(0);
+            expect(element[1].attributes).to.have.length(0);
+        });
+
+    });
+
     it('should provide a chainable API', function() {
         var element = $('#testEmpty').attr('foo', 'bar').attr('foo', 'baz'),
             expected = 'baz',

@@ -69,6 +69,7 @@ This library was recently renamed from "jQuery Evergreen".
 ### [Attr](http://webpro.github.io/DOMtastic/doc#attr)
 
 	attr
+	removeAttr
 
 ### [Class](http://webpro.github.io/DOMtastic/doc#class)
 

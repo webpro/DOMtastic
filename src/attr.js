@@ -37,8 +37,25 @@ function attr(key, value) {
     return this;
 }
 
+/**
+ * Remove attribute from each element in the collection.
+ *
+ * @param key Attribute name
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').removeAttr('attrName');
+ */
+
+function removeAttr(key) {
+    each(this, function(element) {
+        element.removeAttribute(key);
+    });
+    return this;
+}
+
 /*
  * Export interface
  */
 
-export { attr };
+export { attr, removeAttr };
