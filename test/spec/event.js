@@ -67,8 +67,31 @@ describe('events', function() {
 
             parent.on(eventType, spy);
             child.on(eventType, function(event) {
+                expect(event.isPropagationStopped()).to.be.false;
                 event.stopPropagation();
+                expect(event.isPropagationStopped()).to.be.true;
             });
+
+            child[0].dispatchEvent(event);
+
+            expect(eventSpy).to.have.been.called;
+            expect(spy).not.to.have.been.called;
+
+        });
+
+        it('should stop immediate propagation', function() {
+
+            var child = $('.fourth'),
+                eventType = getRndStr(),
+                event = new CustomEvent(eventType),
+                eventSpy = sinon.spy(event, 'stopImmediatePropagation');
+
+            child.on(eventType, function(event) {
+                expect(event.isImmediatePropagationStopped()).to.be.false;
+                event.stopImmediatePropagation();
+                expect(event.isImmediatePropagationStopped()).to.be.true;
+            });
+            child.on(eventType, spy);
 
             child[0].dispatchEvent(event);
 
@@ -87,7 +110,9 @@ describe('events', function() {
 
             parent.on(eventType, spy);
             child.on(eventType, function(event) {
+                expect(event.isDefaultPrevented()).to.be.false;
                 event.preventDefault();
+                expect(event.isDefaultPrevented()).to.be.true;
             });
 
             child[0].dispatchEvent(event);

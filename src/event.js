@@ -30,7 +30,7 @@ function on(eventName, selector, handler, useCapture) {
     eventName = parts[0] || null;
     var namespace = parts[1] || null;
 
-    var eventListener = createHandler(handler);
+    var eventListener = proxyHandler(handler);
 
     each(this, function(element) {
 
@@ -282,11 +282,41 @@ function clearHandlers(element) {
  * @returns {Function}
  */
 
-function createHandler(handler) {
+function proxyHandler(handler) {
     return function(event) {
-        handler(event, event.detail);
+        handler(augmentEvent(event), event.detail);
     };
 }
+
+/**
+ * Attempt to augment events and implement something closer to DOM Level 3 Events.
+ */
+
+var augmentEvent = (function() {
+
+    var eventMethods = {
+            preventDefault: 'isDefaultPrevented',
+            stopImmediatePropagation: 'isImmediatePropagationStopped',
+            stopPropagation: 'isPropagationStopped'
+        },
+        noop = () => {},
+        returnTrue = () => true,
+        returnFalse = () => false;
+
+    return function(event) {
+        for (var methodName in eventMethods) {
+            (function(methodName, testMethodName, originalMethod) {
+                event[methodName] = function() {
+                    this[testMethodName] = returnTrue;
+                    return originalMethod.apply(this, arguments);
+                };
+                event[testMethodName] = returnFalse;
+            }(methodName, eventMethods[methodName], event[methodName] || noop));
+        }
+        return event;
+    }
+
+})();
 
 /**
  * Function to test whether delegated events match the provided `selector` (filter),
@@ -316,13 +346,14 @@ function delegateHandler(selector, handler, event) {
 
 (function() {
     function CustomEvent(event, params = { bubbles: false, cancelable: false, detail: undefined }) {
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
+        var customEvent = document.createEvent('CustomEvent');
+        customEvent.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return customEvent;
     }
 
     CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
     global.CustomEvent = CustomEvent;
+
 })();
 
 /*
