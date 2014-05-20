@@ -53,6 +53,13 @@ describe('selectors', function() {
         expect(fragment[0].outerHTML).to.equal('<div></div>');
     });
 
+    it('should create a comment node from string', function() {
+        var actual = $('<!--comment-->');
+        expect(actual).to.have.length(1);
+        expect(actual[0].nodeType).to.equal(8);
+        expect(actual[0].textContent).to.equal('comment');
+    });
+
     it('should provide a chainable API', function() {
         var element = $('body').find('#testFragment').find('.two');
         expect(element[0]).to.equal($('.two')[0]);
