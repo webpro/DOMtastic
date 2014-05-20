@@ -42,8 +42,8 @@ $.extend = extend;
 
 // Internal properties to switch between default and native mode
 
-$._api = api;
-$._apiNodeList = apiNodeList;
+$.fn = api;
+$.fnList = apiNodeList;
 
 // Export interface
 
