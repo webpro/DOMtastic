@@ -82,6 +82,7 @@ This library was recently renamed from "jQuery Evergreen".
 	after
 	append
 	before
+	clone
 
 ### [Event](http://webpro.github.io/DOMtastic/doc#event)
 

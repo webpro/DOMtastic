@@ -172,6 +172,42 @@ describe('dom', function() {
 
     });
 
+    describe.only('clone', function() {
+
+        it('should clone the wrapped object', function() {
+            var element = $('<div></div>'),
+                clone = element.clone();
+
+            expect(clone).not.to.equal(element);
+            expect(clone[0]).not.to.equal(element[0]);
+            expect(clone[0]).to.be.instanceof(Node);
+            expect(clone[0].nodeType).to.equal(element[0].nodeType);
+        });
+
+        it('should clone the element', function() {
+            var div = document.createElement('div'),
+                element = $(div),
+                clone = element.clone();
+            expect(clone[0]).not.to.equal(div);
+            expect(clone[0]).to.be.instanceof(Node);
+            expect(clone[0].nodeType).to.equal(div.nodeType);
+        });
+
+        it('should clone the DOM elements', function() {
+            var element = $('#testFragment li'),
+                clone = element.clone();
+            expect(clone).to.have.length(5);
+            expect(clone[0].parentNode).to.be.null;
+        });
+
+        it('should deep clone', function() {
+            var element = $('<div><span></span></div>'),
+                clone = element.clone();
+            expect(clone.find('span')).to.have.length(1);
+        });
+
+    });
+
     it('should provide a chainable API', function() {
         var element = $('#testChild').append(html).before(html).after(html);
         expect(container[0].innerHTML).to.equal(html + '<div id="testChild">' + html + '</div>' + html);

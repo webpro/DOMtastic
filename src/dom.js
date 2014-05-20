@@ -30,7 +30,7 @@ function append(element) {
     } else {
         var l = this.length;
         while (l--) {
-            var elm = l === 0 ? element : clone(element);
+            var elm = l === 0 ? element : _clone(element);
             append.call(this[l], elm);
         }
     }
@@ -63,7 +63,7 @@ function before(element) {
     } else {
         var l = this.length;
         while (l--) {
-            var elm = l === 0 ? element : clone(element);
+            var elm = l === 0 ? element : _clone(element);
             before.call(this[l], elm);
         }
     }
@@ -95,11 +95,23 @@ function after(element) {
     } else {
         var l = this.length;
         while (l--) {
-            var elm = l === 0 ? element : clone(element);
+            var elm = l === 0 ? element : _clone(element);
             after.call(this[l], elm);
         }
     }
     return this;
+}
+
+/**
+ * Clone a wrapped object.
+ *
+ * @return {Object} Wrapped collection of cloned nodes.
+ * @example
+ *     $(element).clone();
+ */
+
+function clone() {
+    return $(_clone(this));
 }
 
 /**
@@ -110,7 +122,7 @@ function after(element) {
  * @private
  */
 
-function clone(element) {
+function _clone(element) {
     if (typeof element === 'string') {
         return element;
     } else if (element instanceof Node) {
@@ -127,4 +139,4 @@ function clone(element) {
  * Export interface
  */
 
-export { append, before, after };
+export { append, before, after, clone };
