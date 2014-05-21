@@ -2,7 +2,7 @@
  * @module Selector (extra)
  */
 
-var each = require('./util').each;
+import { each, toArray} from './util';
 import { $, matches } from './selector';
 
 /**
@@ -41,7 +41,7 @@ function children(selector) {
 function contents() {
     var nodes = [];
     each(this, function(element) {
-        nodes.push.apply(nodes, element.childNodes);
+        nodes.push.apply(nodes, toArray(element.childNodes));
     });
     return $(nodes);
 }
