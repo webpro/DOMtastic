@@ -31,6 +31,20 @@ function children(selector) {
 }
 
 /**
+ * Return child nodes of each element in the collection, including text and comment nodes.
+ *
+ * @return {Object} New wrapped collection
+ */
+
+function contents() {
+    var nodes = [];
+    each(this, function(element) {
+        nodes.push.apply(nodes, element.childNodes);
+    });
+    return $(nodes);
+}
+
+/**
  * Return the closest element matching the selector (starting by itself).
  *
  * @param {String} selector Filter
@@ -119,4 +133,4 @@ function slice(start, end) {
  * Export interface
  */
 
-export { children, closest, parent, eq, get, slice };
+export { children, contents, closest, parent, eq, get, slice };

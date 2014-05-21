@@ -30,6 +30,35 @@
 
     });
 
+    describe('contents', function() {
+
+        it('should return child nodes', function() {
+            var actual = $('<ul><li></li><li></li><li></li></ul>').contents(),
+                expected = $('<ul><li></li><li></li><li></li></ul>').children();
+            expect(actual.length).to.equal(3);
+            expect(actual).to.eql(expected);
+        });
+
+        it('should return elements, including comment and text nodes', function() {
+            var children = $('<ul><li></li><!-- --><li></li>foo<li></li></ul>').contents();
+            expect(children.length).to.equal(5);
+            expect(children[0].nodeType).to.equal(1);
+            expect(children[1].nodeType).to.equal(8);
+            expect(children[3].nodeType).to.equal(3);
+        });
+
+        it('should return child nodes from each element', function() {
+            var children = $('<p>1</p><p>2</p>').contents();
+            expect(children.length).to.equal(2);
+        });
+
+        it('should not return elements from comment node', function() {
+            var children = $('<!--warning-->').contents();
+            expect(children.length).to.equal(0);
+        });
+
+    });
+
     describe('parent', function() {
 
         it('should return single direct parent', function() {

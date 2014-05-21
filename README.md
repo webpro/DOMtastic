@@ -134,6 +134,7 @@ The pre-built "full" package also includes the following modules:
 ### [Selector (extra)](http://webpro.github.io/DOMtastic/doc#selector_extra)
 
 	children
+	contents
 	closest
 	eq
 	get
