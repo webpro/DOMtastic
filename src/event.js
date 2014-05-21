@@ -165,9 +165,7 @@ function trigger(type, data, params = {}) {
     params.preventDefault = typeof params.preventDefault === 'boolean' ? params.preventDefault : false;
     params.detail = data;
     var event = new CustomEvent(type, params);
-    if(params.preventDefault) {
-        event.preventDefault();
-    }
+    event._preventDefault = params.preventDefault;
     each(this, function(element) {
         if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
@@ -338,8 +336,11 @@ var augmentEvent = (function() {
                     this[testMethodName] = returnTrue;
                     return originalMethod.apply(this, arguments);
                 };
-                event[testMethodName] = (testMethodName === 'isDefaultPrevented' && event.defaultPrevented) ? returnTrue : returnFalse;
+                event[testMethodName] = returnFalse;
             }(methodName, eventMethods[methodName], event[methodName] || noop));
+        }
+        if(event._preventDefault) {
+            event.preventDefault();
         }
         return event;
     }
