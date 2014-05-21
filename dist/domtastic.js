@@ -8,6 +8,7 @@ var api = {},
 var array = _dereq_('./array');
 var attr = _dereq_('./attr');
 var className = _dereq_('./class');
+var data = _dereq_('./data');
 var dom = _dereq_('./dom');
 var dom_extra = _dereq_('./dom_extra');
 var event = _dereq_('./event');
@@ -23,12 +24,12 @@ var mode = _dereq_('./mode');
 extend($, mode);
 var noconflict = _dereq_('./noconflict');
 extend($, noconflict);
-extend(api, array, attr, className, dom, dom_extra, event, html, selector_extra);
+extend(api, array, attr, className, data, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
-$.version = '0.6.2';
+$.version = '0.7.0';
 $.extend = extend;
-$._api = api;
-$._apiNodeList = apiNodeList;
+$.fn = api;
+$.fnList = apiNodeList;
 var $__default = $;
 module.exports = {
   default: $__default,
@@ -36,7 +37,7 @@ module.exports = {
 };
 
 
-},{"./array":2,"./attr":3,"./class":4,"./dom":5,"./dom_extra":6,"./event":7,"./html":8,"./mode":10,"./noconflict":11,"./selector":12,"./selector_extra":13,"./util":14}],2:[function(_dereq_,module,exports){
+},{"./array":2,"./attr":3,"./class":4,"./data":5,"./dom":6,"./dom_extra":7,"./event":8,"./html":9,"./mode":11,"./noconflict":12,"./selector":13,"./selector_extra":14,"./util":15}],2:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/array";
 var _each = _dereq_('./util').each;
@@ -76,7 +77,7 @@ module.exports = {
 };
 
 
-},{"./selector":12,"./util":14}],3:[function(_dereq_,module,exports){
+},{"./selector":13,"./util":15}],3:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/attr";
 var each = _dereq_('./util').each;
@@ -96,14 +97,21 @@ function attr(key, value) {
   });
   return this;
 }
+function removeAttr(key) {
+  each(this, function(element) {
+    element.removeAttribute(key);
+  });
+  return this;
+}
 ;
 module.exports = {
   attr: attr,
+  removeAttr: removeAttr,
   __esModule: true
 };
 
 
-},{"./util":14}],4:[function(_dereq_,module,exports){
+},{"./util":15}],4:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/class";
 var $__0 = _dereq_('./util'),
@@ -142,7 +150,41 @@ module.exports = {
 };
 
 
-},{"./util":14}],5:[function(_dereq_,module,exports){
+},{"./util":15}],5:[function(_dereq_,module,exports){
+"use strict";
+var __moduleName = "src/data";
+var each = _dereq_('./util').each;
+var dataKeyProp = '__domtastic_data__';
+function data(key, value) {
+  if (typeof key === 'string' && typeof value === 'undefined') {
+    var element = this.nodeType ? this : this[0];
+    return element && element[dataKeyProp] ? element[dataKeyProp][key] : undefined;
+  }
+  each(this, function(element) {
+    element[dataKeyProp] = element[dataKeyProp] || {};
+    element[dataKeyProp][key] = value;
+  });
+  return this;
+}
+function prop(key, value) {
+  if (typeof key === 'string' && typeof value === 'undefined') {
+    var element = this.nodeType ? this : this[0];
+    return element && element ? element[key] : undefined;
+  }
+  each(this, function(element) {
+    element[key] = value;
+  });
+  return this;
+}
+;
+module.exports = {
+  data: data,
+  prop: prop,
+  __esModule: true
+};
+
+
+},{"./util":15}],6:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/dom";
 var toArray = _dereq_('./util').toArray;
@@ -161,8 +203,29 @@ function append(element) {
   } else {
     var l = this.length;
     while (l--) {
-      var elm = l === 0 ? element : clone(element);
+      var elm = l === 0 ? element : _clone(element);
       append.call(this[l], elm);
+    }
+  }
+  return this;
+}
+function prepend(element) {
+  if (this instanceof Node) {
+    if (typeof element === 'string') {
+      this.insertAdjacentHTML('afterbegin', element);
+    } else {
+      if (element instanceof Node) {
+        this.insertBefore(element, this.firstChild);
+      } else {
+        var elements = element instanceof NodeList ? toArray(element) : element;
+        elements.reverse().forEach(prepend.bind(this));
+      }
+    }
+  } else {
+    var l = this.length;
+    while (l--) {
+      var elm = l === 0 ? element : _clone(element);
+      prepend.call(this[l], elm);
     }
   }
   return this;
@@ -182,7 +245,7 @@ function before(element) {
   } else {
     var l = this.length;
     while (l--) {
-      var elm = l === 0 ? element : clone(element);
+      var elm = l === 0 ? element : _clone(element);
       before.call(this[l], elm);
     }
   }
@@ -203,13 +266,16 @@ function after(element) {
   } else {
     var l = this.length;
     while (l--) {
-      var elm = l === 0 ? element : clone(element);
+      var elm = l === 0 ? element : _clone(element);
       after.call(this[l], elm);
     }
   }
   return this;
 }
-function clone(element) {
+function clone() {
+  return $(_clone(this));
+}
+function _clone(element) {
   if (typeof element === 'string') {
     return element;
   } else if (element instanceof Node) {
@@ -224,13 +290,15 @@ function clone(element) {
 ;
 module.exports = {
   append: append,
+  prepend: prepend,
   before: before,
   after: after,
+  clone: clone,
   __esModule: true
 };
 
 
-},{"./util":14}],6:[function(_dereq_,module,exports){
+},{"./util":15}],7:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/dom_extra";
 var each = _dereq_('./util').each;
@@ -251,19 +319,45 @@ function remove() {
     }
   });
 }
+function empty() {
+  return each(this, function(element) {
+    element.innerHTML = '';
+  });
+}
 function replaceWith() {
   return before.apply(this, arguments).remove();
+}
+function val(value) {
+  if (typeof value !== 'string') {
+    return this[0].value;
+  }
+  each(this, function(element) {
+    element.value = value;
+  });
+  return this;
+}
+function text(value) {
+  if (typeof value !== 'string') {
+    return this[0].textContent;
+  }
+  each(this, function(element) {
+    element.textContent = '' + value;
+  });
+  return this;
 }
 ;
 module.exports = {
   appendTo: appendTo,
   remove: remove,
+  empty: empty,
   replaceWith: replaceWith,
+  val: val,
+  text: text,
   __esModule: true
 };
 
 
-},{"./dom":5,"./selector":12,"./util":14}],7:[function(_dereq_,module,exports){
+},{"./dom":6,"./selector":13,"./util":15}],8:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/event";
 var $__0 = _dereq_('./util'),
@@ -278,7 +372,7 @@ function on(eventName, selector, handler, useCapture) {
   var parts = eventName.split('.');
   eventName = parts[0] || null;
   var namespace = parts[1] || null;
-  var eventListener = handler;
+  var eventListener = proxyHandler(handler);
   each(this, function(element) {
     if (selector) {
       eventListener = delegateHandler.bind(element, selector, handler);
@@ -331,13 +425,14 @@ function delegate(selector, eventName, handler) {
 function undelegate(selector, eventName, handler) {
   return off.call(this, eventName, selector, handler);
 }
-function trigger(type) {
-  var params = arguments[1] !== (void 0) ? arguments[1] : {
-    bubbles: true,
-    cancelable: true,
-    detail: undefined
-  };
+function trigger(type, data) {
+  var params = arguments[2] !== (void 0) ? arguments[2] : {};
+  params.bubbles = typeof params.bubbles === 'boolean' ? params.bubbles : true;
+  params.cancelable = typeof params.cancelable === 'boolean' ? params.cancelable : true;
+  params.preventDefault = typeof params.preventDefault === 'boolean' ? params.preventDefault : false;
+  params.detail = data;
   var event = new CustomEvent(type, params);
+  event._preventDefault = params.preventDefault;
   each(this, function(element) {
     if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
       element.dispatchEvent(event);
@@ -345,6 +440,22 @@ function trigger(type) {
       triggerForPath(element, type, params);
     }
   });
+  return this;
+}
+function triggerHandler(type, data) {
+  if (this[0]) {
+    trigger.call(this[0], type, data, {
+      bubbles: false,
+      preventDefault: true
+    });
+  }
+}
+function ready(handler) {
+  if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
+    handler();
+  } else {
+    document.addEventListener('DOMContentLoaded', handler, false);
+  }
   return this;
 }
 function isAttachedToDocument(element) {
@@ -364,30 +475,63 @@ function triggerForPath(element, type) {
   params.bubbles = false;
   var event = new CustomEvent(type, params);
   event._target = element;
-  while (element.parentNode) {
+  do {
     element.dispatchEvent(event);
-    element = element.parentNode;
-  }
+  } while (element = element.parentNode);
 }
-var cacheKeyProp = '__domtastic';
+var eventKeyProp = '__domtastic_event__';
 var id = 1;
 var handlers = {};
 var unusedKeys = [];
 function getHandlers(element) {
-  if (!element[cacheKeyProp]) {
-    element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
+  if (!element[eventKeyProp]) {
+    element[eventKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
   }
-  var key = element[cacheKeyProp];
+  var key = element[eventKeyProp];
   return handlers[key] || (handlers[key] = []);
 }
 function clearHandlers(element) {
-  var key = element[cacheKeyProp];
+  var key = element[eventKeyProp];
   if (handlers[key]) {
     handlers[key] = null;
     element[key] = null;
     unusedKeys.push(key);
   }
 }
+function proxyHandler(handler) {
+  return function(event) {
+    handler(augmentEvent(event), event.detail);
+  };
+}
+var augmentEvent = (function() {
+  var eventMethods = {
+    preventDefault: 'isDefaultPrevented',
+    stopImmediatePropagation: 'isImmediatePropagationStopped',
+    stopPropagation: 'isPropagationStopped'
+  },
+      noop = (function() {}),
+      returnTrue = (function() {
+        return true;
+      }),
+      returnFalse = (function() {
+        return false;
+      });
+  return function(event) {
+    for (var methodName in eventMethods) {
+      (function(methodName, testMethodName, originalMethod) {
+        event[methodName] = function() {
+          this[testMethodName] = returnTrue;
+          return originalMethod.apply(this, arguments);
+        };
+        event[testMethodName] = returnFalse;
+      }(methodName, eventMethods[methodName], event[methodName] || noop));
+    }
+    if (event._preventDefault) {
+      event.preventDefault();
+    }
+    return event;
+  };
+})();
 function delegateHandler(selector, handler, event) {
   var eventTarget = event._target || event.target;
   if (matches(eventTarget, selector)) {
@@ -404,9 +548,9 @@ function delegateHandler(selector, handler, event) {
       cancelable: false,
       detail: undefined
     };
-    var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-    return evt;
+    var customEvent = document.createEvent('CustomEvent');
+    customEvent.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return customEvent;
   }
   CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
   global.CustomEvent = CustomEvent;
@@ -425,6 +569,8 @@ var isEventBubblingInDetachedTree = (function() {
   }
   return isBubbling;
 })();
+var bind = on,
+    unbind = off;
 ;
 module.exports = {
   on: on,
@@ -432,11 +578,15 @@ module.exports = {
   delegate: delegate,
   undelegate: undelegate,
   trigger: trigger,
+  triggerHandler: triggerHandler,
+  ready: ready,
+  bind: bind,
+  unbind: unbind,
   __esModule: true
 };
 
 
-},{"./selector":12,"./util":14}],8:[function(_dereq_,module,exports){
+},{"./selector":13,"./util":15}],9:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/html";
 var each = _dereq_('./util').each;
@@ -457,7 +607,7 @@ module.exports = {
 };
 
 
-},{"./util":14}],9:[function(_dereq_,module,exports){
+},{"./util":15}],10:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/index";
 var $ = _dereq_('./api').default;
@@ -468,7 +618,7 @@ module.exports = {
 };
 
 
-},{"./api":1}],10:[function(_dereq_,module,exports){
+},{"./api":1}],11:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/mode";
 var global = _dereq_('./util').global;
@@ -481,10 +631,10 @@ function native() {
     global.$.isNative = isNative;
   }
   if (!wasNative && isNative) {
-    augmentNativePrototypes(this._api, this._apiNodeList);
+    augmentNativePrototypes(this.fn, this.fnList);
   }
   if (wasNative && !isNative) {
-    unaugmentNativePrototypes(this._api, this._apiNodeList);
+    unaugmentNativePrototypes(this.fn, this.fnList);
   }
   return isNative;
 }
@@ -530,7 +680,7 @@ module.exports = {
 };
 
 
-},{"./util":14}],11:[function(_dereq_,module,exports){
+},{"./util":15}],12:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/noconflict";
 var global = _dereq_('./util').global;
@@ -546,7 +696,7 @@ module.exports = {
 };
 
 
-},{"./util":14}],12:[function(_dereq_,module,exports){
+},{"./util":15}],13:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/selector";
 var $__0 = _dereq_('./util'),
@@ -562,6 +712,8 @@ function $(selector) {
   var collection;
   if (!selector) {
     collection = document.querySelectorAll(null);
+  } else if (selector instanceof Wrapper) {
+    return selector;
   } else if (typeof selector !== 'string') {
     collection = makeIterable(selector);
   } else if (reFragment.test(selector)) {
@@ -612,7 +764,7 @@ function createFragment(html) {
 }
 function wrap(collection) {
   if (!isPrototypeSet) {
-    Wrapper.prototype = $._api;
+    Wrapper.prototype = $.fn;
     Wrapper.prototype.constructor = Wrapper;
     isPrototypeSet = true;
   }
@@ -635,21 +787,32 @@ module.exports = {
 };
 
 
-},{"./util":14}],13:[function(_dereq_,module,exports){
+},{"./util":15}],14:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/selector_extra";
-var each = _dereq_('./util').each;
+var $__0 = _dereq_('./util'),
+    each = $__0.each,
+    toArray = $__0.toArray;
 var $__0 = _dereq_('./selector'),
     $ = $__0.$,
     matches = $__0.matches;
 function children(selector) {
   var nodes = [];
   each(this, function(element) {
-    each(element.children, function(child) {
-      if (!selector || (selector && matches(child, selector))) {
-        nodes.push(child);
-      }
-    });
+    if (element.children) {
+      each(element.children, function(child) {
+        if (!selector || (selector && matches(child, selector))) {
+          nodes.push(child);
+        }
+      });
+    }
+  });
+  return $(nodes);
+}
+function contents() {
+  var nodes = [];
+  each(this, function(element) {
+    nodes.push.apply(nodes, toArray(element.childNodes));
   });
   return $(nodes);
 }
@@ -683,6 +846,7 @@ function slice(start, end) {
 ;
 module.exports = {
   children: children,
+  contents: contents,
   closest: closest,
   parent: parent,
   eq: eq,
@@ -692,7 +856,7 @@ module.exports = {
 };
 
 
-},{"./selector":12,"./util":14}],14:[function(_dereq_,module,exports){
+},{"./selector":13,"./util":15}],15:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/util";
 var global = new Function("return this")(),
@@ -701,11 +865,11 @@ var toArray = (function(collection) {
   return slice.call(collection);
 });
 var makeIterable = (function(element) {
-  return element.length === undefined || element === window ? [element] : element;
+  return element.nodeType || element === window ? [element] : element;
 });
 function each(collection, callback) {
   var length = collection.length;
-  if (length !== undefined) {
+  if (length !== undefined && collection.nodeType === undefined) {
     for (var i = 0; i < length; i++) {
       callback(collection[i], i, collection);
     }
@@ -738,6 +902,6 @@ module.exports = {
 };
 
 
-},{}]},{},[9])
-(9)
+},{}]},{},[10])
+(10)
 });
