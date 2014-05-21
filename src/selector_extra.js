@@ -34,6 +34,8 @@ function children(selector) {
  * Return child nodes of each element in the collection, including text and comment nodes.
  *
  * @return {Object} New wrapped collection
+ * @example
+ *     $('.selector').contents();
  */
 
 function contents() {

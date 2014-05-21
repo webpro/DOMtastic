@@ -187,6 +187,8 @@ function trigger(type, data, params = {}) {
  *
  * @param {String} type Type of the event
  * @param {Object} data Data to be sent with the event
+ * @example
+ *     $('form').triggerHandler('submit');
  */
 
 function triggerHandler(type, data) {
@@ -299,8 +301,9 @@ function clearHandlers(element) {
  * Function to create a handler that augments the event object with some extra methods,
  * and executes the callback with the event and the event data (i.e. `event.detail`).
  *
+ * @private
  * @param handler Callback to execute as `handler(event, data)`
- * @returns {Function}
+ * @return {Function}
  */
 
 function proxyHandler(handler) {
@@ -311,6 +314,10 @@ function proxyHandler(handler) {
 
 /**
  * Attempt to augment events and implement something closer to DOM Level 3 Events.
+ *
+ * @private
+ * @param {Object} event
+ * @return {Function}
  */
 
 var augmentEvent = (function() {

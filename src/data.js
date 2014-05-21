@@ -6,6 +6,18 @@ import { each } from './util';
 
 var dataKeyProp = '__domtastic_data__';
 
+/**
+ * Get data from first element, or set data for each element in the collection.
+ *
+ * @param {String} key The key for the data to get or set.
+ * @param {String} [value] The data to set.
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').data('attrName'); // get
+ *     $('.item').data('attrName', {any: 'data'}); // set
+ */
+
 function data(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {

@@ -12,9 +12,9 @@ import { each } from './util';
  * @return {Object} The wrapped collection
  * @chainable
  * @example
- *     $('.item').attr('attrName');
- *     $('.item').attr('attrName', 'attrValue');
- *     $('.item').attr({'attr1', 'value1'}, {'attr2', 'value2});
+ *     $('.item').attr('attrName'); // get
+ *     $('.item').attr('attrName', 'attrValue'); // set
+ *     $('.item').attr({'attr1', 'value1'}, {'attr2', 'value2}); // set multiple
  */
 
 function attr(key, value) {
@@ -40,7 +40,7 @@ function attr(key, value) {
 /**
  * Remove attribute from each element in the collection.
  *
- * @param key Attribute name
+ * @param {String} key Attribute name
  * @return {Object} The wrapped collection
  * @chainable
  * @example

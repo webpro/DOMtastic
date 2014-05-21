@@ -66,7 +66,7 @@ function replaceWith() {
 /**
  * Get the `value` from the first, or set the `value` of each element in the collection.
  *
- * @param value
+ * @param {String} [value]
  * @return {Object} The wrapped collection
  * @chainable
  * @example
@@ -89,7 +89,7 @@ function val(value){
 /**
  * Get the `textContent` from the first, or set the `textContent` of each element in the collection.
  *
- * @param value
+ * @param {String} [value]
  * @return {Object} The wrapped collection
  * @chainable
  * @example
