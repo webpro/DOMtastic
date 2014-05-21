@@ -325,6 +325,44 @@ describe('events', function() {
 
     });
 
+    describe('triggerHandler', function() {
+
+        it('should execute handler', function() {
+            var element = $('<div></div>'),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.triggerHandler(eventType);
+            expect(spy).to.have.been.called;
+        });
+
+        it('should not bubble', function() {
+            var element = $('<div><span></span></div>'),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.find('span').triggerHandler(eventType);
+            expect(spy).not.to.have.been.called;
+        });
+
+        it('should prevent default event behavior', function() {
+            var element = $('<div></div>'),
+                eventType = getRndStr();
+            element.on(eventType, function(event) {
+                expect(event.isDefaultPrevented()).to.be.true;
+            });
+            element.triggerHandler(eventType);
+        });
+
+        it('should execute handler for first element only', function() {
+            var element = $('<p></p><p></p>'),
+                eventType = getRndStr();
+            $(element[0]).on(eventType, spy);
+            $(element[1]).on(eventType, spy);
+            element.triggerHandler(eventType);
+            expect(spy).to.have.been.calledOnce;
+        });
+
+    });
+
     describe('ready', function() {
 
         it('should execute on DOMContentLoaded (or after)', function(done) {

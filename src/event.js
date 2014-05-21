@@ -162,8 +162,12 @@ function undelegate(selector, eventName, handler) {
 function trigger(type, data, params = {}) {
     params.bubbles = typeof params.bubbles === 'boolean' ? params.bubbles : true;
     params.cancelable = typeof params.cancelable === 'boolean' ? params.cancelable : true;
+    params.preventDefault = typeof params.preventDefault === 'boolean' ? params.preventDefault : false;
     params.detail = data;
     var event = new CustomEvent(type, params);
+    if(params.preventDefault) {
+        event.preventDefault();
+    }
     each(this, function(element) {
         if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             element.dispatchEvent(event);
@@ -172,6 +176,23 @@ function trigger(type, data, params = {}) {
         }
     });
     return this;
+}
+
+/**
+ * Trigger event at first element in the collection. Similar to `trigger()`, except:
+ *
+ * - Event does not bubble
+ * - Default event behavior is prevented
+ * - Only triggers handler for first matching element
+ *
+ * @param {String} type Type of the event
+ * @param {Object} data Data to be sent with the event
+ */
+
+function triggerHandler(type, data) {
+    if(this[0]) {
+        trigger.call(this[0], type, data, {bubbles: false, preventDefault: true});
+    }
 }
 
 /**
@@ -310,7 +331,7 @@ var augmentEvent = (function() {
                     this[testMethodName] = returnTrue;
                     return originalMethod.apply(this, arguments);
                 };
-                event[testMethodName] = returnFalse;
+                event[testMethodName] = (testMethodName === 'isDefaultPrevented' && event.defaultPrevented) ? returnTrue : returnFalse;
             }(methodName, eventMethods[methodName], event[methodName] || noop));
         }
         return event;
@@ -380,4 +401,4 @@ var isEventBubblingInDetachedTree = (function() {
  * Export interface
  */
 
-export { on, off, delegate, undelegate, trigger, ready };
+export { on, off, delegate, undelegate, trigger, triggerHandler, ready };
