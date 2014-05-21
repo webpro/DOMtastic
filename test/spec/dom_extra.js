@@ -132,7 +132,7 @@ describe('dom (extra)', function() {
         it('should set the element value', function() {
             var element = $('<p/>');
             element.text('foo');
-            expect(element[0].innerText).to.equal('foo');
+            expect(element[0].textContent).to.equal('foo');
         });
 
         it('should get the element value', function() {
