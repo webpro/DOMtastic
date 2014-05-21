@@ -26,6 +26,8 @@ function appendTo(element) {
  * Remove the collection from the DOM.
  *
  * @return {Array} Array containing the removed elements
+ * @example
+ *     $('.item').remove();
  */
 
 function remove() {
