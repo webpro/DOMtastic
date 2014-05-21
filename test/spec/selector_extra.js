@@ -5,26 +5,26 @@
         it('should return children', function() {
             var actual = $('#testFragment ul').children(),
                 expected = $('#testFragment li');
-            expect(actual.length).to.equal(5);
+            expect(actual).to.have.length(5);
             expect(actual).to.eql(expected);
         });
 
         it('should return only elements', function() {
             var children = $('<ul><li></li><!-- --><li></li>foo<li></li></ul>').children();
-            expect(children.length).to.equal(3);
+            expect(children).to.have.length(3);
             expect(children[1].nodeType).to.equal(1);
             expect(children[2].nodeType).to.equal(1);
         });
 
         it('should not return elements from comment node', function() {
             var children = $('<!--warning-->').children();
-            expect(children.length).to.equal(0);
+            expect(children).to.have.length(0);
         });
 
         it('should return filtered children', function() {
             var actual = $('#testFragment ul').children('[class]'),
                 expected = $('#testFragment li[class]');
-            expect(actual.length).to.equal(3);
+            expect(actual).to.have.length(3);
             expect(actual).to.eql(expected);
         });
 
@@ -33,15 +33,14 @@
     describe('contents', function() {
 
         it('should return child nodes', function() {
-            var actual = $('<ul><li></li><li></li><li></li></ul>').contents(),
-                expected = $('<ul><li></li><li></li><li></li></ul>').children();
-            expect(actual.length).to.equal(3);
-            expect(actual).to.eql(expected);
+            var actual = $('<ul><li></li><li></li><li></li></ul>').contents();
+            expect(actual).to.have.length(3);
+            expect(actual[2].nodeType).to.equal(1);
         });
 
         it('should return elements, including comment and text nodes', function() {
             var children = $('<ul><li></li><!-- --><li></li>foo<li></li></ul>').contents();
-            expect(children.length).to.equal(5);
+            expect(children).to.have.length(5);
             expect(children[0].nodeType).to.equal(1);
             expect(children[1].nodeType).to.equal(8);
             expect(children[3].nodeType).to.equal(3);
@@ -49,12 +48,12 @@
 
         it('should return child nodes from each element', function() {
             var children = $('<p>1</p><p>2</p>').contents();
-            expect(children.length).to.equal(2);
+            expect(children).to.have.length(2);
         });
 
         it('should not return elements from comment node', function() {
             var children = $('<!--warning-->').contents();
-            expect(children.length).to.equal(0);
+            expect(children).to.have.length(0);
         });
 
     });
@@ -64,21 +63,21 @@
         it('should return single direct parent', function() {
             var actual = $('#testFragment ul').parent(),
                 expected = $('#testFragment');
-            expect(actual.length).to.equal(1);
+            expect(actual).to.have.length(1);
             expect(actual).to.eql(expected);
         });
 
         it('should return direct parents', function() {
             var actual = $('#testFragment li span').parent(),
                 expected = $('#testFragment li');
-            expect(actual.length).to.equal(5);
+            expect(actual).to.have.length(5);
             expect(actual[0]).to.equal(expected[0]);
         });
 
         it('should return filtered parents', function() {
             var actual = $('#testFragment li span').parent('[class]'),
                 expected = $('#testFragment li[class]');
-            expect(actual.length).to.equal(3);
+            expect(actual).to.have.length(3);
             expect(actual).to.eql(expected);
         });
 
@@ -89,21 +88,21 @@
         it('should return closest matching element (self)', function() {
             var actual = $('#testFragment li.two').closest('.two'),
                 expected = $('#testFragment li.two');
-            expect(actual.length).to.equal(1);
+            expect(actual).to.have.length(1);
             expect(actual).to.eql(expected);
         });
 
         it('should return closest matching element', function() {
             var actual = $('#testFragment li.two').closest('ul'),
                 expected = $('#testFragment ul');
-            expect(actual.length).to.equal(1);
+            expect(actual).to.have.length(1);
             expect(actual).to.eql(expected);
         });
 
         it('should return empty collection when there are no matches', function() {
             var actual = $('#testFragment').closest('.foo'),
                 expected = $('.foo');
-            expect(actual.length).to.equal(0);
+            expect(actual).to.have.length(0);
             expect(actual).to.eql(expected);
         });
 
@@ -141,7 +140,7 @@
         it('should slice the elements', function() {
             var expected = $('#testFragment li'),
                 actual = $('#testFragment li').slice(-3, -1);
-            expect(actual.length).to.be.equal(2);
+            expect(actual).to.have.length(2);
             expect(actual[0]).to.be.equal(expected[2]);
             expect(actual[1]).to.be.equal(expected[3]);
         });
@@ -151,7 +150,7 @@
     it('should provide a chainable API', function() {
         var expected = $('.two span'),
             actual = $('#testFragment ul').children('[class]').slice().children();
-        expect(actual.length).to.equal(3);
+        expect(actual).to.have.length(3);
         expect(actual[0]).to.equal(expected[0]);
     });
 

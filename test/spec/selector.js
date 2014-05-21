@@ -11,25 +11,25 @@ describe('selectors', function() {
     it('should return an empty NodeList for falsey selectors', function() {
 
         expect($().forEach).to.be.a('function');
-        expect($().length).to.equal(0);
-        expect($(null).length).to.equal(0);
-        expect($('').length).to.equal(0);
-        expect($(0).length).to.equal(0);
+        expect($()).to.have.length(0);
+        expect($(null)).to.have.length(0);
+        expect($('')).to.have.length(0);
+        expect($(0)).to.have.length(0);
     });
 
     it('should return queried elements', function() {
         var elements = $('#testFragment li');
-        expect(elements.length).to.equal(5);
+        expect(elements).to.have.length(5);
     });
 
     it('should return queried elements within provided context', function() {
         var elements = $('li', document.getElementById('testFragment'));
-        expect(elements.length).to.equal(5);
+        expect(elements).to.have.length(5);
     });
 
     it('should return queried elements within provided context (string)', function() {
         var elements = $('li', '#testFragment');
-        expect(elements.length).to.equal(5);
+        expect(elements).to.have.length(5);
     });
 
     it('should return the provided element', function() {
