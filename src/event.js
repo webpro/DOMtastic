@@ -397,8 +397,11 @@ var isEventBubblingInDetachedTree = (function() {
     return isBubbling;
 })();
 
+var bind = on,
+    unbind = off;
+
 /*
  * Export interface
  */
 
-export { on, off, delegate, undelegate, trigger, triggerHandler, ready };
+export { on, off, delegate, undelegate, trigger, triggerHandler, ready, bind, unbind };
