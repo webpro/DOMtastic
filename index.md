@@ -75,6 +75,7 @@ This library was recently renamed from "jQuery Evergreen".
 ### [Attr](http://webpro.github.io/DOMtastic/doc#attr)
 
 	attr
+	removeAttr
 
 ### [Class](http://webpro.github.io/DOMtastic/doc#class)
 
@@ -88,6 +89,8 @@ This library was recently renamed from "jQuery Evergreen".
 	after
 	append
 	before
+	clone
+	prepend
 
 ### [Event](http://webpro.github.io/DOMtastic/doc#event)
 
@@ -96,6 +99,8 @@ This library was recently renamed from "jQuery Evergreen".
 	delegate
 	undelegate
 	trigger
+	triggerHandler
+	ready
 
 ### [HTML](http://webpro.github.io/DOMtastic/doc#html)
 
@@ -124,6 +129,8 @@ The pre-built "full" package also includes the following modules:
 	appendTo
     remove
     replaceWith
+    val
+    text
 
 ### [Mode](http://webpro.github.io/DOMtastic/doc#mode)
 
@@ -133,6 +140,7 @@ The pre-built "full" package also includes the following modules:
 ### [Selector (extra)](http://webpro.github.io/DOMtastic/doc#selector_extra)
 
 	children
+	contents
 	closest
 	eq
 	get

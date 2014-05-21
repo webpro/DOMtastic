@@ -43,7 +43,7 @@ describe('mode', function() {
 
         expect(actual).to.have.length(5);
 
-        for(var i = 0; i < actual.length; i++) {
+        for (var i = 0; i < actual.length; i++) {
             expect(actual[i]).to.equal($expected[i]);
         }
     });
@@ -80,7 +80,7 @@ describe('mode', function() {
             expect(actual[0].forEach).to.be.a('function');
 
         });
-        
+
         it('should operate on Elements directly', function() {
 
             var element = document.getElementById('testElement'),

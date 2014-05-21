@@ -66,9 +66,32 @@ describe('events', function() {
                 eventSpy = sinon.spy(event, 'stopPropagation');
 
             parent.on(eventType, spy);
-            child.on(eventType, function(evt){
-                evt.stopPropagation();
+            child.on(eventType, function(event) {
+                expect(event.isPropagationStopped()).to.be.false;
+                event.stopPropagation();
+                expect(event.isPropagationStopped()).to.be.true;
             });
+
+            child[0].dispatchEvent(event);
+
+            expect(eventSpy).to.have.been.called;
+            expect(spy).not.to.have.been.called;
+
+        });
+
+        it('should stop immediate propagation', function() {
+
+            var child = $('.fourth'),
+                eventType = getRndStr(),
+                event = new CustomEvent(eventType),
+                eventSpy = sinon.spy(event, 'stopImmediatePropagation');
+
+            child.on(eventType, function(event) {
+                expect(event.isImmediatePropagationStopped()).to.be.false;
+                event.stopImmediatePropagation();
+                expect(event.isImmediatePropagationStopped()).to.be.true;
+            });
+            child.on(eventType, spy);
 
             child[0].dispatchEvent(event);
 
@@ -86,8 +109,10 @@ describe('events', function() {
                 eventSpy = sinon.spy(event, 'preventDefault');
 
             parent.on(eventType, spy);
-            child.on(eventType, function(event){
+            child.on(eventType, function(event) {
+                expect(event.isDefaultPrevented()).to.be.false;
                 event.preventDefault();
+                expect(event.isDefaultPrevented()).to.be.true;
             });
 
             child[0].dispatchEvent(event);
@@ -100,7 +125,7 @@ describe('events', function() {
     });
 
 
-     describe('bubbling', function() {
+    describe('bubbling', function() {
 
         it('should receive events bubbling up to an element', function() {
             var element = $(document.body),
@@ -110,7 +135,7 @@ describe('events', function() {
             expect(spy).to.have.been.called;
         });
 
-        it('should receive events bubbling up to an element not in the DOM', function() {
+        it('should receive events bubbling up to a detached element', function() {
             var element = $('<div><p></p></div>'),
                 child = $(element[0].querySelector('p')),
                 eventType = getRndStr();
@@ -120,7 +145,7 @@ describe('events', function() {
             expect(spy).to.have.been.calledOnce;
         });
 
-        it('should receive delegated events bubbling up to an element not in the DOM', function() {
+        it('should receive delegated events bubbling up to a detached element', function() {
             var element = $('<div><p></p></div>'),
                 child = $(element[0].querySelector('p')),
                 eventType = getRndStr();
@@ -128,14 +153,6 @@ describe('events', function() {
             child.trigger(eventType);
             expect(spy).to.have.been.called;
             expect(spy).to.have.been.calledOnce;
-        });
-
-        it('should not receive events bubbling up to an element when `bubbles` is set to false', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.on(eventType, spy);
-            $('.two').trigger(eventType, {bubbles: false});
-            expect(spy).not.to.have.been.called;
         });
 
     });
@@ -189,13 +206,21 @@ describe('events', function() {
 
     });
 
-     describe('delegate', function() {
+    describe('delegate', function() {
 
         it('should receive a delegated event from a child element', function() {
             var element = $(document.body),
                 eventType = getRndStr();
             element.delegate('li', eventType, spy);
             $('.fourth').trigger(eventType);
+            expect(spy).to.have.been.called;
+        });
+
+        it('should receive a delegated event in detached nodes', function() {
+            var element = $('<div><span></span></div>'),
+                eventType = getRndStr();
+            element.delegate('span', eventType, spy);
+            element.find('span').trigger(eventType);
             expect(spy).to.have.been.called;
         });
 
@@ -227,7 +252,7 @@ describe('events', function() {
 
     });
 
-     describe('undelegate', function() {
+    describe('undelegate', function() {
 
         it('should detach a delegated event handler from an element', function() {
             var element = $(document.body),
@@ -265,6 +290,91 @@ describe('events', function() {
             element.off(eventType, 'li', spy);
             $('.fourth').trigger(eventType);
             expect(spy).not.to.have.been.called;
+        });
+
+    });
+
+    describe('trigger', function() {
+
+        it('should execute handler for detached nodes', function() {
+            var element = $('<div></div>'),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.trigger(eventType);
+            expect(spy).to.have.been.called;
+        });
+
+        it('should execute handler and pass the data as event detail', function() {
+            var element = $('#testFragment'),
+                eventType = getRndStr(),
+                eventData = {a: 1};
+            element.on(eventType, spy);
+            element.trigger(eventType, eventData);
+            expect(spy).to.have.been.called;
+            expect(spy.firstCall.args[1]).to.equal(eventData);
+            expect(spy.firstCall.args[0].detail).to.equal(eventData);
+        });
+
+        it('should be able send non-bubbling events', function() {
+            var element = $(document.body),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            $('.two').trigger(eventType, null, {bubbles: false});
+            expect(spy).not.to.have.been.called;
+        });
+
+    });
+
+    describe('triggerHandler', function() {
+
+        it('should execute handler', function() {
+            var element = $('<div></div>'),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.triggerHandler(eventType);
+            expect(spy).to.have.been.called;
+        });
+
+        it('should not bubble', function() {
+            var element = $('<div><span></span></div>'),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.find('span').triggerHandler(eventType);
+            expect(spy).not.to.have.been.called;
+        });
+
+        it('should prevent default event behavior', function() {
+            var element = $('<div></div>'),
+                eventType = getRndStr();
+            element.on(eventType, function(event) {
+                expect(event.isDefaultPrevented()).to.be.true;
+            });
+            element.triggerHandler(eventType);
+        });
+
+        it('should execute handler for first element only', function() {
+            var element = $('<p></p><p></p>'),
+                eventType = getRndStr();
+            $(element[0]).on(eventType, spy);
+            $(element[1]).on(eventType, spy);
+            element.triggerHandler(eventType);
+            expect(spy).to.have.been.calledOnce;
+        });
+
+    });
+
+    describe('ready', function() {
+
+        it('should execute on DOMContentLoaded (or after)', function(done) {
+            $(document).ready(function() {
+                done();
+            })
+        });
+
+        it('should execute for any element on DOMContentLoaded (or after)', function(done) {
+            $('<div/>').ready(function() {
+                done();
+            });
         });
 
     });

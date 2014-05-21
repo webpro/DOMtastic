@@ -2,28 +2,34 @@ describe('selectors', function() {
 
     var html = '<article><section><p>foo</p><p>bar</p></section></article>';
 
+    it('should return the wrapped object', function() {
+        var expected = $('#testFragment li'),
+            actual = $(expected);
+        expect(actual).to.equal(expected);
+    });
+
     it('should return an empty NodeList for falsey selectors', function() {
 
         expect($().forEach).to.be.a('function');
-        expect($().length).to.equal(0);
-        expect($(null).length).to.equal(0);
-        expect($('').length).to.equal(0);
-        expect($(0).length).to.equal(0);
+        expect($()).to.have.length(0);
+        expect($(null)).to.have.length(0);
+        expect($('')).to.have.length(0);
+        expect($(0)).to.have.length(0);
     });
 
     it('should return queried elements', function() {
         var elements = $('#testFragment li');
-        expect(elements.length).to.equal(5);
+        expect(elements).to.have.length(5);
     });
 
     it('should return queried elements within provided context', function() {
         var elements = $('li', document.getElementById('testFragment'));
-        expect(elements.length).to.equal(5);
+        expect(elements).to.have.length(5);
     });
 
     it('should return queried elements within provided context (string)', function() {
         var elements = $('li', '#testFragment');
-        expect(elements.length).to.equal(5);
+        expect(elements).to.have.length(5);
     });
 
     it('should return the provided element', function() {
@@ -45,6 +51,13 @@ describe('selectors', function() {
     it('should create a DOM fragment from string (tag)', function() {
         var fragment = $('<div></div>');
         expect(fragment[0].outerHTML).to.equal('<div></div>');
+    });
+
+    it('should create a comment node from string', function() {
+        var actual = $('<!--comment-->');
+        expect(actual).to.have.length(1);
+        expect(actual[0].nodeType).to.equal(8);
+        expect(actual[0].textContent).to.equal('comment');
     });
 
     it('should provide a chainable API', function() {

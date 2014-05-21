@@ -68,6 +68,22 @@ describe('dom (extra)', function() {
 
     });
 
+    describe('empty', function() {
+
+        it('should empty the element', function() {
+            var element = $(html).empty();
+            expect(element[0].outerHTML).to.equal('<article></article>');
+        });
+
+        it('should empty each element', function() {
+            var expected = $(html).find('p'),
+                actual = expected.empty();
+            expect(actual[0].parentNode.innerHTML).to.equal('<p></p><p></p>');
+            expect(actual[0]).to.equal(expected[0]);
+        });
+
+    });
+
     describe('replaceWith', function() {
 
         it('should replace element (DOM string)', function() {
@@ -95,4 +111,35 @@ describe('dom (extra)', function() {
         });
 
     });
+
+    describe('val', function() {
+
+        it('should set the element value', function() {
+            var element = $('<input/>');
+            element.val('foo');
+            expect(element[0].value).to.equal('foo');
+        });
+
+        it('should get the element value', function() {
+            var element = $('<select><option>foo</option><option selected>bar</option></select>');
+            expect(element.val()).to.equal('bar');
+        });
+
+    });
+
+    describe('text', function() {
+
+        it('should set the element value', function() {
+            var element = $('<p/>');
+            element.text('foo');
+            expect(element[0].innerText).to.equal('foo');
+        });
+
+        it('should get the element value', function() {
+            var element = $('<p>foo</p>');
+            expect(element.text()).to.equal('foo');
+        });
+
+    });
+
 });
