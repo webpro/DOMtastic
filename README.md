@@ -123,6 +123,8 @@ The pre-built "full" package also includes the following modules:
 	appendTo
     remove
     replaceWith
+    val
+    text
 
 ### [Mode](http://webpro.github.io/DOMtastic/doc#mode)
 

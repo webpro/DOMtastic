@@ -63,8 +63,54 @@ function replaceWith() {
     return before.apply(this, arguments).remove();
 }
 
+/**
+ * Get the `value` from the first, or set the `value` of each element in the collection.
+ *
+ * @param value
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('input.firstName').value('New value');
+ */
+
+function val(value){
+
+    if(typeof value !== 'string') {
+        return this[0].value;
+    }
+
+    each(this, function(element){
+        element.value = value;
+    });
+
+    return this;
+}
+
+/**
+ * Get the `textContent` from the first, or set the `textContent` of each element in the collection.
+ *
+ * @param value
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').text('New content');
+ */
+
+function text(value){
+
+    if(typeof value !== 'string') {
+        return this[0].textContent;
+    }
+
+    each(this, function(element) {
+        element.textContent = '' + value;
+    });
+
+    return this;
+}
+
 /*
  * Export interface
  */
 
-export { appendTo, remove, empty, replaceWith };
+export { appendTo, remove, empty, replaceWith, val, text };
