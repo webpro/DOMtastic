@@ -42,7 +42,7 @@ var makeIterable = (element) => element.nodeType || element === window ? [elemen
 
 function each(collection, callback) {
     var length = collection.length;
-    if (length !== undefined) {
+    if (length !== undefined && collection.nodeType === undefined) {
         for (var i = 0; i < length; i++){
             callback(collection[i], i, collection);
         }
