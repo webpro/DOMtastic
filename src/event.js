@@ -266,16 +266,16 @@ function triggerForPath(element, type, params = {}) {
  * @return {Array}
  */
 
-var cacheKeyProp = '__domtastic';
+var eventKeyProp = '__domtastic_event__';
 var id = 1;
 var handlers = {};
 var unusedKeys = [];
 
 function getHandlers(element) {
-    if (!element[cacheKeyProp]) {
-        element[cacheKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
+    if (!element[eventKeyProp]) {
+        element[eventKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
     }
-    var key = element[cacheKeyProp];
+    var key = element[eventKeyProp];
     return handlers[key] || (handlers[key] = []);
 }
 
@@ -287,7 +287,7 @@ function getHandlers(element) {
  */
 
 function clearHandlers(element) {
-    var key = element[cacheKeyProp];
+    var key = element[eventKeyProp];
     if (handlers[key]) {
         handlers[key] = null;
         element[key] = null;
