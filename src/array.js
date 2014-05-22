@@ -114,8 +114,50 @@ var some = ArrayProto.some;
 
 var indexOf = ArrayProto.indexOf;
 
+/**
+ * Removes the last element from the collection, and returns that element.
+ *
+ * @return {Object} The last element from the collection.
+ * @example
+ *     var lastElement = $('.items').pop();
+ */
+
+var pop = ArrayProto.pop;
+
+/**
+ * Adds one or more elements to the end of the collection, and returns the new length of the array.
+ *
+ * @param {Object} element Element(s) to add to the collection
+ * @return {Number} The new length of the collection
+ * @example
+ *     $('.items').push(element);
+ */
+
+var push = ArrayProto.push;
+
+/**
+ * Removes the first element from the collection, and returns that element.
+ *
+ * @return {Object} The first element from the collection.
+ * @example
+ *     var firstElement = $('.items').shift();
+ */
+
+var shift = ArrayProto.shift;
+
+/**
+ * Adds one or more elements to the beginning of the collection, and returns the new length of the array.
+ *
+ * @param {Object} element Element(s) to add to the collection
+ * @return {Object} The last element from the collection.
+ * @example
+ *     $('.items').unshift(element);
+ */
+
+var unshift = ArrayProto.unshift;
+
 /*
  * Export interface
  */
 
-export { each, every, filter, forEach, indexOf, map, reverse, some };
+export { each, every, filter, forEach, indexOf, map, pop, push, reverse, shift, some, unshift };

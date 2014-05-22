@@ -67,6 +67,40 @@ describe('array', function() {
         expect(actual).to.equal(expected);
     });
 
+    it('should have proper pop', function() {
+        var expected = $('#testFragment li')[4],
+            elements = $('#testFragment li'),
+            actual = elements.pop();
+        expect(actual).to.equal(expected);
+        expect(elements).to.have.length(4);
+    });
+
+    it('should have proper push', function() {
+        var elements = $('#testFragment li'),
+            element = document.createElement('li'),
+            actual = elements.push(element);
+        expect(elements).to.have.length(6);
+        expect(actual).to.equal(6);
+        expect(elements[5]).to.equal(element);
+    });
+
+    it('should have proper shift', function() {
+        var expected = $('#testFragment li')[0],
+            elements = $('#testFragment li'),
+            actual = elements.shift();
+        expect(actual).to.equal(expected);
+        expect(elements).to.have.length(4);
+    });
+
+    it('should have proper unshift', function() {
+        var elements = $('#testFragment li'),
+            element = document.createElement('li'),
+            actual = elements.unshift(element);
+        expect(elements).to.have.length(6);
+        expect(actual).to.equal(6);
+        expect(elements[0]).to.equal(element);
+    });
+
     it('should have proper indexOf', function() {
         var expected = 3,
             elements = $('#testFragment li'),
