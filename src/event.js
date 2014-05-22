@@ -112,33 +112,9 @@ function off(eventName, selector, handler, useCapture) {
     return this;
 }
 
-/**
- * Delegate events triggered at descendants to element(s)
- *
- * @param {String} selector Selector to filter descendants that delegate the event to this element.
- * @param {String} eventName Name or type of the event
- * @param {Function} handler Event handler
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $('.container').delegate('.item', 'click', handler);
- */
-
 function delegate(selector, eventName, handler) {
     return on.call(this, eventName, selector, handler);
 }
-
-/**
- * Undelegate events triggered at descendants to element(s)
- *
- * @param {String} selector Selector to filter descendants that undelegate the event to this element.
- * @param {String} eventName Name or type of the event
- * @param {Function} handler Event handler
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $('.container').undelegate('.item', 'click', handler);
- */
 
 function undelegate(selector, eventName, handler) {
     return off.call(this, eventName, selector, handler);

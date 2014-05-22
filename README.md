@@ -90,8 +90,8 @@ This library was recently renamed from "jQuery Evergreen".
 
 	on
 	off
-	delegate
-	undelegate
+	delegate (deprecated, will be removed soon)
+	undelegate (deprecated, will be removed soon)
 	trigger
 	triggerHandler
 	ready
