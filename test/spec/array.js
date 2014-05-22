@@ -7,19 +7,25 @@ describe('array', function() {
     it('should have proper forEach', function() {
         var expected = $('#testFragment li'),
             actual = [];
-        expected.each(function(element) {
+        expected.each(function(element, index, collection) {
+            expect(index).to.be.a('number');
+            expect(collection).to.equal(expected);
+            expect(this).to.equal(expected);
             actual.push(element);
-        });
+        }, expected);
         expect(actual).to.have.length(5);
-        expect(expected.forEach).to.equal(expected.each);
         expect(actual[0]).to.equal(expected[0]);
+        expect(expected.forEach).to.equal(expected.each);
     });
 
     it('should have proper every', function() {
         var expected = $('#testFragment li'),
-            actual = expected.every(function(element) {
+            actual = expected.every(function(element, index, collection) {
+                expect(index).to.be.a('number');
+                expect(collection).to.equal(expected);
+                expect(this).to.equal(expected);
                 return element.nodeType === 1;
-            });
+            }, expected);
         expect(actual).to.be.true;
     });
 
@@ -30,20 +36,28 @@ describe('array', function() {
         expect(actual).to.have.length(3);
     });
 
-    it('should have proper filter (function)', function() {
+    it('should have proper filter', function() {
         var expected = $('#testFragment li[class]'),
-            actual = $('#testFragment li').filter(function(element) {
+            all = $('#testFragment li'),
+            actual = all.filter(function(element, index, collection) {
+                expect(index).to.be.a('number');
+                expect(collection).to.equal(all);
+                expect(this).to.equal(expected);
                 return !!element.className;
-            });
+            }, expected);
         expect(actual).to.eql(expected);
         expect(actual).to.have.length(3);
     });
 
     it('should have proper map', function() {
         var expected = [1, 1, 1, 1, 1],
-            actual = $('#testFragment li').map(function(element) {
+            all = $('#testFragment li'),
+            actual = all.map(function(element, index, collection) {
+                expect(index).to.be.a('number');
+                expect(collection).to.equal(all);
+                expect(this).to.equal(expected);
                 return element.nodeType
-            });
+            }, expected);
         expect(actual).to.deep.equal(expected);
     });
 
