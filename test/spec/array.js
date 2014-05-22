@@ -4,7 +4,7 @@ describe('array', function() {
         return true;
     };
 
-    it('should have proper each/forEach', function() {
+    it('should have proper forEach', function() {
         var expected = $('#testFragment li'),
             actual = [];
         expected.each(function(element) {

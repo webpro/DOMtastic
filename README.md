@@ -58,9 +58,9 @@ This library was recently renamed from "jQuery Evergreen".
 
 ### [Array](http://webpro.github.io/DOMtastic/doc/#array)
 
-    each
     every
     filter
+    forEach
     indexOf
     map
     reverse

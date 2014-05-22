@@ -35,16 +35,16 @@ function filter(selector, thisArg) {
  * @return {Object} The wrapped collection
  * @chainable
  * @example
- *     $('.items').each(function(element) {
+ *     $('.items').forEach(function(element) {
  *         element.style.color = 'evergreen';
  *     );
  */
 
-function each(callback, thisArg) {
+function forEach(callback, thisArg) {
     return _each(this, callback, thisArg);
 }
 
-var forEach = each;
+var each = forEach;
 
 /**
  * Create a new collection by executing the callback for each element in the collection.
