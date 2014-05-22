@@ -22,22 +22,6 @@ function appendTo(element) {
     return this;
 }
 
-/**
- * Remove the collection from the DOM.
- *
- * @return {Array} Array containing the removed elements
- * @example
- *     $('.item').remove();
- */
-
-function remove() {
-    return each(this, function(element) {
-        if (element.parentNode) {
-            element.parentNode.removeChild(element);
-        }
-    });
-}
-
 /*
  * Empty each element in the collection.
  *
@@ -54,6 +38,22 @@ function empty(){
 }
 
 /**
+ * Remove the collection from the DOM.
+ *
+ * @return {Array} Array containing the removed elements
+ * @example
+ *     $('.item').remove();
+ */
+
+function remove() {
+    return each(this, function(element) {
+        if (element.parentNode) {
+            element.parentNode.removeChild(element);
+        }
+    });
+}
+
+/**
  * Replace each element in the collection with the provided new content, and return the array of elements that were replaced.
  *
  * @return {Array} Array containing the replaced elements
@@ -61,29 +61,6 @@ function empty(){
 
 function replaceWith() {
     return before.apply(this, arguments).remove();
-}
-
-/**
- * Get the `value` from the first, or set the `value` of each element in the collection.
- *
- * @param {String} [value]
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $('input.firstName').value('New value');
- */
-
-function val(value){
-
-    if(typeof value !== 'string') {
-        return this[0].value;
-    }
-
-    each(this, function(element){
-        element.value = value;
-    });
-
-    return this;
 }
 
 /**
@@ -109,8 +86,31 @@ function text(value){
     return this;
 }
 
+/**
+ * Get the `value` from the first, or set the `value` of each element in the collection.
+ *
+ * @param {String} [value]
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('input.firstName').value('New value');
+ */
+
+function val(value){
+
+    if(typeof value !== 'string') {
+        return this[0].value;
+    }
+
+    each(this, function(element){
+        element.value = value;
+    });
+
+    return this;
+}
+
 /*
  * Export interface
  */
 
-export { appendTo, remove, empty, replaceWith, val, text };
+export { appendTo, empty, remove, replaceWith, text, val };

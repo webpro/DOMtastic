@@ -49,6 +49,22 @@ describe('dom (extra)', function() {
 
     });
 
+    describe('empty', function() {
+
+        it('should empty the element', function() {
+            var element = $(html).empty();
+            expect(element[0].outerHTML).to.equal('<article></article>');
+        });
+
+        it('should empty each element', function() {
+            var expected = $(html).find('p'),
+                actual = expected.empty();
+            expect(actual[0].parentNode.innerHTML).to.equal('<p></p><p></p>');
+            expect(actual[0]).to.equal(expected[0]);
+        });
+
+    });
+
     describe('remove', function() {
 
         it('should remove the element', function() {
@@ -64,22 +80,6 @@ describe('dom (extra)', function() {
             var actual = expected.remove();
             expect(actual[0]).to.equal(expected[0]);
             expect(fragment[0].outerHTML).to.equal('<article><section></section></article>');
-        });
-
-    });
-
-    describe('empty', function() {
-
-        it('should empty the element', function() {
-            var element = $(html).empty();
-            expect(element[0].outerHTML).to.equal('<article></article>');
-        });
-
-        it('should empty each element', function() {
-            var expected = $(html).find('p'),
-                actual = expected.empty();
-            expect(actual[0].parentNode.innerHTML).to.equal('<p></p><p></p>');
-            expect(actual[0]).to.equal(expected[0]);
         });
 
     });
@@ -112,21 +112,6 @@ describe('dom (extra)', function() {
 
     });
 
-    describe('val', function() {
-
-        it('should set the element value', function() {
-            var element = $('<input/>');
-            element.val('foo');
-            expect(element[0].value).to.equal('foo');
-        });
-
-        it('should get the element value', function() {
-            var element = $('<select><option>foo</option><option selected>bar</option></select>');
-            expect(element.val()).to.equal('bar');
-        });
-
-    });
-
     describe('text', function() {
 
         it('should set the element value', function() {
@@ -138,6 +123,21 @@ describe('dom (extra)', function() {
         it('should get the element value', function() {
             var element = $('<p>foo</p>');
             expect(element.text()).to.equal('foo');
+        });
+
+    });
+
+    describe('val', function() {
+
+        it('should set the element value', function() {
+            var element = $('<input/>');
+            element.val('foo');
+            expect(element[0].value).to.equal('foo');
+        });
+
+        it('should get the element value', function() {
+            var element = $('<select><option>foo</option><option selected>bar</option></select>');
+            expect(element.val()).to.equal('bar');
         });
 
     });

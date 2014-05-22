@@ -31,22 +31,6 @@ function children(selector) {
 }
 
 /**
- * Return child nodes of each element in the collection, including text and comment nodes.
- *
- * @return {Object} New wrapped collection
- * @example
- *     $('.selector').contents();
- */
-
-function contents() {
-    var nodes = [];
-    each(this, function(element) {
-        nodes.push.apply(nodes, toArray(element.childNodes));
-    });
-    return $(nodes);
-}
-
-/**
  * Return the closest element matching the selector (starting by itself).
  *
  * @param {String} selector Filter
@@ -67,22 +51,17 @@ function closest(selector) {
 }
 
 /**
- * Return the parent elements of each element in the collection, optionally filtered by a selector.
+ * Return child nodes of each element in the collection, including text and comment nodes.
  *
- * @param {String} [selector] Filter
  * @return {Object} New wrapped collection
- * @chainable
  * @example
- *     $('.selector').parent();
- *     $('.selector').parent('.filter');
+ *     $('.selector').contents();
  */
 
-function parent(selector) {
+function contents() {
     var nodes = [];
     each(this, function(element) {
-        if (!selector || (selector && matches(element.parentNode, selector))) {
-            nodes.push(element.parentNode);
-        }
+        nodes.push.apply(nodes, toArray(element.childNodes));
     });
     return $(nodes);
 }
@@ -117,6 +96,27 @@ function get(index) {
 }
 
 /**
+ * Return the parent elements of each element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').parent();
+ *     $('.selector').parent('.filter');
+ */
+
+function parent(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        if (!selector || (selector && matches(element.parentNode, selector))) {
+            nodes.push(element.parentNode);
+        }
+    });
+    return $(nodes);
+}
+
+/**
  * Create a new, sliced collection.
  *
  * @param {Number} start
@@ -135,4 +135,4 @@ function slice(start, end) {
  * Export interface
  */
 
-export { children, contents, closest, parent, eq, get, slice };
+export { children, contents, closest, eq, get, parent, slice };

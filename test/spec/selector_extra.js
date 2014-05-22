@@ -30,6 +30,31 @@
 
     });
 
+    describe('closest', function() {
+
+        it('should return closest matching element (self)', function() {
+            var actual = $('#testFragment li.two').closest('.two'),
+                expected = $('#testFragment li.two');
+            expect(actual).to.have.length(1);
+            expect(actual).to.eql(expected);
+        });
+
+        it('should return closest matching element', function() {
+            var actual = $('#testFragment li.two').closest('ul'),
+                expected = $('#testFragment ul');
+            expect(actual).to.have.length(1);
+            expect(actual).to.eql(expected);
+        });
+
+        it('should return empty collection when there are no matches', function() {
+            var actual = $('#testFragment').closest('.foo'),
+                expected = $('.foo');
+            expect(actual).to.have.length(0);
+            expect(actual).to.eql(expected);
+        });
+
+    });
+
     describe('contents', function() {
 
         it('should return child nodes', function() {
@@ -58,6 +83,32 @@
 
     });
 
+    describe('eq', function() {
+
+        it('should reduce to one', function() {
+            var expected = $('#testFragment li.three'),
+                actual = $('#testFragment li').eq(2);
+            expect(actual[0]).to.be.equal(expected[0]);
+        });
+
+        it('should reduce to one (negative index)', function() {
+            var expected = $('#testFragment li.fourth'),
+                actual = $('#testFragment li').eq(-2);
+            expect(actual[0]).to.be.equal(expected[0]);
+        });
+
+    });
+
+    describe('get', function() {
+
+        it('should return DOM element', function() {
+            var expected = $('#testFragment li.three'),
+                actual = $('#testFragment li').get(2);
+            expect(actual).to.be.equal(expected[0]);
+        });
+
+    });
+
     describe('parent', function() {
 
         it('should return single direct parent', function() {
@@ -79,58 +130,6 @@
                 expected = $('#testFragment li[class]');
             expect(actual).to.have.length(3);
             expect(actual).to.eql(expected);
-        });
-
-    });
-
-    describe('closest', function() {
-
-        it('should return closest matching element (self)', function() {
-            var actual = $('#testFragment li.two').closest('.two'),
-                expected = $('#testFragment li.two');
-            expect(actual).to.have.length(1);
-            expect(actual).to.eql(expected);
-        });
-
-        it('should return closest matching element', function() {
-            var actual = $('#testFragment li.two').closest('ul'),
-                expected = $('#testFragment ul');
-            expect(actual).to.have.length(1);
-            expect(actual).to.eql(expected);
-        });
-
-        it('should return empty collection when there are no matches', function() {
-            var actual = $('#testFragment').closest('.foo'),
-                expected = $('.foo');
-            expect(actual).to.have.length(0);
-            expect(actual).to.eql(expected);
-        });
-
-    });
-
-    describe('get', function() {
-
-        it('should return DOM element', function() {
-            var expected = $('#testFragment li.three'),
-                actual = $('#testFragment li').get(2);
-            expect(actual).to.be.equal(expected[0]);
-        });
-
-    });
-
-
-    describe('get', function() {
-
-        it('should reduce to one', function() {
-            var expected = $('#testFragment li.three'),
-                actual = $('#testFragment li').eq(2);
-            expect(actual[0]).to.be.equal(expected[0]);
-        });
-
-        it('should reduce to one (negative index)', function() {
-            var expected = $('#testFragment li.fourth'),
-                actual = $('#testFragment li').eq(-2);
-            expect(actual[0]).to.be.equal(expected[0]);
         });
 
     });

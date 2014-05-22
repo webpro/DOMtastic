@@ -8,6 +8,20 @@ import { $, matches } from './selector';
 var ArrayProto = Array.prototype;
 
 /**
+ * Checks if the given callback returns a true(-ish) value for each element in the collection.
+ *
+ * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @return {Boolean} Whether each element passed the callback check.
+ * @example
+ *     $('.items').every(function(element) {
+ *         return element.hasAttribute('active')
+ *     });
+ *     ➤ true/false
+ */
+
+var every = ArrayProto.every;
+
+/**
  * Filter the collection by selector or function.
  *
  * @param {String|Function} selector Selector or function to filter the collection.
@@ -47,6 +61,18 @@ function forEach(callback, thisArg) {
 var each = forEach;
 
 /**
+ * Returns the index of an element in the collection.
+ *
+ * @param {Node} element
+ * @return {Number} The zero-based index, -1 if not found.
+ * @example
+ *     $('.items').indexOf(element);
+ *     ➤ 2
+ */
+
+var indexOf = ArrayProto.indexOf;
+
+/**
  * Create a new collection by executing the callback for each element in the collection.
  *
  * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
@@ -59,60 +85,6 @@ var each = forEach;
  */
 
 var map = ArrayProto.map;
-
-/**
- * Reverses an array in place. The first array element becomes the last and the last becomes the first.
- *
- * @return {Object} The wrapped collection, reversed
- * @chainable
- * @example
- *     $('.items').reverse();
- */
-
-function reverse() {
-    var elements = ArrayProto.slice.call(this);
-    return $(ArrayProto.reverse.call(elements));
-}
-
-/**
- * Checks if the given callback returns a true(-ish) value for each element in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
- * @return {Boolean} Whether each element passed the callback check.
- * @example
- *     $('.items').every(function(element) {
- *         return element.hasAttribute('active')
- *     });
- *     ➤ true/false
- */
-
-var every = ArrayProto.every;
-
-/**
- * Checks if the given callback returns a true(-ish) value for any of the elements in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
- * @return {Boolean} Whether any element passed the callback check.
- * @example
- *     $('.items').some(function(element) {
- *         return element.hasAttribute('active')
- *     });
- *     ➤ true/false
- */
-
-var some = ArrayProto.some;
-
-/**
- * Returns the index of an element in the collection.
- *
- * @param {Node} element
- * @return {Number} The zero-based index, -1 if not found.
- * @example
- *     $('.items').indexOf(element);
- *     ➤ 2
- */
-
-var indexOf = ArrayProto.indexOf;
 
 /**
  * Removes the last element from the collection, and returns that element.
@@ -136,6 +108,20 @@ var pop = ArrayProto.pop;
 var push = ArrayProto.push;
 
 /**
+ * Reverses an array in place. The first array element becomes the last and the last becomes the first.
+ *
+ * @return {Object} The wrapped collection, reversed
+ * @chainable
+ * @example
+ *     $('.items').reverse();
+ */
+
+function reverse() {
+    var elements = ArrayProto.slice.call(this);
+    return $(ArrayProto.reverse.call(elements));
+}
+
+/**
  * Removes the first element from the collection, and returns that element.
  *
  * @return {Object} The first element from the collection.
@@ -144,6 +130,20 @@ var push = ArrayProto.push;
  */
 
 var shift = ArrayProto.shift;
+
+/**
+ * Checks if the given callback returns a true(-ish) value for any of the elements in the collection.
+ *
+ * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @return {Boolean} Whether any element passed the callback check.
+ * @example
+ *     $('.items').some(function(element) {
+ *         return element.hasAttribute('active')
+ *     });
+ *     ➤ true/false
+ */
+
+var some = ArrayProto.some;
 
 /**
  * Adds one or more elements to the beginning of the collection, and returns the new length of the array.
