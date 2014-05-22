@@ -52,8 +52,45 @@ describe('events', function() {
             expect(eventCurrentTarget).to.equal(document.body);
         });
 
-    });
+        describe('delegated', function() {
 
+            it('should receive a delegated event from a child element', function() {
+                var element = $(document.body),
+                    eventType = getRndStr();
+                element.delegate('li', eventType, spy);
+                $('.fourth').trigger(eventType);
+                expect(spy).to.have.been.called;
+            });
+
+            it('should receive a delegated event in detached nodes', function() {
+                var element = $('<div><span></span></div>'),
+                    eventType = getRndStr();
+                element.delegate('span', eventType, spy);
+                element.find('span').trigger(eventType);
+                expect(spy).to.have.been.called;
+            });
+
+            it('should receive delegated events from multiple child elements', function() {
+                var elements = $('#testFragment li'),
+                    eventType = getRndStr();
+                elements.delegate('span', eventType, spy);
+                $('#testFragment li span').trigger(eventType);
+                expect(spy.callCount).to.have.equal(5);
+            });
+
+            it('should receive delegated events from child elements', function() {
+                var element = $(document.body),
+                    eventType = getRndStr();
+                element.delegate('li', eventType, spy);
+                $('.two').trigger(eventType);
+                $('.three').trigger(eventType);
+                $('.fourth').trigger(eventType);
+                expect(spy).to.have.been.calledThrice;
+            });
+
+        });
+
+    });
 
     describe('cancellation', function() {
 
@@ -200,97 +237,53 @@ describe('events', function() {
             var elements = $('#testEmpty'),
                 eventType = getRndStr();
             expect(function() {
-                elements.off(eventType, function(){});
+                elements.off(eventType, function() {
+                });
             }).to.not.throw();
+        });
+
+        describe('delegated', function() {
+
+            it('should detach a delegated event handler from an element', function() {
+                var element = $(document.body),
+                    eventType = getRndStr();
+                element.delegate('li', eventType, spy);
+                element.undelegate('li', eventType, spy);
+                $('.fourth').trigger('testEvent2');
+                expect(spy).not.to.have.been.called;
+            });
+
+            it('should detach a delegated event handler from multiple elements', function() {
+                var elements = $('#testFragment li'),
+                    eventType = getRndStr();
+                elements.delegate('li', eventType, spy);
+                elements.undelegate('li', eventType, spy);
+                $('.fourth').trigger('testEvent21');
+                expect(spy).not.to.have.been.called;
+            });
+
+            it('should remove all delegated handlers when un-delegating event handlers', function() {
+                var element = $(document.body),
+                    eventType = getRndStr();
+                element.delegate('li', eventType, spy);
+                element.delegate('li', eventType, spy);
+                element.delegate('li', eventType, spy);
+                element.undelegate('li', eventType, spy);
+                $('.two').trigger(eventType);
+                expect(spy).not.to.have.been.called;
+            });
+
         });
 
     });
 
     describe('delegate', function() {
 
-        it('should receive a delegated event from a child element', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.delegate('li', eventType, spy);
-            $('.fourth').trigger(eventType);
-            expect(spy).to.have.been.called;
-        });
-
-        it('should receive a delegated event in detached nodes', function() {
-            var element = $('<div><span></span></div>'),
-                eventType = getRndStr();
-            element.delegate('span', eventType, spy);
-            element.find('span').trigger(eventType);
-            expect(spy).to.have.been.called;
-        });
-
-        it('should receive delegated events from multiple child elements', function() {
-            var elements = $('#testFragment li'),
-                eventType = getRndStr();
-            elements.delegate('span', eventType, spy);
-            $('#testFragment li span').trigger(eventType);
-            expect(spy.callCount).to.have.equal(5);
-        });
-
-        it('should receive delegated events from child elements', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.delegate('li', eventType, spy);
-            $('.two').trigger(eventType);
-            $('.three').trigger(eventType);
-            $('.fourth').trigger(eventType);
-            expect(spy).to.have.been.calledThrice;
-        });
-
-        it('should forward request to `delegate` if that signature was used', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.on(eventType, 'li', spy);
-            $('.fourth').trigger(eventType);
-            expect(spy).to.have.been.called;
-        });
 
     });
 
     describe('undelegate', function() {
 
-        it('should detach a delegated event handler from an element', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.delegate('li', eventType, spy);
-            element.undelegate('li', eventType, spy);
-            $('.fourth').trigger('testEvent2');
-            expect(spy).not.to.have.been.called;
-        });
-
-        it('should detach a delegated event handler from multiple elements', function() {
-            var elements = $('#testFragment li'),
-                eventType = getRndStr();
-            elements.delegate('li', eventType, spy);
-            elements.undelegate('li', eventType, spy);
-            $('.fourth').trigger('testEvent21');
-            expect(spy).not.to.have.been.called;
-        });
-
-        it('should remove all delegated handlers when un-delegating event handlers', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.delegate('li', eventType, spy);
-            element.delegate('li', eventType, spy);
-            element.delegate('li', eventType, spy);
-            element.undelegate('li', eventType, spy);
-            $('.two').trigger(eventType);
-            expect(spy).not.to.have.been.called;
-        });
-
-        it('should forward request to `undelegate` if that signature was used', function() {
-            var element = $(document.body),
-                eventType = getRndStr();
-            element.on(eventType, 'li', spy);
-            element.off(eventType, 'li', spy);
-            $('.fourth').trigger(eventType);
-            expect(spy).not.to.have.been.called;
-        });
 
     });
 
