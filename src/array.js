@@ -21,11 +21,11 @@ var ArrayProto = Array.prototype;
  *     });
  */
 
-function filter(selector) {
+function filter(selector, thisArg) {
     var callback = typeof selector === 'function' ? selector : function(element) {
         return matches(element, selector);
     };
-    return $(ArrayProto.filter.call(this, callback));
+    return $(ArrayProto.filter.call(this, callback, thisArg));
 }
 
 /**
@@ -40,8 +40,8 @@ function filter(selector) {
  *     );
  */
 
-function each(callback) {
-    return _each(this, callback);
+function each(callback, thisArg) {
+    return _each(this, callback, thisArg);
 }
 
 var forEach = each;
