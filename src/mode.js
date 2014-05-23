@@ -24,7 +24,6 @@
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 
-import { global } from './util';
 
 var isNative = false;
 

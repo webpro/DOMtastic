@@ -2,7 +2,7 @@
  * @module Selector
  */
 
-import { global, makeIterable } from './util';
+import { makeIterable } from './util';
 
 var slice = [].slice,
     isPrototypeSet = false,

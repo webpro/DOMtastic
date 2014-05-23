@@ -7,8 +7,7 @@
  * @private
  */
 
-var global = new Function("return this")(),
-    slice = Array.prototype.slice;
+var slice = Array.prototype.slice;
 
 /**
  * Convert `NodeList` to `Array`.
@@ -82,4 +81,4 @@ function extend(target, ...sources) {
  * Export interface
  */
 
-export { global, toArray, makeIterable, each, extend };
+export { toArray, makeIterable, each, extend };
