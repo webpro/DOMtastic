@@ -11,6 +11,7 @@ var ArrayProto = Array.prototype;
  * Checks if the given callback returns a true(-ish) value for each element in the collection.
  *
  * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @param {Object} [thisArg] Value to use as `this` when executing `callback`.
  * @return {Boolean} Whether each element passed the callback check.
  * @example
  *     $('.items').every(function(element) {
@@ -22,10 +23,11 @@ var ArrayProto = Array.prototype;
 var every = ArrayProto.every;
 
 /**
- * Filter the collection by selector or function.
+ * Filter the collection by selector or function, and return a new collection with the result.
  *
  * @param {String|Function} selector Selector or function to filter the collection.
- * @return {Object} The wrapped collection
+ * @param {Object} [thisArg] Value to use as `this` when executing `callback`.
+ * @return {Object} A new wrapped collection
  * @chainable
  * @example
  *     $('.items').filter('.active');
@@ -46,6 +48,7 @@ function filter(selector, thisArg) {
  * Execute a function for each element in the collection.
  *
  * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @param {Object} [thisArg] Value to use as `this` when executing `callback`.
  * @return {Object} The wrapped collection
  * @chainable
  * @example
@@ -76,6 +79,7 @@ var indexOf = ArrayProto.indexOf;
  * Create a new collection by executing the callback for each element in the collection.
  *
  * @param {Function} callback Function to execute for each element, invoked with `element` as argument.
+ * @param {Object} [thisArg] Value to use as `this` when executing `callback`.
  * @return {Array} Collection with the return value of the executed callback for each element.
  * @example
  *     $('.items').map(function(element) {
@@ -97,7 +101,7 @@ var map = ArrayProto.map;
 var pop = ArrayProto.pop;
 
 /**
- * Adds one or more elements to the end of the collection, and returns the new length of the array.
+ * Adds one or more elements to the end of the collection, and returns the new length of the collection.
  *
  * @param {Object} element Element(s) to add to the collection
  * @return {Number} The new length of the collection
@@ -146,10 +150,10 @@ var shift = ArrayProto.shift;
 var some = ArrayProto.some;
 
 /**
- * Adds one or more elements to the beginning of the collection, and returns the new length of the array.
+ * Adds one or more elements to the beginning of the collection, and returns the new length of the collection.
  *
  * @param {Object} element Element(s) to add to the collection
- * @return {Object} The last element from the collection.
+ * @return {Number} The new length of the collection
  * @example
  *     $('.items').unshift(element);
  */
