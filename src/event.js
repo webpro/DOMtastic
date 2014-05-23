@@ -2,7 +2,7 @@
  * @module Events
  */
 
-import { global, each } from './util';
+import { each } from './util';
 import { matches } from './selector';
 
 /**

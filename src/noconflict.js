@@ -2,7 +2,6 @@
  * @module noConflict
  */
 
-import { global } from './util';
 
 /*
  * Save the previous value of the global `$` variable, so that it can be restored later on.
