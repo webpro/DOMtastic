@@ -8,7 +8,7 @@ import { matches } from './selector';
 /**
  * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
  *
- * @param {String} eventName
+ * @param {String} eventNames List of space-separated event types to be added to the element(s)
  * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
@@ -16,38 +16,46 @@ import { matches } from './selector';
  * @chainable
  * @example
  *     $('.item').on('click', callback);
- *     $('.container').on('click', '.item', handler);
+ *     $('.container').on('click focus', '.item', handler);
  */
 
-function on(eventName, selector, handler, useCapture) {
+function on(eventNames, selector, handler, useCapture) {
 
     if (typeof selector === 'function') {
         handler = selector;
         selector = null;
     }
 
-    var parts = eventName.split('.');
-    eventName = parts[0] || null;
-    var namespace = parts[1] || null;
+    var parts,
+        namespace,
+        eventListener;
 
-    var eventListener = proxyHandler(handler);
+    eventNames.split(' ').forEach(function(eventName) {
 
-    each(this, function(element) {
+        parts = eventName.split('.');
+        eventName = parts[0] || null;
+        namespace = parts[1] || null;
 
-        if (selector) {
-            eventListener = delegateHandler.bind(element, selector, handler);
-        }
+        eventListener = proxyHandler(handler);
 
-        element.addEventListener(eventName, eventListener, useCapture || false);
+        each(this, function(element) {
 
-        getHandlers(element).push({
-            eventName: eventName,
-            handler: handler,
-            eventListener: eventListener,
-            selector: selector,
-            namespace: namespace
+            if (selector) {
+                eventListener = delegateHandler.bind(element, selector, handler);
+            }
+
+            element.addEventListener(eventName, eventListener, useCapture || false);
+
+            getHandlers(element).push({
+                eventName: eventName,
+                handler: handler,
+                eventListener: eventListener,
+                selector: selector,
+                namespace: namespace
+            });
         });
-    });
+
+    }, this);
 
     return this;
 }
@@ -55,7 +63,7 @@ function on(eventName, selector, handler, useCapture) {
 /**
  * Shorthand for `removeEventListener`. Delegates to `undelegate` if that signature is used.
  *
- * @param {String} eventName Name or type of the event
+ * @param {String} eventNames List of space-separated event types to be removed from the element(s)
  * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
@@ -63,51 +71,59 @@ function on(eventName, selector, handler, useCapture) {
  * @chainable
  * @example
  *     $('.item').off('click', callback);
+ *     $('#my-element').off('myEvent myOtherEvent');
+ *     $('.item').off();
  */
 
-function off(eventName, selector, handler, useCapture) {
+function off(eventNames = '', selector, handler, useCapture) {
 
     if (typeof selector === 'function') {
         handler = selector;
         selector = null;
     }
 
-    if (eventName) {
-        var parts = eventName.split('.');
-        eventName = parts[0];
-        var namespace = parts[1];
-    }
+    var parts,
+        namespace,
+        handlers;
 
-    each(this, function(element) {
+    eventNames.split(' ').forEach(function(eventName) {
 
-        var handlers = getHandlers(element);
+        parts = eventName.split('.');
+        eventName = parts[0] || null;
+        namespace = parts[1] || null;
 
-        if (!eventName && !namespace && !selector && !handler) {
+        each(this, function(element) {
 
-            each(handlers, function(item) {
-                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
-            });
+            handlers = getHandlers(element);
 
-            clearHandlers(element);
+            if (!eventName && !namespace && !selector && !handler) {
 
-        } else {
+                each(handlers, function(item) {
+                    element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+                });
 
-            each(handlers.filter(function(item) {
-                return ((!eventName || item.eventName === eventName) &&
-                    (!namespace || item.namespace === namespace) &&
-                    (!handler || item.handler === handler) &&
-                    (!selector || item.selector === selector));
-            }), function(item) {
-                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
-                handlers.splice(handlers.indexOf(item), 1);
-            });
-
-            if (handlers.length === 0) {
                 clearHandlers(element);
-            }
-        }
 
-    });
+            } else {
+
+                each(handlers.filter(function(item) {
+                    return ((!eventName || item.eventName === eventName) &&
+                        (!namespace || item.namespace === namespace) &&
+                        (!handler || item.handler === handler) &&
+                        (!selector || item.selector === selector));
+                }), function(item) {
+                    element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
+                    handlers.splice(handlers.indexOf(item), 1);
+                });
+
+                if (handlers.length === 0) {
+                    clearHandlers(element);
+                }
+            }
+
+        });
+
+    }, this);
 
     return this;
 }
