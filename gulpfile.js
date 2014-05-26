@@ -205,7 +205,7 @@ function dollar(data) {
 function exclude(preset) {
     var modulesToExclude = bundlePresets[preset].modulesToExclude,
         removeDeReqsRE = new RegExp('.+_dereq_.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g'),
-        removeExtendsRE = new RegExp('(,\\ (__M__))'.replace(/__M__/g, modulesToExclude.join('|')), 'g');
+        removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/g, modulesToExclude.join('|')), 'g');
     return function(data) {
         return modulesToExclude.length ? data.replace(removeDeReqsRE, '').replace(removeExtendsRE, '') : data;
     }
