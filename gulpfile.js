@@ -34,6 +34,17 @@ var srcDir = path.resolve('src'),
         outSourceMap: true
     };
 
+if (gutil.env.include) {
+    var include_list = ['index', 'api'].concat(gutil.env.include.split(',')),
+        modules_list = fs.readdirSync('./src').map(function (module) {
+            return module.replace('.js', '');
+        }),
+        exclude_list = modules_list.filter(function (module) {
+            return include_list.indexOf(module) < 0;
+        });
+    gutil.env.exclude = exclude_list.join(',');
+}
+
 var bundlePresets = {
     default: {
         modulesToExclude: ['data', 'dom_extra', 'mode', 'selector_extra', 'type'],
