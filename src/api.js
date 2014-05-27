@@ -31,7 +31,7 @@ module mode from './mode'; extend($, mode);
 module noconflict from './noconflict'; extend($, noconflict);
 module type from './type'; extend($, type);
 
-extend(api, array, attr, className, data, dom, dom_extra, event, html, selector_extra, type);
+extend(api, array, attr, className, data, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
 
 // Version
