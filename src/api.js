@@ -20,7 +20,6 @@ module event from './event';
 module html from './html';
 module selector from './selector';
 module selector_extra from './selector_extra';
-module type from './type';
 
 if (selector !== undefined) {
     $ = selector.$;
@@ -30,6 +29,7 @@ if (selector !== undefined) {
 
 module mode from './mode'; extend($, mode);
 module noconflict from './noconflict'; extend($, noconflict);
+module type from './type'; extend($, type);
 
 extend(api, array, attr, className, data, dom, dom_extra, event, html, selector_extra, type);
 extend(apiNodeList, array);
