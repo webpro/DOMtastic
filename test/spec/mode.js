@@ -17,11 +17,9 @@ describe('mode', function() {
             expect(actual).not.to.be.instanceof(NodeList);
 
             expect(actual.find).to.be.a('function');
-            expect(actual.forEach).to.be.a('function');
 
             expect(actual[0]).to.be.instanceof(Node);
             expect(actual[0].find).to.be.undefined;
-            expect(actual[0].forEach).to.be.undefined;
 
         });
 
@@ -31,7 +29,6 @@ describe('mode', function() {
 
         // Most browsers actually have [window.find](https://developer.mozilla.org/en-US/docs/Web/API/Window.find).
         expect(window.find).not.to.equal($(document).find);
-        expect(window.forEach).to.be.undefined;
 
     });
 
@@ -62,7 +59,6 @@ describe('mode', function() {
 
             expect(Node.prototype.find).to.be.a('function');
             expect(NodeList.prototype.find).to.be.a('function');
-            expect(NodeList.prototype.forEach).to.be.a('function');
 
         });
 
@@ -73,11 +69,9 @@ describe('mode', function() {
             expect(actual).to.be.instanceof(NodeList);
 
             expect(actual.find).to.be.a('function');
-            expect(actual.forEach).to.be.a('function');
 
             expect(actual[0]).to.be.instanceof(Node);
             expect(actual[0].find).to.be.a('function');
-            expect(actual[0].forEach).to.be.a('function');
 
         });
 
@@ -102,7 +96,6 @@ describe('mode', function() {
 
             expect(Node.prototype.find).to.be.undefined;
             expect(NodeList.prototype.find).to.be.undefined;
-            expect(NodeList.prototype.forEach).to.be.undefined;
 
             var actual = $('#testFragment li');
 

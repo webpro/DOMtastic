@@ -10,7 +10,7 @@ describe('selectors', function() {
 
     it('should return an empty NodeList for falsey selectors', function() {
 
-        expect($().forEach).to.be.a('function');
+        expect($().find).to.be.a('function');
         expect($()).to.have.length(0);
         expect($(null)).to.have.length(0);
         expect($('')).to.have.length(0);
