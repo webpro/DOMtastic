@@ -177,6 +177,10 @@ You can [opt-in](https://github.com/webpro/DOMtastic/blob/master/src/mode.js) to
 	npm install
 	gulp --exclude=attr,mode,html
 
+Alternatively, you can start from bare metal:
+
+	gulp --include=selector,class
+
 And find the output in the `dist/` folder.
 
 ## Test

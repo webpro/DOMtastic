@@ -48,7 +48,7 @@ var bundlePresets = {
         dest: path.resolve(releaseFolder, 'bundle/bare')
     },
     custom: {
-        modulesToExclude: gutil.env.exclude ? gutil.env.exclude.split(',') : [],
+        modulesToExclude: gutil.env.exclude ? gutil.env.exclude.split(',') : gutil.env.include ? getModulesToExclude(gutil.env.include) : [],
         dest: distFolder
     }
 };
@@ -144,6 +144,16 @@ gulp.task('uglify', ['bundle'], function(done) {
 });
 
 // Util
+
+function getModulesToExclude(modulesToIncludeArg) {
+    var modulesToInclude = ['index', 'api', 'util'].concat(modulesToIncludeArg.split(',')),
+        modulesList = fs.readdirSync('./src').map(function (module) {
+            return module.replace('.js', '');
+        });
+    return modulesList.filter(function (module) {
+        return modulesToInclude.indexOf(module) === -1;
+    });
+}
 
 function _uglify(options, done) {
 
