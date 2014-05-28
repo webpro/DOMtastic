@@ -7,7 +7,7 @@ var api = {},
     $ = {};
 var array = _dereq_('./array');
 var attr = _dereq_('./attr');
-var className = _dereq_('./class');
+var class_ = _dereq_('./class');
 var data = _dereq_('./data');
 var dom = _dereq_('./dom');
 var dom_extra = _dereq_('./dom_extra');
@@ -15,7 +15,7 @@ var event = _dereq_('./event');
 var html = _dereq_('./html');
 var selector = _dereq_('./selector');
 var selector_extra = _dereq_('./selector_extra');
-if (selector !== undefined) {
+if (typeof selector !== 'undefined') {
   $ = selector.$;
   $.matches = selector.matches;
   api.find = selector.find;
@@ -24,9 +24,11 @@ var mode = _dereq_('./mode');
 extend($, mode);
 var noconflict = _dereq_('./noconflict');
 extend($, noconflict);
-extend(api, array, attr, className, data, dom, dom_extra, event, html, selector_extra);
+var type = _dereq_('./type');
+extend($, type);
+extend(api, array, attr, class_, data, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
-$.version = '0.7.1';
+$.version = '0.7.2';
 $.extend = extend;
 $.fn = api;
 $.fnList = apiNodeList;
@@ -37,7 +39,7 @@ module.exports = {
 };
 
 
-},{"./array":2,"./attr":3,"./class":4,"./data":5,"./dom":6,"./dom_extra":7,"./event":8,"./html":9,"./mode":11,"./noconflict":12,"./selector":13,"./selector_extra":14,"./util":15}],2:[function(_dereq_,module,exports){
+},{"./array":2,"./attr":3,"./class":4,"./data":5,"./dom":6,"./dom_extra":7,"./event":8,"./html":9,"./mode":11,"./noconflict":12,"./selector":13,"./selector_extra":14,"./type":15,"./util":16}],2:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/array";
 var _each = _dereq_('./util').each;
@@ -85,7 +87,7 @@ module.exports = {
 };
 
 
-},{"./selector":13,"./util":15}],3:[function(_dereq_,module,exports){
+},{"./selector":13,"./util":16}],3:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/attr";
 var each = _dereq_('./util').each;
@@ -119,7 +121,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],4:[function(_dereq_,module,exports){
+},{"./util":16}],4:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/class";
 var $__0 = _dereq_('./util'),
@@ -158,7 +160,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],5:[function(_dereq_,module,exports){
+},{"./util":16}],5:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/data";
 var each = _dereq_('./util').each;
@@ -192,7 +194,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],6:[function(_dereq_,module,exports){
+},{"./util":16}],6:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/dom";
 var toArray = _dereq_('./util').toArray;
@@ -306,7 +308,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],7:[function(_dereq_,module,exports){
+},{"./util":16}],7:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/dom_extra";
 var each = _dereq_('./util').each;
@@ -365,7 +367,7 @@ module.exports = {
 };
 
 
-},{"./dom":6,"./selector":13,"./util":15}],8:[function(_dereq_,module,exports){
+},{"./dom":6,"./selector":13,"./util":16}],8:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/event";
 var $__0 = _dereq_('./util'),
@@ -606,7 +608,7 @@ module.exports = {
 };
 
 
-},{"./selector":13,"./util":15}],9:[function(_dereq_,module,exports){
+},{"./selector":13,"./util":16}],9:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/html";
 var each = _dereq_('./util').each;
@@ -627,7 +629,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],10:[function(_dereq_,module,exports){
+},{"./util":16}],10:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/index";
 var $ = _dereq_('./api').default;
@@ -700,7 +702,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],12:[function(_dereq_,module,exports){
+},{"./util":16}],12:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/noconflict";
 var global = _dereq_('./util').global;
@@ -716,7 +718,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],13:[function(_dereq_,module,exports){
+},{"./util":16}],13:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/selector";
 var $__0 = _dereq_('./util'),
@@ -807,7 +809,7 @@ module.exports = {
 };
 
 
-},{"./util":15}],14:[function(_dereq_,module,exports){
+},{"./util":16}],14:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/selector_extra";
 var $__0 = _dereq_('./util'),
@@ -876,7 +878,22 @@ module.exports = {
 };
 
 
-},{"./selector":13,"./util":15}],15:[function(_dereq_,module,exports){
+},{"./selector":13,"./util":16}],15:[function(_dereq_,module,exports){
+"use strict";
+var __moduleName = "src/type";
+function isFunction(obj) {
+  return (typeof obj === 'function');
+}
+var isArray = Array.isArray;
+;
+module.exports = {
+  isFunction: isFunction,
+  isArray: isArray,
+  __esModule: true
+};
+
+
+},{}],16:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/util";
 var global = new Function("return this")(),
