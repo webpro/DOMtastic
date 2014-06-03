@@ -13,6 +13,7 @@ var api = {},
 module array from './array';
 module attr from './attr';
 module class_ from './class';
+module css from './css';
 module data from './data';
 module dom from './dom';
 module dom_extra from './dom_extra';
@@ -31,7 +32,7 @@ module mode from './mode'; extend($, mode);
 module noconflict from './noconflict'; extend($, noconflict);
 module type from './type'; extend($, type);
 
-extend(api, array, attr, class_, data, dom, dom_extra, event, html, selector_extra);
+extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
 
 // Version

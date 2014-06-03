@@ -36,7 +36,7 @@ var srcDir = path.resolve('src'),
 
 var bundlePresets = {
     default: {
-        modulesToExclude: ['data', 'dom_extra', 'mode', 'selector_extra', 'type'],
+        modulesToExclude: ['css', 'data', 'dom_extra', 'mode', 'selector_extra', 'type'],
         dest: path.resolve(releaseFolder)
     },
     full: {
@@ -44,7 +44,7 @@ var bundlePresets = {
         dest: path.resolve(releaseFolder, 'bundle/full')
     },
     bare: {
-        modulesToExclude: ['attr', 'data', 'dom_extra', 'html', 'mode', 'noconflict', 'selector_extra', 'type'],
+        modulesToExclude: ['attr', 'css', 'data', 'dom_extra', 'html', 'mode', 'noconflict', 'selector_extra', 'type'],
         dest: path.resolve(releaseFolder, 'bundle/bare')
     },
     custom: {
