@@ -28,6 +28,7 @@ if (typeof selector !== 'undefined') {
     api.find = selector.find;
 }
 
+module contains from './contains'; extend($, contains);
 module mode from './mode'; extend($, mode);
 module noconflict from './noconflict'; extend($, noconflict);
 module type from './type'; extend($, type);

@@ -218,13 +218,7 @@ function isAttachedToDocument(element) {
     if (element === window || element === document) {
         return true;
     }
-    var container = element.ownerDocument.documentElement;
-    if (container.contains) {
-        return container.contains(element);
-    } else if (container.compareDocumentPosition) {
-        return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
-    }
-    return false;
+    return $.contains(element.ownerDocument.documentElement, element);
 }
 
 /**
