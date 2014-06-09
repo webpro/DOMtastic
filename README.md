@@ -82,6 +82,10 @@ This library was recently renamed from "jQuery Evergreen".
 	toggleClass
 	hasClass
 
+### [Contains](http://webpro.github.io/DOMtastic/doc#contains)
+
+	contains
+
 ### [DOM](http://webpro.github.io/DOMtastic/doc#dom)
 
 	after
@@ -121,6 +125,10 @@ The pre-built "bare" package does *not* include the `attr`, `data`, and `html` m
 ## API (full)
 
 The pre-built "full" package also includes the following modules:
+
+### [CSS](http://webpro.github.io/DOMtastic/doc#css)
+
+	css
 
 ### [DOM (extra)](http://webpro.github.io/DOMtastic/doc#dom_extra)
 
