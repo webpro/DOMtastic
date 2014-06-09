@@ -8,6 +8,7 @@ var api = {},
 var array = _dereq_('./array');
 var attr = _dereq_('./attr');
 var class_ = _dereq_('./class');
+var css = _dereq_('./css');
 var data = _dereq_('./data');
 var dom = _dereq_('./dom');
 var dom_extra = _dereq_('./dom_extra');
@@ -20,15 +21,17 @@ if (typeof selector !== 'undefined') {
   $.matches = selector.matches;
   api.find = selector.find;
 }
+var contains = _dereq_('./contains');
+extend($, contains);
 var mode = _dereq_('./mode');
 extend($, mode);
 var noconflict = _dereq_('./noconflict');
 extend($, noconflict);
 var type = _dereq_('./type');
 extend($, type);
-extend(api, array, attr, class_, data, dom, dom_extra, event, html, selector_extra);
+extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, selector_extra);
 extend(apiNodeList, array);
-$.version = '0.7.2';
+$.version = '0.7.3';
 $.extend = extend;
 $.fn = api;
 $.fnList = apiNodeList;
@@ -39,7 +42,7 @@ module.exports = {
 };
 
 
-},{"./array":2,"./attr":3,"./class":4,"./data":5,"./dom":6,"./dom_extra":7,"./event":8,"./html":9,"./mode":11,"./noconflict":12,"./selector":13,"./selector_extra":14,"./type":15,"./util":16}],2:[function(_dereq_,module,exports){
+},{"./array":2,"./attr":3,"./class":4,"./contains":5,"./css":6,"./data":7,"./dom":8,"./dom_extra":9,"./event":10,"./html":11,"./mode":13,"./noconflict":14,"./selector":15,"./selector_extra":16,"./type":17,"./util":18}],2:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/array";
 var _each = _dereq_('./util').each;
@@ -87,7 +90,7 @@ module.exports = {
 };
 
 
-},{"./selector":13,"./util":16}],3:[function(_dereq_,module,exports){
+},{"./selector":15,"./util":18}],3:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/attr";
 var each = _dereq_('./util').each;
@@ -121,7 +124,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],4:[function(_dereq_,module,exports){
+},{"./util":18}],4:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/class";
 var $__0 = _dereq_('./util'),
@@ -160,7 +163,84 @@ module.exports = {
 };
 
 
-},{"./util":16}],5:[function(_dereq_,module,exports){
+},{"./util":18}],5:[function(_dereq_,module,exports){
+"use strict";
+var __moduleName = "src/contains";
+function contains(container, element) {
+  if (!container || !element || container === element) {
+    return false;
+  } else if (container.contains) {
+    return container.contains(element);
+  } else if (container.compareDocumentPosition) {
+    return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
+  }
+  return false;
+}
+;
+module.exports = {
+  contains: contains,
+  __esModule: true
+};
+
+
+},{}],6:[function(_dereq_,module,exports){
+"use strict";
+var __moduleName = "src/css";
+var each = _dereq_('./util').each;
+function isNumeric(value) {
+  return !isNaN(parseFloat(value)) && isFinite(value);
+}
+function camelize(value) {
+  return value.replace(/-([\da-z])/gi, function(matches, letter) {
+    return letter.toUpperCase();
+  });
+}
+function dasherize(value) {
+  return value.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+}
+function css(key, value) {
+  var styleProps,
+      prop,
+      val;
+  if (typeof key === 'string') {
+    key = camelize(key);
+    if (typeof value === 'undefined') {
+      var element = this.nodeType ? this : this[0];
+      if (element) {
+        val = element.style[key];
+        return isNumeric(val) ? parseFloat(val) || 0 : val;
+      }
+      return undefined;
+    }
+    styleProps = {};
+    styleProps[key] = value;
+  } else {
+    styleProps = key;
+    for (prop in styleProps) {
+      val = styleProps[prop];
+      delete styleProps[prop];
+      styleProps[camelize(prop)] = val;
+    }
+  }
+  each(this, function(element) {
+    for (prop in styleProps) {
+      if (styleProps[prop] || styleProps[prop] === 0) {
+        element.style[prop] = styleProps[prop];
+      } else {
+        element.style.removeProperty(dasherize(prop));
+      }
+    }
+  });
+  return this;
+}
+;
+module.exports = {
+  css: css,
+  __esModule: true
+};
+
+
+},{"./util":18}],7:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/data";
 var each = _dereq_('./util').each;
@@ -194,7 +274,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],6:[function(_dereq_,module,exports){
+},{"./util":18}],8:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/dom";
 var toArray = _dereq_('./util').toArray;
@@ -308,7 +388,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],7:[function(_dereq_,module,exports){
+},{"./util":18}],9:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/dom_extra";
 var each = _dereq_('./util').each;
@@ -367,7 +447,7 @@ module.exports = {
 };
 
 
-},{"./dom":6,"./selector":13,"./util":16}],8:[function(_dereq_,module,exports){
+},{"./dom":8,"./selector":15,"./util":18}],10:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/event";
 var $__0 = _dereq_('./util'),
@@ -484,13 +564,7 @@ function isAttachedToDocument(element) {
   if (element === window || element === document) {
     return true;
   }
-  var container = element.ownerDocument.documentElement;
-  if (container.contains) {
-    return container.contains(element);
-  } else if (container.compareDocumentPosition) {
-    return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
-  }
-  return false;
+  return $.contains(element.ownerDocument.documentElement, element);
 }
 function triggerForPath(element, type) {
   var params = arguments[2] !== (void 0) ? arguments[2] : {};
@@ -608,7 +682,7 @@ module.exports = {
 };
 
 
-},{"./selector":13,"./util":16}],9:[function(_dereq_,module,exports){
+},{"./selector":15,"./util":18}],11:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/html";
 var each = _dereq_('./util').each;
@@ -629,7 +703,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],10:[function(_dereq_,module,exports){
+},{"./util":18}],12:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/index";
 var $ = _dereq_('./api').default;
@@ -640,7 +714,7 @@ module.exports = {
 };
 
 
-},{"./api":1}],11:[function(_dereq_,module,exports){
+},{"./api":1}],13:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/mode";
 var global = _dereq_('./util').global;
@@ -702,7 +776,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],12:[function(_dereq_,module,exports){
+},{"./util":18}],14:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/noconflict";
 var global = _dereq_('./util').global;
@@ -718,7 +792,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],13:[function(_dereq_,module,exports){
+},{"./util":18}],15:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/selector";
 var $__0 = _dereq_('./util'),
@@ -809,7 +883,7 @@ module.exports = {
 };
 
 
-},{"./util":16}],14:[function(_dereq_,module,exports){
+},{"./util":18}],16:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/selector_extra";
 var $__0 = _dereq_('./util'),
@@ -878,7 +952,7 @@ module.exports = {
 };
 
 
-},{"./selector":13,"./util":16}],15:[function(_dereq_,module,exports){
+},{"./selector":15,"./util":18}],17:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/type";
 function isFunction(obj) {
@@ -893,7 +967,7 @@ module.exports = {
 };
 
 
-},{}],16:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/util";
 var global = new Function("return this")(),
@@ -939,6 +1013,6 @@ module.exports = {
 };
 
 
-},{}]},{},[10])
-(10)
+},{}]},{},[12])
+(12)
 });
