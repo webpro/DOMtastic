@@ -86,7 +86,7 @@ describe('html', function() {
                 fn = element.html.bind(element),
                 actual = element.html('brop');
             expect(fn).not.to.throw(TypeError);
-            expect(actual).to.eql(element);
+            expect(actual).to.have.same.elements(element);
         });
 
     });

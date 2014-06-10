@@ -24,14 +24,14 @@ describe('array', function() {
                 expect(this).to.equal(expected);
                 return !!element.className;
             }, expected);
-        expect(actual).to.eql(expected);
+        expect(actual).to.have.same.elements(expected);
         expect(actual).to.have.length(3);
     });
 
     it('should have proper filter (selector)', function() {
         var expected = $('#testFragment li[class]'),
             actual = $('#testFragment li').filter('[class]');
-        expect(actual).to.eql(expected);
+        expect(actual).to.have.same.elements(expected);
         expect(actual).to.have.length(3);
     });
 
@@ -112,7 +112,7 @@ describe('array', function() {
     it('should provide a chainable API', function() {
         var expected = $('#testFragment li'),
             actual = expected.each(noop).reverse().filter(noop).reverse();
-        expect(actual).to.eql(expected);
+        expect(actual).to.have.same.elements(expected);
     });
 
 });
