@@ -40,11 +40,15 @@ function on(eventNames, selector, handler, useCapture) {
 
         each(this, function(element) {
 
+            if (selector && eventName in hoverEvents) {
+                handler = hoverHandler(handler);
+            }
+
             if (selector) {
                 eventListener = delegateHandler.bind(element, selector, handler);
             }
 
-            element.addEventListener(eventName, eventListener, useCapture || false);
+            element.addEventListener(hoverEvents[eventName] || eventName, eventListener, useCapture || false);
 
             getHandlers(element).push({
                 eventName: eventName,
@@ -352,6 +356,26 @@ function delegateHandler(selector, handler, event) {
         }
         handler.call(eventTarget, event);
     }
+}
+
+/**
+ * Simulate `mouseenter` and `mouseleave` events (using `mouseover` and `mouseout`).
+ *
+ * @private
+ */
+
+var hoverEvents = {
+    mouseenter: 'mouseover',
+    mouseleave: 'mouseout'
+};
+
+function hoverHandler(handler) {
+    return function(event) {
+        var related = event.relatedTarget;
+        if (!related || (related !== this && !$.contains(this, related))) {
+            return handler.apply(this, arguments)
+        }
+    };
 }
 
 /**
