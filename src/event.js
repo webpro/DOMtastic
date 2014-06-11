@@ -100,29 +100,21 @@ function off(eventNames = '', selector, handler, useCapture) {
 
             handlers = getHandlers(element);
 
+            each(handlers.filter(function(item) {
+                return (
+                    (!eventName || item.eventName === eventName) &&
+                    (!namespace || item.namespace === namespace) &&
+                    (!handler || item.handler === handler) &&
+                    (!selector || item.selector === selector));
+            }), function(item) {
+                element.removeEventListener(hoverEvents[item.eventName] || item.eventName, item.eventListener, useCapture || false);
+                handlers.splice(handlers.indexOf(item), 1);
+            });
+
             if (!eventName && !namespace && !selector && !handler) {
-
-                each(handlers, function(item) {
-                    element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
-                });
-
                 clearHandlers(element);
-
-            } else {
-
-                each(handlers.filter(function(item) {
-                    return ((!eventName || item.eventName === eventName) &&
-                        (!namespace || item.namespace === namespace) &&
-                        (!handler || item.handler === handler) &&
-                        (!selector || item.selector === selector));
-                }), function(item) {
-                    element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
-                    handlers.splice(handlers.indexOf(item), 1);
-                });
-
-                if (handlers.length === 0) {
-                    clearHandlers(element);
-                }
+            } else if (handlers.length === 0) {
+                clearHandlers(element);
             }
 
         });
