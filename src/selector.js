@@ -72,6 +72,27 @@ function find(selector) {
     return $(selector, this);
 }
 
+/**
+ * Return the closest element matching the selector (starting by itself).
+ *
+ * @param {String} selector Filter
+ * @param {Object} [context] If provided, matching elements must be a descendant of this element
+ * @return {Object} New wrapped collection (containing zero or one element)
+ * @chainable
+ * @example
+ *     $('.selector').closest('.container');
+ */
+
+function closest(selector, context) {
+    var node = this[0];
+    for (; node.nodeType !== node.DOCUMENT_NODE && node !== context; node = node.parentNode) {
+        if (matches(node, selector)) {
+            return $(node);
+        }
+    }
+    return $();
+}
+
 /*
  * Returns `true` if the element would be selected by the specified selector string; otherwise, returns `false`.
  *
@@ -185,4 +206,4 @@ function Wrapper(collection) {
  * Export interface
  */
 
-export { $, find, matches };
+export { $, find, closest, matches };

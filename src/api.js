@@ -26,6 +26,7 @@ if (typeof selector !== 'undefined') {
     $ = selector.$;
     $.matches = selector.matches;
     api.find = selector.find;
+    api.closest = selector.closest;
 }
 
 module contains from './contains'; extend($, contains);

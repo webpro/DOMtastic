@@ -70,24 +70,32 @@ describe('events', function() {
 
             it('should have the correct `event.target` and `event.currentTarget`', function() {
                 var element = $('.fourth'),
-                    eventTarget,
-                    eventCurrentTarget,
                     eventType = getRndStr();
                 $(document.body).on(eventType, 'li', function(event) {
-                    eventTarget = event.target;
-                    eventCurrentTarget = event.currentTarget;
+                    expect(event.target).to.equal(element[0]);
+                    expect(this).to.equal(element[0]);
+                    // expect(this).to.equal(event.currentTarget); // Can't override this property
                 });
                 element.trigger(eventType);
-                expect(eventTarget).to.equal(element[0]);
-                expect(eventCurrentTarget).to.equal(document.body);
             });
 
             it('should receive a delegated event from a child element', function() {
                 var element = $(document.body),
                     eventType = getRndStr();
-                element.on(eventType, 'li', spy);
+                element.on(eventType, '#testFragment ul', spy);
+                element.on(eventType, '#testFragment li', spy);
                 $('.fourth').trigger(eventType);
-                expect(spy).to.have.been.called;
+                expect(spy).to.have.been.calledTwice;
+            });
+
+            it('should receive delegated events from child elements', function() {
+                var element = $(document.body),
+                    eventType = getRndStr();
+                element.on(eventType, 'li', spy);
+                $('.two').trigger(eventType);
+                $('.three').trigger(eventType);
+                $('.fourth').trigger(eventType);
+                expect(spy).to.have.been.calledThrice;
             });
 
             it('should receive a delegated event in detached nodes', function() {
@@ -106,16 +114,6 @@ describe('events', function() {
                 expect(spy.callCount).to.have.equal(5);
             });
 
-            it('should receive delegated events from child elements', function() {
-                var element = $(document.body),
-                    eventType = getRndStr();
-                element.on(eventType, 'li', spy);
-                $('.two').trigger(eventType);
-                $('.three').trigger(eventType);
-                $('.fourth').trigger(eventType);
-                expect(spy).to.have.been.calledThrice;
-            });
-
         });
 
     });
@@ -124,7 +122,7 @@ describe('events', function() {
 
         it('should stop propagation', function() {
 
-            var parent = $('#testFragment'),
+            var parent = $(document.body),
                 child = $('.fourth'),
                 eventType = getRndStr(),
                 event = new CustomEvent(eventType, { bubbles: true, cancelable: true, detail: undefined }),
@@ -136,6 +134,28 @@ describe('events', function() {
                 event.stopPropagation();
                 expect(event.isPropagationStopped()).to.be.true;
             });
+
+            child[0].dispatchEvent(event);
+
+            expect(eventSpy).to.have.been.called;
+            expect(spy).not.to.have.been.called;
+
+        });
+
+        it('should stop propagation for delegated events', function() {
+
+            var parent = $(document.body),
+                child = $('.fourth'),
+                eventType = getRndStr(),
+                event = new CustomEvent(eventType, { bubbles: true, cancelable: true, detail: undefined }),
+                eventSpy = sinon.spy(event, 'stopPropagation');
+
+            parent.on(eventType, '#testFragment ul', function(event) {
+                expect(event.isPropagationStopped()).to.be.false;
+                event.stopPropagation();
+                expect(event.isPropagationStopped()).to.be.true;
+            });
+            parent.on(eventType, '#testFragment', spy);
 
             child[0].dispatchEvent(event);
 
@@ -157,6 +177,28 @@ describe('events', function() {
                 expect(event.isImmediatePropagationStopped()).to.be.true;
             });
             child.on(eventType, spy);
+
+            child[0].dispatchEvent(event);
+
+            expect(eventSpy).to.have.been.called;
+            expect(spy).not.to.have.been.called;
+
+        });
+
+        it('should stop immediate propagation for delegated events', function() {
+
+            var parent = $(document.body),
+                child = $('.fourth'),
+                eventType = getRndStr(),
+                event = new CustomEvent(eventType, { bubbles: true, cancelable: true, detail: undefined }),
+                eventSpy = sinon.spy(event, 'stopImmediatePropagation');
+
+            parent.on(eventType, '#testFragment', function(event) {
+                expect(event.isImmediatePropagationStopped()).to.be.false;
+                event.stopImmediatePropagation();
+                expect(event.isImmediatePropagationStopped()).to.be.true;
+            });
+            parent.on(eventType, '#testFragment', spy);
 
             child[0].dispatchEvent(event);
 

@@ -3,7 +3,7 @@
  */
 
 import { global, each } from './util';
-import { matches } from './selector';
+import { closest } from './selector';
 
 /**
  * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
@@ -335,7 +335,7 @@ var augmentEvent = (function() {
 
 /**
  * Function to test whether delegated events match the provided `selector` (filter),
- * and then actually call the provided event handler.
+ * if the event propagation was stopped, and then actually call the provided event handler.
  * Also sets `event.currentTarget` on the event object.
  *
  * @private
@@ -345,12 +345,12 @@ var augmentEvent = (function() {
  */
 
 function delegateHandler(selector, handler, event) {
-    var eventTarget = event._target || event.target;
-    if (matches(eventTarget, selector)) {
-        if (!event.currentTarget) {
-            event.currentTarget = eventTarget;
+    var eventTarget = event._target || event.target,
+        match = closest.call([eventTarget], selector, this)[0];
+    if (match && match !== this) {
+        if(match === eventTarget || !event.isPropagationStopped || !event.isPropagationStopped()) {
+            handler.call(match, event);
         }
-        handler.call(eventTarget, event);
     }
 }
 

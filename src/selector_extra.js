@@ -31,26 +31,6 @@ function children(selector) {
 }
 
 /**
- * Return the closest element matching the selector (starting by itself).
- *
- * @param {String} selector Filter
- * @return {Object} New wrapped collection (containing zero or one element)
- * @chainable
- * @example
- *     $('.selector').closest('.container');
- */
-
-function closest(selector) {
-    var node = this[0];
-    for (; node.nodeType !== node.DOCUMENT_NODE; node = node.parentNode) {
-        if (matches(node, selector)) {
-            return $(node);
-        }
-    }
-    return $();
-}
-
-/**
  * Return child nodes of each element in the collection, including text and comment nodes.
  *
  * @return {Object} New wrapped collection
@@ -135,4 +115,4 @@ function slice(start, end) {
  * Export interface
  */
 
-export { children, contents, closest, eq, get, parent, slice };
+export { children, contents, eq, get, parent, slice };

@@ -30,31 +30,6 @@
 
     });
 
-    describe('closest', function() {
-
-        it('should return closest matching element (self)', function() {
-            var actual = $('#testFragment li.two').closest('.two'),
-                expected = $('#testFragment li.two');
-            expect(actual).to.have.length(1);
-            expect(actual).to.have.same.elements(expected);
-        });
-
-        it('should return closest matching element', function() {
-            var actual = $('#testFragment li.two').closest('ul'),
-                expected = $('#testFragment ul');
-            expect(actual).to.have.length(1);
-            expect(actual).to.have.same.elements(expected);
-        });
-
-        it('should return empty collection when there are no matches', function() {
-            var actual = $('#testFragment').closest('.foo'),
-                expected = $('.foo');
-            expect(actual).to.have.length(0);
-            expect(actual).to.have.same.elements(expected);
-        });
-
-    });
-
     describe('contents', function() {
 
         it('should return child nodes', function() {
