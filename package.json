@@ -47,7 +47,7 @@
     "gulp-size": "^0.4.0",
     "gulp-footer": "^1.0.4",
     "browserify": "^4.1.9",
-    "es6ify": "^1.0.3",
+    "es6ify": "~1.1.0",
     "mocha-phantomjs": "^3.3.1",
     "istanbul": "^0.2.11",
     "doxstrap": "~0.0.2",
