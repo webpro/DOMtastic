@@ -41,11 +41,11 @@ function on(eventNames, selector, handler, useCapture) {
         each(this, function(element) {
 
             if (selector && eventName in hoverEvents) {
-                handler = hoverHandler(handler);
+                eventListener = hoverHandler(eventListener);
             }
 
             if (selector) {
-                eventListener = delegateHandler.bind(element, selector, handler);
+                eventListener = delegateHandler.bind(element, selector, eventListener);
             }
 
             element.addEventListener(hoverEvents[eventName] || eventName, eventListener, useCapture || false);
@@ -288,7 +288,7 @@ function clearHandlers(element) {
 
 function proxyHandler(handler) {
     return function(event) {
-        handler(augmentEvent(event), event.detail);
+        handler.call(this, augmentEvent(event), event.detail);
     };
 }
 
@@ -302,7 +302,8 @@ function proxyHandler(handler) {
 
 var augmentEvent = (function() {
 
-    var eventMethods = {
+    var methodName,
+        eventMethods = {
             preventDefault: 'isDefaultPrevented',
             stopImmediatePropagation: 'isImmediatePropagationStopped',
             stopPropagation: 'isPropagationStopped'
@@ -312,7 +313,10 @@ var augmentEvent = (function() {
         returnFalse = () => false;
 
     return function(event) {
-        for (var methodName in eventMethods) {
+        if(event.isDefaultPrevented && event.stopImmediatePropagation && event.stopPropagation) {
+            return event;
+        }
+        for (methodName in eventMethods) {
             (function(methodName, testMethodName, originalMethod) {
                 event[methodName] = function() {
                     this[testMethodName] = returnTrue;

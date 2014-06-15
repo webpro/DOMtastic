@@ -15,6 +15,15 @@ describe('events', function() {
             expect(spy).to.have.been.called;
         });
 
+        it('should execute event handler with element as `this` value', function() {
+            var element = $(document.body),
+                eventType = getRndStr(),
+                expected = element[0];
+            element.on(eventType, spy);
+            element.trigger(eventType);
+            expect(spy.firstCall.thisValue).to.equal(expected);
+        });
+
         it('should attach event handlers to multiple elements', function() {
             var elements = $('#testFragment li');
             elements.on('click', spy);
@@ -50,6 +59,14 @@ describe('events', function() {
         });
 
         describe('delegated', function() {
+
+            it('should execute event handler with element as `this` value', function() {
+                var eventType = getRndStr(),
+                    expected = $('#testFragment')[0];
+                $(document.body).on(eventType, '#testFragment', spy);
+                $('.fourth').trigger(eventType);
+                expect(spy.firstCall.thisValue).to.equal(expected);
+            });
 
             it('should have the correct `event.target` and `event.currentTarget`', function() {
                 var element = $('.fourth'),
