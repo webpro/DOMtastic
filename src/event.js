@@ -178,7 +178,7 @@ function trigger(type, data, params = {}) {
  */
 
 function triggerHandler(type, data) {
-    if(this[0]) {
+    if (this[0]) {
         trigger.call(this[0], type, data, {bubbles: false, preventDefault: true});
     }
 }
@@ -313,20 +313,19 @@ var augmentEvent = (function() {
         returnFalse = () => false;
 
     return function(event) {
-        if(event.isDefaultPrevented && event.stopImmediatePropagation && event.stopPropagation) {
-            return event;
-        }
-        for (methodName in eventMethods) {
-            (function(methodName, testMethodName, originalMethod) {
-                event[methodName] = function() {
-                    this[testMethodName] = returnTrue;
-                    return originalMethod.apply(this, arguments);
-                };
-                event[testMethodName] = returnFalse;
-            }(methodName, eventMethods[methodName], event[methodName] || noop));
-        }
-        if(event._preventDefault) {
-            event.preventDefault();
+        if (!event.isDefaultPrevented || event.stopImmediatePropagation || event.stopPropagation) {
+            for (methodName in eventMethods) {
+                (function(methodName, testMethodName, originalMethod) {
+                    event[methodName] = function() {
+                        this[testMethodName] = returnTrue;
+                        return originalMethod.apply(this, arguments);
+                    };
+                    event[testMethodName] = returnFalse;
+                }(methodName, eventMethods[methodName], event[methodName] || noop));
+            }
+            if (event._preventDefault) {
+                event.preventDefault();
+            }
         }
         return event;
     }
@@ -336,7 +335,7 @@ var augmentEvent = (function() {
 /**
  * Function to test whether delegated events match the provided `selector` (filter),
  * if the event propagation was stopped, and then actually call the provided event handler.
- * Also sets `event.currentTarget` on the event object.
+ * Use `this` instead of `event.currentTarget` on the event object.
  *
  * @private
  * @param {String} selector Selector to filter descendants that undelegate the event to this element.
@@ -346,10 +345,10 @@ var augmentEvent = (function() {
 
 function delegateHandler(selector, handler, event) {
     var eventTarget = event._target || event.target,
-        match = closest.call([eventTarget], selector, this)[0];
-    if (match && match !== this) {
-        if(match === eventTarget || !event.isPropagationStopped || !event.isPropagationStopped()) {
-            handler.call(match, event);
+        currentTarget = closest.call([eventTarget], selector, this)[0];
+    if (currentTarget && currentTarget !== this) {
+        if (currentTarget === eventTarget || !(event.isPropagationStopped && event.isPropagationStopped())) {
+            handler.call(currentTarget, event);
         }
     }
 }
@@ -367,9 +366,9 @@ var hoverEvents = {
 
 function hoverHandler(handler) {
     return function(event) {
-        var related = event.relatedTarget;
-        if (!related || (related !== this && !$.contains(this, related))) {
-            return handler.apply(this, arguments)
+        var relatedTarget = event.relatedTarget;
+        if (!relatedTarget || (relatedTarget !== this && !$.contains(this, relatedTarget))) {
+            return handler.apply(this, arguments);
         }
     };
 }
