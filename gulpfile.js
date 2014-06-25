@@ -172,10 +172,8 @@ function _uglify(options, done) {
             .pipe(gulp.dest(dir))
     });
 
-    orchestrator.add('addSourceMapUrl', ['uglify'], function() {
+    orchestrator.add('showSize', ['uglify'], function() {
         return gulp.src(path.resolve(dir, fileNameMin))
-            .pipe(footer('\n//# sourceMappingURL=' + fileNameMap))
-            .pipe(gulp.dest(dir))
             .pipe(size({
                 title: options.title || '',
                 gzip: true,
@@ -190,7 +188,7 @@ function _uglify(options, done) {
             .pipe(gulp.dest(dir));
     });
 
-    orchestrator.start('addSourceMapUrl', 'fixSourceMapSources', done);
+    orchestrator.start('showSize', 'fixSourceMapSources', done);
 
 }
 
