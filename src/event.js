@@ -156,7 +156,7 @@ function trigger(type, data, params = {}) {
     event._preventDefault = params.preventDefault;
     each(this, function(element) {
         if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
-            element.dispatchEvent(event);
+            dispatchEvent(element, event);
         } else {
             triggerForPath(element, type, params);
         }
@@ -222,7 +222,7 @@ function isAttachedToDocument(element) {
  * Required to support delegated events in browsers that don't bubble events in detached DOM trees.
  *
  * @private
- * @param {Node} element First element to dispatch the event
+ * @param {Node} element First element to dispatch the event at
  * @param {String} type Type of the event
  * @param {Object} [params] Event parameters (optional)
  * @param {Boolean} params.bubbles=true Does the event bubble up through the DOM or not.
@@ -236,8 +236,27 @@ function triggerForPath(element, type, params = {}) {
     var event = new CustomEvent(type, params);
     event._target = element;
     do {
-        element.dispatchEvent(event);
+        dispatchEvent(element, event);
     } while (element = element.parentNode);
+}
+
+/**
+ * Dispatch event to element,
+ * but call direct event methods instead if available (i.e. "blur", "click", "focus", "select").
+ *
+ * @private
+ * @param {Node} element Element to dispatch the event at
+ * @param {Object} event Event to dispatch
+ */
+
+var directEventMethods = ['blur', 'click', 'focus', 'select'];
+
+function dispatchEvent(element, event) {
+    if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function') {
+        element[event.type]();
+    } else {
+        element.dispatchEvent(event);
+    }
 }
 
 /**

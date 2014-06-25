@@ -421,6 +421,25 @@ describe('events', function() {
             expect(spy).not.to.have.been.called;
         });
 
+        it('should call direct methods for specific event types ("blur", "click", "focus", and "select")', function() {
+            var element = $('#testFragment input');
+            ['blur', 'click', 'focus', 'select'].forEach(function(eventType) {
+                spy = sinon.spy(element[0], eventType);
+                element.trigger(eventType);
+                expect(spy).to.have.been.called;
+                element[0][eventType].restore();
+            });
+        });
+
+        it('should not call direct methods for other event types that do have such methods', function() {
+            var element = $('#testFragment input'),
+                eventType = 'getAttribute';
+                spy = sinon.spy(element[0], eventType);
+            element.trigger(eventType);
+            expect(spy).not.to.have.been.called;
+            element[0][eventType].restore();
+        });
+
     });
 
     describe('triggerHandler', function() {
