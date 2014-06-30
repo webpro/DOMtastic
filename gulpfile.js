@@ -35,17 +35,17 @@ var srcDir = path.resolve('src'),
     };
 
 var bundlePresets = {
-    default: {
-        modulesToExclude: ['css', 'data', 'dom_extra', 'mode', 'selector_extra', 'type'],
-        dest: path.resolve(releaseFolder)
-    },
     full: {
         modulesToExclude: [],
-        dest: path.resolve(releaseFolder, 'bundle/full')
+        dest: path.resolve(releaseFolder, 'bundle', 'full')
+    },
+    default: {
+        modulesToExclude: ['css', 'data', 'dom_extra', 'mode', 'selector_extra', 'type'],
+        dest: path.resolve(releaseFolder, 'bundle', 'default')
     },
     bare: {
         modulesToExclude: ['attr', 'css', 'data', 'dom_extra', 'html', 'mode', 'noconflict', 'selector_extra', 'type'],
-        dest: path.resolve(releaseFolder, 'bundle/bare')
+        dest: path.resolve(releaseFolder, 'bundle', 'bare')
     },
     custom: {
         modulesToExclude: gutil.env.exclude ? gutil.env.exclude.split(',') : gutil.env.include ? getModulesToExclude(gutil.env.include) : [],

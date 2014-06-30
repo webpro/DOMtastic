@@ -38,7 +38,7 @@ This library was recently renamed from "jQuery Evergreen".
 
 	# Configure
 	paths: {
-		'domtastic': 'bower_components/domtastic/domtastic'
+		'domtastic': 'bower_components/domtastic/amd/index'
 	}
 
 	# Use
