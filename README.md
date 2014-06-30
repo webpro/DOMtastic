@@ -23,7 +23,7 @@ This library was recently renamed from "jQuery Evergreen".
 
 ## Quickstart
 
-### CommonJS
+### CommonJS / Browserify
 
     # Install
 	npm install domtastic
@@ -49,10 +49,14 @@ This library was recently renamed from "jQuery Evergreen".
 ### Browser Global
 
 	# Configure
-	<script src="//cdn.jsdelivr.net/domtastic/latest/domtastic.min.js"></script>
+	<script src="//cdn.jsdelivr.net/domtastic/0.7/domtastic.min.js"></script>
 
 	# Use
 	$('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
+
+### Bundles
+
+After installation using npm or Bower, the `bundle` folder is where you can find some pre-built bundles: `bare`, `default`, and `full`. These are UMD bundles to include however you like: CommonJS, AMD, or directly in a `<script>` tag. Below you can find what exactly these bundles include.
 
 ## API
 
@@ -115,20 +119,27 @@ This library was recently renamed from "jQuery Evergreen".
 ### [Selector](http://webpro.github.io/DOMtastic/doc#selector)
 
 	$
+	closest
 	find
+	matches
 
 
 ## API (bare)
 
-The pre-built "bare" package does *not* include the `attr`, `data`, and `html` modules.
+The pre-built "bare" bundle does *not* include the `attr`, `data`, and `html` modules.
 
 ## API (full)
 
-The pre-built "full" package also includes the following modules:
+The pre-built "full" bundle also includes the following modules:
 
 ### [CSS](http://webpro.github.io/DOMtastic/doc#css)
 
 	css
+
+### [Data](http://webpro.github.io/DOMtastic/doc#data)
+
+	data
+	prop
 
 ### [DOM (extra)](http://webpro.github.io/DOMtastic/doc#dom_extra)
 
@@ -148,11 +159,15 @@ The pre-built "full" package also includes the following modules:
 
 	children
 	contents
-	closest
 	eq
 	get
 	parent
 	slice
+
+### [Type](http://webpro.github.io/DOMtastic/doc#type)
+
+	isArray
+	isFunction
 
 ## But it doesn't even have ...!
 
@@ -162,7 +177,9 @@ As mentioned in the introduction, DOMtastic doesn't have methods for your Ajax, 
 * Animation: [microjs#animation](http://microjs.com/#animation), [Move.js](http://visionmedia.github.io/move.js/), [Animate.css](https://daneden.me/animate/)
 * Deferred (aka promises): [when.js](https://github.com/cujojs/when), [RSVP.js](https://github.com/tildeio/rsvp.js)
 
-However, feel free to [open an issue](https://github.com/webpro/DOMtastic/issues) if you feel an important method is missing.
+Additionally, you can extend the `$.fn` object just like [jQuery Plugins](http://learn.jquery.com/plugins/basic-plugin-creation/).
+
+Feel free to [open an issue](https://github.com/webpro/DOMtastic/issues) if you feel an important method is missing.
 
 ## Browser Support
 
@@ -180,16 +197,36 @@ You can [opt-in](https://github.com/webpro/DOMtastic/blob/master/src/mode.js) to
 
 ## Custom Build
 
+You can build a UMD bundle that _excludes_ specific modules that you don't need:
+
 	git clone git@github.com:webpro/DOMtastic.git
 	cd DOMtastic
 	npm install
 	gulp --exclude=attr,mode,html
 
-Alternatively, you can start from bare metal:
+Alternatively, you can do the opposite and _include_ what you need:
 
 	gulp --include=selector,class
 
-And find the output in the `dist/` folder.
+Find the output in the `dist/` folder.
+
+### Going all the way
+
+You can also build a custom API from the ground up. By default, DOMtastic [does it](https://github.com/webpro/DOMtastic/blob/master/src/api.js) for you, but you can also do it yourself in a highly custom approach. Grab the `$` function from the `selector`, and extend the `$.fn` object with methods from specific modules:
+
+```
+var selector = require('domtastic/commonjs/selector'),
+    class_ = require('domtastic/commonjs/class');
+
+var $ = selector.$;
+$.fn = {};
+$.fn.addClass = class_.addClass;
+$.fn.removeClass = class_.removeClass;
+
+module.exports = $;
+```
+
+This way, you don't have the overhead of the UMD boilerplate in a custom bundle, and a single location/module to define the API for your application. Works great with Browserify.
 
 ## Test
 
@@ -199,15 +236,16 @@ Run the [test suite](http://webpro.github.io/DOMtastic/test/). You can also clon
 
 Many thanks to these sources of inspiration:
 
+* [jQuery](http://jquery.com/)
+* [madrobby/zepto](https://github.com/madrobby/zepto/)
 * [remy/min.js](https://github.com/remy/min.js)
 * [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
 * [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
-* [madrobby/zepto](https://github.com/madrobby/zepto/)
 
 Thanks to [jsDelivr](http://www.jsdelivr.com/) for [hosting DOMtastic](http://www.jsdelivr.com/#!domtastic).
 
 ## License
 
-[MIT licensed](http://webpro.mit-license.org)
+[MIT](http://webpro.mit-license.org)
 
 ![Analytics](https://ga-beacon.appspot.com/UA-17415234-3/jquery-evergreen/readme?pixel)
