@@ -7,51 +7,66 @@ import { makeIterable, each } from './util';
 /**
  * Add a class to the element(s)
  *
- * @param {String} value The class name to add to the element(s).
+ * @param {String} value Space-separated class name(s) to add to the element(s).
  * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.item').addClass('bar');
+ *     $('.item').addClass('bar foo');
  */
 
 function addClass(value) {
-    each(this, function(element) {
-        element.classList.add(value);
-    });
+    if(value && value.length) {
+        each(value.split(' '), function(className) {
+            each(this, function(element) {
+                element.classList.add(className);
+            });
+        }.bind(this));
+    }
     return this;
 }
 
 /**
  * Remove a class from the element(s)
  *
- * @param {String} value The class name to remove from the element(s).
+ * @param {String} value Space-separated class name(s) to remove from the element(s).
  * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.items').removeClass('bar');
+ *     $('.items').removeClass('bar foo');
  */
 
 function removeClass(value) {
-    each(this, function(element) {
-        element.classList.remove(value);
-    });
+    if(value && value.length) {
+        each(value.split(' '), function(className) {
+            each(this, function(element) {
+                element.classList.remove(className);
+            });
+        }.bind(this));
+    }
     return this;
 }
 
 /**
  * Toggle a class at the element(s)
  *
- * @param {String} value The class name to toggle at the element(s).
+ * @param {String} value Space-separated class name(s) to toggle at the element(s).
  * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.item').toggleClass('bar');
+ *     $('.item').toggleClass('bar foo');
  */
 
 function toggleClass(value) {
-    each(this, function(element) {
-        element.classList.toggle(value);
-    });
+    if(value && value.length) {
+        each(value.split(' '), function(className) {
+            each(this, function(element) {
+                element.classList.toggle(className);
+            });
+        }.bind(this));
+    }
     return this;
 }
 
