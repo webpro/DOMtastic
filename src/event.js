@@ -184,25 +184,6 @@ function triggerHandler(type, data) {
 }
 
 /**
- * Execute callback when `DOMContentLoaded` fires for `document`, or immediately if called afterwards.
- *
- * @param handler Callback to execute when initial DOM content is loaded.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $(document).ready(callback);
- */
-
-function ready(handler) {
-    if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
-        handler();
-    } else {
-        document.addEventListener('DOMContentLoaded', handler, false)
-    }
-    return this;
-}
-
-/**
  * Check whether the element is attached to (or detached from) the document
  *
  * @private
@@ -436,4 +417,4 @@ var bind = on,
  * Export interface
  */
 
-export { on, off, delegate, undelegate, trigger, triggerHandler, ready, bind, unbind };
+export { on, off, delegate, undelegate, trigger, triggerHandler, bind, unbind };

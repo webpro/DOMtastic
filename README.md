@@ -106,7 +106,6 @@ After installation using npm or Bower, the `bundle` folder is where you can find
 	undelegate (deprecated, will be removed soon)
 	trigger
 	triggerHandler
-	ready
 
 ### [HTML](http://webpro.github.io/DOMtastic/doc#html)
 
@@ -115,6 +114,10 @@ After installation using npm or Bower, the `bundle` folder is where you can find
 ### [NoConflict](http://webpro.github.io/DOMtastic/doc#noconflict)
 
 	noConflict
+
+### [Ready](http://webpro.github.io/DOMtastic/doc#ready)
+
+	ready
 
 ### [Selector](http://webpro.github.io/DOMtastic/doc#selector)
 
@@ -126,7 +129,7 @@ After installation using npm or Bower, the `bundle` folder is where you can find
 
 ## API (bare)
 
-The pre-built "bare" bundle does *not* include the `attr`, `data`, and `html` modules.
+The pre-built "bare" bundle does *not* include the `attr`, `data`, `html`, `ready` modules.
 
 ## API (full)
 

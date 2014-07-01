@@ -44,7 +44,7 @@ var bundlePresets = {
         dest: path.resolve(releaseFolder, 'bundle', 'default')
     },
     bare: {
-        modulesToExclude: ['attr', 'css', 'data', 'dom_extra', 'html', 'mode', 'noconflict', 'selector_extra', 'type'],
+        modulesToExclude: ['attr', 'css', 'data', 'dom_extra', 'html', 'mode', 'noconflict', 'ready', 'selector_extra', 'type'],
         dest: path.resolve(releaseFolder, 'bundle', 'bare')
     },
     custom: {
