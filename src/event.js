@@ -233,7 +233,7 @@ function triggerForPath(element, type, params = {}) {
 var directEventMethods = ['blur', 'click', 'focus', 'select'];
 
 function dispatchEvent(element, event) {
-    if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function') {
+    if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function' && !event._preventDefault) {
         element[event.type]();
     } else {
         element.dispatchEvent(event);
