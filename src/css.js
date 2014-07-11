@@ -40,7 +40,7 @@ function css(key, value) {
             var element = this.nodeType ? this : this[0];
             if(element) {
                 val = element.style[key];
-                return isNumeric(val) ? parseFloat(val) || 0 : val;
+                return isNumeric(val) ? parseFloat(val) : val;
             }
             return undefined;
         }
