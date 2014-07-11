@@ -413,7 +413,7 @@ describe('events', function() {
             expect(spy.firstCall.args[0].detail).to.equal(eventData);
         });
 
-        it('should be able send non-bubbling events', function() {
+        it('should be able to send non-bubbling events', function() {
             var element = $(document.body),
                 eventType = getRndStr();
             element.on(eventType, spy);
