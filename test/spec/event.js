@@ -461,8 +461,8 @@ describe('events', function() {
         });
 
         it('should prevent default event behavior', function() {
-            var element = $('<div></div>'),
-                eventType = getRndStr();
+            var element = $('<form action="#"/>'),
+                eventType = 'submit';
             element.on(eventType, function(event) {
                 expect(event.isDefaultPrevented()).to.be.true;
             });
