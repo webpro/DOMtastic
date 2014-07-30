@@ -25,34 +25,55 @@ This library was recently renamed from "jQuery Evergreen".
 
 ### CommonJS / Browserify
 
-    # Install
-	npm install domtastic
+Install
 
-	# Use
-	var $ = require('domtastic');
+```bash
+$ npm install domtastic
+```
+
+Use
+
+```javascript
+var $ = require('domtastic');
+```
 
 ### AMD
 
-    # Install
-	bower install domtastic
+Install
 
-	# Configure
-	paths: {
-		'domtastic': 'bower_components/domtastic/amd/index'
-	}
+```
+$ bower install domtastic
+```
 
-	# Use
-	define(['domtastic'], function($) {
-		$('.earth').addClass('evergreen').on('sunrise', '.people', awake);
-	});
+Configure
+
+```json
+paths: {
+    'domtastic': 'bower_components/domtastic/amd/index'
+}
+```
+
+Use
+
+```javascript
+define(['domtastic'], function($) {
+    $('.earth').addClass('evergreen').on('sunrise', '.people', awake);
+});
+```
 
 ### Browser Global
 
-	# Configure
-	<script src="//cdn.jsdelivr.net/domtastic/0.7/domtastic.min.js"></script>
+Configure
 
-	# Use
-	$('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
+```html
+<script src="//cdn.jsdelivr.net/domtastic/0.7/domtastic.min.js"></script>
+```
+
+Use
+
+```javascript
+$('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
+```
 
 ### Bundles
 
@@ -76,55 +97,55 @@ After installation using npm or Bower, the `bundle` folder is where you can find
 
 ### [Attr](http://webpro.github.io/DOMtastic/doc#attr)
 
-	attr
-	removeAttr
+    attr
+    removeAttr
 
 ### [Class](http://webpro.github.io/DOMtastic/doc#class)
 
-	addClass
-	removeClass
-	toggleClass
-	hasClass
+    addClass
+    removeClass
+    toggleClass
+    hasClass
 
 ### [Contains](http://webpro.github.io/DOMtastic/doc#contains)
 
-	contains
+    contains
 
 ### [DOM](http://webpro.github.io/DOMtastic/doc#dom)
 
-	after
-	append
-	before
-	clone
-	prepend
+    after
+    append
+    before
+    clone
+    prepend
 
 ### [Event](http://webpro.github.io/DOMtastic/doc#event)
 
-	on
-	off
-	delegate (deprecated, will be removed soon)
-	undelegate (deprecated, will be removed soon)
-	trigger
-	triggerHandler
+    on
+    off
+    delegate (deprecated, will be removed soon)
+    undelegate (deprecated, will be removed soon)
+    trigger
+    triggerHandler
 
 ### [HTML](http://webpro.github.io/DOMtastic/doc#html)
 
-	html
+    html
 
 ### [NoConflict](http://webpro.github.io/DOMtastic/doc#noconflict)
 
-	noConflict
+    noConflict
 
 ### [Ready](http://webpro.github.io/DOMtastic/doc#ready)
 
-	ready
+    ready
 
 ### [Selector](http://webpro.github.io/DOMtastic/doc#selector)
 
-	$
-	closest
-	find
-	matches
+    $
+    closest
+    find
+    matches
 
 
 ## API (bare)
@@ -137,17 +158,17 @@ The pre-built "full" bundle also includes the following modules:
 
 ### [CSS](http://webpro.github.io/DOMtastic/doc#css)
 
-	css
+    css
 
 ### [Data](http://webpro.github.io/DOMtastic/doc#data)
 
-	data
-	prop
+    data
+    prop
 
 ### [DOM (extra)](http://webpro.github.io/DOMtastic/doc#dom_extra)
 
-	appendTo
-	empty
+    appendTo
+    empty
     remove
     replaceWith
     text
@@ -155,22 +176,22 @@ The pre-built "full" bundle also includes the following modules:
 
 ### [Mode](http://webpro.github.io/DOMtastic/doc#mode)
 
-	isNative
-	native
+    isNative
+    native
 
 ### [Selector (extra)](http://webpro.github.io/DOMtastic/doc#selector_extra)
 
-	children
-	contents
-	eq
-	get
-	parent
-	slice
+    children
+    contents
+    eq
+    get
+    parent
+    slice
 
 ### [Type](http://webpro.github.io/DOMtastic/doc#type)
 
-	isArray
-	isFunction
+    isArray
+    isFunction
 
 ## But it doesn't even have ...!
 
@@ -202,14 +223,18 @@ You can [opt-in](https://github.com/webpro/DOMtastic/blob/master/src/mode.js) to
 
 You can build a UMD bundle that _excludes_ specific modules that you don't need:
 
-	git clone git@github.com:webpro/DOMtastic.git
-	cd DOMtastic
-	npm install
-	gulp --exclude=attr,mode,html
+```bash
+$ git clone git@github.com:webpro/DOMtastic.git
+$ cd DOMtastic
+$ npm install
+$ gulp --exclude=attr,mode,html
+```
 
 Alternatively, you can do the opposite and _include_ what you need:
 
-	gulp --include=selector,class
+```bash
+$ gulp --include=selector,class
+```
 
 Find the output in the `dist/` folder.
 
@@ -217,7 +242,7 @@ Find the output in the `dist/` folder.
 
 You can also build a custom API from the ground up. By default, DOMtastic [does it](https://github.com/webpro/DOMtastic/blob/master/src/api.js) for you, but you can also do it yourself in a highly custom approach. Grab the `$` function from the `selector`, and extend the `$.fn` object with methods from specific modules:
 
-```
+```javascript
 var selector = require('domtastic/commonjs/selector'),
     class_ = require('domtastic/commonjs/class');
 
