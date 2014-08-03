@@ -165,7 +165,7 @@ http.createServer(
     ecstatic({ root: process.cwd(), cache: false })
 ).listen(port);
 
-var tunnel = new SauceTunnel(username, accessKey, tunnelId, true, ['--verbose']);
+var tunnel = new SauceTunnel(username, accessKey, tunnelId, true, ['--verbose', '--se-port', '0']);
 
 console.log('Opening Sauce Connect tunnel...');
 
