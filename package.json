@@ -39,11 +39,11 @@
   "devDependencies": {
     "gulp": "^3.8.0",
     "gulp-util": "^2.2.16",
-    "gulp-clean": "^0.3.0",
     "gulp-traceur": "^0.4.0",
     "gulp-uglify": "0.2.1",
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.3.0",
+    "gulp-rimraf": "^0.1.0",
     "gulp-size": "^0.4.0",
     "gulp-footer": "^1.0.4",
     "browserify": "^4.1.9",
