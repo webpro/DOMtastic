@@ -37,26 +37,26 @@
     "build": "gulp build"
   },
   "devDependencies": {
+    "benchrunner": "0.0.3",
+    "browserify": "^4.1.9",
+    "doxstrap": "~0.0.3",
+    "es6ify": "~1.1.0",
+    "event-stream": "^3.1.2",
     "gulp": "^3.8.0",
-    "gulp-util": "^2.2.16",
-    "gulp-traceur": "^0.4.0",
-    "gulp-uglify": "0.2.1",
+    "gulp-footer": "^1.0.4",
     "gulp-rename": "^1.2.0",
     "gulp-replace": "^0.3.0",
     "gulp-rimraf": "^0.1.0",
     "gulp-size": "^0.4.0",
-    "gulp-footer": "^1.0.4",
-    "browserify": "^4.1.9",
-    "es6ify": "~1.1.0",
-    "mocha-phantomjs": "^3.3.1",
+    "gulp-traceur": "^0.4.0",
+    "gulp-uglify": "0.2.1",
+    "gulp-util": "^2.2.16",
     "istanbul": "^0.2.11",
-    "doxstrap": "~0.0.3",
+    "mocha-phantomjs": "^3.3.1",
+    "orchestrator": "^0.3.3",
     "plato": "^1.0.1",
-    "benchrunner": "0.0.3",
-    "vinyl-source-stream": "^0.1.1",
     "through2-map": "^1.4.0",
-    "event-stream": "^3.1.2",
-    "orchestrator": "^0.3.3"
+    "vinyl-source-stream": "^0.1.1"
   },
   "license": "MIT"
 }
