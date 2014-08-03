@@ -1,7 +1,7 @@
 {
   "name": "domtastic",
   "version": "0.7.5",
-  "description": "Small and fast DOM and event library for modern browsers. It has the same familiar API as jQuery, and is lean & mean with small, optional modules.",
+  "description": "Small, fast, and modular DOM and event library for modern browsers.",
   "keywords": [
     "domtastic",
     "jquery",
