@@ -2,7 +2,7 @@
  * @module Array
  */
 
-import { each as _each } from './util';
+import { each as _each, toArray } from './util';
 import { $, matches } from './selector';
 
 var ArrayProto = Array.prototype;
@@ -121,8 +121,7 @@ var push = ArrayProto.push;
  */
 
 function reverse() {
-    var elements = ArrayProto.slice.call(this);
-    return $(ArrayProto.reverse.call(elements));
+    return $(toArray(this).reverse());
 }
 
 /**
