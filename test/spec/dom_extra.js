@@ -118,11 +118,23 @@ describe('dom (extra)', function() {
             var element = $('<p/>');
             element.text('foo');
             expect(element[0].textContent).to.equal('foo');
+
+            element.text(1);
+            expect(element[0].textContent).to.equal('1');
+
+            element.text(false);
+            expect(element[0].textContent).to.equal('false');
         });
 
         it('should get the element value', function() {
             var element = $('<p>foo</p>');
             expect(element.text()).to.equal('foo');
+        });
+
+
+        it('should be chainable', function() {
+            var element = $('<input/>');
+            expect(element.text('smt')).to.be.equal(element);
         });
 
     });
@@ -133,11 +145,22 @@ describe('dom (extra)', function() {
             var element = $('<input/>');
             element.val('foo');
             expect(element[0].value).to.equal('foo');
+
+            element.val(1);
+            expect(element[0].value).to.equal('1');
+
+            element.val(false);
+            expect(element[0].value).to.equal('false');
         });
 
         it('should get the element value', function() {
             var element = $('<select><option>foo</option><option selected>bar</option></select>');
             expect(element.val()).to.equal('bar');
+        });
+
+        it('should be chainable', function() {
+            var element = $('<input/>');
+            expect(element.val('smt')).to.be.equal(element);
         });
 
     });
