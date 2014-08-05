@@ -7,8 +7,7 @@
  * @private
  */
 
-var global = new Function("return this")(),
-    slice = Array.prototype.slice;
+var global = new Function("return this")();
 
 /**
  * Convert `NodeList` to `Array`.
@@ -18,7 +17,14 @@ var global = new Function("return this")(),
  * @private
  */
 
-var toArray = (collection) => slice.call(collection);
+function toArray(collection) {
+    var length = collection.length;
+    var result = Array(length);
+    for (var i = 0; i < length; i++) {
+        result[i] = collection[i];
+    }
+    return result;
+}
 
 /**
  * Return something that can be iterated over (e.g. using `forEach`).
