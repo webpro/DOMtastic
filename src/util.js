@@ -18,8 +18,8 @@ var global = new Function("return this")();
  */
 
 function toArray(collection) {
-    var length = collection.length;
-    var result = Array(length);
+    var length = collection.length,
+        result = Array(length);
     for (var i = 0; i < length; i++) {
         result[i] = collection[i];
     }

@@ -131,7 +131,6 @@ describe('dom (extra)', function() {
             expect(element.text()).to.equal('foo');
         });
 
-
         it('should be chainable', function() {
             var element = $('<input/>');
             expect(element.text('smt')).to.be.equal(element);

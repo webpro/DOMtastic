@@ -4,8 +4,7 @@
 
 import { global, makeIterable } from './util';
 
-var slice = [].slice,
-    isPrototypeSet = false,
+var isPrototypeSet = false,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;

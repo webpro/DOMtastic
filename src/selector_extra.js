@@ -2,7 +2,7 @@
  * @module Selector (extra)
  */
 
-import { each, toArray} from './util';
+import { each, toArray } from './util';
 import { $, matches } from './selector';
 
 /**
