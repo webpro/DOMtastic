@@ -10,8 +10,8 @@ env:
     - COVERALLS_SERVICE_NAME=travis-ci
     - secure: "NGCnYXwPfpdiu7ssBpjnhtB8Wvwlsnue2b/qdCsMZ6z8KDehvGUYCWAXrJPrWFbIKm05ksweju9tXLWA0xYwrG+bJFhwJoABNsImXtrZepwMiZAElXzMc8TZdH2MPmIa5BVgEyil4Ju94eUrRL/yXq7Qpw484OIdXIRnjELDgHM="
 branches:
-  only:
-    - master
+  except:
+    - dev
 before_install:
   - "npm i coveralls ecstatic request sauce-tunnel"
 before_script:
