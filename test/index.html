@@ -38,7 +38,7 @@
         <div id="testElement" style="display: none;"></div>
 
         <script>
-            if(location.search.indexOf('cov') === -1) {
+            if (location.search.indexOf('cov') === -1) {
                 document.write('<script src="../dist/domtastic.js"><\/script>')
             } else {
                 document.write('<script src="../dist/domtastic.instrumented.js"><\/script>');
@@ -66,9 +66,32 @@
             if (window.mochaPhantomJS) {
                 mochaPhantomJS.run();
             } else {
-                var runner = mocha.run();
+                var runner = mocha.run(),
+                    failedTests = [];
+
+                runner.on('fail', function logFailure(test, err) {
+
+                    var flattenTitles = function(test) {
+                        var titles = [];
+                        while (test.parent.title) {
+                            titles.push(test.parent.title);
+                            test = test.parent;
+                        }
+                        return titles.reverse();
+                    };
+
+                    failedTests.push({
+                        name: test.title,
+                        result: false,
+                        message: err.message,
+                        stack: err.stack,
+                        titles: flattenTitles(test)
+                    });
+                });
+
                 runner.on('end', function() {
                     window.mochaResults = runner.stats;
+                    window.mochaResults.reports = failedTests;
                 });
             }
         </script>
