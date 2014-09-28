@@ -127,11 +127,10 @@ var platforms = [
     ['OS X 10.9', 'iphone', '7.1'],
     ['OS X 10.9', 'iphone', '6.0'],
     ['OS X 10.9', 'ipad', '7.1'],
-    ['OS X 10.9', 'ipad', '6.0']
+    ['OS X 10.9', 'ipad', '6.0'],
+    ['Linux', 'android', '4.4'],
+    ['Linux', 'android', '4.3']
 ];
-
-/** Used to tailor the `platforms` array */
-var runnerQuery = url.parse(runner, true).query;
 
 /** Used as the default `Job` options object */
 var jobOptions = {
