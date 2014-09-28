@@ -30,7 +30,7 @@ if (typeof selector !== 'undefined') {
 extend($, contains, mode, noconflict, type);
 extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, ready, selector_extra);
 extend(apiNodeList, array);
-$.version = '0.7.6';
+$.version = '0.7.7';
 $.extend = extend;
 $.fn = api;
 $.fnList = apiNodeList;
@@ -44,7 +44,9 @@ module.exports = {
 },{"./array":2,"./attr":3,"./class":4,"./contains":5,"./css":6,"./data":7,"./dom":8,"./dom_extra":9,"./event":10,"./html":11,"./mode":13,"./noconflict":14,"./ready":15,"./selector":16,"./selector_extra":17,"./type":18,"./util":19}],2:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/array";
-var _each = _dereq_('./util').each;
+var $__0 = _dereq_('./util'),
+    _each = $__0.each,
+    toArray = $__0.toArray;
 var $__0 = _dereq_('./selector'),
     $ = $__0.$,
     matches = $__0.matches;
@@ -65,8 +67,7 @@ var map = ArrayProto.map;
 var pop = ArrayProto.pop;
 var push = ArrayProto.push;
 function reverse() {
-  var elements = ArrayProto.slice.call(this);
-  return $(ArrayProto.reverse.call(elements));
+  return $(toArray(this).reverse());
 }
 var shift = ArrayProto.shift;
 var some = ArrayProto.some;
@@ -429,7 +430,7 @@ function replaceWith() {
   return before.apply(this, arguments).remove();
 }
 function text(value) {
-  if (typeof value !== 'string') {
+  if (value == null) {
     return this[0].textContent;
   }
   each(this, function(element) {
@@ -438,7 +439,7 @@ function text(value) {
   return this;
 }
 function val(value) {
-  if (typeof value !== 'string') {
+  if (value == null) {
     return this[0].value;
   }
   each(this, function(element) {
@@ -839,8 +840,7 @@ var __moduleName = "src/selector";
 var $__0 = _dereq_('./util'),
     global = $__0.global,
     makeIterable = $__0.makeIterable;
-var slice = [].slice,
-    isPrototypeSet = false,
+var isPrototypeSet = false,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
@@ -1011,11 +1011,15 @@ module.exports = {
 },{}],19:[function(_dereq_,module,exports){
 "use strict";
 var __moduleName = "src/util";
-var global = new Function("return this")(),
-    slice = Array.prototype.slice;
-var toArray = (function(collection) {
-  return slice.call(collection);
-});
+var global = new Function("return this")();
+function toArray(collection) {
+  var length = collection.length,
+      result = Array(length);
+  for (var i = 0; i < length; i++) {
+    result[i] = collection[i];
+  }
+  return result;
+}
 var makeIterable = (function(element) {
   return element.nodeType || element === window ? [element] : element;
 });
