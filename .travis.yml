@@ -13,7 +13,7 @@ branches:
   only:
     - master
 before_install:
-  - "npm i coveralls"
+  - "npm i coveralls ecstatic request sauce-tunnel"
 before_script:
   - "./node_modules/gulp/bin/gulp.js build-release"
 script:
@@ -32,6 +32,7 @@ after_success:
   - "rm -rf $GHPAGES/doc && ./node_modules/doxstrap/bin/doxstrap.js --title DOMtastic --output $GHPAGES/doc"
   - "cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../$GHPAGES/complexity --jshint ../../.jshintrc ."
   - "cd $TRAVIS_BUILD_DIR"
+  - "node test/lib/sauce.js"
   - "gulp clean"
   - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null"
   - "cd $TRAVIS_BUILD_DIR"
