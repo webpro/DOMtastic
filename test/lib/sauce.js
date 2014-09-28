@@ -105,21 +105,29 @@ var browserNameMap = {
 
 /** List of platforms to load the runner on */
 var platforms = [
-    ['Windows 8.1', 'googlechrome', '33'],
+    ['Windows 8.1', 'googlechrome', 'beta'],
     ['Windows 8.1', 'googlechrome', '32'],
-    ['Windows 8', 'googlechrome', '33'],
-    ['OS X 10.9', 'googlechrome', '33'],
+    ['Windows 8', 'googlechrome', 'beta'],
+    ['Windows 8', 'googlechrome', '32'],
+    ['OS X 10.9', 'googlechrome', '36'],
+    ['OS X 10.9', 'googlechrome', '32'],
+    ['Linux', 'googlechrome', 'beta'],
     ['Linux', 'googlechrome', '32'],
-    ['Windows 8.1', 'firefox', '27'],
+    ['Windows 8.1', 'firefox', 'beta'],
     ['Windows 8.1', 'firefox', '26'],
-    ['OS X 10.9', 'firefox', ''],
-    ['OS X 10.6', 'firefox', ''],
-    ['Linux', 'firefox', ''],
+    ['OS X 10.9', 'firefox', 'beta'],
+    ['OS X 10.6', 'firefox', '26'],
+    ['Linux', 'firefox', 'beta'],
     ['Windows 8.1', 'internet explorer', '11'],
     ['Windows 8', 'internet explorer', '10'],
     ['OS X 10.9', 'safari', '7'],
     ['OS X 10.8', 'safari', '6'],
-    ['Windows 7', 'safari', '5']
+    ['OS X 10.6', 'safari', '5'],
+    ['Windows 7', 'safari', '5'],
+    ['OS X 10.9', 'iphone', '7.1'],
+    ['OS X 10.9', 'iphone', '6.0'],
+    ['OS X 10.9', 'ipad', '7.1'],
+    ['OS X 10.9', 'ipad', '6.0']
 ];
 
 /** Used to tailor the `platforms` array */
