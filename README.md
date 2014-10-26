@@ -278,5 +278,3 @@ Thanks to [jsDelivr](http://www.jsdelivr.com/) for [hosting DOMtastic](http://ww
 ## License
 
 [MIT](http://webpro.mit-license.org)
-
-![Analytics](https://ga-beacon.appspot.com/UA-17415234-3/jquery-evergreen/readme?pixel)
