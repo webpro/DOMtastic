@@ -25,6 +25,7 @@ module noconflict from './noconflict';
 module ready from './ready';
 module selector from './selector';
 module selector_extra from './selector_extra';
+module trigger from './trigger';
 module type from './type';
 
 if (typeof selector !== 'undefined') {
@@ -35,7 +36,7 @@ if (typeof selector !== 'undefined') {
 }
 
 extend($, contains, mode, noconflict, type);
-extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, ready, selector_extra);
+extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, ready, selector_extra, trigger);
 extend(apiNodeList, array);
 
 // Version
