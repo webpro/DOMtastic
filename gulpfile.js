@@ -69,7 +69,7 @@ gulp.task('clean', function() {
     }).pipe(rimraf());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', ['bundle'], function() {
     return gulp.watch(srcFiles, ['bundle']);
 });
 
