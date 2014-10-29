@@ -444,9 +444,9 @@ describe('events', function() {
             });
         });
 
-        it('should not call direct methods for other event types that do have such methods', function() {
+        it('should not call direct methods for other event types that do have same name', function() {
             var element = $('#testFragment input'),
-                eventType = 'getAttribute';
+                eventType = 'getAttribute',
                 spy = sinon.spy(element[0], eventType);
             element.trigger(eventType);
             expect(spy).not.to.have.been.called;
