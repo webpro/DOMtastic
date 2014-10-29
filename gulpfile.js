@@ -2,7 +2,7 @@ var path = require('path'),
     fs = require('fs'),
     gulp = require('gulp'),
     gutil = require('gulp-util'),
-    rimraf = require('gulp-rimraf'),
+    del = require('del'),
     es6ify = require('es6ify'),
     browserify = require('browserify'),
     uglify = require('gulp-uglify'),
@@ -63,10 +63,8 @@ gulp.task('build-release', ['uglify', 'transpile-cjs', 'transpile-amd']);
 
 // Simple tasks
 
-gulp.task('clean', function() {
-    return gulp.src([distFolder, releaseFolder], {
-        read: false
-    }).pipe(rimraf());
+gulp.task('clean', function(done) {
+    del([distFolder, releaseFolder], done);
 });
 
 gulp.task('watch', ['bundle'], function() {
