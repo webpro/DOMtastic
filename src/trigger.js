@@ -5,9 +5,7 @@
 import { global, each } from './util';
 import { closest } from './selector';
 
-var isIE = /msie|trident/i.test(navigator.userAgent),
-    isPhantom = /phantom/i.test(navigator.userAgent),
-    reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
+var reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
     reKeyEvent = /^key/;
 
 /**
@@ -48,7 +46,7 @@ function trigger(type, data, params = {}) {
 }
 
 function getEventConstructor(type) {
-    return isIE || isPhantom ? CustomEvent : reMouseEvent.test(type) ? MouseEvent : reKeyEvent.test(type) ? KeyboardEvent : CustomEvent;
+    return !supportsOtherEventConstructors ? CustomEvent : reMouseEvent.test(type) ? MouseEvent : reKeyEvent.test(type) ? KeyboardEvent : CustomEvent;
 }
 
 /**
@@ -162,6 +160,15 @@ var isEventBubblingInDetachedTree = (function() {
         child.dispatchEvent(new CustomEvent('e', { bubbles: true }));
     }
     return isBubbling;
+})();
+
+var supportsOtherEventConstructors = (function() {
+    try {
+        new window.MouseEvent('click');
+    } catch (e) {
+        return false;
+    }
+    return true;
 })();
 
 /*
