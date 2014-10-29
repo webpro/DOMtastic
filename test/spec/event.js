@@ -453,6 +453,21 @@ describe('events', function() {
             element[0][eventType].restore();
         });
 
+        it('should be able to trigger event on document', function() {
+            var eventType = getRndStr();
+            $(window).on(eventType, spy);
+            $(document).trigger(eventType);
+            expect(spy).to.have.been.called;
+        });
+
+        it('should be able to trigger event on window', function() {
+            var element = $(window),
+                eventType = getRndStr();
+            element.on(eventType, spy);
+            element.trigger(eventType);
+            expect(spy).to.have.been.called;
+        });
+
     });
 
     describe('triggerHandler', function() {
