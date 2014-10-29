@@ -40,15 +40,11 @@ function on(eventNames, selector, handler, useCapture) {
 
         each(this, function(element) {
 
-            if (selector && eventName in hoverEvents) {
-                eventListener = hoverHandler(eventListener);
-            }
-
             if (selector) {
                 eventListener = delegateHandler.bind(element, selector, eventListener);
             }
 
-            element.addEventListener(hoverEvents[eventName] || eventName, eventListener, useCapture || false);
+            element.addEventListener(eventName, eventListener, useCapture || false);
 
             getHandlers(element).push({
                 eventName: eventName,
@@ -107,7 +103,7 @@ function off(eventNames = '', selector, handler, useCapture) {
                     (!handler || item.handler === handler) &&
                     (!selector || item.selector === selector));
             }), function(item) {
-                element.removeEventListener(hoverEvents[item.eventName] || item.eventName, item.eventListener, useCapture || false);
+                element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
                 handlers.splice(handlers.indexOf(item), 1);
             });
 
@@ -351,26 +347,6 @@ function delegateHandler(selector, handler, event) {
             handler.call(currentTarget, event);
         }
     }
-}
-
-/**
- * Simulate `mouseenter` and `mouseleave` events (using `mouseover` and `mouseout`).
- *
- * @private
- */
-
-var hoverEvents = {
-    mouseenter: 'mouseover',
-    mouseleave: 'mouseout'
-};
-
-function hoverHandler(handler) {
-    return function(event) {
-        var relatedTarget = event.relatedTarget;
-        if (!relatedTarget || (relatedTarget !== this && !$.contains(this, relatedTarget))) {
-            return handler.apply(this, arguments);
-        }
-    };
 }
 
 /**
