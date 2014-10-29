@@ -10,11 +10,11 @@ This library was recently renamed from "jQuery Evergreen".
 
 ## Quicklinks
 
-* [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.7/domtastic.min.js) (auto-updating release in 0.7.x branch on [jsDelivr CDN](http://www.jsdelivr.com/#!domtastic))
+* [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.8/domtastic.min.js) (auto-updating release in 0.8.x branch on [jsDelivr CDN](http://www.jsdelivr.com/#!domtastic))
 * [API Docs](http://webpro.github.io/DOMtastic/doc/)
 * [Run tests](http://webpro.github.io/DOMtastic/test/)
 * [Run benchmarks](http://webpro.github.io/DOMtastic/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
-* [Coverage report](http://webpro.github.io/DOMtastic/coverage/dist/domtastic.js.html)
+* [Coverage report](http://webpro.github.io/DOMtastic/coverage/dist/domtastic.js.html) ([Coveralls](https://coveralls.io/r/webpro/DOMtastic))
 * [Complexity report](http://webpro.github.io/DOMtastic/complexity/)
 
 [![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
@@ -66,7 +66,7 @@ define(['domtastic'], function($) {
 #### Use
 
 ```html
-<script src="//cdn.jsdelivr.net/domtastic/0.7/domtastic.min.js"></script>
+<script src="//cdn.jsdelivr.net/domtastic/0.8/domtastic.min.js"></script>
 ```
 
 ```javascript
@@ -186,6 +186,11 @@ The pre-built "full" bundle also includes the following modules:
     parent
     slice
 
+### [Trigger](http://webpro.github.io/DOMtastic/doc#trigger)
+
+    trigger
+    triggerHandler
+
 ### [Type](http://webpro.github.io/DOMtastic/doc#type)
 
     isArray
@@ -207,7 +212,7 @@ Feel free to [open an issue](https://github.com/webpro/DOMtastic/issues) if you 
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/webpro.svg)](https://saucelabs.com/u/webpro)
 
-Latest versions of Chrome, Firefox, Safari, Opera, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11. IE9 only needs a polyfill for `classList` to make these tests pass.
+Latest versions of Chrome, Firefox, Safari, Opera, Android, Chrome Mobile iOS, and Mobile Safari. IE10 and IE11. IE9 only needs a polyfill for `classList` to make these tests pass.
 
 ## Performance
 
