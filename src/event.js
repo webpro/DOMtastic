@@ -226,7 +226,7 @@ function triggerForPath(element, type, params = {}) {
  * @param {Object} event Event to dispatch
  */
 
-var directEventMethods = ['blur', 'click', 'focus', 'select', 'submit'];
+var directEventMethods = ['blur', 'focus', 'select', 'submit'];
 
 function dispatchEvent(element, event) {
     if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function' && !event._preventDefault && !event.cancelable) {
