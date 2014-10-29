@@ -209,23 +209,24 @@ describe('events', function() {
 
         it('should prevent default', function() {
 
-            var parent = $('#testFragment'),
-                child = $('.fourth'),
-                eventType = getRndStr(),
+            var element = $('#testFragment a'),
+                eventType = 'click',
                 event = new CustomEvent(eventType, { bubbles: true, cancelable: true, detail: undefined }),
-                eventSpy = sinon.spy(event, 'preventDefault');
+                eventSpy = sinon.spy(event, 'preventDefault'),
+                hash = '#' + getRndStr();
 
-            parent.on(eventType, spy);
-            child.on(eventType, function(event) {
+            element.on(eventType, function(event) {
                 expect(event.isDefaultPrevented()).to.be.false;
                 event.preventDefault();
                 expect(event.isDefaultPrevented()).to.be.true;
             });
 
-            child[0].dispatchEvent(event);
+            element[0].dispatchEvent(event);
 
             expect(eventSpy).to.have.been.called;
-            expect(spy).to.have.been.called;
+            expect(location.hash.replace(/^#/, '')).to.equal('');
+
+            location.hash = '';
 
         });
 
@@ -419,6 +420,18 @@ describe('events', function() {
             element.on(eventType, spy);
             $('.two').trigger(eventType, null, {bubbles: false});
             expect(spy).not.to.have.been.called;
+        });
+
+        it('should be able to send non-cancelable events', function() {
+            var element = $('#testFragment a'),
+                eventType = 'click',
+                hash = '#' + getRndStr();
+            element.attr('href', hash).on(eventType, function(event) {
+                event.preventDefault();
+            });
+            element.trigger(eventType, null, {cancelable: false});
+            expect(location.hash).to.have.string(hash);
+            location.hash = '';
         });
 
         it('should call direct methods for specific event types ("blur", "click", "focus", and "select")', function() {

@@ -218,8 +218,8 @@ function triggerForPath(element, type, params = {}) {
 }
 
 /**
- * Dispatch event to element,
- * but call direct event methods instead if available (i.e. "blur", "click", "focus", "select").
+ * Dispatch event to element, but call direct event methods instead if available
+ * (e.g. "blur()", "submit()"). Except if the event is cancelable.
  *
  * @private
  * @param {Node} element Element to dispatch the event at
@@ -229,7 +229,7 @@ function triggerForPath(element, type, params = {}) {
 var directEventMethods = ['blur', 'click', 'focus', 'select', 'submit'];
 
 function dispatchEvent(element, event) {
-    if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function' && !event._preventDefault) {
+    if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function' && !event._preventDefault && !event.cancelable) {
         element[event.type]();
     } else {
         element.dispatchEvent(event);
