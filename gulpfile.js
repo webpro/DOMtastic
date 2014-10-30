@@ -99,7 +99,9 @@ gulp.task('bundle', ['clean'], function() {
 
     function bundle(preset) {
 
-        var b = browserify()
+        var b = browserify({
+                standalone: 'domtastic'
+            })
             .require(srcDir, {
                 entry: true
             })
@@ -108,9 +110,7 @@ gulp.task('bundle', ['clean'], function() {
         bundlePresets[preset].modulesToExclude.map(resolveModulePath).map(b.exclude.bind(b));
 
         return b
-            .bundle({
-                standalone: 'domtastic'
-            })
+            .bundle()
             .pipe(modify([version, exportDefault, dollar, unget]))
             .pipe(modify(exclude(preset))).pipe(source(fileName)).pipe(gulp.dest(bundlePresets[preset].dest));
     }
@@ -205,12 +205,12 @@ function exportDefault(data) {
 }
 
 function dollar(data) {
-    return data.replace(/domtastic/, '$');
+    return data.replace(/domtastic(?=\=)/, '$');
 }
 
 function exclude(preset) {
     var modulesToExclude = bundlePresets[preset].modulesToExclude,
-        removeDeReqsRE = new RegExp('.+_dereq_.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g'),
+        removeDeReqsRE = new RegExp('.+require.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g'),
         removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/g, modulesToExclude.join('_?|')), 'g');
     return function(data) {
         return modulesToExclude.length ? data.replace(removeDeReqsRE, '').replace(removeExtendsRE, '') : data;
