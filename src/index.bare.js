@@ -10,14 +10,10 @@ var api = {},
 // Import modules to build up the API
 
 import * as array from './array';
-import * as attr from './attr';
 import * as class_ from './class';
 import * as contains from './contains';
 import * as dom from './dom';
 import * as event from './event';
-import * as html from './html';
-import * as noconflict from './noconflict';
-import * as ready from './ready';
 import * as selector from './selector';
 
 if (typeof selector !== 'undefined') {
@@ -27,8 +23,8 @@ if (typeof selector !== 'undefined') {
     api.closest = selector.closest;
 }
 
-extend($, contains, noconflict);
-extend(api, array, attr, class_, dom, event, html, ready);
+extend($, contains);
+extend(api, array, class_, dom, event);
 
 // Version
 

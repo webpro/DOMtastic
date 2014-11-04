@@ -10,23 +10,23 @@ var api = {},
 
 // Import modules to build up the API
 
-module array from './array';
-module attr from './attr';
-module class_ from './class';
-module contains from './contains';
-module css from './css';
-module data from './data';
-module dom from './dom';
-module dom_extra from './dom_extra';
-module event from './event';
-module html from './html';
-module mode from './mode';
-module noconflict from './noconflict';
-module ready from './ready';
-module selector from './selector';
-module selector_extra from './selector_extra';
-module trigger from './trigger';
-module type from './type';
+import * as array from './array';
+import * as attr from './attr';
+import * as class_ from './class';
+import * as contains from './contains';
+import * as css from './css';
+import * as data from './data';
+import * as dom from './dom';
+import * as dom_extra from './dom_extra';
+import * as event from './event';
+import * as html from './html';
+import * as mode from './mode';
+import * as noconflict from './noconflict';
+import * as ready from './ready';
+import * as selector from './selector';
+import * as selector_extra from './selector_extra';
+import * as trigger from './trigger';
+import * as type from './type';
 
 if (typeof selector !== 'undefined') {
     $ = selector.$;
