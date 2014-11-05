@@ -130,7 +130,7 @@ function _browserify(entry, dest, excludes) {
 
     bundler = bundler
         .bundle()
-        .pipe(modify([versionify, exposify, dollarify, ungetify, excludes.length ? exclude : noop]))
+        .pipe(modify([versionify, exposify, dollarify, excludes.length ? exclude : noop]))
         .pipe(source(fileName))
         .pipe(gulp.dest(dest));
 
@@ -173,14 +173,6 @@ function exposify(data) {
 
 function dollarify(data) {
     return data.replace(/domtastic(?=\=)/, '$');
-}
-
-function ungetify(data) {
-    return data
-        .replace(/Object\.defineProperties\(exports,\ ([\s\S]*(?=__esModule).+\n\})\);/, 'module.exports = $1;')
-        .replace(/\{get:.+\n.+return\ (.+);\n[^,]+/g, '$1')
-        .replace(/\{value:\ (.+)(?=\})\}/g, '$1')
-        .replace(/(module\.exports[\s\S]*(?=__esModule).+\n\};)([\s\S]*)(?=\/\/#\ sourceMappingURL)/, '$2$1\n');
 }
 
 function exclude(data) {

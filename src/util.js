@@ -59,7 +59,7 @@ function each(collection, callback, thisArg) {
 }
 
 /**
- * Assign properties from source object(s) to target object
+ * Assign enumerable properties from source object(s) to target object
  *
  * @method extend
  * @param {Object} target Object to extend
@@ -84,8 +84,26 @@ function extend(target, ...sources) {
     return target;
 }
 
+/**
+ * Assign all properties (including non-enumerable) from source object(s) to target object
+ *
+ * @method extendMore
+ * @param {Object} target Object to extend
+ * @param {Object} [source] Object to extend from
+ * @return {Object} Extended object
+ */
+
+function extendAll(target, ...sources) {
+    sources.forEach(function(src) {
+        Object.getOwnPropertyNames(src).forEach(function(prop) {
+            target[prop] = src[prop];
+        });
+    });
+    return target;
+}
+
 /*
  * Export interface
  */
 
-export { global, toArray, makeIterable, each, extend };
+export { global, toArray, makeIterable, each, extend, extendAll };
