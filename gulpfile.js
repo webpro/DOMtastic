@@ -55,9 +55,9 @@ var bundlePresets = {
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['uglify-dist']);
+gulp.task('build', ['bundle']);
 
-gulp.task('build-release', ['uglify', 'transpile-cjs', 'transpile-amd']);
+gulp.task('build-release', ['size', 'transpile-cjs', 'transpile-amd']);
 
 // Simple tasks
 
