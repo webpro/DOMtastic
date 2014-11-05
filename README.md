@@ -235,13 +235,13 @@ You can build a UMD bundle that _excludes_ specific modules that you don't need:
 git clone git@github.com:webpro/DOMtastic.git
 cd DOMtastic
 npm install
-gulp --exclude=attr,mode,html
+gulp bundle-custom --exclude=attr,mode,html
 ```
 
 Alternatively, you can do the opposite and _include_ what you need:
 
 ```bash
-gulp --include=selector,class
+gulp bundle-custom --include=selector,class
 ```
 
 Find the output in the `dist/` folder.

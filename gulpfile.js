@@ -3,7 +3,9 @@ var browserify = require('browserify'),
     del = require('del'),
     es = require('event-stream'),
     es6ify = require('es6ify'),
+    fs = require('fs'),
     gulp = require('gulp'),
+    gutil = require('gulp-util'),
     map = require('through2-map'),
     path = require('path'),
     pkg = require('./package.json'),
@@ -41,6 +43,11 @@ var bundlePresets = {
     bare: {
         entry: path.resolve(srcDir, 'index.bare'),
         dest: path.resolve(releaseFolder, 'bundle', 'bare')
+    },
+    custom: {
+        entry: path.resolve(srcDir, 'index.full'),
+        modulesToExclude: gutil.env.exclude ? gutil.env.exclude.split(',') : gutil.env.include ? getModulesToExclude(gutil.env.include) : [],
+        dest: distFolder
     }
 };
 
@@ -90,6 +97,10 @@ gulp.task('bundle', ['clean'], function() {
     return _browserify(bundlePresets['full'].entry, distFolder)
 });
 
+gulp.task('bundle-custom', ['clean'], function() {
+    return _browserify(bundlePresets['custom'].entry, distFolder, bundlePresets['custom'].modulesToExclude)
+});
+
 gulp.task('bundle-all', ['clean'], function() {
     return es.merge.apply(es, ['full', 'default', 'bare'].map(function(preset) {
         return _browserify(bundlePresets[preset].entry,  bundlePresets[preset].dest);
@@ -105,15 +116,21 @@ gulp.task('size', ['bundle-all'], function() {
         }))
 });
 
-function _browserify(entry, dest) {
+function _browserify(entry, dest, excludes) {
+
+    excludes = excludes || [];
 
     var bundler = browserify(entry, {
             standalone: 'domtastic',
             debug: true
         })
-        .transform(es6ify)
+        .transform(es6ify);
+
+    excludes.map(resolveModulePath).map(bundler.exclude.bind(bundler));
+
+    bundler = bundler
         .bundle()
-        .pipe(modify([versionify, exposify, dollarify, ungetify]))
+        .pipe(modify([versionify, exposify, dollarify, ungetify, excludes.length ? exclude : noop]))
         .pipe(source(fileName))
         .pipe(gulp.dest(dest));
 
@@ -128,6 +145,20 @@ function _browserify(entry, dest) {
         .pipe(gulp.dest(dest));
 
     return es.concat(bundler, minifiedBundler);
+}
+
+function resolveModulePath(moduleName) {
+    return './' + moduleName;
+}
+
+function getModulesToExclude(modulesToIncludeArg) {
+    var modulesToInclude = ['index.full', 'util'].concat(modulesToIncludeArg.split(',')),
+        modulesList = fs.readdirSync('./src').map(function (module) {
+            return module.replace('.js', '');
+        });
+    return modulesList.filter(function (module) {
+        return modulesToInclude.indexOf(module) === -1;
+    });
 }
 
 // Text-based source modifiers
@@ -150,6 +181,17 @@ function ungetify(data) {
         .replace(/\{get:.+\n.+return\ (.+);\n[^,]+/g, '$1')
         .replace(/\{value:\ (.+)(?=\})\}/g, '$1')
         .replace(/(module\.exports[\s\S]*(?=__esModule).+\n\};)([\s\S]*)(?=\/\/#\ sourceMappingURL)/, '$2$1\n');
+}
+
+function exclude(data) {
+    var modulesToExclude = bundlePresets['custom'].modulesToExclude,
+        removeDeReqsRE = new RegExp('.+require.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g'),
+        removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/g, modulesToExclude.join('_?|')), 'g');
+    return modulesToExclude.length ? data.replace(removeDeReqsRE, '').replace(removeExtendsRE, '') : data;
+}
+
+function noop(data) {
+    return data;
 }
 
 function modify(modifiers) {
