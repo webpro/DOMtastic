@@ -198,6 +198,9 @@ function modify(modifiers) {
     return map({
         wantStrings: true
     }, function(data) {
+        if(data.indexOf('sourceMappingURL=data:application/json;base64,') !== -1) {
+            return data;
+        }
         (typeof modifiers === 'function' ? [modifiers] : modifiers).forEach(function(modifier) {
             data = modifier(data);
         });
