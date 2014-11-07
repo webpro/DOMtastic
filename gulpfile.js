@@ -130,7 +130,7 @@ function _browserify(entry, dest, excludes) {
 
     bundler = bundler
         .bundle()
-        .pipe(modify([versionify, exposify, dollarify, excludes.length ? exclude : noop]))
+        .pipe(modify([versionify, exposify, dollarify, excludes.length ? exclude : noop, cleanImports]))
         .pipe(source(fileName))
         .pipe(gulp.dest(dest));
 
@@ -180,6 +180,10 @@ function exclude(data) {
         removeDeReqsRE = new RegExp('.+require.+(__M__).+\\n'.replace(/__M__/g, modulesToExclude.join('|')), 'g'),
         removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/g, modulesToExclude.join('_?|')), 'g');
     return modulesToExclude.length ? data.replace(removeDeReqsRE, '').replace(removeExtendsRE, '') : data;
+}
+
+function cleanImports(data) {
+    return data.replace(/(var[^\(]+).+(require[^,]+).+__esModule[^\.;,]+(.*)/g, '$1$2$3');
 }
 
 function noop(data) {
