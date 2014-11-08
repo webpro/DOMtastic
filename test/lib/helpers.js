@@ -2,6 +2,13 @@ function getRndStr() {
     return (Math.random() + 1).toString(36).substring(7);
 }
 
+function trigger(element, type) {
+    var ev = new CustomEvent(type, { bubbles: true });
+    for(var i = 0, l = element.length; i < l; i++) {
+        element[i].dispatchEvent(ev);
+    }
+}
+
 chai.Assertion.addMethod('elements', function(expectedCollection) {
 
     var i,
