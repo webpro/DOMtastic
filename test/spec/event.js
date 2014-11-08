@@ -98,14 +98,6 @@ describe('events', function() {
                 expect(spy).to.have.been.calledThrice;
             });
 
-            it('should receive a delegated event in detached nodes', function() {
-                var element = $('<div><span></span></div>'),
-                    eventType = getRndStr();
-                element.on(eventType, 'span', spy);
-                element.find('span').trigger(eventType);
-                expect(spy).to.have.been.called;
-            });
-
             it('should receive delegated events from multiple child elements', function() {
                 var elements = $('#testFragment li'),
                     eventType = getRndStr();
@@ -241,26 +233,6 @@ describe('events', function() {
             element.on(eventType, spy);
             trigger($('.two'), eventType);
             expect(spy).to.have.been.called;
-        });
-
-        it('should receive events bubbling up to a detached element', function() {
-            var element = $('<div><p></p></div>'),
-                child = $(element[0].querySelector('p')),
-                eventType = getRndStr();
-            element.on(eventType, spy);
-            child.trigger(eventType);
-            expect(spy).to.have.been.called;
-            expect(spy).to.have.been.calledOnce;
-        });
-
-        it('should receive delegated events bubbling up to a detached element', function() {
-            var element = $('<div><p></p></div>'),
-                child = $(element[0].querySelector('p')),
-                eventType = getRndStr();
-            element.on(eventType, 'p', spy);
-            child.trigger(eventType);
-            expect(spy).to.have.been.called;
-            expect(spy).to.have.been.calledOnce;
         });
 
     });
