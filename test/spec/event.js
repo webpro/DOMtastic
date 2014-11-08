@@ -337,7 +337,7 @@ describe('events', function() {
                     eventType = getRndStr();
                 element.on(eventType, 'li', spy);
                 element.off(eventType, 'li', spy);
-                trigger($('.fourth'), 'testEvent2');
+                trigger($('.fourth'), eventType);
                 expect(spy).not.to.have.been.called;
             });
 
@@ -346,7 +346,7 @@ describe('events', function() {
                     eventType = getRndStr();
                 elements.on(eventType, 'li', spy);
                 elements.off(eventType, 'li', spy);
-                trigger($('.fourth'), 'testEvent21');
+                trigger($('.fourth'), eventType);
                 expect(spy).not.to.have.been.called;
             });
 
