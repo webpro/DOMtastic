@@ -1,6 +1,6 @@
 {
     "pkgFiles": ["package.json", "bower.json"],
-    "buildCommand": "gulp build-release",
+    "buildCommand": "npm run build-release",
     "distRepo": "https://github.com/webpro/DOMtastic-release.git",
     "distBase": ".release",
     "distFiles": ["**/*"]

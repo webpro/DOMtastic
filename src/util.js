@@ -84,26 +84,8 @@ function extend(target, ...sources) {
     return target;
 }
 
-/**
- * Assign all properties (including non-enumerable) from source object(s) to target object
- *
- * @method extendMore
- * @param {Object} target Object to extend
- * @param {Object} [source] Object to extend from
- * @return {Object} Extended object
- */
-
-function extendAll(target, ...sources) {
-    sources.forEach(function(src) {
-        Object.getOwnPropertyNames(src).forEach(function(prop) {
-            target[prop] = src[prop];
-        });
-    });
-    return target;
-}
-
 /*
  * Export interface
  */
 
-export { global, toArray, makeIterable, each, extend, extendAll };
+export { global, toArray, makeIterable, each, extend };

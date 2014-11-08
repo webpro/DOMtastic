@@ -29,35 +29,36 @@
   },
   "main": "dist/domtastic.js",
   "scripts": {
-    "test": "npm run build && mocha-phantomjs ./test/index.html -R dot",
-    "coverage": "npm run build && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
+    "test": "npm run bundle && mocha-phantomjs ./test/index.html -R dot",
+    "bundle": "mkdir -p dist && browserify src/index.full.js --debug --standalone domtastic | bin/defaultify.js domtastic $ | exorcist dist/domtastic.js.map > dist/domtastic.js && fix-sourcemaps --sourcemap dist/domtastic.js.map --file domtastic.js",
+    "bundle-min": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map -m -c --screw-ie8 -o domtastic.min.js",
+    "coverage": "npm run bundle && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
     "doc": "doxstrap --title \"DOMtastic\" --output doc",
-    "complexity": "gulp transpile-cjs && cd .release/commonjs && plato -r -d ../../complexity --jshint ../../.jshintrc .",
-    "benchmark": "npm run build && phantomjs ./node_modules/benchrunner/benchrunner.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js",
-    "build": "gulp build"
+    "complexity": "npm run transpile-cjs && cd .release/commonjs && plato -r -d ../../complexity --jshint ../../.jshintrc .",
+    "benchmark": "npm run bundle-min && phantomjs ./node_modules/benchrunner/benchrunner.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js",
+    "transpile-cjs": "6to5 src --out-dir .release/commonjs && sed -i s/__VERSION__/$npm_package_version/ .release/commonjs/index*.js",
+    "transpile-amd": "6to5 src --out-dir .release/amd --modules amd && sed -i s/__VERSION__/$npm_package_version/ .release/commonjs/index*.js",
+    "build": "npm run bundle-min",
+    "build-release": "bin/bundles.sh; npm run transpile-cjs; npm run transpile-amd"
   },
   "devDependencies": {
+    "6to5": "1.11.3",
+    "6to5-browserify": "1.0.0",
     "benchrunner": "0.0.3",
     "browserify": "6.2.0",
-    "del": "0.1.3",
+    "browserify-versionify": "1.0.1",
     "doxstrap": "0.0.3",
-    "es6ify": "1.5.1",
-    "event-stream": "3.1.7",
-    "gulp": "3.8.10",
-    "gulp-rename": "1.2.0",
-    "gulp-replace": "0.4.0",
-    "gulp-size": "1.1.0",
-    "gulp-sourcemaps": "1.2.7",
-    "gulp-traceur": "0.13.0",
-    "gulp-uglify": "1.0.1",
-    "gulp-util": "3.0.1",
+    "fix-sourcemaps": "1.0.1",
     "istanbul": "0.3.2",
     "mocha-phantomjs": "3.5.1",
     "phantomjs": "1.9.12",
-    "plato": "1.2.0",
-    "through2-map": "1.4.0",
-    "vinyl-buffer": "1.0.0",
-    "vinyl-source-stream": "1.0.0"
+    "plato": "1.2.0"
+  },
+  "browserify": {
+    "transform": [
+      "6to5-browserify",
+      "browserify-versionify"
+    ]
   },
   "license": "MIT"
 }
