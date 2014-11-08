@@ -196,7 +196,6 @@ var augmentEvent = (function() {
             stopImmediatePropagation: 'isImmediatePropagationStopped',
             stopPropagation: 'isPropagationStopped'
         },
-        noop = () => {},
         returnTrue = () => true,
         returnFalse = () => false;
 
@@ -206,10 +205,10 @@ var augmentEvent = (function() {
                 (function(methodName, testMethodName, originalMethod) {
                     event[methodName] = function() {
                         this[testMethodName] = returnTrue;
-                        return originalMethod.apply(this, arguments);
+                        return originalMethod && originalMethod.apply(this, arguments);
                     };
                     event[testMethodName] = returnFalse;
-                }(methodName, eventMethods[methodName], event[methodName] || noop));
+                }(methodName, eventMethods[methodName], event[methodName]));
             }
             if (event._preventDefault) {
                 event.preventDefault();

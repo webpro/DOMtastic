@@ -105,7 +105,7 @@ function closest(selector, context) {
 
 var matches = (function() {
     var context = typeof Element !== 'undefined' ? Element.prototype : global,
-        _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.webkitMatchesSelector || context.msMatchesSelector || context.oMatchesSelector;
+        _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.msMatchesSelector || context.oMatchesSelector || context.webkitMatchesSelector;
     return function(element, selector) {
         return _matches.call(element, selector);
     };

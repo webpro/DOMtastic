@@ -46,7 +46,7 @@ function trigger(type, data, params = {}) {
 }
 
 function getEventConstructor(type) {
-    return !supportsOtherEventConstructors ? CustomEvent : reMouseEvent.test(type) ? MouseEvent : reKeyEvent.test(type) ? KeyboardEvent : CustomEvent;
+    return supportsOtherEventConstructors ? (reMouseEvent.test(type) ? MouseEvent : (reKeyEvent.test(type) ? KeyboardEvent : CustomEvent)) : CustomEvent;
 }
 
 /**
