@@ -183,7 +183,9 @@ function exclude(data) {
 }
 
 function cleanImports(data) {
-    return data.replace(/(var[^\(]+).+(require[^,]+).+__esModule[^\.;,]+(.*)/g, '$1$2$3');
+    return data
+        .replace(/(var[^\(]+).+(require[^,]+).+__esModule[^\.;,]+(.*)/g, '$1$2$3')
+        .replace(/,\s+__esModule:\ \{value:\ true\}/, '');
 }
 
 function noop(data) {
