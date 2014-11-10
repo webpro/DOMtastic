@@ -48,6 +48,7 @@
     "browserify": "6.2.0",
     "browserify-versionify": "1.0.1",
     "doxstrap": "0.0.3",
+    "exorcist": "^0.1.6",
     "fix-sourcemaps": "1.0.1",
     "istanbul": "0.3.2",
     "mocha-phantomjs": "3.5.1",
