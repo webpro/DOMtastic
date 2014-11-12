@@ -19,7 +19,7 @@ var global = new Function("return this")();
 
 function toArray(collection) {
     var length = collection.length,
-        result = Array(length);
+        result = new Array(length);
     for (var i = 0; i < length; i++) {
         result[i] = collection[i];
     }

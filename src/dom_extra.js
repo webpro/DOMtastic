@@ -75,7 +75,7 @@ function replaceWith() {
 
 function text(value){
 
-    if(value == null) {
+    if(value === undefined) {
         return this[0].textContent;
     }
 
@@ -98,7 +98,7 @@ function text(value){
 
 function val(value){
 
-    if(value == null) {
+    if(value === undefined) {
         return this[0].value;
     }
 

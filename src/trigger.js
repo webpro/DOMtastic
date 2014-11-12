@@ -3,7 +3,7 @@
  */
 
 import { global, each } from './util';
-import { closest } from './selector';
+import { $, closest } from './selector';
 
 var reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
     reKeyEvent = /^key/;

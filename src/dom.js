@@ -3,6 +3,7 @@
  */
 
 import { toArray } from './util';
+import { $ } from './selector';
 
 /**
  * Append element(s) to each element in the collection.
