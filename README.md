@@ -4,9 +4,7 @@ Small, fast, and modular DOM and event library for modern browsers.
 Having the same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`), it works great stand-alone or paired up with e.g. Backbone or Angular.
 It's easy to create a custom build to include or exclude parts, while the library weighs in at only 3 to 14KB (minified).
 
-The [source](https://github.com/webpro/DOMtastic) is written using ES6 features, and transpiled to AMD and CommonJS with [Traceur](https://github.com/google/traceur-compiler). Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global). However, you are encouraged to pick the modules you want in your Browserify or AMD setup, without any overhead ([read more](#Build-a-custom-API-for-your-application)).
-
-This library was recently renamed from "jQuery Evergreen".
+The [source](https://github.com/webpro/DOMtastic) is written in ES6 format, and transpiled to AMD and CommonJS with [6to5](https://6to5.github.io/). Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global). However, you are encouraged to pick the modules you want in your Browserify or AMD setup, without any overhead ([read more](#Build-a-custom-API-for-your-application)).
 
 ## Quicklinks
 
