@@ -129,9 +129,7 @@ var platforms = [
     ['OS X 10.9', 'iphone', '6.0'],
     ['OS X 10.9', 'ipad', '8.0'],
     ['OS X 10.9', 'ipad', '7.1'],
-    ['OS X 10.9', 'ipad', '6.0'],
-    ['Linux', 'android', '4.4'],
-    ['Linux', 'android', '4.3']
+    ['OS X 10.9', 'ipad', '6.0']
 ];
 
 /** Used as the default `Job` options object */
