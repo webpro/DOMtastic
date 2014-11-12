@@ -2,7 +2,7 @@
  * @module API
  */
 
-import { extend, extendAll } from './util';
+import { extend } from './util';
 
 var api = {},
     $ = {};
@@ -27,8 +27,8 @@ if (typeof selector !== 'undefined') {
     api.closest = selector.closest;
 }
 
-extendAll($, contains, noconflict);
-extendAll(api, array, attr, class_, dom, event, html, ready);
+extend($, contains, noconflict);
+extend(api, array, attr, class_, dom, event, html, ready);
 
 // Version
 

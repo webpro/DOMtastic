@@ -8,12 +8,22 @@ describe('events', function() {
 
     describe('trigger', function() {
 
-        it('should execute handler for detached nodes', function() {
+        it('should execute handler for detached node', function() {
             var element = $('<div></div>'),
                 eventType = getRndStr();
             element.on(eventType, spy);
             element.trigger(eventType);
             expect(spy).to.have.been.called;
+        });
+
+        it('should execute handler for detached tree', function() {
+            var element = $('<div><p></p></div>'),
+                child = $(element[0].querySelector('p')),
+                eventType = getRndStr();
+            element.on(eventType, 'p', spy);
+            child.trigger(eventType);
+            expect(spy).to.have.been.called;
+            expect(spy).to.have.been.calledOnce;
         });
 
         it('should execute handler and pass the data as event detail', function() {
