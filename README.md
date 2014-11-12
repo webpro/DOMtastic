@@ -235,20 +235,20 @@ You can build a UMD bundle that _excludes_ specific modules that you don't need:
 git clone git@github.com:webpro/DOMtastic.git
 cd DOMtastic
 npm install
-gulp bundle-custom --exclude=attr,mode,html
+bin/custom --exclude=attr,mode,html
 ```
 
 Alternatively, you can do the opposite and _include_ what you need:
 
 ```bash
-gulp bundle-custom --include=selector,class
+bin/custom --include=selector,class
 ```
 
 Find the output in the `dist/` folder.
 
 ### Build a custom API for your application
 
-You can also build a custom API from the ground up. By default, DOMtastic [does it](https://github.com/webpro/DOMtastic/blob/master/src/api.js) for you, but you can easily do it yourself in a highly custom approach. Grab the `$` function from the `selector`, and extend the `$.fn` object with methods from specific modules:
+You can also build a custom API from the ground up. By default, DOMtastic [does it](https://github.com/webpro/DOMtastic/blob/master/src/index.js) for you, but you can easily do it yourself in a highly custom approach. Grab the `$` function from the `selector`, and extend the `$.fn` object with methods from specific modules:
 
 ```javascript
 var selector = require('domtastic/commonjs/selector'),

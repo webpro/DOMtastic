@@ -14,8 +14,6 @@ branches:
     - dev
 before_install:
   - "npm i coveralls ecstatic request sauce-tunnel"
-before_script:
-  - "./node_modules/gulp/bin/gulp.js build-release"
 script:
   - "npm test"
 after_success:
@@ -30,10 +28,9 @@ after_success:
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
   - "rm -rf $GHPAGES/doc && ./node_modules/doxstrap/bin/doxstrap.js --title DOMtastic --output $GHPAGES/doc"
-  - "cd .release/commonjs && ../../node_modules/plato/bin/plato -r -d ../../$GHPAGES/complexity --jshint ../../.jshintrc ."
+  - "npm run transpile"
+  - "cd dist/commonjs && ../../node_modules/plato/bin/plato -r -d ../../$GHPAGES/complexity --jshint ../../.jshintrc ."
   - "cd $TRAVIS_BUILD_DIR"
   - "node test/lib/sauce.js"
-  - "gulp clean"
   - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null"
   - "cd $TRAVIS_BUILD_DIR"
-  - "rm -rf ./coverage $GHPAGES"

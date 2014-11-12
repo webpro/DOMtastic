@@ -20,7 +20,7 @@
  *
  * Note that in native mode, `$(selector)` can stil be used. It returns a NodeList.
  *
- * Build the lib using gulp with `mode` not excluded.
+ * Build the lib with `mode` included.
  * Use `$.native()` to activate this behavior. The API is the same in both modes.
  */
 

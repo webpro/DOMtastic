@@ -1,8 +1,8 @@
 node_modules
 bower_components
+dist
 doc
 coverage
 complexity
-.release
 .stage
 .idea
