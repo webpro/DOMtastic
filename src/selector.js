@@ -82,15 +82,29 @@ function find(selector) {
  *     $('.selector').closest('.container');
  */
 
-function closest(selector, context) {
-    var node = this[0];
-    for (; node.nodeType !== node.DOCUMENT_NODE && node !== context; node = node.parentNode) {
-        if (matches(node, selector)) {
-            return $(node);
+var closest = (function() {
+
+    function closest(selector, context) {
+        var node = this[0];
+        while (node && node !== context) {
+            if (matches(node, selector)) {
+                return $(node);
+            } else {
+                node = node.parentElement;
+            }
+        }
+        return $();
+    }
+
+    return !Element.prototype.closest ? closest : function(selector, context) {
+        if(!context) {
+            var node = this[0];
+            return $(node.closest(selector));
+        } else {
+            return closest.call(this, selector, context)
         }
     }
-    return $();
-}
+})();
 
 /*
  * Returns `true` if the element would be selected by the specified selector string; otherwise, returns `false`.
