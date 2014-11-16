@@ -40,7 +40,7 @@ function $(selector, context = document) {
 
     } else if (typeof selector !== 'string') {
 
-        collection = makeIterable(selector);
+        collection = selector.nodeType || selector === window ? [selector] : selector;
 
     } else if (reFragment.test(selector)) {
 

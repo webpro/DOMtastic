@@ -27,17 +27,6 @@ function toArray(collection) {
 }
 
 /**
- * Return something that can be iterated over (e.g. using `forEach`).
- * Arrays and NodeLists are returned as-is, but a Node will be wrapped in a `[]`.
- *
- * @param {Node|NodeList|Array} element
- * @return {Array|NodeList}
- * @private
- */
-
-var makeIterable = (element) => element.nodeType || element === window ? [element] : element;
-
-/**
  * Faster alternative to [].forEach method
  *
  * @param {Node|NodeList|Array} collection
@@ -88,4 +77,4 @@ function extend(target, ...sources) {
  * Export interface
  */
 
-export { global, toArray, makeIterable, each, extend };
+export { global, toArray, each, extend };

@@ -81,7 +81,7 @@ function toggleClass(value) {
  */
 
 function hasClass(value) {
-    return makeIterable(this).some(function(element) {
+    return (this.nodeType ? [this] : this).some(function(element) {
         return element.classList.contains(value);
     });
 }
