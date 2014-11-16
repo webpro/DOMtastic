@@ -38,4 +38,4 @@ var isArray = Array.isArray;
  * Export interface
  */
 
-export { isFunction, isArray };
+export { isArray, isFunction };
