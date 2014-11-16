@@ -56,10 +56,10 @@ function each(collection, callback, thisArg) {
  * @return {Object} Extended object
  * @example
  *     $.extend({a: 1}, {b: 2});
- *     ➤ {a: 1, b: 2}
+ *     // {a: 1, b: 2}
  * @example
  *     $.extend({a: 1}, {b: 2}, {a: 3});
- *     ➤ {a: 3, b: 2}
+ *     // {a: 3, b: 2}
  */
 
 function extend(target, ...sources) {

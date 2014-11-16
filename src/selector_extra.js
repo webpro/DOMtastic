@@ -54,7 +54,7 @@ function contents() {
  * @chainable
  * @example
  *     $('.items').eq(1)
- *     ➤ The second item; result is the same as doing $($('.items')[1]);
+ *     // The second item; result is the same as doing $($('.items')[1]);
  */
 
 function eq(index) {
@@ -68,7 +68,7 @@ function eq(index) {
  * @return {Node} Element at the specified index
  * @example
  *     $('.items').get(1)
- *     ➤ The second element; result is the same as doing $('.items')[1];
+ *     // The second element; result is the same as doing $('.items')[1];
  */
 
 function get(index) {
@@ -104,7 +104,7 @@ function parent(selector) {
  * @return {Object} New wrapped collection
  * @example
  *     $('.items').slice(1, 3)
- *     ➤ New wrapped collection containing the second, third, and fourth element.
+ *     // New wrapped collection containing the second, third, and fourth element.
  */
 
 function slice(start, end) {

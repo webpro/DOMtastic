@@ -10,7 +10,7 @@
  * @return {Boolean} Whether the `container` element contains the `element`.
  * @example
  *     $.contains(parentElement, childElement);
- *     ➤ true/false
+ *     // true/false
  */
 
 function contains(container, element) {
