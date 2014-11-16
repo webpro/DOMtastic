@@ -64,10 +64,8 @@ function each(collection, callback, thisArg) {
 
 function extend(target, ...sources) {
     sources.forEach(function(src) {
-        if (src) {
-            for (var prop in src) {
-                target[prop] = src[prop];
-            }
+        for (var prop in src) {
+            target[prop] = src[prop];
         }
     });
     return target;
