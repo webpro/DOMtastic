@@ -16,7 +16,7 @@
         },
         {
             name: 'Zepto',
-            version: '1.1.3',
+            version: '1.1.4',
             script: {
                 src: 'vendor/zepto.min.js'
             }
