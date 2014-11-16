@@ -3,7 +3,7 @@
  */
 
 import { global, each } from './util';
-import { $, closest } from './selector';
+import { contains } from './contains';
 
 var reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
     reKeyEvent = /^key/;
@@ -80,7 +80,7 @@ function isAttachedToDocument(element) {
     if (element === window || element === document) {
         return true;
     }
-    return $.contains(element.ownerDocument.documentElement, element);
+    return contains(element.ownerDocument.documentElement, element);
 }
 
 /**
