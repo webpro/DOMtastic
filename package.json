@@ -34,7 +34,7 @@
     "bundle": "browserify src -ds domtastic | undefaultify domtastic $ | exorcist dist/domtastic.js.map > dist/domtastic.js",
     "postbundle": "fix-sourcemaps -s dist/domtastic.js.map -f domtastic.js",
     "watch": "watch -p 'src/*.js' -c 'browserify src -ds domtastic | undefaultify domtastic $ > dist/domtastic.js'",
-    "transpile": "6to5 src -d dist/commonjs && 6to5 src -d dist/amd --modules amd",
+    "transpile": "6to5 src -d dist/commonjs -c && 6to5 src -d dist/amd --modules amd -c",
     "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
     "build-release": "npm run build && npm run transpile",
@@ -44,7 +44,7 @@
     "benchmark": "npm run build && benchrunner benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
-    "6to5": "1.12.18",
+    "6to5": "1.12.22",
     "6to5-browserify": "1.2.0",
     "benchrunner": "0.0.3",
     "browserify": "6.3.2",
@@ -62,7 +62,7 @@
   },
   "browserify": {
     "transform": [
-      "6to5-browserify",
+      ["6to5-browserify", {"comments": false}],
       "browserify-versionify"
     ]
   },
