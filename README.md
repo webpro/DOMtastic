@@ -133,6 +133,8 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
 
 ### [Mode](http://webpro.github.io/DOMtastic/doc#mode)
 
+_WARNING: This module is deprecated and will be removed soon._
+
     isNative
     native
 
@@ -192,6 +194,8 @@ Run the [benchmark suite](http://webpro.github.io/DOMtastic/benchmark/) to compa
 
 ## Native Mode
 
+_WARNING: This module is deprecated and will be removed soon._
+
 You can [opt-in](https://github.com/webpro/DOMtastic/blob/master/src/mode.js) to work directly with `Node` and live `NodeList` objects, as opposed to the default, wrapped `$` object (make sure the "mode" module is included):
 
     $.native();
@@ -207,7 +211,7 @@ You can build a custom bundle that _excludes_ specific modules that you don't ne
 git clone git@github.com:webpro/DOMtastic.git
 cd DOMtastic
 npm install
-bin/custom --exclude=attr,mode,html
+bin/custom --exclude=attr,html,trigger
 ```
 
 Alternatively, you can do the opposite and _include_ what you need:
