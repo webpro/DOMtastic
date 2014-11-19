@@ -47,7 +47,7 @@
   "devDependencies": {
     "6to5": "1.12.22",
     "6to5-browserify": "1.2.0",
-    "benchrunner": "0.0.3",
+    "benchrunner": "0.0.4",
     "browserify": "6.3.2",
     "browserify-versionify": "1.0.1",
     "doxstrap": "0.0.3",
