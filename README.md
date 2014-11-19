@@ -20,6 +20,10 @@
 p
 le))
 
+[![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
+[![Coverage Status](https://coveralls.io/repos/webpro/DOMtastic/badge.png?branch=master)](https://coveralls.io/r/webpro/DOMtastic?branch=master)
+[![Selenium Test Status](https://saucelabs.com/buildstatus/webpro)](https://saucelabs.com/u/webpro)
+
 ## Usage
 
 ### CommonJS / Browserify
@@ -185,6 +189,8 @@ Please note that you can extend the `$.fn` object, just like [jQuery Plugins](ht
 Feel free to [open an issue](https://github.com/webpro/DOMtastic/issues) if you feel an important method is missing.
 
 ## Browser Support
+
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/webpro.svg)](https://saucelabs.com/u/webpro)
 
 Latest versions of Chrome, Firefox, Safari, Opera, Android, Chrome Mobile iOS, and Mobile Safari. Internet Explorer 10 and up. IE9 only needs a polyfill for `classList` to make these tests pass.
 
