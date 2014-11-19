@@ -37,6 +37,7 @@
     "transpile": "6to5 src -d dist/commonjs -c && 6to5 src -d dist/amd --modules amd -c",
     "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
+    "postbuild": "echo '' >> dist/domtastic.min.js",
     "build-release": "npm run build && npm run transpile",
     "doc": "doxstrap --title DOMtastic --output doc",
     "complexity": "npm run transpile && cd dist/commonjs && plato -r -d ../../complexity --jshint ../../.jshintrc .",
