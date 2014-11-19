@@ -124,12 +124,16 @@ var platforms = [
     ['OS X 10.8', 'safari', '6'],
     ['OS X 10.6', 'safari', '5'],
     ['Windows 7', 'safari', '5'],
+    ['Linux', 'android', '4.4'],
+    ['Linux', 'android', '4.3'],
+    ['OS X 10.9', 'iphone', '8.1'],
     ['OS X 10.9', 'iphone', '8.0'],
     ['OS X 10.9', 'iphone', '7.1'],
-    ['OS X 10.9', 'iphone', '6.0'],
+    ['OS X 10.9', 'iphone', '6.1'],
+    ['OS X 10.9', 'ipad', '8.1'],
     ['OS X 10.9', 'ipad', '8.0'],
     ['OS X 10.9', 'ipad', '7.1'],
-    ['OS X 10.9', 'ipad', '6.0']
+    ['OS X 10.9', 'ipad', '6.1']
 ];
 
 /** Used as the default `Job` options object */
