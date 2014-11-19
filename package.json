@@ -33,7 +33,7 @@
     "prebundle": "mkdirp dist",
     "bundle": "browserify src -ds domtastic | undefaultify domtastic $ | exorcist dist/domtastic.js.map > dist/domtastic.js",
     "postbundle": "fix-sourcemaps -s dist/domtastic.js.map -f domtastic.js",
-    "watch": "watch -p 'src/*.js' -c 'browserify src -ds domtastic | undefaultify domtastic $ > dist/domtastic.js'",
+    "watch": "onchange 'src/*.js' -- npm run bundle",
     "transpile": "6to5 src -d dist/commonjs -c && 6to5 src -d dist/amd --modules amd -c",
     "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
@@ -56,10 +56,10 @@
     "istanbul": "0.3.2",
     "mkdirp": "0.5.0",
     "mocha-phantomjs": "3.5.1",
+    "onchange": "0.0.1",
     "phantomjs": "1.9.12",
     "plato": "1.2.2",
-    "undefaultify": "1.0.0",
-    "watch-cli": "0.1.2"
+    "undefaultify": "1.0.0"
   },
   "browserify": {
     "transform": [
