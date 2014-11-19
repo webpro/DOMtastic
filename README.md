@@ -40,7 +40,7 @@ bower install domtastic
 
 ```json
 paths: {
-    'domtastic': 'bower_components/domtastic/amd/index'
+    "domtastic": "bower_components/domtastic/amd/index"
 }
 ```
 
