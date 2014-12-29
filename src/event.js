@@ -61,7 +61,7 @@ function on(eventNames, selector, handler, useCapture) {
 }
 
 /**
- * Shorthand for `removeEventListener`. Delegates to `undelegate` if that signature is used.
+ * Shorthand for `removeEventListener`.
  *
  * @param {String} eventNames List of space-separated event types to be removed from the element(s)
  * @param {String} [selector] Selector to filter descendants that undelegate the event to this element.
@@ -118,14 +118,6 @@ function off(eventNames = '', selector, handler, useCapture) {
     }, this);
 
     return this;
-}
-
-function delegate(selector, eventName, handler) {
-    return on.call(this, eventName, selector, handler);
-}
-
-function undelegate(selector, eventName, handler) {
-    return off.call(this, eventName, selector, handler);
 }
 
 /**
@@ -247,4 +239,4 @@ var bind = on,
  * Export interface
  */
 
-export { on, off, delegate, undelegate, bind, unbind };
+export { on, off, bind, unbind };

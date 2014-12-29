@@ -126,8 +126,6 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
 
     on (alias: bind)
     off (alias: unbind)
-    delegate (deprecated, will be removed soon)
-    undelegate (deprecated, will be removed soon)
     trigger
     triggerHandler
 
