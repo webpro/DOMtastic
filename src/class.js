@@ -17,11 +17,7 @@ import { each } from './util';
 
 function addClass(value) {
     if(value && value.length) {
-        each(value.split(' '), function(className) {
-            each(this, function(element) {
-                element.classList.add(className);
-            });
-        }.bind(this));
+        each(value.split(' '), _each.bind(this, 'add'));
     }
     return this;
 }
@@ -39,11 +35,7 @@ function addClass(value) {
 
 function removeClass(value) {
     if(value && value.length) {
-        each(value.split(' '), function(className) {
-            each(this, function(element) {
-                element.classList.remove(className);
-            });
-        }.bind(this));
+        each(value.split(' '), _each.bind(this, 'remove'));
     }
     return this;
 }
@@ -61,11 +53,7 @@ function removeClass(value) {
 
 function toggleClass(value) {
     if(value && value.length) {
-        each(value.split(' '), function(className) {
-            each(this, function(element) {
-                element.classList.toggle(className);
-            });
-        }.bind(this));
+        each(value.split(' '), _each.bind(this, 'toggle'));
     }
     return this;
 }
@@ -83,6 +71,20 @@ function toggleClass(value) {
 function hasClass(value) {
     return (this.nodeType ? [this] : this).some(function(element) {
         return element.classList.contains(value);
+    });
+}
+
+/**
+ * Specialized iteration, applying `fn` of the classList API to each element.
+ *
+ * @param {String} fnName
+ * @param {String} className
+ * @private
+ */
+
+function _each(fnName, className) {
+    each(this, function(element) {
+        element.classList[fnName](className);
     });
 }
 
