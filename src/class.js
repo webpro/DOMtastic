@@ -2,7 +2,7 @@
  * @module Class
  */
 
-import { makeIterable, each } from './util';
+import { each } from './util';
 
 /**
  * Add a class to the element(s)

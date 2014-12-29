@@ -2,7 +2,7 @@
  * @module Selector
  */
 
-import { global, makeIterable } from './util';
+import { global } from './util';
 
 var isPrototypeSet = false,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
