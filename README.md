@@ -23,6 +23,7 @@ le))
 [![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
 [![Coverage Status](https://coveralls.io/repos/webpro/DOMtastic/badge.png?branch=master)](https://coveralls.io/r/webpro/DOMtastic?branch=master)
 [![Selenium Test Status](https://saucelabs.com/buildstatus/webpro)](https://saucelabs.com/u/webpro)
+[![Code Climate](https://codeclimate.com/github/webpro/DOMtastic-release/badges/gpa.svg)](https://codeclimate.com/github/webpro/DOMtastic-release)
 
 ## Usage
 
