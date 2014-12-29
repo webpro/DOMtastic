@@ -5,7 +5,6 @@
 import { extend } from './util';
 
 var api = {},
-    apiNodeList = {},
     $ = {};
 
 // Import modules to build up the API
@@ -20,7 +19,6 @@ import * as dom from './dom';
 import * as dom_extra from './dom_extra';
 import * as event from './event';
 import * as html from './html';
-import * as mode from './mode';
 import * as noconflict from './noconflict';
 import * as ready from './ready';
 import * as selector from './selector';
@@ -35,9 +33,10 @@ if (typeof selector !== 'undefined') {
     api.closest = selector.closest;
 }
 
-extend($, contains, mode, noconflict, type);
+extend($, contains, noconflict, type);
 extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, ready, selector_extra, trigger);
-extend(apiNodeList, array);
+
+$.fn = api;
 
 // Version
 
@@ -46,11 +45,6 @@ $.version = '__VERSION__';
 // Util
 
 $.extend = extend;
-
-// Internal properties to switch between default and native mode
-
-$.fn = api;
-$.fnList = apiNodeList;
 
 // Export interface
 
