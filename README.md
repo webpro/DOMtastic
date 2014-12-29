@@ -58,7 +58,7 @@ define(['domtastic'], function($) {
 ### Browser Global
 
 ```html
-<script src="//cdn.jsdelivr.net/domtastic/0.8/domtastic.min.js"></script>
+<script src="//cdn.jsdelivr.net/domtastic/0.9/domtastic.min.js"></script>
 ```
 
 ```javascript
