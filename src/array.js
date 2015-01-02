@@ -112,6 +112,36 @@ var pop = ArrayProto.pop;
 var push = ArrayProto.push;
 
 /**
+ * Apply a function against each element in the collection, and this accumulator function has to reduce it
+ * to a single value.
+ *
+ * @param {Function} callback Function to execute on each value in the array, taking four arguments (see example).
+ * @param {Mixed} initialValue Object to use as the first argument to the first call of the callback.
+ * @example
+ *     $('.items').reduce(function(previousValue, element, index, collection) {
+ *         return previousValue + element.clientHeight;
+ *     }, 0);
+ *     // [total height of elements]
+ */
+
+var reduce = ArrayProto.reduce;
+
+/**
+ * Apply a function against each element in the collection (from right-to-left), and this accumulator function has
+ * to reduce it to a single value.
+ *
+ * @param {Function} callback Function to execute on each value in the array, taking four arguments (see example).
+ * @param {Mixed} initialValue Object to use as the first argument to the first call of the callback.
+ * @example
+ *     $('.items').reduceRight(function(previousValue, element, index, collection) {
+ *         return previousValue + element.textContent;
+ *     }, '')
+ *     // [reversed text of elements]
+ */
+
+var reduceRight = ArrayProto.reduceRight;
+
+/**
  * Reverses an array in place. The first array element becomes the last and the last becomes the first.
  *
  * @return {Object} The wrapped collection, reversed
@@ -163,4 +193,4 @@ var unshift = ArrayProto.unshift;
  * Export interface
  */
 
-export { each, every, filter, forEach, indexOf, map, pop, push, reverse, shift, some, unshift };
+export { each, every, filter, forEach, indexOf, map, pop, push, reduce, reduceRight, reverse, shift, some, unshift };

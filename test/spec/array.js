@@ -86,6 +86,32 @@ describe('array', function() {
         expect(elements[5]).to.equal(element);
     });
 
+    it('should have proper reduce', function() {
+        var expected = 5,
+            all = $('#testFragment li'),
+            actual = all.reduce(function(previousValue, currentValue, index, collection) {
+                expect(previousValue).to.be.a('number');
+                expect(currentValue).to.equal(collection[index]);
+                expect(index).to.be.a('number');
+                expect(collection).to.equal(all);
+                return previousValue + currentValue.nodeType
+            }, 0);
+        expect(actual).to.equal(expected);
+    });
+
+    it('should have proper reduceRight', function() {
+        var expected = 5,
+            all = $('#testFragment li'),
+            actual = all.reduceRight(function(previousValue, currentValue, index, collection) {
+                expect(previousValue).to.be.a('number');
+                expect(currentValue).to.equal(collection[index]);
+                expect(index).to.be.a('number');
+                expect(collection).to.equal(all);
+                return previousValue + currentValue.nodeType
+            }, 0);
+        expect(actual).to.equal(expected);
+    });
+
     it('should have proper reverse', function() {
         var expected = $('#testFragment li')[0],
             actual = $('#testFragment li').reverse()[4];

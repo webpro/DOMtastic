@@ -76,6 +76,8 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
     map
     pop
     push
+    reduce
+    reduceRight
     reverse
     shift
     some
