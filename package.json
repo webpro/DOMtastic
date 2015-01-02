@@ -31,7 +31,7 @@
   "scripts": {
     "test": "npm run bundle && mocha-phantomjs ./test/index.html -R dot",
     "prebundle": "mkdirp dist",
-    "bundle": "browserify src -ds domtastic | undefaultify domtastic $ | exorcist dist/domtastic.js.map > dist/domtastic.js",
+    "bundle": "browserify src -ds domtastic | sed s/.domtastic/.$/ | exorcist dist/domtastic.js.map > dist/domtastic.js",
     "postbundle": "fix-sourcemaps -s dist/domtastic.js.map -f domtastic.js",
     "watch": "onchange 'src/*.js' -- npm run bundle",
     "transpile": "6to5 src -d dist/commonjs -c && 6to5 src -d dist/amd --modules amd -c",
@@ -59,8 +59,7 @@
     "onchange": "0.0.2",
     "phantomjs": "1.9.13",
     "plato": "1.3.0",
-    "uglify-js": "2.4.16",
-    "undefaultify": "1.0.0"
+    "uglify-js": "2.4.16"
   },
   "browserify": {
     "transform": [
