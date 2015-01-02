@@ -13,6 +13,7 @@ branches:
   except:
     - dev
 before_install:
+  - "npm install miller-rabin@1.1.1 --save-peer"
   - "npm i coveralls ecstatic request sauce-tunnel"
 script:
   - "npm test"
