@@ -109,6 +109,31 @@
 
     });
 
+    describe('siblings', function() {
+
+        it('should return siblings', function() {
+            var actual = $('#testFragment .fourth').siblings(),
+                expected = $('#testFragment li').filter(':not(.fourth)');
+            expect(actual).to.have.length(4);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+        it('should return filtered siblings', function() {
+            var actual = $('#testFragment .fourth').siblings('[class]'),
+                expected = $('#testFragment li[class]').filter(':not(.fourth)');
+            expect(actual).to.have.length(2);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+        it('should return no siblings', function() {
+            var actual = $('#testFragment .fourth').siblings('.nothing'),
+                expected = $('#testFragment li').filter('.nothing');
+            expect(actual).to.have.length(0);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+    });
+
     describe('slice', function() {
 
         it('should slice the elements', function() {

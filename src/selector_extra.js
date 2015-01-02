@@ -97,6 +97,29 @@ function parent(selector) {
 }
 
 /**
+ * Return the sibling elements of each element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').siblings();
+ *     $('.selector').siblings('.filter');
+ */
+
+function siblings(selector) {
+    var nodes = [];
+    each(this, function(element) {
+        each(element.parentNode.children, function(sibling) {
+            if (sibling !== element && (!selector || (selector && matches(sibling, selector)))) {
+                nodes.push(sibling);
+            }
+        });
+    });
+    return $(nodes);
+}
+
+/**
  * Create a new, sliced collection.
  *
  * @param {Number} start
@@ -115,4 +138,4 @@ function slice(start, end) {
  * Export interface
  */
 
-export { children, contents, eq, get, parent, slice };
+export { children, contents, eq, get, parent, siblings, slice };

@@ -156,6 +156,7 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
     eq
     get
     parent
+    siblings
     slice
 
 ### [Trigger](http://webpro.github.io/DOMtastic/doc#trigger)
