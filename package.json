@@ -42,7 +42,7 @@
     "doc": "doxstrap --title DOMtastic --output doc",
     "complexity": "npm run transpile && cd dist/commonjs && plato -r -d ../../complexity --jshint ../../.jshintrc .",
     "coverage": "npm run bundle && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
-    "benchmark": "npm run build && benchrunner benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
+    "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
     "6to5": "2.4.5",
