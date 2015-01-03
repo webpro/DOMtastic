@@ -22,7 +22,7 @@ var EventEmitter = require('events').EventEmitter,
     util = require('util');
 
 /** Load other modules */
-var _ = require('../vendor/lodash'),
+var _ = require('../../vendor/lodash'),
     ecstatic = require('ecstatic'),
     request = require('request'),
     SauceTunnel = require('sauce-tunnel');
