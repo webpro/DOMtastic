@@ -7,7 +7,7 @@
             name: 'jQuery',
             version: '',
             script: {
-                src: 'vendor/jquery.min.js',
+                src: '../vendor/jquery.min.js',
                 onload: function(jQuery) {
                     root.jQuery = (jQuery || root.jQuery).noConflict();
                     bench.libs[0].version = root.jQuery.fn.jquery;
@@ -16,9 +16,9 @@
         },
         {
             name: 'Zepto',
-            version: '1.1.4',
+            version: '1.1.6',
             script: {
-                src: 'vendor/zepto.min.js'
+                src: '../vendor/zepto.min.js'
             }
         },
         {

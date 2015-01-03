@@ -25,6 +25,7 @@ after_success:
   - "rsync --recursive --delete dist/ $GHPAGES/dist/"
   - "rsync --recursive --delete test/ $GHPAGES/test/"
   - "rsync --recursive --delete benchmark/ $GHPAGES/benchmark/"
+  - "rsync --recursive --delete vendor/ $GHPAGES/vendor/"
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
   - "rm -rf $GHPAGES/doc && ./node_modules/doxstrap/bin/doxstrap.js --title DOMtastic --output $GHPAGES/doc"
