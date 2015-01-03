@@ -7,11 +7,11 @@
 * The [source](https://github.com/webpro/DOMtastic) is written in ES6 format, and transpiled to AMD and CommonJS with [6to5](https://6to5.github.io/).
 * Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
 * Easy to create a [custom build](#custom-build) to include or exclude parts.
-* DOMtastic also serves as a starting point for your own application-specific DOM API ([read more](#Build-a-custom-API-for-your-application)).
+* DOMtastic also serves as a starting point for your own application-specific DOM API ([read more](#build-a-custom-api-for-your-application)).
 
 ## Quicklinks
 
-* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.8/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.8/domtastic.min.js)
+* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.9/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.9/domtastic.min.js)
 * [API documentation](http://webpro.github.io/DOMtastic/doc/)
 * [Run tests](http://webpro.github.io/DOMtastic/test/)
 * Coverage: [Istanbul](http://webpro.github.io/DOMtastic/coverage/dist/domtastic.js.html), [Coveralls](https://coveralls.io/r/webpro/DOMtastic)
