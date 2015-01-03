@@ -54,7 +54,7 @@ function $(selector, context = document) {
 
     }
 
-    return $.isNative ? collection : wrap(collection);
+    return wrap(collection);
 
 }
 
@@ -138,7 +138,7 @@ function querySelector(selector, context) {
 
     var isSimpleSelector = reSimpleSelector.test(selector);
 
-    if (isSimpleSelector && !$.isNative) {
+    if (isSimpleSelector) {
         if (selector[0] === '#') {
             var element = (context.getElementById ? context : document).getElementById(selector.slice(1));
             return element ? [element] : [];

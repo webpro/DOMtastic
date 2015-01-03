@@ -1,4 +1,4 @@
-!$.isNative && describe('selectors (extra)', function() {
+describe('selectors (extra)', function() {
 
     describe('children', function() {
 
