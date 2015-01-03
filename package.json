@@ -45,7 +45,7 @@
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
-    "6to5": "2.4.5",
+    "6to5": "2.4.8",
     "6to5ify": "3.1.0",
     "benchrunner": "0.0.4",
     "browserify": "8.0.3",

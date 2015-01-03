@@ -13,7 +13,7 @@ branches:
   except:
     - dev
 before_install:
-  - "npm i coveralls ecstatic request sauce-tunnel"
+  - "npm i coveralls@2.11.2 ecstatic@0.5.8 request@2.51.0 sauce-tunnel@2.1.1"
 script:
   - "npm test"
 after_success:
