@@ -27,7 +27,6 @@
   "bugs": {
     "url": "https://github.com/webpro/DOMtastic/issues"
   },
-  "main": "dist/commonjs",
   "scripts": {
     "test": "npm run bundle && mocha-phantomjs ./test/index.html -R dot",
     "prebundle": "mkdirp dist",
