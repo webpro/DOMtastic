@@ -34,7 +34,7 @@
     "postbundle": "fix-sourcemaps -s dist/domtastic.js.map -f domtastic.js",
     "watch": "onchange 'src/*.js' -- npm run bundle",
     "transpile": "6to5 src -d dist/commonjs -c && 6to5 src -d dist/amd --modules amd -c",
-    "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js",
+    "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js && mv dist/amd/index.js dist/amd/main.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
     "postbuild": "echo '' >> dist/domtastic.min.js",
     "build-release": "npm run build && npm run transpile",

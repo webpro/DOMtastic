@@ -43,14 +43,16 @@ var $ = require('domtastic');
 bower install domtastic
 ```
 
-```json
-paths: {
-    "domtastic": "bower_components/domtastic/amd/index"
-}
-```
-
 ```javascript
-define(['domtastic'], function($) {
+requirejs.config({
+    baseUrl: 'bower_components',
+    packages: [{
+        name: 'domtastic',
+        location: 'domtastic/amd'
+    }]
+});
+
+require(['domtastic'], function($) {
     $('.earth').addClass('evergreen').on('sunrise', '.people', awake);
 });
 ```
