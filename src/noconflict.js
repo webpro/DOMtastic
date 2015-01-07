@@ -17,7 +17,7 @@ var previousLib = global.$;
  *
  * @return {Object} Reference to DOMtastic.
  * @example
- *     var $E = $.noConflict();
+ *     var domtastic = $.noConflict();
  */
 
 function noConflict() {
