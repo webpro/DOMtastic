@@ -71,8 +71,22 @@ function extend(target, ...sources) {
     return target;
 }
 
+/**
+ * Return the collection without duplicates
+ *
+ * @param collection Collection to remove duplicates from
+ * @return {Node|NodeList|Array}
+ * @private
+ */
+
+function uniq(collection) {
+    return collection.filter(function(item, index) {
+        return collection.indexOf(item) === index;
+    })
+}
+
 /*
  * Export interface
  */
 
-export { global, toArray, each, extend };
+export { global, toArray, each, extend, uniq };
