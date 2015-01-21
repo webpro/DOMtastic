@@ -59,7 +59,7 @@ function $(selector, context = document) {
 }
 
 /*
- * Chaining for the `$` wrapper (aliasing `find` for `$`).
+ * Find descendants matching the provided `selector` for each element in the collection.
  *
  * @param {String|Node|NodeList|Array} selector Query selector, `Node`, `NodeList`, array of elements, or HTML fragment string.
  * @return {Object} The wrapped collection
@@ -70,13 +70,17 @@ function $(selector, context = document) {
 function find(selector) {
     var nodes = [];
     each(this, function(node) {
-        nodes.push.apply(nodes, querySelector(selector, node));
+        each(querySelector(selector, node), function(child) {
+            if(nodes.indexOf(child) === -1) {
+                nodes.push(child);
+            }
+        });
     });
-    return $(uniq(nodes));
+    return $(nodes);
 }
 
 /**
- * Return the closest element matching the selector (starting by itself).
+ * Return the closest element matching the selector (starting by itself) for each element in the collection.
  *
  * @param {String} selector Filter
  * @param {Object} [context] If provided, matching elements must be a descendant of this element
