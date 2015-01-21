@@ -60,6 +60,26 @@ describe('selectors', function() {
         expect(actual[0].textContent).to.equal('comment');
     });
 
+    describe('find', function() {
+
+        it('should return queried descendants from each element in collection', function() {
+            var actual = $('#testFragment li').find('span'),
+                expected = $('#testFragment li span');
+            expect(actual).to.have.length(5);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+        it('should return unique elements', function() {
+            var parent = $('#testFragment')[0],
+                collection = $([parent, parent]),
+                actual = collection.find('li'),
+                expected = $('#testFragment li');
+            expect(actual).to.have.length(5);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+    });
+
     describe('closest', function() {
 
         it('should return closest matching element (self)', function() {
@@ -71,6 +91,20 @@ describe('selectors', function() {
 
         it('should return closest matching element', function() {
             var actual = $('#testFragment li.two').closest('ul'),
+                expected = $('#testFragment ul');
+            expect(actual).to.have.length(1);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+        it('should return queried descendants from each element in collection', function() {
+            var actual = $('#testFragment li span').closest('li'),
+                expected = $('#testFragment li');
+            expect(actual).to.have.length(5);
+            expect(actual).to.have.same.elements(expected);
+        });
+
+        it('should return unique closest matching element', function() {
+            var actual = $('#testFragment li').closest('ul'),
                 expected = $('#testFragment ul');
             expect(actual).to.have.length(1);
             expect(actual).to.have.same.elements(expected);

@@ -2,7 +2,7 @@
  * @module Selector
  */
 
-import { global } from './util';
+import { global, each, uniq } from './util';
 
 var isPrototypeSet = false,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
@@ -68,7 +68,11 @@ function $(selector, context = document) {
  */
 
 function find(selector) {
-    return $(selector, this);
+    var nodes = [];
+    each(this, function(node) {
+        nodes.push.apply(nodes, querySelector(selector, node));
+    });
+    return $(uniq(nodes));
 }
 
 /**
@@ -85,21 +89,29 @@ function find(selector) {
 var closest = (function() {
 
     function closest(selector, context) {
-        var node = this[0];
-        while (node && node !== context) {
-            if (matches(node, selector)) {
-                return $(node);
-            } else {
+        var nodes = [];
+        each(this, function(node) {
+            while (node && node !== context) {
+                if (matches(node, selector)) {
+                    nodes.push(node);
+                    break;
+                }
                 node = node.parentElement;
             }
-        }
-        return $();
+        });
+        return $(uniq(nodes));
     }
 
     return !Element.prototype.closest ? closest : function(selector, context) {
         if(!context) {
-            var node = this[0];
-            return $(node.closest(selector));
+            var nodes = [];
+            each(this, function(node) {
+                var n = node.closest(selector);
+                if(n) {
+                    nodes.push(n);
+                }
+            });
+            return $(uniq(nodes));
         } else {
             return closest.call(this, selector, context)
         }
