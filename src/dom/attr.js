@@ -2,7 +2,7 @@
  * @module Attr
  */
 
-import { each } from './util';
+import { each } from '../util';
 
 /**
  * Get the value of an attribute for the first element, or set one or more attributes for each element in the collection.

@@ -2,7 +2,7 @@
  * @module Data
  */
 
-import { each } from './util';
+import { each } from '../util';
 
 var dataKeyProp = '__domtastic_data__';
 

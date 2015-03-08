@@ -2,8 +2,8 @@
  * @module trigger
  */
 
-import { global, each } from './util';
-import { contains } from './contains';
+import { global, each } from '../util';
+import { contains } from '../dom/contains';
 
 var reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
     reKeyEvent = /^key/;

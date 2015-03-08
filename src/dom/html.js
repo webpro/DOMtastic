@@ -2,7 +2,7 @@
  * @module HTML
  */
 
-import { each } from './util';
+import { each } from '../util';
 
 /*
  * Get the HTML contents of the first element, or set the HTML contents for each element in the collection.

@@ -2,8 +2,8 @@
  * @module DOM
  */
 
-import { toArray } from './util';
-import { $ } from './selector';
+import { toArray } from '../util';
+import { $ } from '../selector';
 
 /**
  * Append element(s) to each element in the collection.

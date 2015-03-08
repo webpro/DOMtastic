@@ -2,9 +2,9 @@
  * @module DOM (extra)
  */
 
-import { each } from './util';
-import { append, before, after } from './dom';
-import { $ } from './selector';
+import { each } from '../util';
+import { append, before, after } from '.';
+import { $ } from '../selector';
 
 /**
  * Append each element in the collection to the specified element(s).

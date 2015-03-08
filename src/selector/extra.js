@@ -2,8 +2,8 @@
  * @module Selector (extra)
  */
 
-import { each, toArray } from './util';
-import { $, matches } from './selector';
+import { each, toArray } from '../util';
+import { $, matches } from '.';
 
 /**
  * Return children of each element in the collection, optionally filtered by a selector.

@@ -4,6 +4,7 @@ var fs = require('fs'),
     path = require('path'),
     util = require('util'),
     mkdirp = require('mkdirp'),
+    glob = require('glob'),
     minimist = require('minimist'),
     Transform = require('stream').Transform,
     browserify = require('browserify'),
@@ -58,15 +59,16 @@ function bundle(excludes, includes) {
 
 mkdirp(outDir, function(err) {
     if (err) throw err;
-    fs.readdir(basedir, function(err, modules) {
+    glob('**/*.js', {cwd: basedir}, function(err, modules) {
         var all = modules.map(function(module) {
             return module.replace(/\.js$/, '');
         });
+        console.log(all);
         include = include.length ? base.concat(include) : all.filter(function(module) {
-            return exclude.indexOf(module) === -1;
+            return exclude.indexOf(module) === -1 && exclude.indexOf(module + '/index') === -1;
         });
         exclude = exclude.length ? exclude : all.filter(function(module) {
-            return include.indexOf(module) === -1;
+            return include.indexOf(module) === -1 && include.indexOf(module + '/index') === -1;
         });
         bundle(exclude, include);
     });
