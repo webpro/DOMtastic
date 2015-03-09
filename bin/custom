@@ -10,7 +10,8 @@ var fs = require('fs'),
     browserify = require('browserify'),
     to5Browserify = require('6to5ify');
 
-var basedir = 'src',
+var pkg = require('../package.json'),
+    basedir = 'src',
     entry = path.resolve(basedir, 'index.js'),
     outDir = path.resolve('dist'),
     outFile = path.resolve(outDir, 'domtastic.js');
@@ -46,6 +47,10 @@ function bundle(excludes, includes) {
             basedir: basedir
         })
         .transform(to5Browserify)
+        .transform('browserify-versionify', {
+            placeholder: '__VERSION__',
+            version: pkg.version
+        })
         .bundle()
         .pipe(writer);
 
