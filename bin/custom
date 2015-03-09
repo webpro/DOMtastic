@@ -51,6 +51,7 @@ function bundle(excludes, includes) {
             placeholder: '__VERSION__',
             version: pkg.version
         })
+        .plugin('bundle-collapser/plugin')
         .bundle()
         .pipe(writer);
 
