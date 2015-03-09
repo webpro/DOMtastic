@@ -19,6 +19,7 @@ var pkg = require('../package.json'),
 var argv = minimist(process.argv.slice(2)),
     exclude = argv.exclude ? argv.exclude.split(',') : [],
     include = argv.include ? argv.include.split(',') : [],
+    jQueryCompat = argv['jquery-compat'],
     base = ['index', 'util'];
 
 util.inherits(ModuleExcluder, Transform);
@@ -40,12 +41,14 @@ function bundle(excludes, includes) {
 
     var excluder = new ModuleExcluder(excludes),
         customFile = fs.createReadStream(entry).pipe(excluder),
+        redirectifyOptions = jQueryCompat ? {dir: '../src-jquery-compat'} : {},
         writer = fs.createWriteStream(outFile);
 
     browserify(customFile, {
             standalone: 'domtastic',
             basedir: basedir
         })
+        .transform('redirectify', redirectifyOptions)
         .transform(to5Browserify)
         .transform('browserify-versionify', {
             placeholder: '__VERSION__',
@@ -69,7 +72,6 @@ mkdirp(outDir, function(err) {
         var all = modules.map(function(module) {
             return module.replace(/\.js$/, '');
         });
-        console.log(all);
         include = include.length ? base.concat(include) : all.filter(function(module) {
             return exclude.indexOf(module) === -1 && exclude.indexOf(module + '/index') === -1;
         });

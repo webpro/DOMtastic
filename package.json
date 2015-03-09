@@ -61,6 +61,7 @@
     "mocha-phantomjs": "3.5.3",
     "onchange": "^1.0.0",
     "plato": "^1.4.0",
+    "redirectify": "^1.2.0",
     "uglify-js": "2.4.16"
   },
   "browserify": {
