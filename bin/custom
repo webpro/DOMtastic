@@ -45,7 +45,7 @@ function bundle(excludes, includes) {
         writer = fs.createWriteStream(outFile);
 
     browserify(customFile, {
-            standalone: 'domtastic',
+            standalone: '$',
             basedir: basedir
         })
         .transform('redirectify', redirectifyOptions)
