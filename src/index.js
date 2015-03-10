@@ -22,6 +22,7 @@ import * as html from './dom/html';
 import * as noconflict from './noconflict';
 import * as ready from './event/ready';
 import * as selector from './selector';
+import * as closest from './selector/closest';
 import * as selector_extra from './selector/extra';
 import * as trigger from './event/trigger';
 import * as type from './type';
@@ -30,11 +31,10 @@ if (typeof selector !== 'undefined') {
     $ = selector.$;
     $.matches = selector.matches;
     api.find = selector.find;
-    api.closest = selector.closest;
 }
 
 extend($, contains, noconflict, type);
-extend(api, array, attr, class_, css, data, dom, dom_extra, event, html, ready, selector_extra, trigger);
+extend(api, array, attr, class_, closest, css, data, dom, dom_extra, event, html, ready, selector_extra, trigger);
 
 $.fn = api;
 

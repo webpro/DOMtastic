@@ -3,7 +3,7 @@
  */
 
 import { each } from '../util';
-import { closest } from '../selector';
+import { closest } from '../selector/closest';
 
 /**
  * Shorthand for `addEventListener`. Supports event delegation if a filter (`selector`) is provided.
