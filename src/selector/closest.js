@@ -3,8 +3,7 @@
  */
 
 import { matches } from '.';
-import { uniq } from '../util';
-import { each } from '../util/each';
+import { each, uniq } from '../util';
 
 /**
  * Return the closest element matching the selector (starting by itself) for each element in the collection.

@@ -1,25 +1,19 @@
-/**
- * @module Array
- */
-
-import { each as _each, toArray } from './util';
+import { toArray } from './util';
 import { $, matches } from './selector';
 
 var ArrayProto = Array.prototype;
 
-/**
- * Filter the collection by selector or function, and return a new collection with the result.
- *
- * @param {String|Function} selector Selector or function to filter the collection.
- * @return {Object} A new wrapped collection
- * @chainable
- * @example
- *     $('.items').filter('.active');
- * @example
- *     $('.items').filter(function(element) {
- *         return element.hasAttribute('active')
- *     });
- */
+function each(callback) {
+    var length = this.length;
+    if (length !== undefined && this.nodeType === undefined) {
+        for (var i = 0; i < length; i++){
+            callback.call(this[i], i, this[i]);
+        }
+    } else {
+        callback.call(this, 0, this);
+    }
+    return this;
+}
 
 function filter(selector) {
     var callback = typeof selector === 'function' ? function(element, index) {
@@ -30,45 +24,9 @@ function filter(selector) {
     return $(ArrayProto.filter.call(this, callback));
 }
 
-/**
- * Execute a function for each element in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `index` and `element` as argument.
- * @return {Object} The wrapped collection
- * @chainable
- * @example
- *     $('.items').forEach(function(element) {
- *         element.style.color = 'evergreen';
- *     );
- */
-
-function each(callback) {
-    return _each(this, callback);
-}
-
-/**
- * Returns the index of an element in the collection.
- *
- * @param {Node} element
- * @return {Number} The zero-based index, -1 if not found.
- * @example
- *     $('.items').indexOf(element);
- *     // 2
- */
+var forEach = each;
 
 var index = ArrayProto.indexOf;
-
-/**
- * Create a new collection by executing the callback for each element in the collection.
- *
- * @param {Function} callback Function to execute for each element, invoked with `index` and `element` as arguments.
- * @return {Object} A new wrapped collection, containing the return value of the executed callback for each element.
- * @example
- *     $('.items').map(function(index, element) {
- *         return element.getAttribute('name')
- *     });
- *     // ['ever', 'green']
- */
 
 function map(callback) {
     return $(ArrayProto.map.call(this, function(element, index) {
@@ -76,8 +34,10 @@ function map(callback) {
     }));
 }
 
-/*
- * Export interface
- */
+function reverse() {
+    return $(toArray(this).reverse());
+}
 
-export { each, filter, index, map };
+var some = ArrayProto.some;
+
+export { each, filter, forEach, index, map, reverse, some };

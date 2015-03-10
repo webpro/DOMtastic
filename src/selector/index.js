@@ -2,7 +2,7 @@
  * @module Selector
  */
 
-import { global, each, uniq } from '../util';
+import { global, each } from '../util';
 
 var isPrototypeSet = false,
     reFragment = /^\s*<(\w+|!)[^>]*>/,
