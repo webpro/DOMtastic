@@ -41,7 +41,10 @@ function bundle(excludes, includes) {
 
     var excluder = new ModuleExcluder(excludes),
         customFile = fs.createReadStream(entry).pipe(excluder),
-        redirectifyOptions = jQueryCompat ? {dir: '../src-jquery-compat'} : {},
+        redirectifyOptions = jQueryCompat ? {
+            dir: '../src-jquery-compat',
+            base: path.resolve(basedir)
+        } : {},
         writer = fs.createWriteStream(outFile);
 
     browserify(customFile, {
