@@ -30,6 +30,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "npm run bundle && mocha-phantomjs ./test/index.html -R dot",
+    "test-jquery-compat": "bin/custom --jquery-compat && mocha-phantomjs ./test/index.html?jquery-compat -R dot",
     "prebundle": "mkdirp dist",
     "bundle": "browserify src -ds citsatmod -p bundle-collapser/plugin | sed s/citsatmod/$/ | exorcist dist/domtastic.js.map > dist/domtastic.js",
     "postbundle": "fix-sourcemaps -s dist/domtastic.js.map -f domtastic.js",

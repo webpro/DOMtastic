@@ -49,7 +49,14 @@
             }
         </script>
 
-        <script src="spec/array.js"></script>
+        <script>
+            if (location.search.indexOf('jquery-compat') === -1) {
+                document.write('<script src="spec/array.js"><\/script>')
+            } else {
+                document.write('<script src="spec/array-jquery-compat.js"><\/script>');
+            }
+        </script>
+
         <script src="spec/attr.js"></script>
         <script src="spec/class.js"></script>
         <script src="spec/contains.js"></script>
