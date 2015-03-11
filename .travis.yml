@@ -16,7 +16,7 @@ before_install:
   - "npm i coveralls@2.11.2 ecstatic@0.5.8 request@2.51.0 sauce-tunnel@2.1.1"
 script:
   - "npm test"
-  - "npm test-jquery-compat"
+  - "npm run test-jquery-compat"
 after_success:
   - "npm run coverage"
   - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
