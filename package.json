@@ -35,7 +35,7 @@
     "bundle": "browserify src -ds citsatmod -p bundle-collapser/plugin | sed s/citsatmod/$/ | exorcist dist/domtastic.js.map > dist/domtastic.js",
     "postbundle": "fix-sourcemaps -s dist/domtastic.js.map -f domtastic.js",
     "watch": "onchange 'src/*.js' -- npm run bundle",
-    "transpile": "6to5 src -d dist/commonjs -c && 6to5 src -d dist/amd --modules amd -c",
+    "transpile": "babel src -d dist/commonjs -c && babel src -d dist/amd --modules amd -c",
     "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js && mv dist/amd/index.js dist/amd/main.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
     "postbuild": "echo '' >> dist/domtastic.min.js",
@@ -46,8 +46,8 @@
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
-    "6to5": "^3.6.5",
-    "6to5ify": "^4.1.1",
+    "babel": "^4.7.8",
+    "babelify": "^5.0.4",
     "benchrunner": "0.0.4",
     "browserify": "^9.0.3",
     "browserify-versionify": "^1.0.4",
@@ -68,7 +68,7 @@
   "browserify": {
     "transform": [
       [
-        "6to5ify",
+        "babelify",
         {
           "comments": false
         }

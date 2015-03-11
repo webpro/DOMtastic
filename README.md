@@ -4,7 +4,7 @@
 * Same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`).
 * Weighs in at only 3 to 14KB (minified), depending on included modules. Full bundle is under 5KB gzipped.
 * Works great stand-alone or paired up with e.g. Backbone or Angular.
-* The [source](https://github.com/webpro/DOMtastic) is written in ES6 format, and transpiled to AMD and CommonJS with [6to5](https://6to5.github.io/).
+* The [source](https://github.com/webpro/DOMtastic) is written in ES6 format, and transpiled to AMD and CommonJS with [babel](https://babeljs.io).
 * Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
 * Easy to create a [custom build](#custom-build) to include or exclude parts.
 * DOMtastic also serves as a starting point for your own application-specific DOM API ([read more](#build-a-custom-api-for-your-application)).

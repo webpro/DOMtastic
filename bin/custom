@@ -7,8 +7,7 @@ var fs = require('fs'),
     glob = require('glob'),
     minimist = require('minimist'),
     Transform = require('stream').Transform,
-    browserify = require('browserify'),
-    to5Browserify = require('6to5ify');
+    browserify = require('browserify');
 
 var pkg = require('../package.json'),
     basedir = 'src',
@@ -52,7 +51,7 @@ function bundle(excludes, includes) {
             basedir: basedir
         })
         .transform('redirectify', redirectifyOptions)
-        .transform(to5Browserify)
+        .transform('babelify')
         .transform('browserify-versionify', {
             placeholder: '__VERSION__',
             version: pkg.version
