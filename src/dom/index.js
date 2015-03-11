@@ -5,6 +5,8 @@
 import { toArray } from '../util';
 import { $ } from '../selector';
 
+var forEach = Array.prototype.forEach;
+
 /**
  * Append element(s) to each element in the collection.
  *
@@ -25,7 +27,7 @@ function append(element) {
                 this.appendChild(element);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.forEach(this.appendChild.bind(this));
+                forEach.call(elements, this.appendChild.bind(this));
             }
         }
     } else {
@@ -54,7 +56,7 @@ function prepend(element) {
                 this.insertBefore(element, this.firstChild);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.reverse().forEach(prepend.bind(this));
+                forEach.call(elements.reverse(), prepend.bind(this));
             }
         }
     } else {
@@ -83,7 +85,7 @@ function before(element) {
                 this.parentNode.insertBefore(element, this);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.forEach(before.bind(this));
+                forEach.call(elements, before.bind(this));
             }
         }
     } else {
@@ -111,7 +113,7 @@ function after(element) {
                 this.parentNode.insertBefore(element, this.nextSibling);
             } else {
                 var elements = element instanceof NodeList ? toArray(element) : element;
-                elements.reverse().forEach(after.bind(this));
+                forEach.call(elements.reverse(), after.bind(this));
             }
         }
     } else {
