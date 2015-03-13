@@ -85,30 +85,9 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
     some
     unshift
 
-### [Attr](http://webpro.github.io/DOMtastic/doc#attr)
-
-    attr
-    removeAttr
-
-### [Class](http://webpro.github.io/DOMtastic/doc#class)
-
-    addClass
-    hasClass
-    removeClass
-    toggleClass
-
-### [Contains](http://webpro.github.io/DOMtastic/doc#contains)
-
-    contains
-
 ### [CSS](http://webpro.github.io/DOMtastic/doc#css)
 
     css
-
-### [Data](http://webpro.github.io/DOMtastic/doc#data)
-
-    data
-    prop
 
 ### [DOM](http://webpro.github.io/DOMtastic/doc#dom)
 
@@ -118,7 +97,28 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
     clone
     prepend
 
-### [DOM (extra)](http://webpro.github.io/DOMtastic/doc#dom_extra)
+### [DOM/attr](http://webpro.github.io/DOMtastic/doc#dom/attr)
+
+    attr
+    removeAttr
+
+### [DOM/class](http://webpro.github.io/DOMtastic/doc#dom/class)
+
+    addClass
+    hasClass
+    removeClass
+    toggleClass
+
+### [DOM/contains](http://webpro.github.io/DOMtastic/doc#dom/contains)
+
+    contains
+
+### [DOM/data](http://webpro.github.io/DOMtastic/doc#dom/data)
+
+    data
+    prop
+
+### [DOM/extra](http://webpro.github.io/DOMtastic/doc#dom/extra)
 
     appendTo
     empty
@@ -127,33 +127,39 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
     text
     val
 
+### [DOM/html](http://webpro.github.io/DOMtastic/doc#dom/html)
+
+    html
+
 ### [Event](http://webpro.github.io/DOMtastic/doc#event)
 
     on (alias: bind)
     off (alias: unbind)
+
+### [Event/ready](http://webpro.github.io/DOMtastic/doc#event/ready)
+
+    ready
+
+### [Event/trigger](http://webpro.github.io/DOMtastic/doc#event/trigger)
+
     trigger
     triggerHandler
-
-### [HTML](http://webpro.github.io/DOMtastic/doc#html)
-
-    html
 
 ### [NoConflict](http://webpro.github.io/DOMtastic/doc#noconflict)
 
     noConflict
 
-### [Ready](http://webpro.github.io/DOMtastic/doc#ready)
-
-    ready
-
 ### [Selector](http://webpro.github.io/DOMtastic/doc#selector)
 
     $
-    closest
     find
     matches
 
-### [Selector (extra)](http://webpro.github.io/DOMtastic/doc#selector_extra)
+### [Selector/closest](http://webpro.github.io/DOMtastic/doc#selector/closest)
+
+    closest
+
+### [Selector/extra](http://webpro.github.io/DOMtastic/doc#selector/extra)
 
     children
     contents
@@ -162,11 +168,6 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
     parent
     siblings
     slice
-
-### [Trigger](http://webpro.github.io/DOMtastic/doc#trigger)
-
-    trigger
-    triggerHandler
 
 ### [Type](http://webpro.github.io/DOMtastic/doc#type)
 
@@ -213,6 +214,14 @@ bin/custom --include=selector,class
 ```
 
 Find the output in the `dist/` folder.
+
+### jQuery Compatibility
+
+Some iterator method signatures in jQuery are different (i.e. non-standard), most notably the `index` before `element` argument in `each`, `filter` and `map`). However, a custom build that is compatible with jQuery can be created by using the `--jquery-compat` flag:
+
+```bash
+bin/custom --jquery-compat
+```
 
 ### Build a custom API for your application
 
