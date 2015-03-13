@@ -11,7 +11,7 @@
 
 ## Quicklinks
 
-* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.9/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.9/domtastic.min.js)
+* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.10/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.10/domtastic.min.js)
 * [API documentation](http://webpro.github.io/DOMtastic/doc/)
 * [Run tests](http://webpro.github.io/DOMtastic/test/)
 * Coverage: [Istanbul](http://webpro.github.io/DOMtastic/coverage/dist/domtastic.js.html), [Coveralls](https://coveralls.io/r/webpro/DOMtastic)
@@ -60,7 +60,7 @@ require(['domtastic'], function($) {
 ### Browser Global
 
 ```html
-<script src="//cdn.jsdelivr.net/domtastic/0.9/domtastic.min.js"></script>
+<script src="//cdn.jsdelivr.net/domtastic/0.10/domtastic.min.js"></script>
 ```
 
 ```javascript
