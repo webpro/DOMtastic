@@ -3,7 +3,7 @@
  */
 
 import { toArray } from '../util';
-import { $ } from '../selector';
+import { $ } from '../selector/index';
 
 var forEach = Array.prototype.forEach;
 

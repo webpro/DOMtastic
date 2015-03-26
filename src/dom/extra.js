@@ -3,8 +3,8 @@
  */
 
 import { each } from '../util';
-import { append, before, after } from '.';
-import { $ } from '../selector';
+import { append, before, after } from './index';
+import { $ } from '../selector/index';
 
 /**
  * Append each element in the collection to the specified element(s).

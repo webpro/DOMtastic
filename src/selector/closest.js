@@ -2,7 +2,7 @@
  * @module closest
  */
 
-import { matches } from '.';
+import { matches } from './index';
 import { each, uniq } from '../util';
 
 /**

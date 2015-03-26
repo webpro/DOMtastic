@@ -3,7 +3,7 @@
  */
 
 import { each, toArray } from '../util';
-import { $, matches } from '.';
+import { $, matches } from './index';
 
 /**
  * Return children of each element in the collection, optionally filtered by a selector.
