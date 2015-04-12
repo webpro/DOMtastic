@@ -1,5 +1,5 @@
 /**
- * @module Attr
+ * @module CSS
  */
 
 import { each } from './util';
