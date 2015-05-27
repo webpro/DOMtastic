@@ -120,6 +120,7 @@ var platforms = [
     ['Linux', 'firefox', '35'],
     ['Windows 8.1', 'internet explorer', '11'],
     ['Windows 8', 'internet explorer', '10'],
+    ['Windows 7', 'internet explorer', '9'],
     ['OS X 10.9', 'safari', '7'],
     ['OS X 10.8', 'safari', '6'],
     ['OS X 10.6', 'safari', '5'],
