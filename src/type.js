@@ -6,7 +6,7 @@
  * Determine if the argument passed is a Javascript function object.
  *
  * @param {Object} [obj] Object to test whether or not it is a function.
- * @return {boolean} 
+ * @return {boolean}
  * @example
  *     $.isFunction(function(){});
  *     // true
@@ -23,7 +23,7 @@ function isFunction(obj) {
  * Determine whether the argument is an array.
  *
  * @param {Object} [obj] Object to test whether or not it is an array.
- * @return {boolean} 
+ * @return {boolean}
  * @example
  *     $.isArray([]);
  *     // true
