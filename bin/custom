@@ -50,13 +50,13 @@ function bundle(excludes, includes) {
             standalone: '$',
             basedir: basedir
         })
-        .transform('redirectify', redirectifyOptions)
-        .transform('babelify')
-        .transform('browserify-versionify', {
+        .transform(require('redirectify'), redirectifyOptions)
+        .transform(require('babelify'))
+        .transform(require('browserify-versionify'), {
             placeholder: '__VERSION__',
             version: pkg.version
         })
-        .plugin('bundle-collapser/plugin')
+        .plugin(require('bundle-collapser/plugin'))
         .bundle()
         .pipe(writer);
 
