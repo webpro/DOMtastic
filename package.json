@@ -46,24 +46,24 @@
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js"
   },
   "devDependencies": {
-    "babel": "5.0.12",
-    "babelify": "6.0.2",
+    "babel": "5.6.12",
+    "babelify": "6.1.2",
     "benchrunner": "0.0.4",
-    "browserify": "9.0.8",
+    "browserify": "10.2.4",
     "browserify-versionify": "1.0.4",
-    "bundle-collapser": "1.1.4",
+    "bundle-collapser": "1.2.0",
     "doxstrap": "0.0.5",
-    "exorcist": "0.1.6",
+    "exorcist": "0.4.0",
     "fix-sourcemaps": "1.0.2",
-    "glob": "5.0.5",
-    "istanbul": "0.3.13",
+    "glob": "5.0.10",
+    "istanbul": "0.3.16",
     "minimist": "1.1.1",
-    "mkdirp": "0.5.0",
+    "mkdirp": "0.5.1",
     "mocha-phantomjs": "3.5.3",
     "onchange": "1.1.0",
-    "plato": "1.4.0",
+    "plato": "1.5.0",
     "redirectify": "1.4.0",
-    "uglify-js": "2.4.19"
+    "uglify-js": "2.4.23"
   },
   "browserify": {
     "transform": [
