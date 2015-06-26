@@ -20,13 +20,13 @@ import { each } from '../util';
 function attr(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
-        var element = this.nodeType ? this : this[0];
+        let element = this.nodeType ? this : this[0];
         return element ? element.getAttribute(key) : undefined;
     }
 
-    each(this, function(element) {
+    each(this, element => {
         if (typeof key === 'object') {
-            for (var attr in key) {
+            for (let attr in key) {
                 element.setAttribute(attr, key[attr]);
             }
         } else {
@@ -48,9 +48,7 @@ function attr(key, value) {
  */
 
 function removeAttr(key) {
-    each(this, function(element) {
-        element.removeAttribute(key);
-    });
+    each(this, element => element.removeAttribute(key));
     return this;
 }
 

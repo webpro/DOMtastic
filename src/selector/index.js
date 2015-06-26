@@ -4,8 +4,9 @@
 
 import { global, each } from '../util';
 
-var isPrototypeSet = false,
-    reFragment = /^\s*<(\w+|!)[^>]*>/,
+let isPrototypeSet = false;
+
+const reFragment = /^\s*<(\w+|!)[^>]*>/,
     reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     reSimpleSelector = /^[\.#]?[\w-]*$/;
 
@@ -28,7 +29,7 @@ var isPrototypeSet = false,
 
 function $(selector, context = document) {
 
-    var collection;
+    let collection;
 
     if (!selector) {
 
@@ -68,9 +69,9 @@ function $(selector, context = document) {
  */
 
 function find(selector) {
-    var nodes = [];
-    each(this, function(node) {
-        each(querySelector(selector, node), function(child) {
+    let nodes = [];
+    each(this, node => {
+        each(querySelector(selector, node), child => {
             if(nodes.indexOf(child) === -1) {
                 nodes.push(child);
             }
@@ -90,10 +91,10 @@ function find(selector) {
  *     $.matches(element, '.match');
  */
 
-var matches = (function() {
-    var context = typeof Element !== 'undefined' ? Element.prototype : global,
+let matches = (function() {
+    let context = typeof Element !== 'undefined' ? Element.prototype : global,
         _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.msMatchesSelector || context.oMatchesSelector || context.webkitMatchesSelector;
-    return function(element, selector) {
+    return (element, selector) => {
         return _matches.call(element, selector);
     };
 })();
@@ -109,11 +110,11 @@ var matches = (function() {
 
 function querySelector(selector, context) {
 
-    var isSimpleSelector = reSimpleSelector.test(selector);
+    let isSimpleSelector = reSimpleSelector.test(selector);
 
     if (isSimpleSelector) {
         if (selector[0] === '#') {
-            var element = (context.getElementById ? context : document).getElementById(selector.slice(1));
+            let element = (context.getElementById ? context : document).getElementById(selector.slice(1));
             return element ? [element] : [];
         }
         if (selector[0] === '.') {
@@ -140,13 +141,13 @@ function createFragment(html) {
         return [document.createElement(RegExp.$1)];
     }
 
-    var elements = [],
+    let elements = [],
         container = document.createElement('div'),
         children = container.childNodes;
 
     container.innerHTML = html;
 
-    for (var i = 0, l = children.length; i < l; i++) {
+    for (let i = 0, l = children.length; i < l; i++) {
         elements.push(children[i]);
     }
 
@@ -181,7 +182,7 @@ function wrap(collection) {
  */
 
 function Wrapper(collection) {
-    var i = 0, length = collection.length;
+    let i = 0, length = collection.length;
     for (; i < length;) {
         this[i] = collection[i++];
     }

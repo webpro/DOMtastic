@@ -17,10 +17,10 @@ import { $, matches } from './index';
  */
 
 function children(selector) {
-    var nodes = [];
-    each(this, function(element) {
+    let nodes = [];
+    each(this, element => {
         if(element.children) {
-            each(element.children, function(child) {
+            each(element.children, child => {
                 if (!selector || (selector && matches(child, selector))) {
                     nodes.push(child);
                 }
@@ -39,8 +39,8 @@ function children(selector) {
  */
 
 function contents() {
-    var nodes = [];
-    each(this, function(element) {
+    let nodes = [];
+    each(this, element => {
         nodes.push.apply(nodes, toArray(element.childNodes));
     });
     return $(nodes);
@@ -87,8 +87,8 @@ function get(index) {
  */
 
 function parent(selector) {
-    var nodes = [];
-    each(this, function(element) {
+    let nodes = [];
+    each(this, element => {
         if (!selector || (selector && matches(element.parentNode, selector))) {
             nodes.push(element.parentNode);
         }
@@ -108,9 +108,9 @@ function parent(selector) {
  */
 
 function siblings(selector) {
-    var nodes = [];
-    each(this, function(element) {
-        each(element.parentNode.children, function(sibling) {
+    let nodes = [];
+    each(this, element => {
+        each(element.parentNode.children, sibling => {
             if (sibling !== element && (!selector || (selector && matches(sibling, selector)))) {
                 nodes.push(sibling);
             }

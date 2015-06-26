@@ -17,7 +17,7 @@ import { $ } from '../selector/index';
  */
 
 function appendTo(element) {
-    var context = typeof element === 'string' ? $(element) : element;
+    let context = typeof element === 'string' ? $(element) : element;
     append.call(context, this);
     return this;
 }
@@ -32,9 +32,7 @@ function appendTo(element) {
  */
 
 function empty(){
-    return each(this, function(element) {
-        element.innerHTML = '';
-    });
+    return each(this, element => element.innerHTML = '');
 }
 
 /**
@@ -46,7 +44,7 @@ function empty(){
  */
 
 function remove() {
-    return each(this, function(element) {
+    return each(this, element => {
         if (element.parentNode) {
             element.parentNode.removeChild(element);
         }
@@ -79,9 +77,7 @@ function text(value){
         return this[0].textContent;
     }
 
-    each(this, function(element) {
-        element.textContent = '' + value;
-    });
+    each(this, element => element.textContent = '' + value);
 
     return this;
 }
@@ -102,9 +98,7 @@ function val(value){
         return this[0].value;
     }
 
-    each(this, function(element){
-        element.value = value;
-    });
+    each(this, element => element.value = value);
 
     return this;
 }

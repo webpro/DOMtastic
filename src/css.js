@@ -9,7 +9,7 @@ function isNumeric(value) {
 }
 
 function camelize(value) {
-    return value.replace(/-([\da-z])/gi, function (matches, letter) { return letter.toUpperCase(); });
+    return value.replace(/-([\da-z])/gi, (matches, letter) => letter.toUpperCase());
 }
 
 function dasherize(value) {
@@ -31,13 +31,13 @@ function dasherize(value) {
 
 function css(key, value) {
 
-    var styleProps, prop, val;
+    let styleProps, prop, val;
 
     if(typeof key === 'string') {
         key = camelize(key);
 
         if (typeof value === 'undefined') {
-            var element = this.nodeType ? this : this[0];
+            let element = this.nodeType ? this : this[0];
             if(element) {
                 val = element.style[key];
                 return isNumeric(val) ? parseFloat(val) : val;
@@ -56,7 +56,7 @@ function css(key, value) {
         }
     }
 
-    each(this, function(element) {
+    each(this, element => {
         for (prop in styleProps) {
             if(styleProps[prop] || styleProps[prop] === 0) {
                 element.style[prop] = styleProps[prop];

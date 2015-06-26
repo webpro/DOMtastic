@@ -18,13 +18,11 @@ import { each } from '../util';
 function html(fragment) {
 
     if (typeof fragment !== 'string') {
-        var element = this.nodeType ? this : this[0];
+        let element = this.nodeType ? this : this[0];
         return element ? element.innerHTML : undefined;
     }
 
-    each(this, function(element) {
-        element.innerHTML = fragment;
-    });
+    each(this, element => element.innerHTML = fragment);
 
     return this;
 

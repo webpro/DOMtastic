@@ -16,11 +16,11 @@ import { each, uniq } from '../util';
  *     $('.selector').closest('.container');
  */
 
-var closest = (function() {
+let closest = (function() {
 
     function closest(selector, context) {
-        var nodes = [];
-        each(this, function(node) {
+        let nodes = [];
+        each(this, node => {
             while (node && node !== context) {
                 if (matches(node, selector)) {
                     nodes.push(node);
@@ -34,9 +34,9 @@ var closest = (function() {
 
     return !Element.prototype.closest ? closest : function(selector, context) {
         if(!context) {
-            var nodes = [];
+            let nodes = [];
             each(this, function(node) {
-                var n = node.closest(selector);
+                let n = node.closest(selector);
                 if(n) {
                     nodes.push(n);
                 }

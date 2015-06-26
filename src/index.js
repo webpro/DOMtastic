@@ -4,7 +4,7 @@
 
 import { extend } from './util';
 
-var api = {},
+let api = {},
     $ = {};
 
 // Import modules to build up the API

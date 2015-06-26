@@ -83,9 +83,7 @@ function hasClass(value) {
  */
 
 function _each(fnName, className) {
-    each(this, function(element) {
-        element.classList[fnName](className);
-    });
+    each(this, element => element.classList[fnName](className));
 }
 
 /*

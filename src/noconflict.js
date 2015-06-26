@@ -9,7 +9,7 @@ import { global } from './util';
  * @private
  */
 
-var previousLib = global.$;
+let previousLib = global.$;
 
 /**
  * In case another library sets the global `$` variable before DOMtastic does,

@@ -7,7 +7,7 @@
  * @private
  */
 
-var global = new Function("return this")();
+const global = new Function("return this")();
 
 /**
  * Convert `NodeList` to `Array`.
@@ -18,9 +18,9 @@ var global = new Function("return this")();
  */
 
 function toArray(collection) {
-    var length = collection.length,
+    let length = collection.length,
         result = new Array(length);
-    for (var i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         result[i] = collection[i];
     }
     return result;
@@ -36,9 +36,9 @@ function toArray(collection) {
  */
 
 function each(collection, callback, thisArg) {
-    var length = collection.length;
+    let length = collection.length;
     if (length !== undefined && collection.nodeType === undefined) {
-        for (var i = 0; i < length; i++){
+        for (let i = 0; i < length; i++){
             callback.call(thisArg, collection[i], i, collection);
         }
     } else {
@@ -64,7 +64,7 @@ function each(collection, callback, thisArg) {
 
 function extend(target, ...sources) {
     sources.forEach(function(src) {
-        for (var prop in src) {
+        for (let prop in src) {
             target[prop] = src[prop];
         }
     });
@@ -80,9 +80,7 @@ function extend(target, ...sources) {
  */
 
 function uniq(collection) {
-    return collection.filter(function(item, index) {
-        return collection.indexOf(item) === index;
-    })
+    return collection.filter((item, index) => collection.indexOf(item) === index)
 }
 
 /*

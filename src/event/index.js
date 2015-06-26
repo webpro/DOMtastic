@@ -26,11 +26,11 @@ function on(eventNames, selector, handler, useCapture) {
         selector = null;
     }
 
-    var parts,
+    let parts,
         namespace,
         eventListener;
 
-    eventNames.split(' ').forEach(function(eventName) {
+    eventNames.split(' ').forEach(eventName => {
 
         parts = eventName.split('.');
         eventName = parts[0] || null;
@@ -38,7 +38,7 @@ function on(eventNames, selector, handler, useCapture) {
 
         eventListener = proxyHandler(handler);
 
-        each(this, function(element) {
+        each(this, element => {
 
             if (selector) {
                 eventListener = delegateHandler.bind(element, selector, eventListener);
@@ -82,27 +82,27 @@ function off(eventNames = '', selector, handler, useCapture) {
         selector = null;
     }
 
-    var parts,
+    let parts,
         namespace,
         handlers;
 
-    eventNames.split(' ').forEach(function(eventName) {
+    eventNames.split(' ').forEach(eventName => {
 
         parts = eventName.split('.');
         eventName = parts[0] || null;
         namespace = parts[1] || null;
 
-        each(this, function(element) {
+        each(this, element => {
 
             handlers = getHandlers(element);
 
-            each(handlers.filter(function(item) {
+            each(handlers.filter(item => {
                 return (
                     (!eventName || item.eventName === eventName) &&
                     (!namespace || item.namespace === namespace) &&
                     (!handler || item.handler === handler) &&
                     (!selector || item.selector === selector));
-            }), function(item) {
+            }), item => {
                 element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
                 handlers.splice(handlers.indexOf(item), 1);
             });
@@ -128,16 +128,16 @@ function off(eventNames = '', selector, handler, useCapture) {
  * @return {Array}
  */
 
-var eventKeyProp = '__domtastic_event__';
-var id = 1;
-var handlers = {};
-var unusedKeys = [];
+const eventKeyProp = '__domtastic_event__';
+let id = 1;
+let handlers = {};
+let unusedKeys = [];
 
 function getHandlers(element) {
     if (!element[eventKeyProp]) {
         element[eventKeyProp] = unusedKeys.length === 0 ? ++id : unusedKeys.pop();
     }
-    var key = element[eventKeyProp];
+    let key = element[eventKeyProp];
     return handlers[key] || (handlers[key] = []);
 }
 
@@ -149,7 +149,7 @@ function getHandlers(element) {
  */
 
 function clearHandlers(element) {
-    var key = element[eventKeyProp];
+    let key = element[eventKeyProp];
     if (handlers[key]) {
         handlers[key] = null;
         element[key] = null;
@@ -180,9 +180,9 @@ function proxyHandler(handler) {
  * @return {Function}
  */
 
-var augmentEvent = (function() {
+let augmentEvent = (function() {
 
-    var methodName,
+    let methodName,
         eventMethods = {
             preventDefault: 'isDefaultPrevented',
             stopImmediatePropagation: 'isImmediatePropagationStopped',
@@ -191,7 +191,7 @@ var augmentEvent = (function() {
         returnTrue = () => true,
         returnFalse = () => false;
 
-    return function(event) {
+    return event => {
         if (!event.isDefaultPrevented || event.stopImmediatePropagation || event.stopPropagation) {
             for (methodName in eventMethods) {
                 (function(methodName, testMethodName, originalMethod) {
@@ -223,7 +223,7 @@ var augmentEvent = (function() {
  */
 
 function delegateHandler(selector, handler, event) {
-    var eventTarget = event._target || event.target,
+    let eventTarget = event._target || event.target,
         currentTarget = closest.call([eventTarget], selector, this)[0];
     if (currentTarget && currentTarget !== this) {
         if (currentTarget === eventTarget || !(event.isPropagationStopped && event.isPropagationStopped())) {
@@ -232,7 +232,7 @@ function delegateHandler(selector, handler, event) {
     }
 }
 
-var bind = on,
+let bind = on,
     unbind = off;
 
 /*

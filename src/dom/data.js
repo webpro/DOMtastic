@@ -4,7 +4,7 @@
 
 import { each } from '../util';
 
-var dataKeyProp = '__domtastic_data__';
+const dataKeyProp = '__domtastic_data__';
 
 /**
  * Get data from first element, or set data for each element in the collection.
@@ -21,11 +21,11 @@ var dataKeyProp = '__domtastic_data__';
 function data(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
-        var element = this.nodeType ? this : this[0];
+        let element = this.nodeType ? this : this[0];
         return element && element[dataKeyProp] ? element[dataKeyProp][key] : undefined;
     }
 
-    each(this, function(element) {
+    each(this, element => {
         element[dataKeyProp] = element[dataKeyProp] || {};
         element[dataKeyProp][key] = value;
     });
@@ -49,13 +49,11 @@ function data(key, value) {
 function prop(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
-        var element = this.nodeType ? this : this[0];
+        let element = this.nodeType ? this : this[0];
         return element && element ? element[key] : undefined;
     }
 
-    each(this, function(element) {
-        element[key] = value;
-    });
+    each(this, element => element[key] = value);
 
     return this;
 

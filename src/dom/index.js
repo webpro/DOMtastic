@@ -5,7 +5,7 @@
 import { toArray } from '../util';
 import { $ } from '../selector/index';
 
-var forEach = Array.prototype.forEach;
+const forEach = Array.prototype.forEach;
 
 /**
  * Append element(s) to each element in the collection.
@@ -26,7 +26,7 @@ function append(element) {
             if (element instanceof Node) {
                 this.appendChild(element);
             } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
+                let elements = element instanceof NodeList ? toArray(element) : element;
                 forEach.call(elements, this.appendChild.bind(this));
             }
         }
@@ -55,7 +55,7 @@ function prepend(element) {
             if (element instanceof Node) {
                 this.insertBefore(element, this.firstChild);
             } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
+                let elements = element instanceof NodeList ? toArray(element) : element;
                 forEach.call(elements.reverse(), prepend.bind(this));
             }
         }
@@ -84,7 +84,7 @@ function before(element) {
             if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this);
             } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
+                let elements = element instanceof NodeList ? toArray(element) : element;
                 forEach.call(elements, before.bind(this));
             }
         }
@@ -112,7 +112,7 @@ function after(element) {
             if (element instanceof Node) {
                 this.parentNode.insertBefore(element, this.nextSibling);
             } else {
-                var elements = element instanceof NodeList ? toArray(element) : element;
+                let elements = element instanceof NodeList ? toArray(element) : element;
                 forEach.call(elements.reverse(), after.bind(this));
             }
         }
@@ -165,9 +165,9 @@ function _clone(element) {
  */
 
 function _each(collection, fn, element) {
-    var l = collection.length;
+    let l = collection.length;
     while (l--) {
-        var elm = l === 0 ? element : _clone(element);
+        let elm = l === 0 ? element : _clone(element);
         fn.call(collection[l], elm);
     }
 }

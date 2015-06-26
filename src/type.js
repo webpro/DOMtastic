@@ -32,7 +32,7 @@ function isFunction(obj) {
  *     // false
  */
 
-var isArray = Array.isArray;
+const isArray = Array.isArray;
 
 /*
  * Export interface

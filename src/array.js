@@ -5,7 +5,7 @@
 import { each as _each, toArray } from './util';
 import { $, matches } from './selector/index';
 
-var ArrayProto = Array.prototype;
+const ArrayProto = Array.prototype;
 
 /**
  * Checks if the given callback returns a true(-ish) value for each element in the collection.
@@ -20,7 +20,7 @@ var ArrayProto = Array.prototype;
  *     // true/false
  */
 
-var every = ArrayProto.every;
+const every = ArrayProto.every;
 
 /**
  * Filter the collection by selector or function, and return a new collection with the result.
@@ -38,7 +38,7 @@ var every = ArrayProto.every;
  */
 
 function filter(selector, thisArg) {
-    var callback = typeof selector === 'function' ? selector : function(element) {
+    let callback = typeof selector === 'function' ? selector : element => {
         return matches(element, selector);
     };
     return $(ArrayProto.filter.call(this, callback, thisArg));
@@ -61,7 +61,7 @@ function forEach(callback, thisArg) {
     return _each(this, callback, thisArg);
 }
 
-var each = forEach;
+const each = forEach;
 
 /**
  * Returns the index of an element in the collection.
@@ -73,7 +73,7 @@ var each = forEach;
  *     // 2
  */
 
-var indexOf = ArrayProto.indexOf;
+const indexOf = ArrayProto.indexOf;
 
 /**
  * Create a new collection by executing the callback for each element in the collection.
@@ -88,7 +88,7 @@ var indexOf = ArrayProto.indexOf;
  *     // ['ever', 'green']
  */
 
-var map = ArrayProto.map;
+const map = ArrayProto.map;
 
 /**
  * Removes the last element from the collection, and returns that element.
@@ -98,7 +98,7 @@ var map = ArrayProto.map;
  *     var lastElement = $('.items').pop();
  */
 
-var pop = ArrayProto.pop;
+const pop = ArrayProto.pop;
 
 /**
  * Adds one or more elements to the end of the collection, and returns the new length of the collection.
@@ -109,7 +109,7 @@ var pop = ArrayProto.pop;
  *     $('.items').push(element);
  */
 
-var push = ArrayProto.push;
+const push = ArrayProto.push;
 
 /**
  * Apply a function against each element in the collection, and this accumulator function has to reduce it
@@ -124,7 +124,7 @@ var push = ArrayProto.push;
  *     // [total height of elements]
  */
 
-var reduce = ArrayProto.reduce;
+const reduce = ArrayProto.reduce;
 
 /**
  * Apply a function against each element in the collection (from right-to-left), and this accumulator function has
@@ -139,7 +139,7 @@ var reduce = ArrayProto.reduce;
  *     // [reversed text of elements]
  */
 
-var reduceRight = ArrayProto.reduceRight;
+const reduceRight = ArrayProto.reduceRight;
 
 /**
  * Reverses an array in place. The first array element becomes the last and the last becomes the first.
@@ -162,7 +162,7 @@ function reverse() {
  *     var firstElement = $('.items').shift();
  */
 
-var shift = ArrayProto.shift;
+const shift = ArrayProto.shift;
 
 /**
  * Checks if the given callback returns a true(-ish) value for any of the elements in the collection.
@@ -176,7 +176,7 @@ var shift = ArrayProto.shift;
  *     // true/false
  */
 
-var some = ArrayProto.some;
+const some = ArrayProto.some;
 
 /**
  * Adds one or more elements to the beginning of the collection, and returns the new length of the collection.
@@ -187,7 +187,7 @@ var some = ArrayProto.some;
  *     $('.items').unshift(element);
  */
 
-var unshift = ArrayProto.unshift;
+const unshift = ArrayProto.unshift;
 
 /*
  * Export interface
