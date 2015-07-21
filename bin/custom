@@ -25,7 +25,7 @@ util.inherits(ModuleExcluder, Transform);
 
 function ModuleExcluder(modules) {
     this.modules = modules;
-    this.removeDeReqsRE = new RegExp('import.+(__M__)\';\\n'.replace(/__M__/, modules.join('|')), 'g');
+    this.removeDeReqsRE = new RegExp('import.+\'./(__M__)\';\\n'.replace(/__M__/, modules.join('|')), 'g');
     this.removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/, modules.join('_?|')), 'g');
     Transform.call(this);
 }
