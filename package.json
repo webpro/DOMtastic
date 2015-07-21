@@ -61,7 +61,7 @@
     "mkdirp": "0.5.1",
     "mocha-phantomjs": "3.6.0",
     "onchange": "1.1.0",
-    "phantomjs": "^1.9.17",
+    "phantomjs": "1.9.7-15",
     "plato": "1.5.0",
     "redirectify": "1.4.0",
     "uglify-js": "2.4.23"
