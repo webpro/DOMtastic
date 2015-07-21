@@ -193,4 +193,4 @@ function Wrapper(collection) {
  * Export interface
  */
 
-export { $, find, matches };
+export { $, find, matches, Wrapper };

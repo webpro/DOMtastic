@@ -10,6 +10,7 @@ let api = {},
 // Import modules to build up the API
 
 import * as array from './array';
+import BaseClass from './baseClass';
 import * as attr from './dom/attr';
 import * as class_ from './dom/class';
 import * as contains from './dom/contains';
@@ -45,6 +46,12 @@ $.version = '__VERSION__';
 // Util
 
 $.extend = extend;
+
+// Provide base class to extend from
+
+if(typeof BaseClass !== 'undefined') {
+    $.BaseClass = BaseClass($.fn);
+}
 
 // Export interface
 
