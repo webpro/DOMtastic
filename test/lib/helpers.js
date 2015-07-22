@@ -27,3 +27,15 @@ chai.Assertion.addMethod('elements', function(expectedCollection) {
         collection.length
     );
 });
+
+function _inherits(subClass, superClass) {
+    subClass.prototype = Object.create(superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    subClass.__proto__ = superClass;
+}
