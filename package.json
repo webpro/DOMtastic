@@ -71,7 +71,8 @@
       [
         "babelify",
         {
-          "comments": false
+          "comments": false,
+          "loose": "all"
         }
       ],
       "browserify-versionify"
