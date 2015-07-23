@@ -46,7 +46,7 @@
     "watch": "onchange 'src/*.js' -- npm run bundle"
   },
   "devDependencies": {
-    "babel": "5.6.23",
+    "babel": "5.8.3",
     "babelify": "6.1.3",
     "benchrunner": "0.0.4",
     "browserify": "11.0.0",
@@ -57,14 +57,14 @@
     "fix-sourcemaps": "1.0.2",
     "glob": "5.0.14",
     "istanbul": "0.3.17",
-    "minimist": "1.1.1",
+    "minimist": "1.1.2",
     "mkdirp": "0.5.1",
     "mocha-phantomjs": "3.6.0",
     "onchange": "1.1.0",
     "phantomjs": "1.9.7-15",
     "plato": "1.5.0",
     "redirectify": "1.4.0",
-    "uglify-js": "2.4.23"
+    "uglify-js": "2.4.24"
   },
   "browserify": {
     "transform": [
