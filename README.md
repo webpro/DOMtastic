@@ -6,6 +6,7 @@
 * Works great stand-alone or paired up with e.g. Backbone or Angular.
 * The [source](https://github.com/webpro/DOMtastic) is written in ES6 format, and transpiled to AMD and CommonJS with [babel](https://babeljs.io).
 * Browserify is used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
+* Supercharge your components and extend from the [base class](#es6-class).
 * Easy to create a [custom build](#custom-build) to include or exclude parts.
 * DOMtastic also serves as a starting point for your own application-specific DOM API ([read more](#build-a-custom-api-for-your-application)).
 
@@ -72,10 +73,17 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
 ```javascript
 import $ from 'domtastic';
 
-class MyComponent extends $.BaseClass {}
+class MyComponent extends $.BaseClass {
+    progress(value) {
+        return this.attr('data-progress', value);
+    }
+}
 
-let component = new MyComponent('.es6tastic');
+let component = new MyComponent('.my-anchor');
+component.progress('ive').append('<p>enhancement</p>');
 ```
+
+Read more in [docs](http://webpro.github.io/DOMtastic/doc/#baseClass).
 
 ## API
 
