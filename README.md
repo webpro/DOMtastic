@@ -81,7 +81,7 @@ let component = new MyComponent('.my-anchor');
 component.progress('ive').append('<p>enhancement</p>');
 ```
 
-Read more in [docs](http://webpro.github.io/DOMtastic/doc/#baseClass).
+Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s-baseclass-437f142e8bf4) or the [docs](http://webpro.github.io/DOMtastic/doc/#baseClass).
 
 ## API
 
