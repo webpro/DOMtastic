@@ -13,11 +13,11 @@
 ## Quicklinks
 
 * Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.11/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.11/domtastic.min.js)
-* [API documentation](http://webpro.github.io/DOMtastic/doc/)
-* [Run tests](http://webpro.github.io/DOMtastic/test/)
-* Coverage: [Istanbul](http://webpro.github.io/DOMtastic/coverage/dist/domtastic.js.html), [Coveralls](https://coveralls.io/r/webpro/DOMtastic)
-* Complexity: [Plato](http://webpro.github.io/DOMtastic/complexity/)
-* [Run benchmarks](http://webpro.github.io/DOMtastic/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
+* [API documentation](https://domtastic.js.org/doc/)
+* [Run tests](https://domtastic.js.org/test/)
+* Coverage: [Istanbul](https://domtastic.js.org/coverage/dist/domtastic.js.html), [Coveralls](https://coveralls.io/r/webpro/DOMtastic)
+* Complexity: [Plato](https://domtastic.js.org/complexity/)
+* [Run benchmarks](https://domtastic.js.org/benchmark/) (results: [class](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple), [constructor](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple), [DOM](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple), [selector](http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple))
 
 [![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
 [![Coverage Status](https://coveralls.io/repos/webpro/DOMtastic/badge.png?branch=master)](https://coveralls.io/r/webpro/DOMtastic?branch=master)
@@ -81,11 +81,11 @@ let component = new MyComponent('.my-anchor');
 component.progress('ive').append('<p>enhancement</p>');
 ```
 
-Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s-baseclass-437f142e8bf4) or the [docs](http://webpro.github.io/DOMtastic/doc/#baseClass).
+Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s-baseclass-437f142e8bf4) or the [docs](https://domtastic.js.org/doc/#baseClass).
 
 ## API
 
-### [Array](http://webpro.github.io/DOMtastic/doc/#array)
+### [Array](https://domtastic.js.org/doc/#array)
 
     every
     filter
@@ -101,11 +101,11 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
     some
     unshift
 
-### [CSS](http://webpro.github.io/DOMtastic/doc#css)
+### [CSS](https://domtastic.js.org/doc#css)
 
     css
 
-### [DOM](http://webpro.github.io/DOMtastic/doc#dom)
+### [DOM](https://domtastic.js.org/doc#dom)
 
     after
     append
@@ -113,28 +113,28 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
     clone
     prepend
 
-### [DOM/attr](http://webpro.github.io/DOMtastic/doc#dom/attr)
+### [DOM/attr](https://domtastic.js.org/doc#dom/attr)
 
     attr
     removeAttr
 
-### [DOM/class](http://webpro.github.io/DOMtastic/doc#dom/class)
+### [DOM/class](https://domtastic.js.org/doc#dom/class)
 
     addClass
     hasClass
     removeClass
     toggleClass
 
-### [DOM/contains](http://webpro.github.io/DOMtastic/doc#dom/contains)
+### [DOM/contains](https://domtastic.js.org/doc#dom/contains)
 
     contains
 
-### [DOM/data](http://webpro.github.io/DOMtastic/doc#dom/data)
+### [DOM/data](https://domtastic.js.org/doc#dom/data)
 
     data
     prop
 
-### [DOM/extra](http://webpro.github.io/DOMtastic/doc#dom/extra)
+### [DOM/extra](https://domtastic.js.org/doc#dom/extra)
 
     appendTo
     empty
@@ -143,39 +143,39 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
     text
     val
 
-### [DOM/html](http://webpro.github.io/DOMtastic/doc#dom/html)
+### [DOM/html](https://domtastic.js.org/doc#dom/html)
 
     html
 
-### [Event](http://webpro.github.io/DOMtastic/doc#event)
+### [Event](https://domtastic.js.org/doc#event)
 
     on (alias: bind)
     off (alias: unbind)
 
-### [Event/ready](http://webpro.github.io/DOMtastic/doc#event/ready)
+### [Event/ready](https://domtastic.js.org/doc#event/ready)
 
     ready
 
-### [Event/trigger](http://webpro.github.io/DOMtastic/doc#event/trigger)
+### [Event/trigger](https://domtastic.js.org/doc#event/trigger)
 
     trigger
     triggerHandler
 
-### [NoConflict](http://webpro.github.io/DOMtastic/doc#noconflict)
+### [NoConflict](https://domtastic.js.org/doc#noconflict)
 
     noConflict
 
-### [Selector](http://webpro.github.io/DOMtastic/doc#selector)
+### [Selector](https://domtastic.js.org/doc#selector)
 
     $
     find
     matches
 
-### [Selector/closest](http://webpro.github.io/DOMtastic/doc#selector/closest)
+### [Selector/closest](https://domtastic.js.org/doc#selector/closest)
 
     closest
 
-### [Selector/extra](http://webpro.github.io/DOMtastic/doc#selector/extra)
+### [Selector/extra](https://domtastic.js.org/doc#selector/extra)
 
     children
     contents
@@ -185,7 +185,7 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
     siblings
     slice
 
-### [Type](http://webpro.github.io/DOMtastic/doc#type)
+### [Type](https://domtastic.js.org/doc#type)
 
     isArray
     isFunction
@@ -210,7 +210,7 @@ Latest versions of Chrome, Firefox, Safari, Opera, Android, Chrome Mobile iOS, a
 
 ## Performance
 
-Run the [benchmark suite](http://webpro.github.io/DOMtastic/benchmark/) to compare the performance of various methods of jQuery, Zepto and DOMtastic (tl/dr; it's fast!).
+Run the [benchmark suite](https://domtastic.js.org/benchmark/) to compare the performance of various methods of jQuery, Zepto and DOMtastic (tl/dr; it's fast!).
 
 ## Custom Build
 
@@ -259,7 +259,7 @@ This way, you don't have the slight overhead of the UMD boilerplate in a custom 
 
 ## Tests
 
-Run the hosted [test suite](http://webpro.github.io/DOMtastic/test/) in your browser. You can also clone/fork the sources from Github, and run the tests locally (using `npm test`).
+Run the hosted [test suite](https://domtastic.js.org/test/) in your browser. You can also clone/fork the sources from Github, and run the tests locally (using `npm test`).
 
 ## Credits
 

@@ -21,7 +21,7 @@
       "homepage": "http://webpro.nl"
     }
   ],
-  "homepage": "http://webpro.github.io/DOMtastic/",
+  "homepage": "https://domtastic.js.org",
   "repository": {
     "type": "git",
     "url": "git://github.com/webpro/DOMtastic.git"
