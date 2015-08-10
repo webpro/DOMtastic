@@ -64,4 +64,4 @@ function prop(key, value) {
  * Export interface
  */
 
-export { data, prop }
+export { data, prop };

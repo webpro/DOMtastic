@@ -80,7 +80,7 @@ function extend(target, ...sources) {
  */
 
 function uniq(collection) {
-    return collection.filter((item, index) => collection.indexOf(item) === index)
+    return collection.filter((item, index) => collection.indexOf(item) === index);
 }
 
 /*

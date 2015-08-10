@@ -43,9 +43,9 @@ let closest = (function() {
             });
             return $(uniq(nodes));
         } else {
-            return closest.call(this, selector, context)
+            return closest.call(this, selector, context);
         }
-    }
+    };
 })();
 
 /*

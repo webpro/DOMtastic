@@ -207,7 +207,7 @@ let augmentEvent = (function() {
             }
         }
         return event;
-    }
+    };
 
 })();
 
