@@ -23,23 +23,18 @@ const reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/,
  *     $('.item').trigger('anyEventType');
  */
 
-function trigger(type, data, params = {}) {
-
-    params.bubbles = typeof params.bubbles === 'boolean' ? params.bubbles : true;
-    params.cancelable = typeof params.cancelable === 'boolean' ? params.cancelable : true;
-    params.preventDefault = typeof params.preventDefault === 'boolean' ? params.preventDefault : false;
-    params.detail = data;
+function trigger(type, data, { bubbles = true, cancelable = true, preventDefault = false } = {}) {
 
     let EventConstructor = getEventConstructor(type),
-        event = new EventConstructor(type, params);
+        event = new EventConstructor(type, { bubbles, cancelable, preventDefault, detail: data});
 
-    event._preventDefault = params.preventDefault;
+    event._preventDefault = preventDefault;
 
     each(this, element => {
-        if (!params.bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+        if (!bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
             dispatchEvent(element, event);
         } else {
-            triggerForPath(element, type, params);
+            triggerForPath(element, type, { bubbles, cancelable, preventDefault, detail: data});
         }
     });
     return this;
