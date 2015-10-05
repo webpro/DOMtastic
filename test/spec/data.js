@@ -1,6 +1,6 @@
 describe('data', function() {
 
-    var dataKeyProp = '__domtastic_data__';
+    var DATAKEYPROP = '__DOMTASTIC_DATA__';
 
     describe('data', function() {
 
@@ -9,14 +9,14 @@ describe('data', function() {
             it('should set data on element', function() {
                 $(document.body).data('myAttribute', 'myValue');
                 var expected = 'myValue',
-                    actual = document.body[dataKeyProp]['myAttribute'];
+                    actual = document.body[DATAKEYPROP]['myAttribute'];
                 expect(actual).to.equal(expected);
             });
 
             it('should set data on elements', function() {
                 $('#testFragment li').data('myAttribute', 'myValue');
                 var expected = 'myValue',
-                    actual = $('.two')[0][dataKeyProp]['myAttribute'];
+                    actual = $('.two')[0][DATAKEYPROP]['myAttribute'];
                 expect(actual).to.equal(expected);
             });
 
@@ -100,7 +100,7 @@ describe('data', function() {
     it('should provide a chainable API', function() {
         var element = $('#testEmpty').data('foo', 'bar').data('foo', 'baz').prop('foo', 'baz'),
             expected = 'baz',
-            actual = element[0][dataKeyProp]['foo'];
+            actual = element[0][DATAKEYPROP]['foo'];
         expect(actual).to.equal(expected);
     });
 

@@ -4,7 +4,7 @@
 
 import { each } from '../util';
 
-const dataKeyProp = '__domtastic_data__';
+const DATAKEYPROP = '__DOMTASTIC_DATA__';
 
 /**
  * Get data from first element, or set data for each element in the collection.
@@ -22,12 +22,12 @@ function data(key, value) {
 
     if (typeof key === 'string' && typeof value === 'undefined') {
         let element = this.nodeType ? this : this[0];
-        return element && element[dataKeyProp] ? element[dataKeyProp][key] : undefined;
+        return element && element[DATAKEYPROP] ? element[DATAKEYPROP][key] : undefined;
     }
 
     each(this, element => {
-        element[dataKeyProp] = element[dataKeyProp] || {};
-        element[dataKeyProp][key] = value;
+        element[DATAKEYPROP] = element[DATAKEYPROP] || {};
+        element[DATAKEYPROP][key] = value;
     });
 
     return this;
