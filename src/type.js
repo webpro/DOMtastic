@@ -15,9 +15,7 @@
  *     // false
  */
 
-function isFunction(obj) {
-    return (typeof obj === 'function');
-}
+const isFunction = obj => typeof obj === 'function';
 
 /*
  * Determine whether the argument is an array.

@@ -69,9 +69,7 @@ function toggleClass(value) {
  */
 
 function hasClass(value) {
-    return (this.nodeType ? [this] : this).some(function(element) {
-        return element.classList.contains(value);
-    });
+    return (this.nodeType ? [this] : this).some(element => element.classList.contains(value));
 }
 
 /**

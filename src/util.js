@@ -63,7 +63,7 @@ function each(collection, callback, thisArg) {
  */
 
 function extend(target, ...sources) {
-    sources.forEach(function(src) {
+    sources.forEach(src => {
         for (let prop in src) {
             target[prop] = src[prop];
         }
@@ -79,9 +79,7 @@ function extend(target, ...sources) {
  * @private
  */
 
-function uniq(collection) {
-    return collection.filter((item, index) => collection.indexOf(item) === index);
-}
+const uniq = collection => collection.filter((item, index) => collection.indexOf(item) === index);
 
 /*
  * Export interface
