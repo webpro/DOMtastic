@@ -29,9 +29,7 @@ var forEach = each;
 var index = ArrayProto.indexOf;
 
 function map(callback) {
-    return $(ArrayProto.map.call(this, function(element, index) {
-        return callback.call(element, index, element);
-    }));
+    return $(ArrayProto.map.call(this, (element, index) => callback.call(element, index, element)));
 }
 
 function reverse() {

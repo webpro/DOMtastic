@@ -6,9 +6,9 @@ import { global, each } from '../util';
 
 let isPrototypeSet = false;
 
-const reFragment = /^\s*<(\w+|!)[^>]*>/,
-    reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
-    reSimpleSelector = /^[\.#]?[\w-]*$/;
+const reFragment = /^\s*<(\w+|!)[^>]*>/;
+const reSingleTag = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+const reSimpleSelector = /^[\.#]?[\w-]*$/;
 
 /*
  * Versatile wrapper for `querySelectorAll`.
