@@ -1,6 +1,6 @@
 {
   "name": "domtastic",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "Small, fast, and modular DOM and event library for modern browsers.",
   "keywords": [
     "domtastic",
