@@ -37,9 +37,7 @@
   "scripts": {
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
-    "build-release": "npm run build && npm run transpile",
     "bundle": "rollup -c",
-    "complexity": "npm run transpile && cd dist/commonjs && plato -r -d ../../complexity --jshint ../../.jshintrc .",
     "coverage": "npm run bundle && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
     "doc": "doxstrap --title DOMtastic --output doc",
     "install": "npm run bundle",
@@ -58,7 +56,6 @@
     "mkdirp": "0.5.1",
     "mocha-phantomjs": "4.0.2",
     "onchange": "2.1.2",
-    "plato": "1.5.0",
     "rollup": "^0.25.4",
     "rollup-plugin-babel": "^2.3.9",
     "rollup-plugin-replace": "^1.1.0",
