@@ -46,7 +46,6 @@
     "postbuild": "echo '' >> dist/domtastic.min.js",
     "prebundle": "mkdirp dist",
     "test": "npm run bundle && mocha-phantomjs ./test/index.html -R dot",
-    "test-jquery-compat": "bin/custom --jquery-compat && mocha-phantomjs ./test/index.html?jquery-compat -R dot",
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
   },
   "devDependencies": {
