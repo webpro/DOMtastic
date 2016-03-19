@@ -16,7 +16,7 @@ branches:
     - dev
 before_install:
   - "phantomjs --version"
-  - "npm i coveralls@2.11.2 ecstatic@0.8.0 request@2.58.0 sauce-tunnel@2.2.2"
+  - "npm i coveralls@2.11.8 ecstatic@1.4.0 request@2.69.0 sauce-tunnel@2.4.0"
 script:
   - "npm test"
   - "npm run test-jquery-compat"
