@@ -27,7 +27,13 @@
   "bugs": {
     "url": "https://github.com/webpro/DOMtastic/issues"
   },
-  "main": "src/index.js",
+  "main": "dist/domtastic.js",
+  "jsnext:main": "src/index.js",
+  "files": [
+      "build",
+      "src",
+      "src-jquery-compat"
+  ],
   "scripts": {
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js",
     "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
@@ -36,6 +42,7 @@
     "complexity": "npm run transpile && cd dist/commonjs && plato -r -d ../../complexity --jshint ../../.jshintrc .",
     "coverage": "npm run bundle && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
     "doc": "doxstrap --title DOMtastic --output doc",
+    "install": "npm run bundle",
     "postbuild": "echo '' >> dist/domtastic.min.js",
     "posttranspile": "sed -i s/__VERSION__/$npm_package_version/ dist/**/index.js && mv dist/amd/index.js dist/amd/main.js",
     "prebundle": "mkdirp dist",
