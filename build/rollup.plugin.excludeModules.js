@@ -2,28 +2,30 @@ import path from 'path';
 import fs from 'fs';
 import glob from 'glob';
 
-const cwd = path.resolve('src');
-const entry = 'src/index.js';
-const base = ['index', 'util'];
+var cwd = path.resolve('src');
+var entry = 'src/index.js';
+var base = ['index', 'util'];
 
-const dedupe = array => {
-    const dedupeObj = {};
-    for(let i = 0; i < array.length; i++) dedupeObj[array[i]] = 1;
+function dedupe(array) {
+    var dedupeObj = {};
+    for(var i = 0; i < array.length; i++) dedupeObj[array[i]] = 1;
     array = [];
-    for(let key in dedupeObj) array.push(key);
+    for(var key in dedupeObj) array.push(key);
     return array;
-};
+}
 
-const determineModulesToExcludes = options => {
+function determineModulesToExcludes(options) {
 
-    const modules = glob.sync('**/*.js', {cwd: cwd});
-    const all = modules.map(module => module.replace(/\.js$/, ''));
+    var modules = glob.sync('**/*.js', {cwd: cwd});
+    var all = modules.map(function(module) {
+        return module.replace(/\.js$/, '')
+    });
 
-    const include = options.include.length ? dedupe(base.concat(options.include)) : all.filter(module => {
+    var include = options.include.length ? dedupe(base.concat(options.include)) : all.filter(function(module) {
         return !~options.exclude.indexOf(module) && !~options.exclude.indexOf(module + '/index');
     });
 
-    const exclude = options.exclude.length ? options.exclude : all.filter(module => {
+    var exclude = options.exclude.length ? options.exclude : all.filter(function(module) {
         return !~include.indexOf(module) && !~include.indexOf(module + '/index');
     });
 
@@ -31,13 +33,13 @@ const determineModulesToExcludes = options => {
     console.log('Included modules:', include.join(', '));
 
     return exclude;
-};
+}
 
-const excludeModulesFromEntry = (src, modules) => {
-    const removeDeReqsRE = new RegExp('import.+\'./(__M__)\';\\n'.replace(/__M__/, modules.join('|')), 'g');
-    const removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/, modules.join('|').replace(/\/index/g, '').replace(/\//g, '_')), 'g');
+function excludeModulesFromEntry(src, modules) {
+    var removeDeReqsRE = new RegExp('import.+\'./(__M__)\';\\n'.replace(/__M__/, modules.join('|')), 'g');
+    var removeExtendsRE = new RegExp('(,\\ (__M__)\\b)'.replace(/__M__/, modules.join('|').replace(/\/index/g, '').replace(/\//g, '_')), 'g');
     return modules.length ? src.replace(removeDeReqsRE, '').replace(removeExtendsRE, '') : src;
-};
+}
 
 export default function excludeModules(options) {
 
@@ -45,12 +47,12 @@ export default function excludeModules(options) {
         return {};
     }
 
-    const exclude = determineModulesToExcludes(options);
+    var exclude = determineModulesToExcludes(options);
 
     return {
-        load(id) {
+        load: function(id) {
             if(~id.indexOf(entry)) {
-                const src = fs.readFileSync(id, 'utf8');
+                var src = fs.readFileSync(id, 'utf8');
                 return excludeModulesFromEntry(src, exclude);
             }
             return null;

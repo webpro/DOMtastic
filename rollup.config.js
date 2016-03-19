@@ -3,11 +3,11 @@ import babel from 'rollup-plugin-babel';
 import replace from 'rollup-plugin-replace';
 import excludeModules from './build/rollup.plugin.excludeModules.js';
 
-const argv = minimist(process.argv.slice(2));
-const exclude = argv.exclude ? argv.exclude.split(',') : [];
-const include = argv.include ? argv.include.split(',') : [];
+var argv = minimist(process.argv.slice(2));
+var exclude = argv.exclude ? argv.exclude.split(',') : [];
+var include = argv.include ? argv.include.split(',') : [];
 
-const pkg = require('./package.json');
+var pkg = require('./package.json');
 
 export default {
   entry: 'src/index.js',
@@ -17,8 +17,8 @@ export default {
   sourceMap: true,
   plugins: [
       excludeModules({
-          exclude,
-          include
+          exclude: exclude,
+          include: include
       }),
       babel(),
       replace({
