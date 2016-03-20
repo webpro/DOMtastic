@@ -26,5 +26,6 @@
     "type": "git",
     "url": "git://github.com/webpro/DOMtastic.git"
   },
+  "main": "domtastic.js",
   "license": "MIT"
 }
