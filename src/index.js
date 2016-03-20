@@ -53,10 +53,6 @@ if(typeof BaseClass !== 'undefined') {
     $.BaseClass = BaseClass($.fn);
 }
 
-// Ugly interoperability hack, to prevent potential ES6 import issues
-
-$.default = $;
-
 // Export interface
 
 export default $;
