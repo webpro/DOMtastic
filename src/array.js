@@ -38,7 +38,7 @@ const every = ArrayProto.every;
  */
 
 function filter(selector, thisArg) {
-    let callback = typeof selector === 'function' ? selector : element => matches(element, selector);
+    const callback = typeof selector === 'function' ? selector : element => matches(element, selector);
     return $(ArrayProto.filter.call(this, callback, thisArg));
 }
 
