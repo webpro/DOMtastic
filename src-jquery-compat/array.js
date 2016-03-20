@@ -1,5 +1,5 @@
 import { toArray } from './util';
-import { $, matches } from './selector';
+import { $, matches } from './selector/index';
 
 var ArrayProto = Array.prototype;
 
