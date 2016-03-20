@@ -20,7 +20,7 @@ const dasherize = value => value.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCa
  * @example
  *     $('.item').css('padding-left'); // get
  *     $('.item').css('color', '#f00'); // set
- *     $('.item').css({'border-width', '1px'}, {'display', 'inline-block}); // set multiple
+ *     $('.item').css({'border-width': '1px', display: 'inline-block'}); // set multiple
  */
 
 function css(key, value) {

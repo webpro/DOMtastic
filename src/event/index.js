@@ -19,7 +19,7 @@ import { closest } from '../selector/closest';
  *     $('.container').on('click focus', '.item', handler);
  */
 
-function on(eventNames, selector, handler, useCapture) {
+function on(eventNames, selector, handler, useCapture, once) {
 
     if (typeof selector === 'function') {
         handler = selector;
@@ -42,6 +42,14 @@ function on(eventNames, selector, handler, useCapture) {
 
             if (selector) {
                 eventListener = delegateHandler.bind(element, selector, eventListener);
+            }
+
+            if(once) {
+                const listener = eventListener;
+                eventListener = event => {
+                    off.call(element, eventNames, selector, handler, useCapture);
+                    listener.call(element, event);
+                }
             }
 
             element.addEventListener(eventName, eventListener, useCapture || false);
@@ -118,6 +126,23 @@ function off(eventNames = '', selector, handler, useCapture) {
     }, this);
 
     return this;
+}
+
+/**
+ * Add event listener and execute the handler at most once per element.
+ *
+ * @param eventNames
+ * @param selector
+ * @param handler
+ * @param useCapture
+ * @return {Object} The wrapped collection
+ * @chainable
+ * @example
+ *     $('.item').one('click', callback);
+ */
+
+function one(eventNames, selector, handler, useCapture) {
+    return on.call(this, eventNames, selector, handler, useCapture, 1);
 }
 
 /**
@@ -239,4 +264,4 @@ let bind = on,
  * Export interface
  */
 
-export { on, off, bind, unbind };
+export { on, off, one, bind, unbind };

@@ -365,6 +365,29 @@ describe('events', function() {
 
     });
 
+    describe('one', function() {
+        it('should execute event handler only once', function() {
+            var element = $(document.body),
+                eventType = getRndStr(),
+                expected = element[0];
+            element.one(eventType, spy);
+            trigger(element, eventType);
+            trigger(element, eventType);
+            trigger(element, eventType);
+            expect(spy.calledOnce).to.be.true;
+            expect(spy.firstCall.thisValue).to.equal(expected);
+        });
+
+        it('should execute event handler only once for each element', function() {
+            var elements = $('#testFragment li');
+            elements.one('click', spy);
+            trigger(elements[0], 'click');
+            trigger(elements[1], 'click');
+            trigger(elements, 'click');
+            expect(spy.callCount).to.equal(5);
+        });
+    });
+
     describe('fluent', function() {
 
         it('should provide a chainable API', function() {
