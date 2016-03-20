@@ -46,7 +46,7 @@ requirejs.config({
     baseUrl: 'bower_components',
     packages: [{
         name: 'domtastic',
-        location: 'domtastic/amd'
+        main: 'domtastic'
     }]
 });
 

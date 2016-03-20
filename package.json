@@ -30,9 +30,9 @@
   "main": "dist/domtastic.js",
   "jsnext:main": "src/index.js",
   "files": [
-      "build",
-      "src",
-      "src-jquery-compat"
+    "build",
+    "src",
+    "src-jquery-compat"
   ],
   "scripts": {
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js",
