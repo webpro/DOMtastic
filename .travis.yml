@@ -30,6 +30,7 @@ after_success:
   - "rsync --recursive --delete dist/ $GHPAGES/dist/"
   - "rsync --recursive --delete test/ $GHPAGES/test/"
   - "rsync --recursive --delete benchmark/ $GHPAGES/benchmark/"
+  - "rsync --recursive --delete examples/ $GHPAGES/examples/"
   - "rsync --recursive --delete vendor/ $GHPAGES/vendor/"
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"

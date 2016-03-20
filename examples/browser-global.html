@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOMtastic browser global example</title>
+        <style type="text/css">
+            .evergreen {
+                padding: 1em;
+                background-color: #b5d592;
+            }
+            .hover {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="earth">
+            <ul>
+                <li class="continent">Asia</li>
+                <li class="continent">Africa</li>
+                <li class="continent">North-America</li>
+                <li class="continent">South-America</li>
+                <li class="continent">Antarctica</li>
+                <li class="continent">Europe</li>
+                <li class="continent">Australia</li>
+            </ul>
+        </div>
+
+        <script src="../dist/domtastic.js"></script>
+
+        <script>
+            $('.earth').addClass('evergreen').on('mouseover', '.continent:nth-child(even)', function(evt) {
+                $(this).addClass('hover').one('mouseout', function(evt) {
+                    $(this).removeClass('hover');
+                });
+            });
+        </script>
+
+    </body>
+</html>
