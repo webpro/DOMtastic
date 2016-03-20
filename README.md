@@ -150,6 +150,7 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
 
     on (alias: bind)
     off (alias: unbind)
+    one
 
 ### [Event/ready](https://domtastic.js.org/doc#event/ready)
 
@@ -235,7 +236,7 @@ Find the output in the `dist/` folder.
 Some iterator method signatures in jQuery are different (i.e. non-standard), most notably the `index` before `element` argument in `each`, `filter` and `map`). However, a custom build that is compatible with jQuery can be created by using the `--jquery-compat` flag:
 
 ```bash
-bin/custom --jquery-compat
+npm run bundle -- --jquery-compat
 ```
 
 ### Build a custom API for your application
