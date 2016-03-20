@@ -32,7 +32,7 @@ let closest = (function() {
         return $(uniq(nodes));
     }
 
-    return !Element.prototype.closest ? closest : function(selector, context) {
+    return typeof Element === 'undefined' || !Element.prototype.closest ? closest : function(selector, context) {
         if(!context) {
             let nodes = [];
             each(this, function(node) {
