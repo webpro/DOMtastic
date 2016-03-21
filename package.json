@@ -48,7 +48,8 @@
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
   },
   "devDependencies": {
-    "babel-preset-es2015-rollup": "^1.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.6.0",
     "benchrunner": "0.0.4",
     "doxstrap": "0.0.6",
     "glob": "7.0.3",
