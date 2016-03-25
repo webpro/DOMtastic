@@ -4,8 +4,8 @@
 
 import { extend } from './util';
 
-let api = {},
-    $ = {};
+const api = {};
+let $ = {};
 
 // Import modules to build up the API
 
@@ -29,9 +29,9 @@ import * as selector_extra from './selector/extra';
 import * as type from './type';
 
 if (typeof selector !== 'undefined') {
-    $ = selector.$;
-    $.matches = selector.matches;
-    api.find = selector.find;
+  $ = selector.$;
+  $.matches = selector.matches;
+  api.find = selector.find;
 }
 
 extend($, dom_contains, noconflict, type);
@@ -50,7 +50,7 @@ $.extend = extend;
 // Provide base class to extend from
 
 if(typeof BaseClass !== 'undefined') {
-    $.BaseClass = BaseClass($.fn);
+  $.BaseClass = BaseClass($.fn);
 }
 
 // Export interface

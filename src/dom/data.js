@@ -18,21 +18,18 @@ const DATAKEYPROP = '__DOMTASTIC_DATA__';
  *     $('.item').data('attrName', {any: 'data'}); // set
  */
 
-function data(key, value) {
+export const data = function(key, value) {
 
-    if (typeof key === 'string' && typeof value === 'undefined') {
-        let element = this.nodeType ? this : this[0];
-        return element && element[DATAKEYPROP] ? element[DATAKEYPROP][key] : undefined;
-    }
+  if(typeof key === 'string' && typeof value === 'undefined') {
+    const element = this.nodeType ? this : this[0];
+    return element && element[DATAKEYPROP] ? element[DATAKEYPROP][key] : undefined;
+  }
 
-    each(this, element => {
-        element[DATAKEYPROP] = element[DATAKEYPROP] || {};
-        element[DATAKEYPROP][key] = value;
-    });
-
-    return this;
-
-}
+  return each(this, element => {
+    element[DATAKEYPROP] = element[DATAKEYPROP] || {};
+    element[DATAKEYPROP][key] = value;
+  });
+};
 
 /**
  * Get property from first element, or set property on each element in the collection.
@@ -46,22 +43,12 @@ function data(key, value) {
  *     $('.item').prop('attrName', 'attrValue'); // set
  */
 
-function prop(key, value) {
+export const prop = function(key, value) {
 
-    if (typeof key === 'string' && typeof value === 'undefined') {
-        let element = this.nodeType ? this : this[0];
-        return element && element ? element[key] : undefined;
-    }
+  if(typeof key === 'string' && typeof value === 'undefined') {
+    const element = this.nodeType ? this : this[0];
+    return element && element ? element[key] : undefined;
+  }
 
-    each(this, element => element[key] = value);
-
-    return this;
-
-}
-
-
-/*
- * Export interface
- */
-
-export { data, prop };
+  return each(this, element => element[key] = value);
+};

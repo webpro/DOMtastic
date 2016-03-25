@@ -15,21 +15,12 @@ import { each } from '../util';
  *     $('.item').html('<span>more</span>');
  */
 
-function html(fragment) {
+export const html = function(fragment) {
 
-    if (typeof fragment !== 'string') {
-        let element = this.nodeType ? this : this[0];
-        return element ? element.innerHTML : undefined;
-    }
+  if(typeof fragment !== 'string') {
+    const element = this.nodeType ? this : this[0];
+    return element ? element.innerHTML : undefined;
+  }
 
-    each(this, element => element.innerHTML = fragment);
-
-    return this;
-
-}
-
-/*
- * Export interface
- */
-
-export { html };
+  return each(this, element => element.innerHTML = fragment);
+};

@@ -9,7 +9,7 @@ import { global } from './util';
  * @private
  */
 
-let previousLib = global.$;
+const previousLib = global.$;
 
 /**
  * In case another library sets the global `$` variable before DOMtastic does,
@@ -20,13 +20,7 @@ let previousLib = global.$;
  *     var domtastic = $.noConflict();
  */
 
-function noConflict() {
-    global.$ = previousLib;
-    return this;
-}
-
-/*
- * Export interface
- */
-
-export { noConflict };
+export const noConflict = function() {
+  global.$ = previousLib;
+  return this;
+};

@@ -23,26 +23,33 @@ const reKeyEvent = /^key/;
  *     $('.item').trigger('anyEventType');
  */
 
-function trigger(type, data, { bubbles = true, cancelable = true, preventDefault = false } = {}) {
+export const trigger = function(type, data, {bubbles = true, cancelable = true, preventDefault = false} = {}) {
 
-    let EventConstructor = getEventConstructor(type),
-        event = new EventConstructor(type, { bubbles, cancelable, preventDefault, detail: data});
+  const EventConstructor = getEventConstructor(type);
+  const event = new EventConstructor(type, {
+    bubbles,
+    cancelable,
+    preventDefault,
+    detail: data
+  });
 
-    event._preventDefault = preventDefault;
+  event._preventDefault = preventDefault;
 
-    each(this, element => {
-        if (!bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
-            dispatchEvent(element, event);
-        } else {
-            triggerForPath(element, type, { bubbles, cancelable, preventDefault, detail: data});
-        }
-    });
-    return this;
-}
+  return each(this, element => {
+    if(!bubbles || isEventBubblingInDetachedTree || isAttachedToDocument(element)) {
+      dispatchEvent(element, event);
+    } else {
+      triggerForPath(element, type, {
+        bubbles,
+        cancelable,
+        preventDefault,
+        detail: data
+      });
+    }
+  });
+};
 
-function getEventConstructor(type) {
-    return supportsOtherEventConstructors ? (reMouseEvent.test(type) ? MouseEvent : (reKeyEvent.test(type) ? KeyboardEvent : CustomEvent)) : CustomEvent;
-}
+const getEventConstructor = type => supportsOtherEventConstructors ? (reMouseEvent.test(type) ? MouseEvent : (reKeyEvent.test(type) ? KeyboardEvent : CustomEvent)) : CustomEvent;
 
 /**
  * Trigger event at first element in the collection. Similar to `trigger()`, except:
@@ -57,26 +64,29 @@ function getEventConstructor(type) {
  *     $('form').triggerHandler('submit');
  */
 
-function triggerHandler(type, data) {
-    if (this[0]) {
-        trigger.call(this[0], type, data, {bubbles: false, preventDefault: true});
-    }
-}
+export const triggerHandler = function(type, data) {
+  if(this[0]) {
+    trigger.call(this[0], type, data, {
+      bubbles: false,
+      preventDefault: true
+    });
+  }
+};
 
 /**
- * Check whether the element is attached to (or detached from) the document
+ * Check whether the element is attached to or detached from) the document
  *
  * @private
  * @param {Node} element Element to test
  * @return {Boolean}
  */
 
-function isAttachedToDocument(element) {
-    if (element === window || element === document) {
-        return true;
-    }
-    return contains(element.ownerDocument.documentElement, element);
-}
+const isAttachedToDocument = element => {
+  if(element === window || element === document) {
+    return true;
+  }
+  return contains(element.ownerDocument.documentElement, element);
+};
 
 /**
  * Dispatch the event at the element and its ancestors.
@@ -92,14 +102,14 @@ function isAttachedToDocument(element) {
  * @param {Mixed} params.detail=undefined Additional information about the event.
  */
 
-function triggerForPath(element, type, params = {}) {
-    params.bubbles = false;
-    let event = new CustomEvent(type, params);
-    event._target = element;
-    do {
-        dispatchEvent(element, event);
-    } while (element = element.parentNode);
-}
+const triggerForPath = (element, type, params = {}) => {
+  params.bubbles = false;
+  const event = new CustomEvent(type, params);
+  event._target = element;
+  do {
+    dispatchEvent(element, event);
+  } while(element = element.parentNode);
+};
 
 /**
  * Dispatch event to element, but call direct event methods instead if available
@@ -112,28 +122,32 @@ function triggerForPath(element, type, params = {}) {
 
 const directEventMethods = ['blur', 'focus', 'select', 'submit'];
 
-function dispatchEvent(element, event) {
-    if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function' && !event._preventDefault && !event.cancelable) {
-        element[event.type]();
-    } else {
-        element.dispatchEvent(event);
-    }
-}
+const dispatchEvent = (element, event) => {
+  if(directEventMethods.indexOf(event.type) !== -1 && typeof element[event.type] === 'function' && !event._preventDefault && !event.cancelable) {
+    element[event.type]();
+  } else {
+    element.dispatchEvent(event);
+  }
+};
 
 /**
  * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
  * Needed to support IE (9, 10, 11) & PhantomJS
  */
 
-(function() {
-    function CustomEvent(event, params = { bubbles: false, cancelable: false, detail: undefined }) {
-        let customEvent = document.createEvent('CustomEvent');
-        customEvent.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return customEvent;
-    }
+(() => {
+  const CustomEvent = (event, params = {
+    bubbles: false,
+    cancelable: false,
+    detail: undefined
+  }) => {
+    let customEvent = document.createEvent('CustomEvent');
+    customEvent.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return customEvent;
+  };
 
-    CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
-    global.CustomEvent = CustomEvent;
+  CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
+  global.CustomEvent = CustomEvent;
 
 })();
 
@@ -142,32 +156,26 @@ function dispatchEvent(element, event) {
  * @private
  */
 
-let isEventBubblingInDetachedTree = (function() {
-    let isBubbling = false,
-        doc = global.document;
-    if (doc) {
-        let parent = doc.createElement('div'),
-            child = parent.cloneNode();
-        parent.appendChild(child);
-        parent.addEventListener('e', function() {
-            isBubbling = true;
-        });
-        child.dispatchEvent(new CustomEvent('e', { bubbles: true }));
-    }
-    return isBubbling;
+const isEventBubblingInDetachedTree = (() =>{
+  let isBubbling = false;
+  const doc = global.document;
+  if(doc) {
+    const parent = doc.createElement('div');
+    const child = parent.cloneNode();
+    parent.appendChild(child);
+    parent.addEventListener('e', function() {
+      isBubbling = true;
+    });
+    child.dispatchEvent(new CustomEvent('e', {bubbles: true}));
+  }
+  return isBubbling;
 })();
 
-let supportsOtherEventConstructors = (function() {
-    try {
-        new window.MouseEvent('click');
-    } catch (e) {
-        return false;
-    }
-    return true;
+const supportsOtherEventConstructors = (() => {
+  try {
+    new window.MouseEvent('click');
+  } catch(e) {
+    return false;
+  }
+  return true;
 })();
-
-/*
- * Export interface
- */
-
-export { trigger, triggerHandler };

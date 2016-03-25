@@ -15,7 +15,7 @@
  *     // false
  */
 
-const isFunction = obj => typeof obj === 'function';
+export const isFunction = obj => typeof obj === 'function';
 
 /*
  * Determine whether the argument is an array.
@@ -30,10 +30,4 @@ const isFunction = obj => typeof obj === 'function';
  *     // false
  */
 
-const isArray = Array.isArray;
-
-/*
- * Export interface
- */
-
-export { isArray, isFunction };
+export const isArray = Array.isArray;

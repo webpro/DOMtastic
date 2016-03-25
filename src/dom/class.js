@@ -15,12 +15,12 @@ import { each } from '../util';
  *     $('.item').addClass('bar foo');
  */
 
-function addClass(value) {
-    if(value && value.length) {
-        each(value.split(' '), _each.bind(this, 'add'));
-    }
-    return this;
-}
+export const addClass = function(value) {
+  if(value && value.length) {
+    each(value.split(' '), _each.bind(this, 'add'));
+  }
+  return this;
+};
 
 /**
  * Remove a class from the element(s)
@@ -33,12 +33,12 @@ function addClass(value) {
  *     $('.items').removeClass('bar foo');
  */
 
-function removeClass(value) {
-    if(value && value.length) {
-        each(value.split(' '), _each.bind(this, 'remove'));
-    }
-    return this;
-}
+export const removeClass = function(value) {
+  if(value && value.length) {
+    each(value.split(' '), _each.bind(this, 'remove'));
+  }
+  return this;
+};
 
 /**
  * Toggle a class at the element(s)
@@ -51,12 +51,12 @@ function removeClass(value) {
  *     $('.item').toggleClass('bar foo');
  */
 
-function toggleClass(value) {
-    if(value && value.length) {
-        each(value.split(' '), _each.bind(this, 'toggle'));
-    }
-    return this;
-}
+export const toggleClass = function(value) {
+  if(value && value.length) {
+    each(value.split(' '), _each.bind(this, 'toggle'));
+  }
+  return this;
+};
 
 /**
  * Check if the element(s) have a class.
@@ -68,9 +68,9 @@ function toggleClass(value) {
  *     $('.item').hasClass('bar');
  */
 
-function hasClass(value) {
-    return (this.nodeType ? [this] : this).some(element => element.classList.contains(value));
-}
+export const hasClass = function(value) {
+  return (this.nodeType ? [this] : this).some(element => element.classList.contains(value));
+};
 
 /**
  * Specialized iteration, applying `fn` of the classList API to each element.
@@ -80,12 +80,6 @@ function hasClass(value) {
  * @private
  */
 
-function _each(fnName, className) {
-    each(this, element => element.classList[fnName](className));
-}
-
-/*
- * Export interface
- */
-
-export { addClass, removeClass, toggleClass, hasClass };
+const _each = function(fnName, className) {
+  return each(this, element => element.classList[fnName](className));
+};

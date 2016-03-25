@@ -16,19 +16,19 @@ import { $, matches } from './index';
  *     $('.selector').children('.filter');
  */
 
-function children(selector) {
-    let nodes = [];
-    each(this, element => {
-        if(element.children) {
-            each(element.children, child => {
-                if (!selector || (selector && matches(child, selector))) {
-                    nodes.push(child);
-                }
-            });
+export const children = function(selector) {
+  const nodes = [];
+  each(this, element => {
+    if(element.children) {
+      each(element.children, child => {
+        if(!selector || (selector && matches(child, selector))) {
+          nodes.push(child);
         }
-    });
-    return $(nodes);
-}
+      });
+    }
+  });
+  return $(nodes);
+};
 
 /**
  * Return child nodes of each element in the collection, including text and comment nodes.
@@ -38,13 +38,11 @@ function children(selector) {
  *     $('.selector').contents();
  */
 
-function contents() {
-    let nodes = [];
-    each(this, element => {
-        nodes.push.apply(nodes, toArray(element.childNodes));
-    });
-    return $(nodes);
-}
+export const contents = function() {
+  const nodes = [];
+  each(this, element => nodes.push.apply(nodes, toArray(element.childNodes)));
+  return $(nodes);
+};
 
 /**
  * Return a collection containing only the one at the specified index.
@@ -57,9 +55,9 @@ function contents() {
  *     // The second item; result is the same as doing $($('.items')[1]);
  */
 
-function eq(index) {
-    return slice.call(this, index, index + 1);
-}
+export const eq = function(index) {
+  return slice.call(this, index, index + 1);
+};
 
 /**
  * Return the DOM element at the specified index.
@@ -71,9 +69,9 @@ function eq(index) {
  *     // The second element; result is the same as doing $('.items')[1];
  */
 
-function get(index) {
-    return this[index];
-}
+export const get = function(index) {
+  return this[index];
+};
 
 /**
  * Return the parent elements of each element in the collection, optionally filtered by a selector.
@@ -86,15 +84,15 @@ function get(index) {
  *     $('.selector').parent('.filter');
  */
 
-function parent(selector) {
-    let nodes = [];
-    each(this, element => {
-        if (!selector || (selector && matches(element.parentNode, selector))) {
-            nodes.push(element.parentNode);
-        }
-    });
-    return $(nodes);
-}
+export const parent = function(selector) {
+  const nodes = [];
+  each(this, element => {
+    if(!selector || (selector && matches(element.parentNode, selector))) {
+      nodes.push(element.parentNode);
+    }
+  });
+  return $(nodes);
+};
 
 /**
  * Return the sibling elements of each element in the collection, optionally filtered by a selector.
@@ -107,17 +105,15 @@ function parent(selector) {
  *     $('.selector').siblings('.filter');
  */
 
-function siblings(selector) {
-    let nodes = [];
-    each(this, element => {
-        each(element.parentNode.children, sibling => {
-            if (sibling !== element && (!selector || (selector && matches(sibling, selector)))) {
-                nodes.push(sibling);
-            }
-        });
-    });
-    return $(nodes);
-}
+export const siblings = function(selector) {
+  const nodes = [];
+  each(this, element => each(element.parentNode.children, sibling => {
+    if(sibling !== element && (!selector || (selector && matches(sibling, selector)))) {
+      nodes.push(sibling);
+    }
+  }));
+  return $(nodes);
+};
 
 /**
  * Create a new, sliced collection.
@@ -130,12 +126,6 @@ function siblings(selector) {
  *     // New wrapped collection containing the second, third, and fourth element.
  */
 
-function slice(start, end) {
-    return $([].slice.apply(this, arguments));
-}
-
-/*
- * Export interface
- */
-
-export { children, contents, eq, get, parent, siblings, slice };
+export const slice = function(start, end) {
+  return $([].slice.apply(this, arguments));
+};

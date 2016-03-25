@@ -17,25 +17,23 @@ import { each } from '../util';
  *     $('.item').attr({attr1: 'value1', 'attr-2': 'value2'}); // set multiple
  */
 
-function attr(key, value) {
+export const attr = function(key, value) {
 
-    if (typeof key === 'string' && typeof value === 'undefined') {
-        let element = this.nodeType ? this : this[0];
-        return element ? element.getAttribute(key) : undefined;
+  if(typeof key === 'string' && typeof value === 'undefined') {
+    const element = this.nodeType ? this : this[0];
+    return element ? element.getAttribute(key) : undefined;
+  }
+
+  return each(this, element => {
+    if(typeof key === 'object') {
+      for(let attr in key) {
+        element.setAttribute(attr, key[attr]);
+      }
+    } else {
+      element.setAttribute(key, value);
     }
-
-    each(this, element => {
-        if (typeof key === 'object') {
-            for (let attr in key) {
-                element.setAttribute(attr, key[attr]);
-            }
-        } else {
-            element.setAttribute(key, value);
-        }
-    });
-
-    return this;
-}
+  });
+};
 
 /**
  * Remove attribute from each element in the collection.
@@ -47,13 +45,6 @@ function attr(key, value) {
  *     $('.items').removeAttr('attrName');
  */
 
-function removeAttr(key) {
-    each(this, element => element.removeAttribute(key));
-    return this;
-}
-
-/*
- * Export interface
- */
-
-export { attr, removeAttr };
+export const removeAttr = function(key) {
+  return each(this, element => element.removeAttribute(key));
+};

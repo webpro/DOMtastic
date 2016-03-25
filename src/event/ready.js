@@ -12,17 +12,11 @@
  *     $(document).ready(callback);
  */
 
-function ready(handler) {
-    if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
-        handler();
-    } else {
-        document.addEventListener('DOMContentLoaded', handler, false);
-    }
-    return this;
-}
-
-/*
- * Export interface
- */
-
-export { ready };
+export const ready = function(handler) {
+  if(/complete|loaded|interactive/.test(document.readyState) && document.body) {
+    handler();
+  } else {
+    document.addEventListener('DOMContentLoaded', handler, false);
+  }
+  return this;
+};

@@ -3,7 +3,7 @@
  */
 
 import { each } from '../util';
-import { append, before, after } from './index';
+import { append, before } from './index';
 import { $ } from '../selector/index';
 
 /**
@@ -16,11 +16,11 @@ import { $ } from '../selector/index';
  *     $('.item').appendTo(container);
  */
 
-function appendTo(element) {
-    let context = typeof element === 'string' ? $(element) : element;
-    append.call(context, this);
-    return this;
-}
+export const appendTo = function(element) {
+  const context = typeof element === 'string' ? $(element) : element;
+  append.call(context, this);
+  return this;
+};
 
 /*
  * Empty each element in the collection.
@@ -31,9 +31,9 @@ function appendTo(element) {
  *     $('.item').empty();
  */
 
-function empty(){
-    return each(this, element => element.innerHTML = '');
-}
+export const empty = function() {
+  return each(this, element => element.innerHTML = '');
+};
 
 /**
  * Remove the collection from the DOM.
@@ -43,13 +43,13 @@ function empty(){
  *     $('.item').remove();
  */
 
-function remove() {
-    return each(this, element => {
-        if (element.parentNode) {
-            element.parentNode.removeChild(element);
-        }
-    });
-}
+export const remove = function() {
+  return each(this, element => {
+    if(element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
+  });
+};
 
 /**
  * Replace each element in the collection with the provided new content, and return the array of elements that were replaced.
@@ -57,9 +57,9 @@ function remove() {
  * @return {Array} Array containing the replaced elements
  */
 
-function replaceWith() {
-    return before.apply(this, arguments).remove();
-}
+export const replaceWith = function() {
+  return before.apply(this, arguments).remove();
+};
 
 /**
  * Get the `textContent` from the first, or set the `textContent` of each element in the collection.
@@ -71,16 +71,14 @@ function replaceWith() {
  *     $('.item').text('New content');
  */
 
-function text(value){
+export const text = function(value) {
 
-    if(value === undefined) {
-        return this[0].textContent;
-    }
+  if(value === undefined) {
+    return this[0].textContent;
+  }
 
-    each(this, element => element.textContent = '' + value);
-
-    return this;
-}
+  return each(this, element => element.textContent = '' + value);
+};
 
 /**
  * Get the `value` from the first, or set the `value` of each element in the collection.
@@ -92,19 +90,11 @@ function text(value){
  *     $('input.firstName').value('New value');
  */
 
-function val(value){
+export const val = function(value) {
 
-    if(value === undefined) {
-        return this[0].value;
-    }
+  if(value === undefined) {
+    return this[0].value;
+  }
 
-    each(this, element => element.value = value);
-
-    return this;
-}
-
-/*
- * Export interface
- */
-
-export { appendTo, empty, remove, replaceWith, text, val };
+  return each(this, element => element.value = value);
+};

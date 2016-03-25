@@ -7,7 +7,7 @@
  * @private
  */
 
-const global = new Function("return this")();
+export const global = new Function('return this')();
 
 /**
  * Convert `NodeList` to `Array`.
@@ -17,14 +17,14 @@ const global = new Function("return this")();
  * @private
  */
 
-function toArray(collection) {
-    let length = collection.length,
-        result = new Array(length);
-    for (let i = 0; i < length; i++) {
-        result[i] = collection[i];
-    }
-    return result;
-}
+export const toArray = collection => {
+  const length = collection.length;
+  const result = new Array(length);
+  for(let i = 0; i < length; i++) {
+    result[i] = collection[i];
+  }
+  return result;
+};
 
 /**
  * Faster alternative to [].forEach method
@@ -35,17 +35,17 @@ function toArray(collection) {
  * @private
  */
 
-function each(collection, callback, thisArg) {
-    let length = collection.length;
-    if (length !== undefined && collection.nodeType === undefined) {
-        for (let i = 0; i < length; i++){
-            callback.call(thisArg, collection[i], i, collection);
-        }
-    } else {
-        callback.call(thisArg, collection, 0, collection);
+export const each = (collection, callback, thisArg) => {
+  const length = collection.length;
+  if(length !== undefined && collection.nodeType === undefined) {
+    for(let i = 0; i < length; i++) {
+      callback.call(thisArg, collection[i], i, collection);
     }
-    return collection;
-}
+  } else {
+    callback.call(thisArg, collection, 0, collection);
+  }
+  return collection;
+};
 
 /**
  * Assign enumerable properties from source object(s) to target object
@@ -62,14 +62,14 @@ function each(collection, callback, thisArg) {
  *     // {a: 3, b: 2}
  */
 
-function extend(target, ...sources) {
-    sources.forEach(src => {
-        for (let prop in src) {
-            target[prop] = src[prop];
-        }
-    });
-    return target;
-}
+export const extend = (target, ...sources) => {
+  sources.forEach(src => {
+    for(let prop in src) {
+      target[prop] = src[prop];
+    }
+  });
+  return target;
+};
 
 /**
  * Return the collection without duplicates
@@ -79,10 +79,4 @@ function extend(target, ...sources) {
  * @private
  */
 
-const uniq = collection => collection.filter((item, index) => collection.indexOf(item) === index);
-
-/*
- * Export interface
- */
-
-export { global, toArray, each, extend, uniq };
+export const uniq = collection => collection.filter((item, index) => collection.indexOf(item) === index);

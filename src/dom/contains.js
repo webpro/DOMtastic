@@ -13,20 +13,13 @@
  *     // true/false
  */
 
-function contains(container, element) {
-    if(!container || !element || container === element) {
-        return false;
+export const contains = (container, element) => {
+  if(!container || !element || container === element) {
+      return false;
     } else if (container.contains) {
-        return container.contains(element);
+      return container.contains(element);
     } else if (container.compareDocumentPosition) {
-        return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
+      return !(container.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_DISCONNECTED);
     }
-    return false;
-}
-
-
-/*
- * Export interface
- */
-
-export { contains };
+  return false;
+};

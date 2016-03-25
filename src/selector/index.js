@@ -27,37 +27,37 @@ const reSimpleSelector = /^[\.#]?[\w-]*$/;
  *     var $element = $('<p>evergreen</p>');
  */
 
-function $(selector, context = document) {
+export const $ = (selector, context = document) => {
 
-    let collection;
+  let collection;
 
-    if (!selector) {
+  if(!selector) {
 
-        collection = document.querySelectorAll(null);
+    collection = document.querySelectorAll(null);
 
-    } else if (selector instanceof Wrapper) {
+  } else if(selector instanceof Wrapper) {
 
-        return selector;
+    return selector;
 
-    } else if (typeof selector !== 'string') {
+  } else if(typeof selector !== 'string') {
 
-        collection = selector.nodeType || selector === window ? [selector] : selector;
+    collection = selector.nodeType || selector === window ? [selector] : selector;
 
-    } else if (reFragment.test(selector)) {
+  } else if(reFragment.test(selector)) {
 
-        collection = createFragment(selector);
+    collection = createFragment(selector);
 
-    } else {
+  } else {
 
-        context = typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context;
+    context = typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context;
 
-        collection = querySelector(selector, context);
+    collection = querySelector(selector, context);
 
-    }
+  }
 
-    return wrap(collection);
+  return wrap(collection);
 
-}
+};
 
 /*
  * Find descendants matching the provided `selector` for each element in the collection.
@@ -68,17 +68,15 @@ function $(selector, context = document) {
  *     $('.selector').find('.deep').$('.deepest');
  */
 
-function find(selector) {
-    let nodes = [];
-    each(this, node => {
-        each(querySelector(selector, node), child => {
-            if(nodes.indexOf(child) === -1) {
-                nodes.push(child);
-            }
-        });
-    });
-    return $(nodes);
-}
+export const find = function(selector) {
+  const nodes = [];
+  each(this, node => each(querySelector(selector, node), child => {
+    if(nodes.indexOf(child) === -1) {
+      nodes.push(child);
+    }
+  }));
+  return $(nodes);
+};
 
 /*
  * Returns `true` if the element would be selected by the specified selector string; otherwise, returns `false`.
@@ -91,12 +89,10 @@ function find(selector) {
  *     $.matches(element, '.match');
  */
 
-let matches = (function() {
-    let context = typeof Element !== 'undefined' ? Element.prototype : global,
-        _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.msMatchesSelector || context.oMatchesSelector || context.webkitMatchesSelector;
-    return (element, selector) => {
-        return _matches.call(element, selector);
-    };
+export const matches = (() => {
+  const context = typeof Element !== 'undefined' ? Element.prototype : global;
+  const _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.msMatchesSelector || context.oMatchesSelector || context.webkitMatchesSelector;
+  return (element, selector) => _matches.call(element, selector);
 })();
 
 /*
@@ -108,24 +104,24 @@ let matches = (function() {
  * @return {Object} NodeList, HTMLCollection, or Array of matching elements (depending on method used).
  */
 
-function querySelector(selector, context) {
+const querySelector = (selector, context) => {
 
-    let isSimpleSelector = reSimpleSelector.test(selector);
+  const isSimpleSelector = reSimpleSelector.test(selector);
 
-    if (isSimpleSelector) {
-        if (selector[0] === '#') {
-            let element = (context.getElementById ? context : document).getElementById(selector.slice(1));
-            return element ? [element] : [];
-        }
-        if (selector[0] === '.') {
-            return context.getElementsByClassName(selector.slice(1));
-        }
-        return context.getElementsByTagName(selector);
+  if(isSimpleSelector) {
+    if(selector[0] === '#') {
+      const element = (context.getElementById ? context : document).getElementById(selector.slice(1));
+      return element ? [element] : [];
     }
+    if(selector[0] === '.') {
+      return context.getElementsByClassName(selector.slice(1));
+    }
+    return context.getElementsByTagName(selector);
+  }
 
-    return context.querySelectorAll(selector);
+  return context.querySelectorAll(selector);
 
-}
+};
 
 /*
  * Create DOM fragment from an HTML string
@@ -135,43 +131,43 @@ function querySelector(selector, context) {
  * @return {NodeList}
  */
 
-function createFragment(html) {
+const createFragment = html => {
 
-    if (reSingleTag.test(html)) {
-        return [document.createElement(RegExp.$1)];
-    }
+  if(reSingleTag.test(html)) {
+    return [document.createElement(RegExp.$1)];
+  }
 
-    let elements = [],
-        container = document.createElement('div'),
-        children = container.childNodes;
+  const elements = [];
+  const container = document.createElement('div');
+  const children = container.childNodes;
 
-    container.innerHTML = html;
+  container.innerHTML = html;
 
-    for (let i = 0, l = children.length; i < l; i++) {
-        elements.push(children[i]);
-    }
+  for(let i = 0, l = children.length; i < l; i++) {
+    elements.push(children[i]);
+  }
 
-    return elements;
-}
+  return elements;
+};
 
 /*
  * Calling `$(selector)` returns a wrapped collection of elements.
  *
  * @private
  * @param {NodeList|Array} collection Element(s) to wrap.
- * @return (Object) The wrapped collection
+ * @return Object) The wrapped collection
  */
 
-function wrap(collection) {
+const wrap = collection => {
 
-    if (!isPrototypeSet) {
-        Wrapper.prototype = $.fn;
-        Wrapper.prototype.constructor = Wrapper;
-        isPrototypeSet = true;
-    }
+  if(!isPrototypeSet) {
+    Wrapper.prototype = $.fn;
+    Wrapper.prototype.constructor = Wrapper;
+    isPrototypeSet = true;
+  }
 
-    return new Wrapper(collection);
-}
+  return new Wrapper(collection);
+};
 
 /*
  * Constructor for the Object.prototype strategy
@@ -181,16 +177,11 @@ function wrap(collection) {
  * @param {NodeList|Array} collection Element(s) to wrap.
  */
 
-function Wrapper(collection) {
-    let i = 0, length = collection.length;
-    for (; i < length;) {
-        this[i] = collection[i++];
-    }
-    this.length = length;
-}
-
-/*
- * Export interface
- */
-
-export { $, find, matches, Wrapper };
+export const Wrapper = function(collection) {
+  let i = 0;
+  const length = collection.length;
+  for(; i < length;) {
+    this[i] = collection[i++];
+  }
+  this.length = length;
+};
