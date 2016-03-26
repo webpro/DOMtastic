@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>DOMtastic AMD example</title>
-        <style type="text/css">
-            .evergreen {
-                padding: 1em;
-                background-color: #b5d592;
-            }
-            .hover {
-                color: red;
-            }
-        </style>
-    </head>
-    <body>
+  <head>
+    <title>DOMtastic AMD example</title>
+    <style type="text/css">
+      .evergreen {
+        padding: 1em;
+        background-color: #b5d592;
+      }
+      .hover {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
 
-        <div class="earth">
-            <ul>
-                <li class="continent">Asia</li>
-                <li class="continent">Africa</li>
-                <li class="continent">North-America</li>
-                <li class="continent">South-America</li>
-                <li class="continent">Antarctica</li>
-                <li class="continent">Europe</li>
-                <li class="continent">Australia</li>
-            </ul>
-        </div>
+    <div class="earth">
+      <ul>
+        <li class="continent">Asia</li>
+        <li class="continent">Africa</li>
+        <li class="continent">North-America</li>
+        <li class="continent">South-America</li>
+        <li class="continent">Antarctica</li>
+        <li class="continent">Europe</li>
+        <li class="continent">Australia</li>
+      </ul>
+    </div>
 
-        <script src="../vendor/require.js"></script>
-        <script>
-            require(['../dist/domtastic'], function($) {
-                $('.earth').addClass('evergreen').on('mouseover', '.continent:nth-child(even)', function(evt) {
-                    $(this).addClass('hover')
-                }).on('mouseout', '.continent:nth-child(even)', function(evt) {
-                    $(this).removeClass('hover')
-                });
-            });
-        </script>
-
-    </body>
+    <script src="../vendor/require.js"></script>
+    <script>
+      require(['../dist/domtastic'], function($) {
+        $('.earth').addClass('evergreen').on('mouseover', '.continent:nth-child(even)', function(evt) {
+          $(this).addClass('hover')
+        }).on('mouseout', '.continent:nth-child(even)', function(evt) {
+          $(this).removeClass('hover')
+        });
+      });
+    </script>
+  </body>
 </html>
