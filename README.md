@@ -25,7 +25,17 @@
 
 ## Usage
 
-### CommonJS / Browserify
+### ES6 (with e.g. Babel)
+
+```bash
+npm install domtastic
+```
+
+```javascript
+import $ from 'domtastic';
+```
+
+### CommonJS (with e.g. Browserify)
 
 ```bash
 npm install domtastic
