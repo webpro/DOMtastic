@@ -1,24 +1,25 @@
 {
   "name": "domtastic",
-  "version": "0.12.1",
   "description": "Small, fast, and modular DOM and event library for modern browsers.",
+  "main": "src/index.js",
+  "moduleType": "es6",
   "keywords": [
-    "domtastic",
-    "jquery",
-    "evergreen",
+    "DOM",
     "attr",
     "class",
-    "DOM",
+    "domtastic",
+    "es6",
     "event",
+    "evergreen",
     "html",
-    "selector",
-    "es6"
+    "jquery",
+    "selector"
   ],
   "authors": [
     {
       "name": "Lars Kappert",
       "email": "lars@webpro.nl",
-      "homepage": "http://webpro.nl"
+      "homepage": "https://webpro.nl"
     }
   ],
   "homepage": "https://domtastic.js.org",
@@ -26,6 +27,16 @@
     "type": "git",
     "url": "git://github.com/webpro/DOMtastic.git"
   },
-  "main": "domtastic.js",
-  "license": "MIT"
+  "license": "MIT",
+  "ignore": [
+    "benchmark",
+    "build",
+    "examples",
+    "test",
+    "vendor",
+    ".editorconfig",
+    ".gitignore",
+    ".npmignore",
+    ".travis.yml"
+  ]
 }

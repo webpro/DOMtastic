@@ -1,9 +1,0 @@
-{
-    "pkgFiles": ["package.json", "bower.json"],
-    "buildCommand": "npm run build-release",
-    "dist": {
-        "repo": "https://github.com/webpro/DOMtastic-release.git",
-        "baseDir": "dist",
-        "files": ["**/*"]
-    }
-}
