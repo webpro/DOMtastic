@@ -50,19 +50,19 @@
       config = {
         'Class': {
           key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw',
-          url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple'
+          url: 'https://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkvo7WCQw?v=3&layout=simple'
         },
         'Constructor': {
           key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw',
-          url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple'
+          url: 'https://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkyo2ECQw?v=3&layout=simple'
         },
         'DOM': {
           key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw',
-          url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple'
+          url: 'https://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgIDk0Jv_Cgw?v=3&layout=simple'
         },
         'Selector': {
           key: 'agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw',
-          url: 'http://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple'
+          url: 'https://www.browserscope.org/user/tests/table/agt1YS1wcm9maWxlcnIRCxIEVGVzdBiAgICkzLXNCAw?v=3&layout=simple'
         }
       };
 
@@ -80,7 +80,7 @@
         log('\nSending data for "' + suiteKey + '" to BrowserScope (' + config[suiteKey].url + ')');
         var newScript = document.createElement('script'),
           firstScript = document.getElementsByTagName('script')[0];
-        newScript.src = 'http://www.browserscope.org/user/beacon/' + browserScopeKey;
+        newScript.src = 'https://www.browserscope.org/user/beacon/' + browserScopeKey;
         newScript.src += '?callback=browserScopeCallback';
         firstScript.parentNode.insertBefore(newScript, firstScript);
       } else {
