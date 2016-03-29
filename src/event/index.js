@@ -177,7 +177,7 @@ function clearHandlers(element) {
     let key = element[eventKeyProp];
     if (handlers[key]) {
         handlers[key] = null;
-        element[key] = null;
+        element[eventKeyProp] = null;
         unusedKeys.push(key);
     }
 }
