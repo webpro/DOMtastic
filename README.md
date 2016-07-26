@@ -230,13 +230,13 @@ You can build a custom bundle that _excludes_ specific modules that you don't ne
 git clone git@github.com:webpro/DOMtastic.git
 cd DOMtastic
 npm install
-npm run bundle -- --exclude=attr,html,trigger
+npm run bundle -- --exclude=css,dom/html,event/trigger
 ```
 
 Alternatively, you can do the opposite and _include_ what you need:
 
 ```bash
-npm run bundle -- --include=selector,class
+npm run bundle -- --include=array,selector/index,dom/class
 ```
 
 Find the output in the `dist/` folder.
