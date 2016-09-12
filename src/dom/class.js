@@ -44,17 +44,24 @@ export const removeClass = function(value) {
  * Toggle a class at the element(s)
  *
  * @param {String} value Space-separated class name(s) to toggle at the element(s).
+ * @param {Boolean} [state] A Boolean value to determine whether the class should be added or removed.
  * @return {Object} The wrapped collection
  * @chainable
  * @example
  *     $('.item').toggleClass('bar');
  *     $('.item').toggleClass('bar foo');
+ *     $('.item').toggleClass('bar', 1 === 2);
  */
 
-export const toggleClass = function(value) {
-  if(value && value.length) {
-    each(value.split(' '), _each.bind(this, 'toggle'));
+export const toggleClass = function(value, state) {
+  if(!value || !value.length) {
+    return this;
   }
+  let action = 'toggle'
+  if(typeof state === 'boolean') {
+    action = state ? 'add' : 'remove';
+  }
+  each(value.split(' '), _each.bind(this, action));
   return this;
 };
 
