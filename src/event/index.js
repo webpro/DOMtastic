@@ -49,7 +49,7 @@ export const on = function(eventNames, selector, handler, useCapture, once) {
         eventListener = event => {
           off.call(element, eventNames, selector, handler, useCapture);
           listener.call(element, event);
-        }
+        };
       }
 
       element.addEventListener(eventName, eventListener, useCapture || false);

@@ -28,7 +28,7 @@ import * as selector_closest from './selector/closest';
 import * as selector_extra from './selector/extra';
 import * as type from './type';
 
-if (typeof selector !== 'undefined') {
+if(typeof selector !== 'undefined') {
   $ = selector.$;
   $.matches = selector.matches;
   api.find = selector.find;
