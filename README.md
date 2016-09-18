@@ -12,7 +12,7 @@
 
 ## Quicklinks
 
-* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.11/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.11/domtastic.min.js)
+* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.12/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.12/domtastic.min.js)
 * [API documentation](https://domtastic.js.org/doc/)
 * [Run tests](https://domtastic.js.org/test/)
 * Coverage: [Istanbul](https://domtastic.js.org/coverage/dist/domtastic.js.html), [Coveralls](https://coveralls.io/r/webpro/DOMtastic)
