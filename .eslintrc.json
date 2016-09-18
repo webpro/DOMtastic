@@ -20,7 +20,15 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "quotes": [2, "single"],
     "semi": [2, "always"],
-    "import/no-unresolved": 2
+    "import/no-unresolved": 2,
+    "keyword-spacing": [2, {
+      "overrides": {
+        "catch": {"after": false},
+        "if": {"after": false},
+        "for": {"after": false},
+        "while": {"after": false}
+      }
+    }]
   },
   "globals": {}
 }
