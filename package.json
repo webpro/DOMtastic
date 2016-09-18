@@ -36,15 +36,13 @@
   ],
   "scripts": {
     "benchmark": "npm run build && benchrunner benchmark/polyfill.bind.js benchmark/init.js benchmark/class.js benchmark/construct.js benchmark/dom.js benchmark/selector.js",
-    "build": "npm run bundle && cd dist && uglifyjs --in-source-map domtastic.js.map --source-map domtastic.min.js.map --source-map-include-sources --screw-ie8 -mco domtastic.min.js",
+    "build": "rollup -c && rollup -c --minify",
     "bundle": "rollup -c",
     "coverage": "npm run bundle && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
     "doc": "doxstrap --title DOMtastic --output doc",
     "install": "npm run bundle",
     "lint": "eslint src",
     "fix": "eslint src --fix",
-    "postbuild": "echo '' >> dist/domtastic.min.js",
-    "prebundle": "mkdirp dist",
     "test": "npm run bundle && mocha-phantomjs ./test/index.html -R dot",
     "test-jquery-compat": "npm run bundle -- --jquery-compat && mocha-phantomjs ./test/index.html?jquery-compat -R dot",
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
@@ -69,10 +67,10 @@
     "mkdirp": "0.5.1",
     "mocha-phantomjs": "4.0.2",
     "onchange": "2.1.2",
-    "rollup": "^0.25.4",
-    "rollup-plugin-babel": "^2.3.9",
-    "rollup-plugin-replace": "^1.1.0",
-    "uglify-js": "2.6.2"
+    "rollup": "^0.35.12",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-plugin-uglify": "^1.0.1"
   },
   "license": "MIT"
 }
