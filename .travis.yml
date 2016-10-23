@@ -14,8 +14,21 @@ env:
 branches:
   except:
     - dev
+cache:
+  directories:
+    - travis_phantomjs
 before_install:
-  - "phantomjs --version"
+  # Upgrade PhantomJS.
+  - |
+      export PHANTOMJS_VERSION=2.1.1
+      export PATH=$PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH
+      if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then
+        rm -rf $PWD/travis_phantomjs
+        mkdir -p $PWD/travis_phantomjs
+        wget https://github.com/Medium/phantomjs/releases/download/v$PHANTOMJS_VERSION/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2
+        tar -xvf phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs
+      fi
+      phantomjs -v
   - "npm i coveralls@2.11.8 ecstatic@1.4.0 request@2.69.0 sauce-tunnel@2.4.0"
 script:
   - "npm test"
