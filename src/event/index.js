@@ -195,6 +195,14 @@ export const proxyHandler = handler => function(event) {
   return handler.call(this, augmentEvent(event), event.detail);
 };
 
+const eventMethods = {
+  preventDefault: 'isDefaultPrevented',
+  stopImmediatePropagation: 'isImmediatePropagationStopped',
+  stopPropagation: 'isPropagationStopped'
+};
+const returnTrue = () => true;
+const returnFalse = () => false;
+
 /**
  * Attempt to augment events and implement something closer to DOM Level 3 Events.
  *
@@ -203,36 +211,23 @@ export const proxyHandler = handler => function(event) {
  * @return {Function}
  */
 
-const augmentEvent = (() => {
-
-  let methodName,
-    eventMethods = {
-      preventDefault: 'isDefaultPrevented',
-      stopImmediatePropagation: 'isImmediatePropagationStopped',
-      stopPropagation: 'isPropagationStopped'
-    },
-    returnTrue = () => true,
-    returnFalse = () => false;
-
-  return event => {
-    if(!event.isDefaultPrevented || event.stopImmediatePropagation || event.stopPropagation) {
-      for(methodName in eventMethods) {
-        (function(methodName, testMethodName, originalMethod) {
-          event[methodName] = function() {
-            this[testMethodName] = returnTrue;
-            return originalMethod && originalMethod.apply(this, arguments);
-          };
-          event[testMethodName] = returnFalse;
-        }(methodName, eventMethods[methodName], event[methodName]));
-      }
-      if(event._preventDefault) {
-        event.preventDefault();
-      }
+const augmentEvent = event => {
+  if(!event.isDefaultPrevented || event.stopImmediatePropagation || event.stopPropagation) {
+    for(const methodName in eventMethods) {
+      (function(methodName, testMethodName, originalMethod) {
+        event[methodName] = function() {
+          this[testMethodName] = returnTrue;
+          return originalMethod && originalMethod.apply(this, arguments);
+        };
+        event[testMethodName] = returnFalse;
+      }(methodName, eventMethods[methodName], event[methodName]));
     }
-    return event;
-  };
-
-})();
+    if(event._preventDefault) {
+      event.preventDefault();
+    }
+  }
+  return event;
+};
 
 /**
  * Function to test whether delegated events match the provided `selector` (filter),
