@@ -192,7 +192,7 @@ export const clearHandlers = element => {
  */
 
 export const proxyHandler = handler => function(event) {
-  return handler.call(this, augmentEvent(event), event.detail);
+  return handler.call(this, augmentEvent(event));
 };
 
 const eventMethods = {

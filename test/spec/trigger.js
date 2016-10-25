@@ -33,7 +33,7 @@ describe('events', function() {
       element.on(eventType, spy);
       element.trigger(eventType, eventData);
       expect(spy).to.have.been.called;
-      expect(spy.firstCall.args[1]).to.equal(eventData);
+      expect(spy.firstCall.args[1]).to.be.undefined;
       expect(spy.firstCall.args[0].detail).to.equal(eventData);
     });
 
