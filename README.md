@@ -68,7 +68,7 @@ require(['domtastic'], function($) {
 ### Browser Global
 
 ```html
-<script src="//cdn.jsdelivr.net/domtastic/0.11/domtastic.min.js"></script>
+<script src="//cdn.jsdelivr.net/domtastic/0.12/domtastic.min.js"></script>
 ```
 
 ```javascript

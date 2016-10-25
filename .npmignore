@@ -1,6 +1,6 @@
 benchmark
 coverage
-dist
+build
 examples
 test
 vendor

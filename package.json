@@ -30,7 +30,7 @@
   "main": "dist/domtastic.js",
   "jsnext:main": "src/index.js",
   "files": [
-    "build",
+    "dist",
     "src",
     "src-jquery-compat"
   ],
@@ -40,9 +40,9 @@
     "bundle": "rollup -c",
     "coverage": "npm run bundle && istanbul instrument dist/domtastic.js > dist/domtastic.instrumented.js && mocha-phantomjs ./test/index.html?cov -R ./test/lib/istanbul-reporter.js --file ./coverage/coverage.json && istanbul report --root ./coverage/",
     "doc": "doxstrap --title DOMtastic --output doc",
-    "install": "npm run bundle",
     "lint": "eslint src",
     "fix": "eslint src --fix",
+    "prepublish": "npm run build",
     "test": "npm run bundle && phantomjs ./node_modules/mocha-phantomjs-core/mocha-phantomjs-core.js ./test/index.html dot",
     "test-jquery-compat": "npm run bundle -- --jquery-compat && phantomjs ./node_modules/mocha-phantomjs-core/mocha-phantomjs-core.js ./test/index.html?jquery-compat dot",
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
