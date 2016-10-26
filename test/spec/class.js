@@ -39,6 +39,16 @@ describe('class methods', function() {
     expect(document.body.className).to.contain(expected[1]).and.not.to.contain(expected[0]);
   });
 
+  it('should toggle a class explicitly', function() {
+    var expected = getRndStr();
+    $(document.body).toggleClass(expected, false);
+    expect(document.body.className).to.not.contain(expected);
+    $(document.body).toggleClass(expected, true);
+    expect(document.body.className).to.contain(expected);
+    $(document.body).toggleClass(expected, true);
+    expect(document.body.className).to.contain(expected);
+  });
+
   it('should check a class', function() {
     var expected = getRndStr(),
       hasClass = $('#testFragment').hasClass(expected);
