@@ -87,7 +87,7 @@ export const text = function(value) {
  * @return {Object} The wrapped collection
  * @chainable
  * @example
- *     $('input.firstName').value('New value');
+ *     $('input.firstName').val('New value');
  */
 
 export const val = function(value) {
