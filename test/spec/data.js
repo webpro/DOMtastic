@@ -1,7 +1,5 @@
 describe('data', function() {
 
-  var DATAKEYPROP = '__DOMTASTIC_DATA__';
-
   describe('data', function() {
 
     describe('set', function() {
@@ -9,14 +7,14 @@ describe('data', function() {
       it('should set data on element', function() {
         $(document.body).data('myAttribute', 'myValue');
         var expected = 'myValue',
-          actual = document.body[DATAKEYPROP]['myAttribute'];
+          actual = document.body.dataset['myAttribute'];
         expect(actual).to.equal(expected);
       });
 
       it('should set data on elements', function() {
         $('#testFragment li').data('myAttribute', 'myValue');
         var expected = 'myValue',
-          actual = $('.two')[0][DATAKEYPROP]['myAttribute'];
+          actual = $('.two')[0].dataset['myAttribute'];
         expect(actual).to.equal(expected);
       });
 
@@ -31,9 +29,22 @@ describe('data', function() {
     describe('get', function() {
 
       it('should get data from first element', function() {
+        var actual = $('#testFragment li').data('id'),
+          expected = '1';
+        expect(actual).to.equal(expected);
+      });
+
+      it('should get data from first element (by attr))', function() {
         $('#testFragment .two').data('firstAttr', 'firstValue');
-        var actual = $('#testFragment [class]').data('firstAttr'),
+        var actual = $('#testFragment [class]')[0].getAttribute('data-first-attr'),
           expected = 'firstValue';
+        expect(actual).to.equal(expected);
+      });
+
+      it('should get data from first element', function() {
+        $('#testFragment .two').data('secondAttr', 'secondValue');
+        var actual = $('#testFragment [class]').data('secondAttr'),
+          expected = 'secondValue';
         expect(actual).to.equal(expected);
       });
 
@@ -99,7 +110,7 @@ describe('data', function() {
   it('should provide a chainable API', function() {
     var element = $('#testEmpty').data('foo', 'bar').data('foo', 'baz').prop('foo', 'baz'),
       expected = 'baz',
-      actual = element[0][DATAKEYPROP]['foo'];
+      actual = element[0].dataset['foo'];
     expect(actual).to.equal(expected);
   });
 
