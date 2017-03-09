@@ -2,14 +2,14 @@
  * @module noConflict
  */
 
-import { global } from './util';
+import { win } from './util';
 
 /*
  * Save the previous value of the global `$` variable, so that it can be restored later on.
  * @private
  */
 
-const previousLib = global.$;
+const previousLib = win.$;
 
 /**
  * In case another library sets the global `$` variable before DOMtastic does,
@@ -21,6 +21,6 @@ const previousLib = global.$;
  */
 
 export const noConflict = function() {
-  global.$ = previousLib;
+  win.$ = previousLib;
   return this;
 };

@@ -2,7 +2,7 @@
  * @module Selector
  */
 
-import { global, each } from '../util';
+import { win, each } from '../util';
 
 let isPrototypeSet = false;
 
@@ -90,7 +90,7 @@ export const find = function(selector) {
  */
 
 export const matches = (() => {
-  const context = typeof Element !== 'undefined' ? Element.prototype : global;
+  const context = typeof Element !== 'undefined' ? Element.prototype : win;
   const _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.msMatchesSelector || context.oMatchesSelector || context.webkitMatchesSelector;
   return (element, selector) => _matches.call(element, selector);
 })();

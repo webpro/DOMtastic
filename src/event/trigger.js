@@ -2,7 +2,7 @@
  * @module trigger
  */
 
-import { global, each } from '../util';
+import { win, each } from '../util';
 import { contains } from '../dom/contains';
 
 const reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/;
@@ -146,8 +146,8 @@ const dispatchEvent = (element, event) => {
     return customEvent;
   };
 
-  CustomEvent.prototype = global.CustomEvent && global.CustomEvent.prototype;
-  global.CustomEvent = CustomEvent;
+  CustomEvent.prototype = win.CustomEvent && win.CustomEvent.prototype;
+  win.CustomEvent = CustomEvent;
 
 })();
 
@@ -158,7 +158,7 @@ const dispatchEvent = (element, event) => {
 
 const isEventBubblingInDetachedTree = (() =>{
   let isBubbling = false;
-  const doc = global.document;
+  const doc = win.document;
   if(doc) {
     const parent = doc.createElement('div');
     const child = parent.cloneNode();
@@ -173,7 +173,7 @@ const isEventBubblingInDetachedTree = (() =>{
 
 const supportsOtherEventConstructors = (() => {
   try {
-    new window.MouseEvent('click');
+    new MouseEvent('click');
   } catch(e) {
     return false;
   }

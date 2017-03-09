@@ -3,11 +3,11 @@
  */
 
 /*
- * Reference to the global scope
+ * Reference to the window object
  * @private
  */
 
-export const global = new Function('return this')();
+export const win = typeof window !== 'undefined' ? window : {};
 
 /**
  * Convert `NodeList` to `Array`.
