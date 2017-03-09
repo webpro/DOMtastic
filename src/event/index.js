@@ -240,7 +240,7 @@ const augmentEvent = event => {
  * @param {Event} event
  */
 
-export const delegateHandler = (selector, handler, event) => {
+export const delegateHandler = function(selector, handler, event) {
   const eventTarget = event._target || event.target;
   const currentTarget = closest.call([eventTarget], selector, this)[0];
   if(currentTarget && currentTarget !== this) {
