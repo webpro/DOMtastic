@@ -131,7 +131,7 @@ const dispatchEvent = (element, event) => {
 };
 
 /**
- * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent#Polyfill).
+ * Polyfill for CustomEvent, borrowed from [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill).
  * Needed to support IE (9, 10, 11) & PhantomJS
  */
 
