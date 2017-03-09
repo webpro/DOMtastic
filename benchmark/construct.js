@@ -14,8 +14,7 @@
   };
 
   bench.setup.push(function() {
-    document.getElementById('container').innerHTML +=
-      '<div class="construct"></div>'
+    document.getElementById('container').innerHTML += '<div class="construct"></div>';
   });
 
   suites.push(Benchmark.Suite('Constructor.Simple selector')
