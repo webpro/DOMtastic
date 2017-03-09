@@ -108,7 +108,7 @@ const triggerForPath = (element, type, params = {}) => {
   event._target = element;
   do {
     dispatchEvent(element, event);
-  } while(element = element.parentNode);
+  } while(element = element.parentNode); // eslint-disable-line no-cond-assign
 };
 
 /**

@@ -126,6 +126,6 @@ export const siblings = function(selector) {
  *     // New wrapped collection containing the second, third, and fourth element.
  */
 
-export const slice = function(start, end) {
+export const slice = function(start, end) { // eslint-disable-line no-unused-vars
   return $([].slice.apply(this, arguments));
 };

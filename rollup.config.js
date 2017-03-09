@@ -20,18 +20,18 @@ export default {
   moduleName: '$',
   sourceMap: true,
   plugins: [
-      excludeModules({
-          exclude: exclude,
-          include: include
-      }),
-      redirectModules({
-          enabled: jQueryCompat,
-          path: 'src-jquery-compat'
-      }),
-      babel(),
-      replace({
-          __VERSION__: pkg.version
-      }),
-      minify ? uglify() : {}
+    excludeModules({
+      exclude: exclude,
+      include: include
+    }),
+    redirectModules({
+      enabled: jQueryCompat,
+      path: 'src-jquery-compat'
+    }),
+    babel(),
+    replace({
+      __VERSION__: pkg.version
+    }),
+    minify ? uglify() : {}
   ]
 };
