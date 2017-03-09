@@ -6,15 +6,13 @@ env:
   global:
     - GHPAGES=".gh-pages"
     - secure: "ZguNnybtl6L0Ww7IO8+wol2r/OZcr39ADAm+sT3hYDHbMV7z5SMP2oJLT4jyeudPMhpdyrkGUygjMY6ofAj6QjFEjhWXIJNnRR5eh0sMDBD3+aa/UnDq0zymMt/VCeg0JPN+RpizwLnEv+i/QfoWmAsZwpLheKGUW+//GP8CsYk="
-    - SAUCE_USERNAME="webpro"
-    - secure: "JFR5yb2JmkzHPQY0KigOXX92B4CRbKI61Dq84+Rs+f69ekpfy1CRLcUfBuT1TzkcrkSnMj/CQjILK9ll6EZMmodxvzDpSw6sgiqwF2/XAaEchxpcFXdjA0Fvyo5h2ZwLWaOYWjDCKczAYLkT5Mj/oRd2orYbTqj+9PTo3W1Cv+E="
     - COVERALLS_SERVICE_NAME=travis-ci
     - secure: "NGCnYXwPfpdiu7ssBpjnhtB8Wvwlsnue2b/qdCsMZ6z8KDehvGUYCWAXrJPrWFbIKm05ksweju9tXLWA0xYwrG+bJFhwJoABNsImXtrZepwMiZAElXzMc8TZdH2MPmIa5BVgEyil4Ju94eUrRL/yXq7Qpw484OIdXIRnjELDgHM="
 branches:
   except:
     - dev
 before_install:
-  - "npm i coveralls@2.11.8 ecstatic@1.4.0 request@2.69.0 sauce-tunnel@2.4.0"
+  - "npm i coveralls@2.12.0"
 script:
   - "npm test"
   - "npm run test:jquery"
@@ -33,6 +31,5 @@ after_success:
   - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
   - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
   - "rm -rf $GHPAGES/doc && ./node_modules/doxstrap/bin/doxstrap.js --title DOMtastic --output $GHPAGES/doc"
-  - "node test/lib/sauce.js"
   - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null"
   - "cd $TRAVIS_BUILD_DIR"
