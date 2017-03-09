@@ -1,7 +1,7 @@
 describe('html', function() {
 
-  var emptyContainer = $('#testEmpty'),
-    html = '<article><section><p>foo</p><p>bar</p></section></article>';
+  var emptyContainer = $('#testEmpty');
+  var html = '<article><section><p>foo</p><p>bar</p></section></article>';
 
   beforeEach(function() {
     emptyContainer[0].innerHTML = '';
@@ -11,29 +11,29 @@ describe('html', function() {
 
     it('should set the innerHTML for an element', function() {
       emptyContainer.html(html);
-      expect(emptyContainer[0].innerHTML).to.equal(html);
+      assert(emptyContainer[0].innerHTML === html);
     });
 
     it('should set the innerHTML of a <fieldset> (<legend>)', function() {
-      var $select = $('<fieldset/>'),
-        html = '<legend>1</legend>';
+      var $select = $('<fieldset/>');
+      var html = '<legend>1</legend>';
       $select.html(html);
-      expect($select[0].innerHTML).to.equal(html);
+      assert($select[0].innerHTML === html);
     });
 
     it('should set the innerHTML of a <fieldset> (<div>)', function() {
-      var $select = $('<fieldset/>'),
-        html = '<div>1</div>';
+      var $select = $('<fieldset/>');
+      var html = '<div>1</div>';
       $select.html(html);
-      expect($select[0].innerHTML).to.equal(html);
+      assert($select[0].innerHTML === html);
     });
 
     it('should not throw when trying to set html in empty collection', function() {
-      var element = $('#not-there'),
-        fn = element.html.bind(element),
-        actual = element.html('brop');
-      expect(fn).not.to.throw(TypeError);
-      expect(actual).to.have.same.elements(element);
+      var element = $('#not-there');
+      var fn = element.html.bind(element);
+      var actual = element.html('brop');
+      assert.doesNotThrow(fn, TypeError);
+      assert.deepEqual(actual, element);
     });
 
   });
@@ -42,61 +42,61 @@ describe('html', function() {
 
     before(function() {
       if(!$helpers.isSupportsTableInnerHTML) {
-        this.skip()
+        this.skip();
       }
     });
 
     it('should set the innerHTML of a <table> (<tr>)', function() {
-      var $table = $('<table/>'),
-        html = '<tr><td>1</td></tr>',
-        expected = '<tbody><tr><td>1</td></tr></tbody>';
+      var $table = $('<table/>');
+      var html = '<tr><td>1</td></tr>';
+      var expected = '<tbody><tr><td>1</td></tr></tbody>';
       $table.html(html);
-      expect($table[0].innerHTML).to.equal(expected);
+      assert($table[0].innerHTML === expected);
     });
 
     it('should set the innerHTML of a <table> (<tr><tr>)', function() {
-      var $table = $('<table/>'),
-        html = '<tr><td>1</td></tr><tr><td>2</td></tr>',
-        expected = '<tbody>' + html + '</tbody>';
+      var $table = $('<table/>');
+      var html = '<tr><td>1</td></tr><tr><td>2</td></tr>';
+      var expected = '<tbody>' + html + '</tbody>';
       $table.html(html);
-      expect($table[0].innerHTML).to.equal(expected);
+      assert($table[0].innerHTML === expected);
     });
 
     it('should set the innerHTML of a <table> (<td>)', function() {
-      var $table = $('<table/>'),
-        html = '<td>1</td>',
-        expected = '<tbody><tr><td>1</td></tr></tbody>';
+      var $table = $('<table/>');
+      var html = '<td>1</td>';
+      var expected = '<tbody><tr><td>1</td></tr></tbody>';
       $table.html(html);
-      expect($table[0].innerHTML).to.equal(expected);
+      assert($table[0].innerHTML === expected);
     });
 
     it('should set the innerHTML of a <table> (<div>)', function() {
-      var $table = $('<table/>'),
-        html = '<div>1</div>';
+      var $table = $('<table/>');
+      var html = '<div>1</div>';
       $table.html(html);
-      expect($table[0].innerHTML).to.equal(html);
+      assert($table[0].innerHTML === html);
     });
 
     it('should set the innerHTML of a <select> (<option>)', function() {
-      var $select = $('<select/>'),
-        html = '<option>1</option>';
+      var $select = $('<select/>');
+      var html = '<option>1</option>';
       $select.html(html);
-      expect($select[0].innerHTML).to.equal(html);
+      assert($select[0].innerHTML === html);
     });
 
     it('should set the innerHTML of a <select> (<option><option>)', function() {
-      var $select = $('<select/>'),
-        html = '<option>1</option><option>2</option>';
+      var $select = $('<select/>');
+      var html = '<option>1</option><option>2</option>';
       $select.html(html);
-      expect($select[0].innerHTML).to.equal(html);
+      assert($select[0].innerHTML === html);
     });
 
     it('should set the innerHTML of a <select> (<div>)', function() {
-      var $select = $('<select/>'),
-        html = '<div>1</div>',
-        expected = '1';
+      var $select = $('<select/>');
+      var html = '<div>1</div>';
+      var expected = '1';
       $select.html(html);
-      expect($select[0].innerHTML).to.equal(expected);
+      assert($select[0].innerHTML === expected);
     });
 
   });
@@ -105,15 +105,15 @@ describe('html', function() {
 
     it('should get the innerHTML for an element', function() {
       emptyContainer[0].innerHTML = html;
-      expect(emptyContainer.html()).to.equal(html);
+      assert(emptyContainer.html() === html);
     });
 
     it('should not throw when trying to get html in empty collection', function() {
-      var element = $('#not-there'),
-        fn = element.html.bind(element),
-        actual = element.html();
-      expect(fn).not.to.throw(TypeError);
-      expect(actual).to.be.undefined;
+      var element = $('#not-there');
+      var fn = element.html.bind(element);
+      var actual = element.html();
+      assert.doesNotThrow(fn, TypeError);
+      assert(actual === undefined);
     });
 
   });
@@ -121,7 +121,7 @@ describe('html', function() {
   it('should provide a chainable API', function() {
     var expected = emptyContainer;
     var actual = expected.html('');
-    expect(actual).to.be.equal(expected);
+    assert(actual === expected);
   });
 
 });

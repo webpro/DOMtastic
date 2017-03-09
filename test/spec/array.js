@@ -11,140 +11,140 @@ describe('array', function() {
   };
 
   it('should have proper every', function() {
-    var expected = $('#testFragment li'),
-      actual = expected.every(function(element, index, collection) {
-        expect(index).to.be.a('number');
-        expect(collection).to.equal(expected);
-        expect(this).to.equal(expected);
-        return element.nodeType === 1;
-      }, expected);
-    expect(actual).to.be.true;
+    var expected = $('#testFragment li');
+    var actual = expected.every(function(element, index, collection) {
+      assert(typeof index === 'number');
+      assert(collection === expected);
+      assert(this === expected);
+      return element.nodeType === 1;
+    }, expected);
+    assert(actual);
   });
 
   it('should have proper filter', function() {
-    var expected = $('#testFragment li[class]'),
-      all = $('#testFragment li'),
-      actual = all.filter(function(element, index, collection) {
-        expect(index).to.be.a('number');
-        expect(collection).to.equal(all);
-        expect(this).to.equal(expected);
-        return !!element.className;
-      }, expected);
-    expect(actual).to.have.same.elements(expected);
-    expect(actual).to.have.length(3);
+    var expected = $('#testFragment li[class]');
+    var all = $('#testFragment li');
+    var actual = all.filter(function(element, index, collection) {
+      assert(typeof index === 'number');
+      assert(collection === all);
+      assert(this === expected);
+      return !!element.className;
+    }, expected);
+    assert.deepEqual(actual, expected);
+    assert(actual.length === 3);
   });
 
   it('should have proper filter (selector)', function() {
-    var expected = $('#testFragment li[class]'),
-      actual = $('#testFragment li').filter('[class]');
-    expect(actual).to.have.same.elements(expected);
-    expect(actual).to.have.length(3);
+    var expected = $('#testFragment li[class]');
+    var actual = $('#testFragment li').filter('[class]');
+    assert.deepEqual(actual, expected);
+    assert(actual.length === 3);
   });
 
   it('should have proper forEach', function() {
-    var expected = $('#testFragment li'),
-      actual = [];
+    var expected = $('#testFragment li');
+    var actual = [];
     expected.each(function(element, index, collection) {
-      expect(index).to.be.a('number');
-      expect(collection).to.equal(expected);
-      expect(this).to.equal(expected);
+      assert(typeof index === 'number');
+      assert(collection === expected);
+      assert(this === expected);
       actual.push(element);
     }, expected);
-    expect(actual).to.have.length(5);
-    expect(actual[0]).to.equal(expected[0]);
-    expect(expected.forEach).to.equal(expected.each);
+    assert(actual.length === 5);
+    assert(actual[0] === expected[0]);
+    assert(expected.forEach === expected.each);
   });
 
   it('should have proper indexOf', function() {
-    var expected = 3,
-      elements = $('#testFragment li'),
-      element = elements[3],
-      actual = elements.indexOf(element);
-    expect(actual).to.equal(expected);
+    var expected = 3;
+    var elements = $('#testFragment li');
+    var element = elements[3];
+    var actual = elements.indexOf(element);
+    assert(actual === expected);
   });
 
   it('should have proper map', function() {
-    var expected = [1, 1, 1, 1, 1],
-      all = $('#testFragment li'),
-      actual = all.map(function(element, index, collection) {
-        expect(index).to.be.a('number');
-        expect(collection).to.equal(all);
-        expect(this).to.equal(expected);
-        return element.nodeType
-      }, expected);
-    expect(actual).to.deep.equal(expected);
+    var expected = [1, 1, 1, 1, 1];
+    var all = $('#testFragment li');
+    var actual = all.map(function(element, index, collection) {
+      assert(typeof index === 'number');
+      assert(collection === all);
+      assert(this === expected);
+      return element.nodeType
+    }, expected);
+    assert.deepEqual(actual, expected);
   });
 
   it('should have proper pop', function() {
-    var expected = $('#testFragment li')[4],
-      elements = $('#testFragment li'),
-      actual = elements.pop();
-    expect(actual).to.equal(expected);
-    expect(elements).to.have.length(4);
+    var expected = $('#testFragment li')[4];
+    var elements = $('#testFragment li');
+    var actual = elements.pop();
+    assert(actual === expected);
+    assert(elements.length === 4);
   });
 
   it('should have proper push', function() {
-    var elements = $('#testFragment li'),
-      element = document.createElement('li'),
-      actual = elements.push(element);
-    expect(elements).to.have.length(6);
-    expect(actual).to.equal(6);
-    expect(elements[5]).to.equal(element);
+    var elements = $('#testFragment li');
+    var element = document.createElement('li');
+    var actual = elements.push(element);
+    assert(elements.length === 6);
+    assert(actual === 6);
+    assert(elements[5] === element);
   });
 
   it('should have proper reduce', function() {
-    var expected = 5,
-      all = $('#testFragment li'),
-      actual = all.reduce(function(previousValue, currentValue, index, collection) {
-        expect(previousValue).to.be.a('number');
-        expect(currentValue).to.equal(collection[index]);
-        expect(index).to.be.a('number');
-        expect(collection).to.equal(all);
-        return previousValue + currentValue.nodeType
-      }, 0);
-    expect(actual).to.equal(expected);
+    var expected = 5;
+    var all = $('#testFragment li');
+    var actual = all.reduce(function(previousValue, currentValue, index, collection) {
+      assert(typeof previousValue === 'number');
+      assert(currentValue === collection[index]);
+      assert(typeof index === 'number');
+      assert(collection === all);
+      return previousValue + currentValue.nodeType
+    }, 0);
+    assert(actual === expected);
   });
 
   it('should have proper reduceRight', function() {
-    var expected = 5,
-      all = $('#testFragment li'),
-      actual = all.reduceRight(function(previousValue, currentValue, index, collection) {
-        expect(previousValue).to.be.a('number');
-        expect(currentValue).to.equal(collection[index]);
-        expect(index).to.be.a('number');
-        expect(collection).to.equal(all);
-        return previousValue + currentValue.nodeType
-      }, 0);
-    expect(actual).to.equal(expected);
+    var expected = 5;
+    var all = $('#testFragment li');
+    var actual = all.reduceRight(function(previousValue, currentValue, index, collection) {
+      assert(typeof previousValue === 'number');
+      assert(currentValue === collection[index]);
+      assert(typeof index === 'number');
+      assert(collection === all);
+      return previousValue + currentValue.nodeType
+    }, 0);
+    assert(actual === expected);
   });
 
   it('should have proper reverse', function() {
-    var expected = $('#testFragment li')[0],
-      actual = $('#testFragment li').reverse()[4];
-    expect(actual).to.equal(expected);
+    var expected = $('#testFragment li')[0];
+    var actual = $('#testFragment li').reverse()[4];
+    assert(actual === expected);
   });
 
   it('should have proper shift', function() {
-    var expected = $('#testFragment li')[0],
-      elements = $('#testFragment li'),
-      actual = elements.shift();
-    expect(actual).to.equal(expected);
-    expect(elements).to.have.length(4);
+    var expected = $('#testFragment li')[0];
+    var elements = $('#testFragment li');
+    var actual = elements.shift();
+    assert(actual === expected);
+    assert(elements.length === 4);
   });
 
   it('should have proper unshift', function() {
-    var elements = $('#testFragment li'),
-      element = document.createElement('li'),
-      actual = elements.unshift(element);
-    expect(elements).to.have.length(6);
-    expect(actual).to.equal(6);
-    expect(elements[0]).to.equal(element);
+    var elements = $('#testFragment li');
+    var element = document.createElement('li');
+    var actual = elements.unshift(element);
+    assert(elements.length === 6);
+    assert(actual === 6);
+    assert(elements[0] === element);
   });
 
   it('should provide a chainable API', function() {
-    var expected = $('#testFragment li'),
-      actual = expected.each(noop).reverse().filter(noop).reverse();
-    expect(actual).to.have.same.elements(expected);
+    var expected = $('#testFragment li');
+    var actual = expected.each(noop).reverse().filter(noop).reverse();
+    assert.deepEqual(actual, expected);
   });
 
 });

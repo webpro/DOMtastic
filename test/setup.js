@@ -1,9 +1,8 @@
 const jsdomGlobal = require('jsdom-global');
 const fs = require('fs');
 
-global.chai = require('chai');
+global.assert = require('assert');
 global.sinon = require('sinon');
-global.expect = chai.expect;
 
 jsdomGlobal(fs.readFileSync('./test/index.html'));
 

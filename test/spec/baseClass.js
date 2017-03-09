@@ -13,7 +13,7 @@ describe('baseClass', function() {
   }
 
   function MyComponent() {
-    Object.getPrototypeOf(MyComponent.prototype).constructor.apply(this, arguments); // super()
+    Object.getPrototypeOf(MyComponent.prototype).constructor.apply(this, arguments); // super();
   }
 
   _inherits(MyComponent, $.BaseClass);
@@ -24,31 +24,31 @@ describe('baseClass', function() {
 
   it('should allow to extend from baseClass', function() {
     var component = new MyComponent('body');
-    expect(component instanceof MyComponent).to.be.true;
-    expect(component instanceof $.BaseClass).to.be.true;
-    expect(MyComponent.prototype instanceof $.BaseClass).to.be.true;
+    assert(component instanceof MyComponent);
+    assert(component instanceof $.BaseClass);
+    assert(MyComponent.prototype instanceof $.BaseClass);
   });
 
   it('should extend properly from baseClass', function() {
-    var expected = $helpers.getRndStr(),
-      component = new MyComponent('body');
+    var expected = $helpers.getRndStr();
+    var component = new MyComponent('body');
     component.doSomething(expected);
-    expect(component.find).to.be.a('function');
-    expect(document.body.className).to.contain(expected);
+    assert(typeof component.find === 'function');
+    assert(document.body.className.indexOf(expected) !== -1);
   });
 
   it('should accept Nodes, just like $()', function() {
-    var expected = $(document.body),
-      actual = new MyComponent(document.body);
-    expect(actual).to.have.same.elements(expected);
+    var expected = $(document.body);
+    var actual = new MyComponent(document.body);
+    assert(actual[0] === expected[0]);
   });
 
   it('should be chainable', function() {
-    var className = $helpers.getRndStr(),
-      expected = new MyComponent(document.body),
-      actual = expected.doSomething(className).addClass(className);
-    expect(actual).to.equal(expected);
-    expect(document.body.className).to.contain(className);
+    var className = $helpers.getRndStr();
+    var expected = new MyComponent(document.body);
+    var actual = expected.doSomething(className).addClass(className);
+    assert(actual === expected);
+    assert(document.body.className.indexOf(className) !== -1);
   });
 
 });

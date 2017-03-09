@@ -1,7 +1,7 @@
 describe('events', function() {
 
   function trigger(element, type) {
-    var ev = new CustomEvent(type, {bubbles: true});
+    var ev = new CustomEvent(type, { bubbles: true });
     for(var i = 0, l = element.length; i < l; i++) {
       element[i].dispatchEvent(ev);
     }
@@ -19,98 +19,98 @@ describe('events', function() {
       var element = $(document.body);
       element.on('click', spy);
       trigger(element, 'click');
-      expect(spy).to.have.been.called;
+      assert(spy.called);
     });
 
     it('should execute event handler with element as `this` value', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr(),
-        expected = element[0];
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
+      var expected = element[0];
       element.on(eventType, spy);
       trigger(element, eventType);
-      expect(spy.firstCall.thisValue).to.equal(expected);
+      assert(spy.firstCall.thisValue === expected);
     });
 
     it('should attach event handlers to multiple elements', function() {
       var elements = $('#testFragment li');
       elements.on('click', spy);
       trigger(elements, 'click');
-      expect(spy.callCount).to.equal(5);
+      assert(spy.callCount === 5);
     });
 
     it('should attach an event handler of any type to an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       trigger(element, eventType);
-      expect(spy).to.have.been.called;
+      assert(spy.called);
     });
 
     it('should attach an event handler with a namespaced type to an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr(),
-        eventNS = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
+      var eventNS = $helpers.getRndStr();
       element.on([eventType, eventNS].join('.'), spy);
       trigger(element, eventType);
-      expect(spy).to.have.been.called;
+      assert(spy.called);
     });
 
     it('should attach multiple space-separated events to an element', function() {
-      var element = $(document.body),
-        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
+      var element = $(document.body);
+      var eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
       element.on(eventTypes.join(' '), spy);
       trigger(element, eventTypes[0]);
       trigger(element, eventTypes[1]);
       trigger(element, eventTypes[2]);
-      expect(spy).to.have.been.calledThrice;
+      assert(spy.calledThrice);
     });
 
     describe('delegated', function() {
 
       it('should execute event handler with element as `this` value', function() {
-        var eventType = $helpers.getRndStr(),
-          expected = $('#testFragment')[0];
+        var eventType = $helpers.getRndStr();
+        var expected = $('#testFragment')[0];
         $(document.body).on(eventType, '#testFragment', spy);
         trigger($('.fourth'), eventType);
-        expect(spy.firstCall.thisValue).to.equal(expected);
+        assert(spy.firstCall.thisValue === expected);
       });
 
       it('should have the correct `event.target` and `event.currentTarget`', function() {
-        var element = $('.fourth'),
-          eventType = $helpers.getRndStr();
+        var element = $('.fourth');
+        var eventType = $helpers.getRndStr();
         $(document.body).on(eventType, 'li', function(event) {
-          expect(event.target).to.equal(element[0]);
-          expect(this).to.equal(element[0]);
-          // expect(this).to.equal(event.currentTarget); // Can't override this property
+          assert(event.target === element[0]);
+          assert(this === element[0]);
+          // assert(this === event.currentTarget); // Can't override this property
         });
         trigger(element, eventType);
       });
 
       it('should receive a delegated event from a child element', function() {
-        var element = $(document.body),
-          eventType = $helpers.getRndStr();
+        var element = $(document.body);
+        var eventType = $helpers.getRndStr();
         element.on(eventType, '#testFragment ul', spy);
         element.on(eventType, '#testFragment li', spy);
         trigger($('.fourth'), eventType);
-        expect(spy).to.have.been.calledTwice;
+        assert(spy.calledTwice);
       });
 
       it('should receive delegated events from child elements', function() {
-        var element = $(document.body),
-          eventType = $helpers.getRndStr();
+        var element = $(document.body);
+        var eventType = $helpers.getRndStr();
         element.on(eventType, 'li', spy);
         trigger($('.two'), eventType);
         trigger($('.three'), eventType);
         trigger($('.fourth'), eventType);
-        expect(spy).to.have.been.calledThrice;
+        assert(spy.calledThrice);
       });
 
       it('should receive delegated events from multiple child elements', function() {
-        var elements = $('#testFragment li'),
-          eventType = $helpers.getRndStr();
+        var elements = $('#testFragment li');
+        var eventType = $helpers.getRndStr();
         elements.on(eventType, 'span', spy);
         trigger($('#testFragment li span'), eventType);
-        expect(spy.callCount).to.have.equal(5);
+        assert(spy.callCount, 5);
       });
 
     });
@@ -121,125 +121,125 @@ describe('events', function() {
 
     it('should stop propagation', function() {
 
-      var parent = $(document.body),
-        child = $('.fourth'),
-        eventType = $helpers.getRndStr(),
-        event = new CustomEvent(eventType, {
-          bubbles: true,
-          cancelable: true,
-          detail: undefined
-        }),
-        eventSpy = sinon.spy(event, 'stopPropagation');
+      var parent = $(document.body);
+      var child = $('.fourth');
+      var eventType = $helpers.getRndStr();
+      var event = new CustomEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        detail: undefined
+      });
+      var eventSpy = sinon.spy(event, 'stopPropagation');
 
       parent.on(eventType, spy);
       child.on(eventType, function(event) {
-        expect(event.isPropagationStopped()).to.be.false;
+        assert(event.isPropagationStopped() === false);
         event.stopPropagation();
-        expect(event.isPropagationStopped()).to.be.true;
+        assert(event.isPropagationStopped());
       });
 
       child[0].dispatchEvent(event);
 
-      expect(eventSpy).to.have.been.called;
-      expect(spy).not.to.have.been.called;
+      assert(eventSpy.called);
+      assert(spy.called === false);
 
     });
 
     it('should stop propagation for delegated events', function() {
 
-      var parent = $(document.body),
-        child = $('.fourth'),
-        eventType = $helpers.getRndStr(),
-        event = new CustomEvent(eventType, {
-          bubbles: true,
-          cancelable: true,
-          detail: undefined
-        }),
-        eventSpy = sinon.spy(event, 'stopPropagation');
+      var parent = $(document.body);
+      var child = $('.fourth');
+      var eventType = $helpers.getRndStr();
+      var event = new CustomEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        detail: undefined
+      });
+      var eventSpy = sinon.spy(event, 'stopPropagation');
 
       parent.on(eventType, '#testFragment ul', function(event) {
-        expect(event.isPropagationStopped()).to.be.false;
+        assert(event.isPropagationStopped() === false);
         event.stopPropagation();
-        expect(event.isPropagationStopped()).to.be.true;
+        assert(event.isPropagationStopped());
       });
       parent.on(eventType, '#testFragment', spy);
 
       child[0].dispatchEvent(event);
 
-      expect(eventSpy).to.have.been.called;
-      expect(spy).not.to.have.been.called;
+      assert(eventSpy.called);
+      assert(spy.called === false);
 
     });
 
     it('should stop immediate propagation', function() {
 
-      var child = $('.fourth'),
-        eventType = $helpers.getRndStr(),
-        event = new CustomEvent(eventType),
-        eventSpy = sinon.spy(event, 'stopImmediatePropagation');
+      var child = $('.fourth');
+      var eventType = $helpers.getRndStr();
+      var event = new CustomEvent(eventType);
+      var eventSpy = sinon.spy(event, 'stopImmediatePropagation');
 
       child.on(eventType, function(event) {
-        expect(event.isImmediatePropagationStopped()).to.be.false;
+        assert(event.isImmediatePropagationStopped() === false);
         event.stopImmediatePropagation();
-        expect(event.isImmediatePropagationStopped()).to.be.true;
+        assert(event.isImmediatePropagationStopped());
       });
       child.on(eventType, spy);
 
       child[0].dispatchEvent(event);
 
-      expect(eventSpy).to.have.been.called;
-      expect(spy).not.to.have.been.called;
+      assert(eventSpy.called);
+      assert(spy.called === false);
 
     });
 
     it('should stop immediate propagation for delegated events', function() {
 
-      var parent = $(document.body),
-        child = $('.fourth'),
-        eventType = $helpers.getRndStr(),
-        event = new CustomEvent(eventType, {
-          bubbles: true,
-          cancelable: true,
-          detail: undefined
-        }),
-        eventSpy = sinon.spy(event, 'stopImmediatePropagation');
+      var parent = $(document.body);
+      var child = $('.fourth');
+      var eventType = $helpers.getRndStr();
+      var event = new CustomEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        detail: undefined
+      });
+      var eventSpy = sinon.spy(event, 'stopImmediatePropagation');
 
       parent.on(eventType, '#testFragment', function(event) {
-        expect(event.isImmediatePropagationStopped()).to.be.false;
+        assert(event.isImmediatePropagationStopped() === false);
         event.stopImmediatePropagation();
-        expect(event.isImmediatePropagationStopped()).to.be.true;
+        assert(event.isImmediatePropagationStopped());
       });
       parent.on(eventType, '#testFragment', spy);
 
       child[0].dispatchEvent(event);
 
-      expect(eventSpy).to.have.been.called;
-      expect(spy).not.to.have.been.called;
+      assert(eventSpy.called);
+      assert(spy.called === false);
 
     });
 
     it('should prevent default', function() {
 
-      var element = $('#testFragment a'),
-        eventType = 'click',
-        event = new CustomEvent(eventType, {
-          bubbles: true,
-          cancelable: true,
-          detail: undefined
-        }),
-        eventSpy = sinon.spy(event, 'preventDefault'),
-        hash = '#' + $helpers.getRndStr();
+      var element = $('#testFragment a');
+      var eventType = 'click';
+      var event = new CustomEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        detail: undefined
+      });
+      var eventSpy = sinon.spy(event, 'preventDefault');
+      var hash = '#' + $helpers.getRndStr();
 
       element.on(eventType, function(event) {
-        expect(event.isDefaultPrevented()).to.be.false;
+        assert(event.isDefaultPrevented() === false);
         event.preventDefault();
-        expect(event.isDefaultPrevented()).to.be.true;
+        assert(event.isDefaultPrevented());
       });
 
       element[0].dispatchEvent(event);
 
-      expect(eventSpy).to.have.been.called;
-      expect(window.location.hash.replace(/^#/, '')).to.equal('');
+      assert(eventSpy.called);
+      assert(window.location.hash.replace(/^#/, '') === '');
 
       window.location.hash = '';
 
@@ -250,11 +250,11 @@ describe('events', function() {
   describe('bubbling', function() {
 
     it('should receive events bubbling up to an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       trigger($('.two'), eventType);
-      expect(spy).to.have.been.called;
+      assert(spy.called);
     });
 
   });
@@ -262,125 +262,125 @@ describe('events', function() {
   describe('off', function() {
 
     it('should detach an event handler from an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.off(eventType, spy);
       trigger(element, eventType);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach an event handler with a namespace from an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr(),
-        eventNS = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
+      var eventNS = $helpers.getRndStr();
       element.on([eventType, eventNS].join('.'), spy);
       element.off(eventType);
       trigger(element, eventType);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach all event handler from a namespace from an element', function() {
-      var element = $(document.body),
-        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr()],
-        eventNS = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventTypes = [$helpers.getRndStr(), $helpers.getRndStr()];
+      var eventNS = $helpers.getRndStr();
       element.on([eventTypes[0], eventNS].join('.'), spy);
       element.on([eventTypes[1], eventNS].join('.'), spy);
       element.off('.' + eventNS);
       trigger(element, eventTypes[0]);
       trigger(element, eventTypes[1]);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach an event handler with a namespace from an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr() + '.' + $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr() + '.' + $helpers.getRndStr();
       element.on(eventType, spy);
       element.off(eventType);
       trigger(element, eventType);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach space-separated event handlers from an element', function() {
-      var element = $(document.body),
-        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
+      var element = $(document.body);
+      var eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
       element.on(eventTypes.join(' '), spy);
       element.off(eventTypes[1]);
       trigger(element, eventTypes[0]);
       trigger(element, eventTypes[1]);
-      expect(spy).to.have.been.calledOnce;
+      assert(spy.calledOnce);
       spy.reset();
       element.off(eventTypes.join(' '));
       trigger(element, eventTypes[2]);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach all space-separated event handlers from an element', function() {
-      var element = $(document.body),
-        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
+      var element = $(document.body);
+      var eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
       element.on(eventTypes.join(' '), spy);
       element.off();
       trigger(element, eventTypes[0]);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach all event handlers from an element', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr();
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.on(eventType, spy);
       element.off();
       trigger(element, eventType);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should detach event handlers from multiple elements', function() {
-      var elements = $('#testFragment li'),
-        eventType = $helpers.getRndStr();
+      var elements = $('#testFragment li');
+      var eventType = $helpers.getRndStr();
       elements.on(eventType, spy);
       elements.off(eventType, spy);
       trigger(elements, eventType);
-      expect(spy).not.to.have.been.called;
+      assert(spy.called === false);
     });
 
     it('should not throw for elements without event handlers', function() {
-      var elements = $('#testEmpty'),
-        eventType = $helpers.getRndStr();
-      expect(function() {
+      var elements = $('#testEmpty');
+      var eventType = $helpers.getRndStr();
+      assert.doesNotThrow(function() {
         elements.off(eventType, function() {
         });
-      }).to.not.throw();
+      });
     });
 
     describe('delegated', function() {
 
       it('should detach a delegated event handler from an element', function() {
-        var element = $(document.body),
-          eventType = $helpers.getRndStr();
+        var element = $(document.body);
+        var eventType = $helpers.getRndStr();
         element.on(eventType, 'li', spy);
         element.off(eventType, 'li', spy);
         trigger($('.fourth'), eventType);
-        expect(spy).not.to.have.been.called;
+        assert(spy.called === false);
       });
 
       it('should detach a delegated event handler from multiple elements', function() {
-        var elements = $('#testFragment li'),
-          eventType = $helpers.getRndStr();
+        var elements = $('#testFragment li');
+        var eventType = $helpers.getRndStr();
         elements.on(eventType, 'li', spy);
         elements.off(eventType, 'li', spy);
         trigger($('.fourth'), eventType);
-        expect(spy).not.to.have.been.called;
+        assert(spy.called === false);
       });
 
       it('should remove all delegated handlers when un-delegating event handlers', function() {
-        var element = $(document.body),
-          eventType = $helpers.getRndStr();
+        var element = $(document.body);
+        var eventType = $helpers.getRndStr();
         element.on(eventType, 'li', spy);
         element.on(eventType, 'li', spy);
         element.on(eventType, 'li', spy);
         element.off(eventType, 'li', spy);
         trigger($('.two'), eventType);
-        expect(spy).not.to.have.been.called;
+        assert(spy.called === false);
       });
 
     });
@@ -389,15 +389,15 @@ describe('events', function() {
 
   describe('one', function() {
     it('should execute event handler only once', function() {
-      var element = $(document.body),
-        eventType = $helpers.getRndStr(),
-        expected = element[0];
+      var element = $(document.body);
+      var eventType = $helpers.getRndStr();
+      var expected = element[0];
       element.one(eventType, spy);
       trigger(element, eventType);
       trigger(element, eventType);
       trigger(element, eventType);
-      expect(spy.calledOnce).to.be.true;
-      expect(spy.firstCall.thisValue).to.equal(expected);
+      assert(spy.calledOnce);
+      assert(spy.firstCall.thisValue === expected);
     });
 
     it('should execute event handler only once for each element', function() {
@@ -406,7 +406,7 @@ describe('events', function() {
       trigger(elements[0], 'click');
       trigger(elements[1], 'click');
       trigger(elements, 'click');
-      expect(spy.callCount).to.equal(5);
+      assert(spy.callCount === 5);
     });
   });
 
@@ -415,7 +415,7 @@ describe('events', function() {
     it('should provide a chainable API', function() {
       var expected = $(document.body);
       var actual = expected.on('').off().on('', '').off();
-      expect(actual).to.be.equal(expected);
+      assert(actual === expected);
     });
 
   });

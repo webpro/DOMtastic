@@ -4,11 +4,11 @@ describe('noConflict', function() {
 
     var diplomat = $.noConflict();
 
-    expect(window.$).to.be.an('undefined');
+    assert(typeof window.$ === 'undefined');
 
     window.$ = diplomat;
 
-    expect(window.$).to.equal(diplomat);
+    assert(window.$ === diplomat);
 
   });
 

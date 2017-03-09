@@ -11,59 +11,59 @@ describe('array (jQuery compat)', function() {
   };
 
   it('should have proper filter', function() {
-    var expected = $('#testFragment li[class]'),
-      all = $('#testFragment li'),
-      actual = all.filter(function(index, element) {
-        expect(index).to.be.a('number');
-        expect(this).to.equal(element);
-        return !!element.className;
-      }, expected);
-    expect(actual).to.have.same.elements(expected);
-    expect(actual).to.have.length(3);
+    var expected = $('#testFragment li[class]');
+    var all = $('#testFragment li');
+    var actual = all.filter(function(index, element) {
+      assert(typeof index === 'number');
+      assert(this === element);
+      return !!element.className;
+    }, expected);
+    assert.deepEqual(actual, expected);
+    assert(actual.length === 3);
   });
 
   it('should have proper filter (selector)', function() {
-    var expected = $('#testFragment li[class]'),
-      actual = $('#testFragment li').filter('[class]');
-    expect(actual).to.have.same.elements(expected);
-    expect(actual).to.have.length(3);
+    var expected = $('#testFragment li[class]');
+    var actual = $('#testFragment li').filter('[class]');
+    assert.deepEqual(actual, expected);
+    assert(actual.length === 3);
   });
 
   it('should have proper each', function() {
-    var expected = $('#testFragment li'),
-      actual = [];
+    var expected = $('#testFragment li');
+    var actual = [];
     expected.each(function(index, element) {
-      expect(index).to.be.a('number');
-      expect(this).to.equal(element);
+      assert(typeof index === 'number');
+      assert(this === element);
       actual.push(element);
     }, expected);
-    expect(actual).to.have.length(5);
-    expect(actual[0]).to.equal(expected[0]);
+    assert(actual.length === 5);
+    assert(actual[0] === expected[0]);
   });
 
   it('should have proper index', function() {
-    var expected = 3,
-      elements = $('#testFragment li'),
-      element = elements[3],
-      actual = elements.index(element);
-    expect(actual).to.equal(expected);
+    var expected = 3;
+    var elements = $('#testFragment li');
+    var element = elements[3];
+    var actual = elements.index(element);
+    assert(actual === expected);
   });
 
   it('should have proper map', function() {
-    var expected = $([1, 1, 1, 1, 1]),
-      all = $('#testFragment li'),
-      actual = all.map(function(index, element) {
-        expect(index).to.be.a('number');
-        expect(this).to.equal(element);
-        return element.nodeType
-      }, expected);
-    expect(actual).to.deep.equal(expected);
+    var expected = $([1, 1, 1, 1, 1]);
+    var all = $('#testFragment li');
+    var actual = all.map(function(index, element) {
+      assert(typeof index === 'number');
+      assert(this === element);
+      return element.nodeType
+    }, expected);
+    assert.deepEqual(actual, expected);
   });
 
   it('should provide a chainable API', function() {
-    var expected = $('#testFragment li'),
-      actual = expected.each(noop).reverse().filter(noop).reverse();
-    expect(actual).to.have.same.elements(expected);
+    var expected = $('#testFragment li');
+    var actual = expected.each(noop).reverse().filter(noop).reverse();
+    assert.deepEqual(actual, expected);
   });
 
 });

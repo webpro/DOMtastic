@@ -8,22 +8,22 @@ describe('data', function() {
 
       it('should set data on element', function() {
         $(document.body).data('myAttribute', 'myValue');
-        var expected = 'myValue',
-          actual = document.body[DATAKEYPROP]['myAttribute'];
-        expect(actual).to.equal(expected);
+        var expected = 'myValue';
+        var actual = document.body[DATAKEYPROP]['myAttribute'];
+        assert(actual === expected);
       });
 
       it('should set data on elements', function() {
         $('#testFragment li').data('myAttribute', 'myValue');
-        var expected = 'myValue',
-          actual = $('.two')[0][DATAKEYPROP]['myAttribute'];
-        expect(actual).to.equal(expected);
+        var expected = 'myValue';
+        var actual = $('.two')[0][DATAKEYPROP]['myAttribute'];
+        assert(actual === expected);
       });
 
       it('should not throw when trying to set data in empty collection', function() {
-        var element = $('#not-there'),
-          fn = element.data.bind(element);
-        expect(fn).not.to.throw(TypeError);
+        var element = $('#not-there');
+        var fn = element.data.bind(element);
+        assert.doesNotThrow(fn, TypeError);
       });
 
     });
@@ -32,17 +32,17 @@ describe('data', function() {
 
       it('should get/set more data from first/same element', function() {
         $('#testFragment .two').data('secondAttr', 'secondValue');
-        var actual = $('#testFragment [class]').data('secondAttr'),
-          expected = 'secondValue';
-        expect(actual).to.equal(expected);
+        var actual = $('#testFragment [class]').data('secondAttr');
+        var expected = 'secondValue';
+        assert(actual === expected);
       });
 
       it('should not throw when trying to get attribute in empty collection', function() {
-        var element = $('#not-there'),
-          fn = element.data.bind(element),
-          actual = element.data('foo');
-        expect(fn).not.to.throw(TypeError);
-        expect(actual).to.be.undefined;
+        var element = $('#not-there');
+        var fn = element.data.bind(element);
+        var actual = element.data('foo');
+        assert.doesNotThrow(fn, TypeError);
+        assert(actual === undefined);
       });
 
     });
@@ -57,16 +57,16 @@ describe('data', function() {
       });
 
       it('should get data from first element', function() {
-        var actual = $('#testFragment li').data('id'),
-          expected = '1';
-        expect(actual).to.equal(expected);
+        var actual = $('#testFragment li').data('id');
+        var expected = '1';
+        assert(actual === expected);
       });
 
       it('should get data from first element (by attr))', function() {
         $('#testFragment .two').data('firstAttr', 'firstValue');
-        var actual = $('#testFragment [class]')[0].getAttribute('data-first-attr'),
-          expected = 'firstValue';
-        expect(actual).to.equal(expected);
+        var actual = $('#testFragment [class]')[0].getAttribute('data-first-attr');
+        var expected = 'firstValue';
+        assert(actual === expected);
       });
 
     });
@@ -79,22 +79,22 @@ describe('data', function() {
 
       it('should set property on element', function() {
         $(document.body).prop('myAttribute', 'myValue');
-        var expected = 'myValue',
-          actual = document.body['myAttribute'];
-        expect(actual).to.equal(expected);
+        var expected = 'myValue';
+        var actual = document.body['myAttribute'];
+        assert(actual === expected);
       });
 
       it('should set property on elements', function() {
         $('#testFragment li').prop('myAttribute', 'myValue');
-        var expected = 'myValue',
-          actual = $('.two')[0]['myAttribute'];
-        expect(actual).to.equal(expected);
+        var expected = 'myValue';
+        var actual = $('.two')[0]['myAttribute'];
+        assert(actual === expected);
       });
 
       it('should not throw when trying to set property in empty collection', function() {
-        var element = $('#not-there'),
-          fn = element.prop.bind(element);
-        expect(fn).not.to.throw(TypeError);
+        var element = $('#not-there');
+        var fn = element.prop.bind(element);
+        assert.doesNotThrow(fn, TypeError);
       });
 
     });
@@ -103,17 +103,17 @@ describe('data', function() {
 
       it('should get property from first element', function() {
         $('#testFragment .two').prop('firstAttr', 'firstValue');
-        var actual = $('#testFragment [class]').prop('firstAttr'),
-          expected = 'firstValue';
-        expect(actual).to.equal(expected);
+        var actual = $('#testFragment [class]').prop('firstAttr');
+        var expected = 'firstValue';
+        assert(actual === expected);
       });
 
       it('should not throw when trying to get attribute in empty collection', function() {
-        var element = $('#not-there'),
-          fn = element.prop.bind(element),
-          actual = element.prop('foo');
-        expect(fn).not.to.throw(TypeError);
-        expect(actual).to.be.undefined;
+        var element = $('#not-there');
+        var fn = element.prop.bind(element);
+        var actual = element.prop('foo');
+        assert.doesNotThrow(fn, TypeError);
+        assert(actual === undefined);
       });
 
     });
@@ -121,10 +121,10 @@ describe('data', function() {
   });
 
   it('should provide a chainable API', function() {
-    var element = $('#testEmpty').data('foo', 'bar').data('foo', 'baz').prop('foo', 'baz'),
-      expected = 'baz',
-      actual = element[0][DATAKEYPROP]['foo'];
-    expect(actual).to.equal(expected);
+    var element = $('#testEmpty').data('foo', 'bar').data('foo', 'baz').prop('foo', 'baz');
+    var expected = 'baz';
+    var actual = element[0][DATAKEYPROP]['foo'];
+    assert(actual === expected);
   });
 
 });

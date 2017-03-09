@@ -4,16 +4,16 @@ describe('attr', function() {
 
     it('should set attribute on element', function() {
       $(document.body).attr('myAttribute', 'myValue');
-      var expected = 'myValue',
-        actual = document.body.getAttribute('myAttribute');
-      expect(actual).to.equal(expected);
+      var expected = 'myValue';
+      var actual = document.body.getAttribute('myAttribute');
+      assert(actual === expected);
     });
 
     it('should set attribute on elements', function() {
       $('#testFragment li').attr('myAttribute', 'myValue');
-      var expected = 'myValue',
-        actual = $('.two')[0].getAttribute('myAttribute');
-      expect(actual).to.equal(expected);
+      var expected = 'myValue';
+      var actual = $('.two')[0].getAttribute('myAttribute');
+      assert(actual === expected);
     });
 
     it('should set multiple attributes on elements', function() {
@@ -21,15 +21,15 @@ describe('attr', function() {
         myAttribute: 'myValue',
         foo: 'bar'
       });
-      var expected = 'bar',
-        actual = $('.two')[0].getAttribute('foo');
-      expect(actual).to.equal(expected);
+      var expected = 'bar';
+      var actual = $('.two')[0].getAttribute('foo');
+      assert(actual === expected);
     });
 
     it('should not throw when trying to set attribute in empty collection', function() {
-      var element = $('#not-there'),
-        fn = element.attr.bind(element);
-      expect(fn).not.to.throw(TypeError);
+      var element = $('#not-there');
+      var fn = element.attr.bind(element);
+      assert.doesNotThrow(fn, TypeError);
     });
 
   });
@@ -38,17 +38,17 @@ describe('attr', function() {
 
     it('should get attribute from first element', function() {
       $('#testFragment .two').attr('firstAttr', 'firstValue');
-      var actual = $('#testFragment [class]').attr('firstAttr'),
-        expected = 'firstValue';
-      expect(actual).to.equal(expected);
+      var actual = $('#testFragment [class]').attr('firstAttr');
+      var expected = 'firstValue';
+      assert(actual === expected);
     });
 
     it('should not throw when trying to get attribute in empty collection', function() {
-      var element = $('#not-there'),
-        fn = element.attr.bind(element),
-        actual = element.attr('foo');
-      expect(fn).not.to.throw(TypeError);
-      expect(actual).to.be.undefined;
+      var element = $('#not-there');
+      var fn = element.attr.bind(element);
+      var actual = element.attr('foo');
+      assert.doesNotThrow(fn, TypeError);
+      assert(actual === undefined);
     });
 
   });
@@ -57,25 +57,25 @@ describe('attr', function() {
 
     it('should remove attribute from element', function() {
       var element = $('<div data-foo="1"></div>');
-      expect(element[0].attributes).to.have.length(1);
+      assert(element[0].attributes.length === 1);
       element.removeAttr('data-foo');
-      expect(element[0].attributes).to.have.length(0);
+      assert(element[0].attributes.length === 0);
     });
 
     it('should remove attribute from elements', function() {
       var element = $('<span a="1"></span><span a="2"></span>');
       element.removeAttr('a');
-      expect(element[0].attributes).to.have.length(0);
-      expect(element[1].attributes).to.have.length(0);
+      assert(element[0].attributes.length === 0);
+      assert(element[1].attributes.length === 0);
     });
 
   });
 
   it('should provide a chainable API', function() {
-    var element = $('#testEmpty').attr('foo', 'bar').attr('foo', 'baz'),
-      expected = 'baz',
-      actual = element[0].getAttribute('foo');
-    expect(actual).to.equal(expected);
+    var element = $('#testEmpty').attr('foo', 'bar').attr('foo', 'baz');
+    var expected = 'baz';
+    var actual = element[0].getAttribute('foo');
+    assert(actual === expected);
   });
 
 });

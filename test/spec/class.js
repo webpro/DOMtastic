@@ -3,84 +3,87 @@ describe('class methods', function() {
   it('should add a class', function() {
     var expected = $helpers.getRndStr();
     $(document.body).addClass(expected);
-    expect(document.body.className).to.contain(expected);
+    assert(document.body.className.indexOf(expected) !== -1);
   });
 
   it('should add classes', function() {
     var expected = [$helpers.getRndStr(), $helpers.getRndStr()];
     $(document.body).addClass(expected.join(' '));
-    expect(document.body.className).to.contain(expected[0]).and.to.contain(expected[1]);
+    assert(document.body.className.indexOf(expected[0]) !== -1);
+    assert(document.body.className.indexOf(expected[1]) !== -1);
   });
 
   it('should remove a class', function() {
     var unexpected = $helpers.getRndStr();
     $(document.body).addClass(unexpected).removeClass(unexpected);
-    expect(document.body.className).not.to.contain(unexpected);
+    assert(document.body.className.indexOf(unexpected) === -1);
   });
 
   it('should remove classes', function() {
     var unexpected = [$helpers.getRndStr(), $helpers.getRndStr()];
     $(document.body).addClass(unexpected[1]).addClass(unexpected[0]).removeClass(unexpected.join(' '));
-    expect(document.body.className).not.to.contain(unexpected[0]).and.not.to.contain(unexpected[1]);
+    assert(document.body.className.indexOf(unexpected[0]) === -1);
+    assert(document.body.className.indexOf(unexpected[1]) === -1);
   });
 
   it('should toggle a class', function() {
     var expected = $helpers.getRndStr();
     $(document.body).toggleClass(expected);
-    expect(document.body.className).to.contain(expected);
+    assert(document.body.className.indexOf(expected) !== -1);
     $(document.body).toggleClass(expected);
-    expect(document.body.className).not.to.contain(expected);
+    assert(document.body.className.indexOf(expected) === -1);
   });
 
   it('should toggle classes', function() {
     var expected = [$helpers.getRndStr(), $helpers.getRndStr()];
     $(document.body).toggleClass(expected[0]);
     $(document.body).toggleClass(expected.join(' '));
-    expect(document.body.className).to.contain(expected[1]).and.not.to.contain(expected[0]);
+    assert(document.body.className.indexOf(expected[0]) === -1);
+    assert(document.body.className.indexOf(expected[1]) !== -1);
   });
 
   it('should toggle a class explicitly', function() {
     var expected = $helpers.getRndStr();
     $(document.body).toggleClass(expected, false);
-    expect(document.body.className).to.not.contain(expected);
+    assert(document.body.className.indexOf(expected) === -1);
     $(document.body).toggleClass(expected, true);
-    expect(document.body.className).to.contain(expected);
+    assert(document.body.className.indexOf(expected) !== -1);
     $(document.body).toggleClass(expected, true);
-    expect(document.body.className).to.contain(expected);
+    assert(document.body.className.indexOf(expected) !== -1);
   });
 
   it('should check a class', function() {
-    var expected = $helpers.getRndStr(),
-      hasClass = $('#testFragment').hasClass(expected);
-    expect(hasClass).to.be.false;
+    var expected = $helpers.getRndStr();
+    var hasClass = $('#testFragment').hasClass(expected);
+    assert(hasClass === false);
     hasClass = $('#testFragment').addClass(expected).hasClass(expected);
-    expect(hasClass).to.be.true;
+    assert(hasClass);
   });
 
   it('should check a class on a NodeList', function() {
     var hasClass = $('#testFragment li').hasClass('fourth');
-    expect(hasClass).to.be.true;
+    assert(hasClass);
   });
 
   it('should not throw when trying to add a class in empty collection', function() {
-    var element = $('#not-there'),
-      fn = element.addClass.bind(element);
-    expect(fn).not.to.throw(TypeError);
+    var element = $('#not-there');
+    var fn = element.addClass.bind(element);
+    assert.doesNotThrow(fn, TypeError);
   });
 
   it('should not throw when trying to check a class in empty collection', function() {
-    var element = $('#not-there'),
-      fn = element.hasClass.bind(element),
-      hasClass = element.hasClass('testClass6');
-    expect(fn).not.to.throw(TypeError);
-    expect(hasClass).to.be.false;
+    var element = $('#not-there');
+    var fn = element.hasClass.bind(element);
+    var hasClass = element.hasClass('testClass6');
+    assert.doesNotThrow(fn, TypeError);
+    assert(hasClass === false);
   });
 
   it('should provide a chainable API', function() {
-    var expected = $('#testFragment'),
-      className = $helpers.getRndStr(),
-      actual = expected.addClass(className).removeClass(className).toggleClass(className);
-    expect(actual).to.have.same.elements(expected);
+    var expected = $('#testFragment');
+    var className = $helpers.getRndStr();
+    var actual = expected.addClass(className).removeClass(className).toggleClass(className);
+    assert.deepEqual(actual, expected);
   });
 
 });
