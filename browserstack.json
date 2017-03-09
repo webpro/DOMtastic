@@ -1,0 +1,55 @@
+{
+  "test_framework": "mocha",
+  "test_path": "test/index.html",
+  "browsers": [
+    "chrome_previous",
+    "chrome_latest",
+    "firefox_previous",
+    "firefox_latest",
+    "opera_previous",
+    "opera_latest",
+    "safari_previous",
+    "safari_latest",
+    "ie_9",
+    "ie_10",
+    "ie_11",
+    "edge_14",
+    {
+      "os": "android",
+      "os_version": "4.0",
+      "browser": "android",
+      "device": "HTC One X"
+    },
+    {
+      "os": "android",
+      "os_version": "4.4",
+      "browser": "android",
+      "device": "Samsung Galaxy S5"
+    },
+    {
+      "os": "android",
+      "os_version": "5.0",
+      "browser": "android",
+      "device": "Google Nexus 5"
+    },
+    {
+      "os": "ios",
+      "os_version": "7.0",
+      "browser": "iphone",
+      "device": "iPhone 5S",
+      "browser_version": null
+    },
+    {
+      "os": "ios",
+      "os_version": "8.3",
+      "browser": "iphone",
+      "device": "iPhone 6"
+    },
+    {
+      "os": "ios",
+      "os_version": "9.1",
+      "browser": "ipad",
+      "device": "iPad Pro"
+    }
+  ]
+}

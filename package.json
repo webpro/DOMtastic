@@ -45,6 +45,7 @@
     "prepublish": "npm run build",
     "test": "mocha",
     "test:jquery": "npm run bundle -- --jquery-compat && npm test",
+    "test:bs": "browserstack-runner",
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
   },
   "devDependencies": {
@@ -58,6 +59,7 @@
     "babel-plugin-transform-es2015-spread": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "benchrunner": "0.0.4",
+    "browserstack-runner": "^0.5.0",
     "doxstrap": "0.0.7",
     "eslint": "^3.17.0",
     "eslint-plugin-import": "^2.2.0",
