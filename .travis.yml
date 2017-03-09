@@ -4,8 +4,6 @@ node_js:
   - "6"
 env:
   global:
-    - GHPAGES=".gh-pages"
-    - secure: "ZguNnybtl6L0Ww7IO8+wol2r/OZcr39ADAm+sT3hYDHbMV7z5SMP2oJLT4jyeudPMhpdyrkGUygjMY6ofAj6QjFEjhWXIJNnRR5eh0sMDBD3+aa/UnDq0zymMt/VCeg0JPN+RpizwLnEv+i/QfoWmAsZwpLheKGUW+//GP8CsYk="
     - COVERALLS_SERVICE_NAME=travis-ci
     - secure: "NGCnYXwPfpdiu7ssBpjnhtB8Wvwlsnue2b/qdCsMZ6z8KDehvGUYCWAXrJPrWFbIKm05ksweju9tXLWA0xYwrG+bJFhwJoABNsImXtrZepwMiZAElXzMc8TZdH2MPmIa5BVgEyil4Ju94eUrRL/yXq7Qpw484OIdXIRnjELDgHM="
     - secure: "fkhmxG0s3ap2VbG1mePVv4ItRRMPLbrY7gMaNA2xmPvyaOWEktSwAiNJ/HvnTfjcSE1IBmVveKSFIM7sFHLSYacgZbjzTlHu3hxEsOGO2z9qERr2zFzlkSiMapUBnf1zETJue3Umjwtz6I7hSLFhedVVXdX4T9uf2Ylino8i0tg="
@@ -19,20 +17,5 @@ script:
   - "npm test"
   - "npm run test:jquery"
 after_success:
-  - "npm run coverage"
-  - "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-  - "git config --global user.email \"travis@travis-ci.org\" && git config --global user.name \"travis-ci\""
-  - "git clone --branch=gh-pages https://${GH_TOKEN}@github.com/webpro/DOMtastic.git $GHPAGES"
-  - "cat $GHPAGES/index.yml README.md > $GHPAGES/index.md"
-  - "npm run build"
-  - "rsync --recursive --delete dist/ $GHPAGES/dist/"
-  - "rsync --recursive --delete test/ $GHPAGES/test/"
-  - "rsync --recursive --delete benchmark/ $GHPAGES/benchmark/"
-  - "rsync --recursive --delete examples/ $GHPAGES/examples/"
-  - "rsync --recursive --delete vendor/ $GHPAGES/vendor/"
-  - "rsync --recursive --delete coverage/lcov-report/ $GHPAGES/coverage/"
-  - "cp coverage/coverage.json coverage/lcov.info $GHPAGES/coverage/"
-  - "rm -rf $GHPAGES/doc && ./node_modules/doxstrap/bin/doxstrap.js --title DOMtastic --output $GHPAGES/doc"
-  - "cd $GHPAGES && git add --all && git commit -m \"Update all the things\" && git push -fq origin gh-pages > /dev/null"
-  - "cd $TRAVIS_BUILD_DIR"
+  - "npm run coverage | coveralls"
   - "npm run test:bs"
