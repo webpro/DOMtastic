@@ -1,8 +1,8 @@
-node_modules
-bower_components
+coverage
 dist
 doc
-coverage
-complexity
-.stage
+node_modules
+vendor
 .idea
+.nyc_output
+.stage
