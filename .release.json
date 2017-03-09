@@ -1,0 +1,7 @@
+{
+  "dist": {
+    "repo": "https://github.com/webpro/DOMtastic.git#gh-pages",
+    "files": "",
+    "beforeStageCommand": "../build/gh-pages.sh"
+  }
+}

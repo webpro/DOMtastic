@@ -37,7 +37,7 @@
   "scripts": {
     "build": "rollup -c && rollup -c --minify",
     "bundle": "rollup -c",
-    "coverage": "nyc --reporter text --reporter html npm test",
+    "coverage": "nyc --reporter text --reporter html npm test -- --reporter=dot",
     "doc": "doxstrap --title DOMtastic --output doc",
     "lint": "eslint src",
     "fix": "eslint src --fix",
