@@ -14,6 +14,38 @@ describe('html', function() {
       expect(emptyContainer[0].innerHTML).to.equal(html);
     });
 
+    it('should set the innerHTML of a <fieldset> (<legend>)', function() {
+      var $select = $('<fieldset/>'),
+        html = '<legend>1</legend>';
+      $select.html(html);
+      expect($select[0].innerHTML).to.equal(html);
+    });
+
+    it('should set the innerHTML of a <fieldset> (<div>)', function() {
+      var $select = $('<fieldset/>'),
+        html = '<div>1</div>';
+      $select.html(html);
+      expect($select[0].innerHTML).to.equal(html);
+    });
+
+    it('should not throw when trying to set html in empty collection', function() {
+      var element = $('#not-there'),
+        fn = element.html.bind(element),
+        actual = element.html('brop');
+      expect(fn).not.to.throw(TypeError);
+      expect(actual).to.have.same.elements(element);
+    });
+
+  });
+
+  describe('set (magic)', function() {
+
+    before(function() {
+      if(!$helpers.isSupportsTableInnerHTML) {
+        this.skip()
+      }
+    });
+
     it('should set the innerHTML of a <table> (<tr>)', function() {
       var $table = $('<table/>'),
         html = '<tr><td>1</td></tr>',
@@ -65,28 +97,6 @@ describe('html', function() {
         expected = '1';
       $select.html(html);
       expect($select[0].innerHTML).to.equal(expected);
-    });
-
-    it('should set the innerHTML of a <fieldset> (<legend>)', function() {
-      var $select = $('<fieldset/>'),
-        html = '<legend>1</legend>';
-      $select.html(html);
-      expect($select[0].innerHTML).to.equal(html);
-    });
-
-    it('should set the innerHTML of a <fieldset> (<div>)', function() {
-      var $select = $('<fieldset/>'),
-        html = '<div>1</div>';
-      $select.html(html);
-      expect($select[0].innerHTML).to.equal(html);
-    });
-
-    it('should not throw when trying to set html in empty collection', function() {
-      var element = $('#not-there'),
-        fn = element.html.bind(element),
-        actual = element.html('brop');
-      expect(fn).not.to.throw(TypeError);
-      expect(actual).to.have.same.elements(element);
     });
 
   });

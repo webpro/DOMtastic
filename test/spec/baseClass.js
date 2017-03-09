@@ -1,5 +1,17 @@
 describe('baseClass', function() {
 
+  function _inherits(subClass, superClass) {
+    subClass.prototype = Object.create(superClass.prototype, {
+      constructor: {
+        value: subClass,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    subClass.__proto__ = superClass;
+  }
+
   function MyComponent() {
     Object.getPrototypeOf(MyComponent.prototype).constructor.apply(this, arguments); // super()
   }
@@ -18,7 +30,7 @@ describe('baseClass', function() {
   });
 
   it('should extend properly from baseClass', function() {
-    var expected = getRndStr(),
+    var expected = $helpers.getRndStr(),
       component = new MyComponent('body');
     component.doSomething(expected);
     expect(component.find).to.be.a('function');
@@ -32,7 +44,7 @@ describe('baseClass', function() {
   });
 
   it('should be chainable', function() {
-    var className = getRndStr(),
+    var className = $helpers.getRndStr(),
       expected = new MyComponent(document.body),
       actual = expected.doSomething(className).addClass(className);
     expect(actual).to.equal(expected);

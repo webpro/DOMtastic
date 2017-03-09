@@ -1,5 +1,12 @@
 describe('events', function() {
 
+  function trigger(element, type) {
+    var ev = new CustomEvent(type, {bubbles: true});
+    for(var i = 0, l = element.length; i < l; i++) {
+      element[i].dispatchEvent(ev);
+    }
+  }
+
   var spy;
 
   beforeEach(function() {
@@ -17,7 +24,7 @@ describe('events', function() {
 
     it('should execute event handler with element as `this` value', function() {
       var element = $(document.body),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         expected = element[0];
       element.on(eventType, spy);
       trigger(element, eventType);
@@ -33,7 +40,7 @@ describe('events', function() {
 
     it('should attach an event handler of any type to an element', function() {
       var element = $(document.body),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       trigger(element, eventType);
       expect(spy).to.have.been.called;
@@ -41,8 +48,8 @@ describe('events', function() {
 
     it('should attach an event handler with a namespaced type to an element', function() {
       var element = $(document.body),
-        eventType = getRndStr(),
-        eventNS = getRndStr();
+        eventType = $helpers.getRndStr(),
+        eventNS = $helpers.getRndStr();
       element.on([eventType, eventNS].join('.'), spy);
       trigger(element, eventType);
       expect(spy).to.have.been.called;
@@ -50,7 +57,7 @@ describe('events', function() {
 
     it('should attach multiple space-separated events to an element', function() {
       var element = $(document.body),
-        eventTypes = [getRndStr(), getRndStr(), getRndStr()];
+        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
       element.on(eventTypes.join(' '), spy);
       trigger(element, eventTypes[0]);
       trigger(element, eventTypes[1]);
@@ -61,7 +68,7 @@ describe('events', function() {
     describe('delegated', function() {
 
       it('should execute event handler with element as `this` value', function() {
-        var eventType = getRndStr(),
+        var eventType = $helpers.getRndStr(),
           expected = $('#testFragment')[0];
         $(document.body).on(eventType, '#testFragment', spy);
         trigger($('.fourth'), eventType);
@@ -70,7 +77,7 @@ describe('events', function() {
 
       it('should have the correct `event.target` and `event.currentTarget`', function() {
         var element = $('.fourth'),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         $(document.body).on(eventType, 'li', function(event) {
           expect(event.target).to.equal(element[0]);
           expect(this).to.equal(element[0]);
@@ -81,7 +88,7 @@ describe('events', function() {
 
       it('should receive a delegated event from a child element', function() {
         var element = $(document.body),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         element.on(eventType, '#testFragment ul', spy);
         element.on(eventType, '#testFragment li', spy);
         trigger($('.fourth'), eventType);
@@ -90,7 +97,7 @@ describe('events', function() {
 
       it('should receive delegated events from child elements', function() {
         var element = $(document.body),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         element.on(eventType, 'li', spy);
         trigger($('.two'), eventType);
         trigger($('.three'), eventType);
@@ -100,7 +107,7 @@ describe('events', function() {
 
       it('should receive delegated events from multiple child elements', function() {
         var elements = $('#testFragment li'),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         elements.on(eventType, 'span', spy);
         trigger($('#testFragment li span'), eventType);
         expect(spy.callCount).to.have.equal(5);
@@ -116,7 +123,7 @@ describe('events', function() {
 
       var parent = $(document.body),
         child = $('.fourth'),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         event = new CustomEvent(eventType, {
           bubbles: true,
           cancelable: true,
@@ -142,7 +149,7 @@ describe('events', function() {
 
       var parent = $(document.body),
         child = $('.fourth'),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         event = new CustomEvent(eventType, {
           bubbles: true,
           cancelable: true,
@@ -167,7 +174,7 @@ describe('events', function() {
     it('should stop immediate propagation', function() {
 
       var child = $('.fourth'),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         event = new CustomEvent(eventType),
         eventSpy = sinon.spy(event, 'stopImmediatePropagation');
 
@@ -189,7 +196,7 @@ describe('events', function() {
 
       var parent = $(document.body),
         child = $('.fourth'),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         event = new CustomEvent(eventType, {
           bubbles: true,
           cancelable: true,
@@ -221,7 +228,7 @@ describe('events', function() {
           detail: undefined
         }),
         eventSpy = sinon.spy(event, 'preventDefault'),
-        hash = '#' + getRndStr();
+        hash = '#' + $helpers.getRndStr();
 
       element.on(eventType, function(event) {
         expect(event.isDefaultPrevented()).to.be.false;
@@ -232,9 +239,9 @@ describe('events', function() {
       element[0].dispatchEvent(event);
 
       expect(eventSpy).to.have.been.called;
-      expect(location.hash.replace(/^#/, '')).to.equal('');
+      expect(window.location.hash.replace(/^#/, '')).to.equal('');
 
-      location.hash = '';
+      window.location.hash = '';
 
     });
 
@@ -244,7 +251,7 @@ describe('events', function() {
 
     it('should receive events bubbling up to an element', function() {
       var element = $(document.body),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       trigger($('.two'), eventType);
       expect(spy).to.have.been.called;
@@ -256,7 +263,7 @@ describe('events', function() {
 
     it('should detach an event handler from an element', function() {
       var element = $(document.body),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.off(eventType, spy);
       trigger(element, eventType);
@@ -265,8 +272,8 @@ describe('events', function() {
 
     it('should detach an event handler with a namespace from an element', function() {
       var element = $(document.body),
-        eventType = getRndStr(),
-        eventNS = getRndStr();
+        eventType = $helpers.getRndStr(),
+        eventNS = $helpers.getRndStr();
       element.on([eventType, eventNS].join('.'), spy);
       element.off(eventType);
       trigger(element, eventType);
@@ -275,8 +282,8 @@ describe('events', function() {
 
     it('should detach all event handler from a namespace from an element', function() {
       var element = $(document.body),
-        eventTypes = [getRndStr(), getRndStr()],
-        eventNS = getRndStr();
+        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr()],
+        eventNS = $helpers.getRndStr();
       element.on([eventTypes[0], eventNS].join('.'), spy);
       element.on([eventTypes[1], eventNS].join('.'), spy);
       element.off('.' + eventNS);
@@ -287,7 +294,7 @@ describe('events', function() {
 
     it('should detach an event handler with a namespace from an element', function() {
       var element = $(document.body),
-        eventType = getRndStr() + '.' + getRndStr();
+        eventType = $helpers.getRndStr() + '.' + $helpers.getRndStr();
       element.on(eventType, spy);
       element.off(eventType);
       trigger(element, eventType);
@@ -296,7 +303,7 @@ describe('events', function() {
 
     it('should detach space-separated event handlers from an element', function() {
       var element = $(document.body),
-        eventTypes = [getRndStr(), getRndStr(), getRndStr()];
+        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
       element.on(eventTypes.join(' '), spy);
       element.off(eventTypes[1]);
       trigger(element, eventTypes[0]);
@@ -310,7 +317,7 @@ describe('events', function() {
 
     it('should detach all space-separated event handlers from an element', function() {
       var element = $(document.body),
-        eventTypes = [getRndStr(), getRndStr(), getRndStr()];
+        eventTypes = [$helpers.getRndStr(), $helpers.getRndStr(), $helpers.getRndStr()];
       element.on(eventTypes.join(' '), spy);
       element.off();
       trigger(element, eventTypes[0]);
@@ -319,7 +326,7 @@ describe('events', function() {
 
     it('should detach all event handlers from an element', function() {
       var element = $(document.body),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.on(eventType, spy);
       element.off();
@@ -329,7 +336,7 @@ describe('events', function() {
 
     it('should detach event handlers from multiple elements', function() {
       var elements = $('#testFragment li'),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       elements.on(eventType, spy);
       elements.off(eventType, spy);
       trigger(elements, eventType);
@@ -338,7 +345,7 @@ describe('events', function() {
 
     it('should not throw for elements without event handlers', function() {
       var elements = $('#testEmpty'),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       expect(function() {
         elements.off(eventType, function() {
         });
@@ -349,7 +356,7 @@ describe('events', function() {
 
       it('should detach a delegated event handler from an element', function() {
         var element = $(document.body),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         element.on(eventType, 'li', spy);
         element.off(eventType, 'li', spy);
         trigger($('.fourth'), eventType);
@@ -358,7 +365,7 @@ describe('events', function() {
 
       it('should detach a delegated event handler from multiple elements', function() {
         var elements = $('#testFragment li'),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         elements.on(eventType, 'li', spy);
         elements.off(eventType, 'li', spy);
         trigger($('.fourth'), eventType);
@@ -367,7 +374,7 @@ describe('events', function() {
 
       it('should remove all delegated handlers when un-delegating event handlers', function() {
         var element = $(document.body),
-          eventType = getRndStr();
+          eventType = $helpers.getRndStr();
         element.on(eventType, 'li', spy);
         element.on(eventType, 'li', spy);
         element.on(eventType, 'li', spy);
@@ -383,7 +390,7 @@ describe('events', function() {
   describe('one', function() {
     it('should execute event handler only once', function() {
       var element = $(document.body),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         expected = element[0];
       element.one(eventType, spy);
       trigger(element, eventType);

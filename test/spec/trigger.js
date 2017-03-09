@@ -10,7 +10,7 @@ describe('events', function() {
 
     it('should execute handler for detached node', function() {
       var element = $('<div></div>'),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.trigger(eventType);
       expect(spy).to.have.been.called;
@@ -19,7 +19,7 @@ describe('events', function() {
     it('should execute handler for detached tree', function() {
       var element = $('<div><p></p></div>'),
         child = $(element[0].querySelector('p')),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, 'p', spy);
       child.trigger(eventType);
       expect(spy).to.have.been.called;
@@ -28,7 +28,7 @@ describe('events', function() {
 
     it('should execute handler and pass the data as event detail', function() {
       var element = $('#testFragment'),
-        eventType = getRndStr(),
+        eventType = $helpers.getRndStr(),
         eventData = {a: 1};
       element.on(eventType, spy);
       element.trigger(eventType, eventData);
@@ -39,16 +39,16 @@ describe('events', function() {
 
     it('should be able to send non-bubbling events', function() {
       var element = $(document.body),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       $('.two').trigger(eventType, null, {bubbles: false});
       expect(spy).not.to.have.been.called;
     });
 
-    it('should be able to send non-cancelable events', function(done) {
+    it.skip('should be able to send non-cancelable events', function(done) {
       var element = $('#testFragment a'),
         eventType = 'click',
-        hash = '#' + getRndStr();
+        hash = '#' + $helpers.getRndStr();
       element.attr('href', hash).on(eventType, function(event) {
         event.preventDefault();
       });
@@ -89,7 +89,7 @@ describe('events', function() {
     });
 
     it('should be able to trigger event on document', function() {
-      var eventType = getRndStr();
+      var eventType = $helpers.getRndStr();
       $(window).on(eventType, spy);
       $(document).trigger(eventType);
       expect(spy).to.have.been.called;
@@ -97,7 +97,7 @@ describe('events', function() {
 
     it('should be able to trigger event on window', function() {
       var element = $(window),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.trigger(eventType);
       expect(spy).to.have.been.called;
@@ -109,7 +109,7 @@ describe('events', function() {
 
     it('should execute handler', function() {
       var element = $('<div></div>'),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.triggerHandler(eventType);
       expect(spy).to.have.been.called;
@@ -117,7 +117,7 @@ describe('events', function() {
 
     it('should not bubble', function() {
       var element = $('<div><span></span></div>'),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       element.on(eventType, spy);
       element.find('span').triggerHandler(eventType);
       expect(spy).not.to.have.been.called;
@@ -134,7 +134,7 @@ describe('events', function() {
 
     it('should execute handler for first element only', function() {
       var element = $('<p></p><p></p>'),
-        eventType = getRndStr();
+        eventType = $helpers.getRndStr();
       $(element[0]).on(eventType, spy);
       $(element[1]).on(eventType, spy);
       element.triggerHandler(eventType);

@@ -1,31 +1,31 @@
 describe('class methods', function() {
 
   it('should add a class', function() {
-    var expected = getRndStr();
+    var expected = $helpers.getRndStr();
     $(document.body).addClass(expected);
     expect(document.body.className).to.contain(expected);
   });
 
   it('should add classes', function() {
-    var expected = [getRndStr(), getRndStr()];
+    var expected = [$helpers.getRndStr(), $helpers.getRndStr()];
     $(document.body).addClass(expected.join(' '));
     expect(document.body.className).to.contain(expected[0]).and.to.contain(expected[1]);
   });
 
   it('should remove a class', function() {
-    var unexpected = getRndStr();
+    var unexpected = $helpers.getRndStr();
     $(document.body).addClass(unexpected).removeClass(unexpected);
     expect(document.body.className).not.to.contain(unexpected);
   });
 
   it('should remove classes', function() {
-    var unexpected = [getRndStr(), getRndStr()];
+    var unexpected = [$helpers.getRndStr(), $helpers.getRndStr()];
     $(document.body).addClass(unexpected[1]).addClass(unexpected[0]).removeClass(unexpected.join(' '));
     expect(document.body.className).not.to.contain(unexpected[0]).and.not.to.contain(unexpected[1]);
   });
 
   it('should toggle a class', function() {
-    var expected = getRndStr();
+    var expected = $helpers.getRndStr();
     $(document.body).toggleClass(expected);
     expect(document.body.className).to.contain(expected);
     $(document.body).toggleClass(expected);
@@ -33,14 +33,14 @@ describe('class methods', function() {
   });
 
   it('should toggle classes', function() {
-    var expected = [getRndStr(), getRndStr()];
+    var expected = [$helpers.getRndStr(), $helpers.getRndStr()];
     $(document.body).toggleClass(expected[0]);
     $(document.body).toggleClass(expected.join(' '));
     expect(document.body.className).to.contain(expected[1]).and.not.to.contain(expected[0]);
   });
 
   it('should toggle a class explicitly', function() {
-    var expected = getRndStr();
+    var expected = $helpers.getRndStr();
     $(document.body).toggleClass(expected, false);
     expect(document.body.className).to.not.contain(expected);
     $(document.body).toggleClass(expected, true);
@@ -50,7 +50,7 @@ describe('class methods', function() {
   });
 
   it('should check a class', function() {
-    var expected = getRndStr(),
+    var expected = $helpers.getRndStr(),
       hasClass = $('#testFragment').hasClass(expected);
     expect(hasClass).to.be.false;
     hasClass = $('#testFragment').addClass(expected).hasClass(expected);
@@ -78,7 +78,7 @@ describe('class methods', function() {
 
   it('should provide a chainable API', function() {
     var expected = $('#testFragment'),
-      className = getRndStr(),
+      className = $helpers.getRndStr(),
       actual = expected.addClass(className).removeClass(className).toggleClass(className);
     expect(actual).to.have.same.elements(expected);
   });
