@@ -11,11 +11,9 @@ env:
 branches:
   except:
     - dev
-before_install:
-  - "npm i coveralls@2.12.0"
 script:
   - "npm test"
   - "npm run test:jquery"
 after_success:
-  - "npm run coverage | coveralls"
+  - "npm run coveralls"
   - "npm run test:bs"
