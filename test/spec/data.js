@@ -1,5 +1,7 @@
 describe('data', function() {
 
+  var DATAKEYPROP = $helpers.isSupportsDataSet ? 'dataset' : '__DOMTASTIC_DATA__';
+
   describe('data', function() {
 
     describe('set', function() {
@@ -7,14 +9,14 @@ describe('data', function() {
       it('should set data on element', function() {
         $(document.body).data('myAttribute', 'myValue');
         var expected = 'myValue',
-          actual = document.body.dataset['myAttribute'];
+          actual = document.body[DATAKEYPROP]['myAttribute'];
         expect(actual).to.equal(expected);
       });
 
       it('should set data on elements', function() {
         $('#testFragment li').data('myAttribute', 'myValue');
         var expected = 'myValue',
-          actual = $('.two')[0].dataset['myAttribute'];
+          actual = $('.two')[0][DATAKEYPROP]['myAttribute'];
         expect(actual).to.equal(expected);
       });
 
@@ -28,20 +30,7 @@ describe('data', function() {
 
     describe('get', function() {
 
-      it('should get data from first element', function() {
-        var actual = $('#testFragment li').data('id'),
-          expected = '1';
-        expect(actual).to.equal(expected);
-      });
-
-      it('should get data from first element (by attr))', function() {
-        $('#testFragment .two').data('firstAttr', 'firstValue');
-        var actual = $('#testFragment [class]')[0].getAttribute('data-first-attr'),
-          expected = 'firstValue';
-        expect(actual).to.equal(expected);
-      });
-
-      it('should get data from first element', function() {
+      it('should get/set more data from first/same element', function() {
         $('#testFragment .two').data('secondAttr', 'secondValue');
         var actual = $('#testFragment [class]').data('secondAttr'),
           expected = 'secondValue';
@@ -54,6 +43,30 @@ describe('data', function() {
           actual = element.data('foo');
         expect(fn).not.to.throw(TypeError);
         expect(actual).to.be.undefined;
+      });
+
+    });
+
+
+    describe('get (native dataset)', function() {
+
+      before(function() {
+        if(!$helpers.isSupportsDataSet) {
+          this.skip();
+        }
+      });
+
+      it('should get data from first element', function() {
+        var actual = $('#testFragment li').data('id'),
+          expected = '1';
+        expect(actual).to.equal(expected);
+      });
+
+      it('should get data from first element (by attr))', function() {
+        $('#testFragment .two').data('firstAttr', 'firstValue');
+        var actual = $('#testFragment [class]')[0].getAttribute('data-first-attr'),
+          expected = 'firstValue';
+        expect(actual).to.equal(expected);
       });
 
     });
@@ -110,7 +123,7 @@ describe('data', function() {
   it('should provide a chainable API', function() {
     var element = $('#testEmpty').data('foo', 'bar').data('foo', 'baz').prop('foo', 'baz'),
       expected = 'baz',
-      actual = element[0].dataset['foo'];
+      actual = element[0][DATAKEYPROP]['foo'];
     expect(actual).to.equal(expected);
   });
 

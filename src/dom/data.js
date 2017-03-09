@@ -4,6 +4,9 @@
 
 import { each } from '../util';
 
+const isSupportsDataSet = typeof document !== 'undefined' && 'dataset' in document.documentElement;
+const DATAKEYPROP = isSupportsDataSet ? 'dataset' : '__DOMTASTIC_DATA__';
+
 /**
  * Get data from first element, or set data for each element in the collection.
  *
@@ -20,11 +23,14 @@ export const data = function(key, value) {
 
   if(typeof key === 'string' && typeof value === 'undefined') {
     const element = this.nodeType ? this : this[0];
-    return element && element.dataset ? element.dataset[key] : undefined;
+    return element && DATAKEYPROP in element ? element[DATAKEYPROP][key] : undefined;
   }
 
   return each(this, element => {
-    element.dataset[key] = value;
+    if(!isSupportsDataSet) {
+      element[DATAKEYPROP] = element[DATAKEYPROP] || {};
+    }
+    element[DATAKEYPROP][key] = value;
   });
 };
 
