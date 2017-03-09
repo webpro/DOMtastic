@@ -12,6 +12,7 @@ import { closest } from '../selector/closest';
  * @param {String} [selector] Selector to filter descendants that delegate the event to this element.
  * @param {Function} handler Event handler
  * @param {Boolean} useCapture=false
+ * @param {Boolean} once=false
  * @return {Object} The wrapped collection
  * @chainable
  * @example
