@@ -1,6 +1,8 @@
 import { toArray } from './util';
 import { $, matches } from './selector/index';
 
+$.jqueryCompat = true;
+
 const ArrayProto = Array.prototype;
 
 export const each = function(callback) {

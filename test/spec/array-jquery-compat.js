@@ -1,5 +1,11 @@
 describe('array (jQuery compat)', function() {
 
+  before(function() {
+    if(!('jqueryCompat' in $)) {
+      this.skip();
+    }
+  });
+
   var noop = function() {
     return true;
   };
