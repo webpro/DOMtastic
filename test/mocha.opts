@@ -1,0 +1,3 @@
+test/spec/*.js
+--require ./test/setup
+--require ./test/helpers

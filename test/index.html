@@ -1,113 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>DOMtastic Tests</title>
-        <link rel="stylesheet" href="../vendor/mocha.css">
-        <script src="../vendor/mocha.js"></script>
-        <script src="../vendor/chai.js"></script>
-        <script src="../vendor/sinon-chai.js"></script>
-        <script src="../vendor/sinon.js"></script>
-        <script>
-            mocha.setup('bdd');
-            var expect = chai.expect;
-        </script>
-        <script src="lib/helpers.js"></script>
-    </head>
-    <body>
+  <head>
+    <title>DOMtastic Tests</title>
+    <link rel="stylesheet" href="../vendor/mocha.css">
+    <script src="../vendor/mocha.js"></script>
+    <script src="../vendor/chai.js"></script>
+    <script src="../vendor/sinon-chai.js"></script>
+    <script src="../vendor/sinon.js"></script>
+    <script>
+      mocha.setup('bdd');
+      var expect = chai.expect;
+      window.onload = function () { mocha.run(); };
+    </script>
+    <!--[if gte IE 9]>
+    <script src="../vendor/classlist-polyfill.js"></script>
+    <![endif]-->
+    <script src="helpers.js"></script>
+  </head>
+  <body>
 
-        <div id="mocha"></div>
+    <div id="mocha"></div>
 
-        <div id="testFragment" style="display: none;">
+    <div id="testFragment" style="display: none;">
 
-            <ul>
-                <li data-id="1">1<span>.</span></li>
-                <li class="two">2<span>.</span></li>
-                <li class="three">3<span>.</span></li>
-                <li class="fourth">4<span>.</span></li>
-                <li>5<span>.</span></li>
-            </ul>
+      <ul>
+        <li data-id="1">1<span>.</span></li>
+        <li class="two">2<span>.</span></li>
+        <li class="three">3<span>.</span></li>
+        <li class="fourth">4<span>.</span></li>
+        <li>5<span>.</span></li>
+      </ul>
 
-            <div class="cleanup"><span></span></div>
+      <div class="cleanup"><span></span></div>
 
-            <form action="javascript:void(0);">
-                <input type="text"/>
-            </form>
+      <form action="javascript:void(0);">
+        <input type="text"/>
+      </form>
 
-            <a href="#hash">link</a>
+      <a href="#hash">link</a>
 
-        </div>
+      <div id="testEmpty"></div>
 
-        <div id="testEmpty" style="display: none;"></div>
+      <div id="testElement"></div>
 
-        <div id="testElement" style="display: none;"></div>
+    </div>
 
-        <script>
-            if (location.search.indexOf('cov') === -1) {
-                document.write('<script src="../dist/domtastic.js"><\/script>')
-            } else {
-                document.write('<script src="../dist/domtastic.instrumented.js"><\/script>');
-            }
-        </script>
+    <script src="../dist/domtastic.js"></script>
 
-        <script>
-            if (location.search.indexOf('jquery-compat') === -1) {
-                document.write('<script src="spec/array.js"><\/script>')
-            } else {
-                document.write('<script src="spec/array-jquery-compat.js"><\/script>');
-            }
-        </script>
+    <script src="spec/array.js"></script>
+    <script src="spec/array-jquery-compat.js"></script>
+    <script src="spec/attr.js"></script>
+    <script src="spec/baseClass.js"></script>
+    <script src="spec/class.js"></script>
+    <script src="spec/contains.js"></script>
+    <script src="spec/css.js"></script>
+    <script src="spec/data.js"></script>
+    <script src="spec/dom.js"></script>
+    <script src="spec/dom_extra.js"></script>
+    <script src="spec/event.js"></script>
+    <script src="spec/html.js"></script>
+    <script src="spec/noconflict.js"></script>
+    <script src="spec/ready.js"></script>
+    <script src="spec/selector.js"></script>
+    <script src="spec/selector_extra.js"></script>
+    <script src="spec/trigger.js"></script>
+    <script src="spec/type.js"></script>
+    <script src="spec/util.js"></script>
 
-        <script src="spec/attr.js"></script>
-        <script src="spec/baseClass.js"></script>
-        <script src="spec/class.js"></script>
-        <script src="spec/contains.js"></script>
-        <script src="spec/css.js"></script>
-        <script src="spec/data.js"></script>
-        <script src="spec/dom.js"></script>
-        <script src="spec/dom_extra.js"></script>
-        <script src="spec/event.js"></script>
-        <script src="spec/html.js"></script>
-        <script src="spec/noconflict.js"></script>
-        <script src="spec/ready.js"></script>
-        <script src="spec/selector.js"></script>
-        <script src="spec/selector_extra.js"></script>
-        <script src="spec/trigger.js"></script>
-        <script src="spec/type.js"></script>
-        <script src="spec/util.js"></script>
-
-        <script>
-            if (window.mochaPhantomJS) {
-                mochaPhantomJS.run();
-            } else {
-                var runner = mocha.run(),
-                    failedTests = [];
-
-                runner.on('fail', function logFailure(test, err) {
-
-                    var flattenTitles = function(test) {
-                        var titles = [];
-                        while (test.parent.title) {
-                            titles.push(test.parent.title);
-                            test = test.parent;
-                        }
-                        return titles.reverse();
-                    };
-
-                    failedTests.push({
-                        name: test.title,
-                        result: false,
-                        message: err.message,
-                        stack: err.stack,
-                        titles: flattenTitles(test)
-                    });
-                });
-
-                runner.on('end', function() {
-                    window.mochaResults = runner.stats;
-                    window.mochaResults.reports = failedTests;
-                });
-            }
-        </script>
-
-    </body>
+  </body>
 </html>
