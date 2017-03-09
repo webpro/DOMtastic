@@ -21,7 +21,7 @@
 [![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
 [![Coverage Status](https://coveralls.io/repos/github/webpro/DOMtastic/badge.svg)](https://coveralls.io/github/webpro/DOMtastic)
 ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=MUcvSm9ES1VaYlpTMnk0NytOVDdML3FxRlJNM0VNR2RQdnBPMGduNUowZz0tLUNHWkJ4V2t0SXNqUkRRQUJjTWVnekE9PQ==--c64c417a0144336c1f174ecbe35b4801f82b74e0)
-[![Code Climate](https://codeclimate.com/github/webpro/DOMtastic-release/badges/gpa.svg)](https://codeclimate.com/github/webpro/DOMtastic-release)
+[![Code Climate](https://codeclimate.com/github/webpro/DOMtastic/badges/gpa.svg)](https://codeclimate.com/github/webpro/DOMtastic)
 
 ## Usage
 
