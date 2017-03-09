@@ -2,7 +2,6 @@
 
 cat index.yml ../README.md > index.md
 npm run build
-npm run vendor
 npm run coverage
 npm run doc
 rsync --recursive --delete ../dist/ dist

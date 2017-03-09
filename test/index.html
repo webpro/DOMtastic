@@ -2,18 +2,17 @@
 <html>
   <head>
     <title>DOMtastic Tests</title>
-    <link rel="stylesheet" href="../vendor/mocha.css">
-    <script src="../vendor/mocha.js"></script>
-    <script src="../vendor/chai.js"></script>
-    <script src="../vendor/sinon-chai.js"></script>
-    <script src="../vendor/sinon.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js"></script>
     <script>
       mocha.setup('bdd');
       var expect = chai.expect;
       window.onload = function () { mocha.run(); };
     </script>
     <!--[if gte IE 9]>
-    <script src="../vendor/classlist-polyfill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20150312/classList.min.js"></script>
     <![endif]-->
     <script src="helpers.js"></script>
   </head>
