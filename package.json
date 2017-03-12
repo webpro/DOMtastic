@@ -43,6 +43,7 @@
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "prepublish": "npm run build",
+    "pretest": "npm run bundle",
     "test": "mocha",
     "test:jquery": "npm run bundle -- --jquery-compat && npm test",
     "test:bs": "browserstack-runner",
