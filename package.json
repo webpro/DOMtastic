@@ -43,9 +43,8 @@
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "prepublish": "npm run build",
-    "pretest": "npm run bundle",
-    "test": "mocha",
-    "test:jquery": "npm run bundle -- --jquery-compat && npm test",
+    "test": "npm run bundle && mocha",
+    "test:jquery": "npm run bundle -- --jquery-compat && mocha",
     "test:bs": "browserstack-runner",
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
   },
