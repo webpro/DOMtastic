@@ -2,7 +2,7 @@
 
 * Small, fast, and modular **DOM & Event** library for modern browsers.
 * Same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`).
-* Weighs in at only 1KB to 12KB (minified), depending on included modules. Full bundle is about 4KB gzipped.
+* Dependency-free. Weighs in at only 1KB to 12KB (minified), depending on included modules. Full bundle is about 4KB gzipped.
 * Works great stand-alone or paired up with e.g. Backbone or Angular.
 * The [source](https://github.com/webpro/DOMtastic) is written in ES6 format.
 * [Rollup](http://rollupjs.org) and [babel](https://babeljs.io) are used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
@@ -12,10 +12,10 @@
 
 ## Quicklinks
 
-* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.12/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.12/domtastic.min.js)
+* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.13/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.13/domtastic.min.js)
 * [API documentation](https://domtastic.js.org/doc/)
 * [Run tests](https://domtastic.js.org/test/)
-* Coverage: [Istanbul](https://domtastic.js.org/coverage/dist/domtastic.js.html), [Coveralls](https://coveralls.io/github/webpro/DOMtastic)
+* Coverage: [Istanbul](https://domtastic.js.org/coverage/), [Coveralls](https://coveralls.io/github/webpro/DOMtastic)
 * [Run benchmarks](https://domtastic.js.org/benchmark/)
 
 [![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
@@ -68,7 +68,7 @@ require(['domtastic'], function($) {
 ### Browser Global
 
 ```html
-<script src="//cdn.jsdelivr.net/domtastic/0.12/domtastic.min.js"></script>
+<script src="//cdn.jsdelivr.net/domtastic/0.13/domtastic.min.js"></script>
 ```
 
 ```javascript
@@ -114,7 +114,7 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
 
     css
 
-### [DOM](https://domtastic.js.org/doc#dom)
+### [DOM](https://domtastic.js.org/doc/#dom/index)
 
     after
     append
@@ -156,7 +156,7 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
 
     html
 
-### [Event](https://domtastic.js.org/doc#event)
+### [Event](https://domtastic.js.org/doc/#event/index)
 
     on (alias: bind)
     off (alias: unbind)
@@ -175,7 +175,7 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
 
     noConflict
 
-### [Selector](https://domtastic.js.org/doc#selector)
+### [Selector](https://domtastic.js.org/doc/#selector/index)
 
     $
     find
@@ -200,6 +200,10 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
     isArray
     isFunction
 
+### [Util](https://domtastic.js.org/doc/#util)
+
+    extend
+
 ## But it doesn't even have _awesomest-method_!
 
 As mentioned in the introduction, DOMtastic doesn't feature methods for Ajax, Animation, Promise, etc. Please find your own libraries to fill in the gaps as needed. Here are just some examples:
@@ -214,9 +218,7 @@ Feel free to [open an issue](https://github.com/webpro/DOMtastic/issues) if you 
 
 ## Browser Support
 
-![Selenium Test Status](https://saucelabs.com/browser-matrix/webpro.svg)
-
-Latest versions of Chrome, Firefox, Safari, Opera, Android, Chrome Mobile iOS, and Mobile Safari. Internet Explorer 10 and up. IE9 only needs a polyfill for `classList` to make these tests pass.
+Latest versions of Chrome, Firefox, Safari, Opera, Android, Chrome Mobile iOS, and Mobile Safari. Internet Explorer 10 and up. IE9 requires a polyfill for `classList`.
 
 ## Performance
 
@@ -269,7 +271,7 @@ This way, you don't have the slight overhead of the UMD boilerplate in a custom 
 
 ## Tests
 
-Run the hosted [test suite](https://domtastic.js.org/test/) in your browser. You can also clone/fork the sources from Github, and run the tests locally (using `npm test`).
+Run the hosted [test suite](https://domtastic.js.org/test/) in your browser. You can also clone this repo, and run the tests locally with [jsdom](https://github.com/tmpvar/jsdom) (using `npm test`).
 
 ## Credits
 
@@ -281,7 +283,7 @@ Many thanks to these sources of inspiration:
 * [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
 * [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
 
-Thanks to [jsDelivr](http://www.jsdelivr.com/) for [hosting DOMtastic](http://www.jsdelivr.com/#!domtastic).
+Thanks to [jsDelivr](http://www.jsdelivr.com/) for [hosting DOMtastic](http://www.jsdelivr.com/projects/domtastic).
 
 ## License
 
