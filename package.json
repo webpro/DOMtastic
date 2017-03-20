@@ -37,8 +37,8 @@
   "scripts": {
     "build": "rollup -c && rollup -c --minify",
     "bundle": "rollup -c",
-    "coverage": "nyc --reporter text --reporter html npm test -- --reporter=dot",
-    "coveralls": "nyc --reporter=text-lcov npm test | coveralls",
+    "coverage": "NODE_ENV=test nyc --reporter text --reporter html npm test -- --reporter=dot",
+    "coveralls": "NODE_ENV=test nyc --reporter=text-lcov npm test | coveralls",
     "doc": "doxstrap --title DOMtastic --output doc",
     "lint": "eslint src",
     "fix": "eslint src --fix",
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "babel-plugin-istanbul": "^4.0.0",
     "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
     "babel-plugin-transform-es2015-block-scoping": "^6.23.0",
     "babel-plugin-transform-es2015-classes": "^6.23.0",
