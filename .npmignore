@@ -1,6 +1,7 @@
 benchmark
-coverage
 build
+coverage
+doc
 examples
 test
 vendor
