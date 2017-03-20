@@ -4,9 +4,9 @@
   "main": "src/index.js",
   "moduleType": "es6",
   "keywords": [
-    "DOM",
     "attr",
     "class",
+    "dom",
     "domtastic",
     "es6",
     "event",
@@ -29,14 +29,15 @@
   },
   "license": "MIT",
   "ignore": [
+    "**/.*",
     "benchmark",
     "build",
+    "coverage",
+    "doc",
     "examples",
+    "node_modules",
     "test",
-    "vendor",
-    ".editorconfig",
-    ".gitignore",
-    ".npmignore",
-    ".travis.yml"
+    "browserstack.json",
+    "rollup.config.json"
   ]
 }
