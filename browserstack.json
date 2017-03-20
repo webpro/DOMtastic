@@ -27,17 +27,10 @@
       "device": "Samsung Galaxy S5"
     },
     {
-      "os": "android",
-      "os_version": "5.0",
-      "browser": "android",
-      "device": "Google Nexus 5"
-    },
-    {
       "os": "ios",
       "os_version": "7.0",
       "browser": "iphone",
-      "device": "iPhone 5S",
-      "browser_version": null
+      "device": "iPhone 5S"
     },
     {
       "os": "ios",
