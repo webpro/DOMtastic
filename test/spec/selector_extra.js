@@ -74,6 +74,22 @@ describe('selectors (extra)', function() {
 
   });
 
+  describe('first', function() {
+
+    it('should reduce to one', function() {
+      var expected = $('#testFragment li[data-id="1"]');
+      var actual = $('#testFragment li').first();
+      assert(actual.length === 1);
+      assert(actual[0] === expected[0]);
+    });
+
+    it('should be empty with empty result set', function() {
+      var actual = $('#testFragment li#doesnotexist').first();
+      assert(actual.length === 0);
+    });
+
+  });
+
   describe('get', function() {
 
     it('should return DOM element', function() {
