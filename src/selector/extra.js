@@ -60,6 +60,20 @@ export const eq = function(index) {
 };
 
 /**
+ * Return a collection containing only the first item.
+ *
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.items').first()
+ *     // The first item; result is the same as doing $($('.items')[0]);
+ */
+
+export const first = function() {
+  return slice.call(this, 0, 1);
+};
+
+/**
  * Return the DOM element at the specified index.
  *
  * @param {Number} index
