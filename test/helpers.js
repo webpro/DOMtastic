@@ -1,5 +1,8 @@
 (function(global){
   global.$helpers = {
+    isJSDOM: function() {
+      return navigator.userAgent.indexOf('jsdom') !== -1;
+    },
     getRndStr: function() {
       return (Math.random() + 1).toString(36).substring(7);
     },

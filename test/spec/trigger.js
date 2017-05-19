@@ -43,21 +43,6 @@ describe('events', function() {
       assert(spy.called === false);
     });
 
-    it.skip('should be able to send non-cancelable events', function(done) {
-      var element = $('#testFragment a');
-      var eventType = 'click';
-      var hash = '#' + $helpers.getRndStr();
-      element.attr('href', hash).on(eventType, function(event) {
-        event.preventDefault();
-      });
-      element.trigger(eventType, null, { cancelable: false });
-      setTimeout(function() {
-        assert(location.hash.indexOf(hash) !== -1);
-        window.location.hash = '';
-        done();
-      }, 0);
-    });
-
     it('should call direct methods blur() and focus() for these events', function() {
       var element = $('#testFragment input');
       ['blur', 'focus'].forEach(function(eventType) {
@@ -102,6 +87,30 @@ describe('events', function() {
       element.trigger(eventType);
       assert(spy.called);
     });
+
+    describe('non-cancelable', function() {
+
+      before(function() {
+        if($helpers.isJSDOM()) {
+          this.skip();
+        }
+      });
+
+      it('should be able to send non-cancelable events', function(done) {
+        var element = $('#testFragment a');
+        var eventType = 'click';
+        var hash = '#' + $helpers.getRndStr();
+        element.attr('href', hash).on(eventType, function(event) {
+          event.preventDefault();
+        });
+        element.trigger(eventType, null, { cancelable: false });
+        setTimeout(function() {
+          assert(location.hash.indexOf(hash) !== -1);
+          window.location.hash = '';
+          done();
+        }, 0);
+      });
+    })
 
   });
 
