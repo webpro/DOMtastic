@@ -2,7 +2,7 @@
  * @module BaseClass
  */
 
-import { $ as selector, Wrapper } from './selector/index';
+import { $ as selector, DOMtastic } from './selector/index';
 import { extend } from './util';
 
 export default function(api) {
@@ -39,7 +39,7 @@ export default function(api) {
 
   class BaseClass {
     constructor() {
-      Wrapper.call(this, selector(...arguments));
+      DOMtastic.call(this, selector(...arguments));
     }
   }
   extend(BaseClass.prototype, api);

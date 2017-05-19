@@ -35,7 +35,7 @@ const domtastic = function domtastic(selector, context = document) {
 
     collection = document.querySelectorAll(null);
 
-  } else if(selector instanceof Wrapper) {
+  } else if(selector instanceof DOMtastic) {
 
     return selector;
 
@@ -163,12 +163,12 @@ const createFragment = html => {
 const wrap = collection => {
 
   if(!isPrototypeSet) {
-    Wrapper.prototype = $.fn;
-    Wrapper.prototype.constructor = Wrapper;
+    DOMtastic.prototype = $.fn;
+    DOMtastic.prototype.constructor = DOMtastic;
     isPrototypeSet = true;
   }
 
-  return new Wrapper(collection);
+  return new DOMtastic(collection);
 };
 
 /*
@@ -179,7 +179,7 @@ const wrap = collection => {
  * @param {NodeList|Array} collection Element(s) to wrap.
  */
 
-export const Wrapper = function(collection) {
+export const DOMtastic = function DOMtastic(collection) {
   let i = 0;
   const length = collection.length;
   for(; i < length;) {
