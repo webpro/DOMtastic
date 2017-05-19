@@ -32,6 +32,10 @@ export default {
     replace({
       __VERSION__: pkg.version
     }),
-    minify ? uglify() : {}
+    minify ? uglify({
+      mangle: {
+        except: ['domtastic']
+      }
+    }) : {}
   ]
 };

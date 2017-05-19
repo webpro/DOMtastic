@@ -27,7 +27,7 @@ const reSimpleSelector = /^[\.#]?[\w-]*$/;
  *     var $element = $('<p>evergreen</p>');
  */
 
-export const $ = (selector, context = document) => {
+const domtastic = function domtastic(selector, context = document) {
 
   let collection;
 
@@ -58,6 +58,8 @@ export const $ = (selector, context = document) => {
   return wrap(collection);
 
 };
+
+export const $ = domtastic;
 
 /*
  * Find descendants matching the provided `selector` for each element in the collection.
