@@ -1,16 +1,11 @@
 describe('events', function() {
 
-  var spy;
-
-  beforeEach(function() {
-    spy = sinon.spy();
-  });
-
   describe('trigger', function() {
 
     it('should execute handler for detached node', function() {
       var element = $('<div></div>');
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       element.on(eventType, spy);
       element.trigger(eventType);
       assert(spy.called);
@@ -20,6 +15,7 @@ describe('events', function() {
       var element = $('<div><p></p></div>');
       var child = $(element[0].querySelector('p'));
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       element.on(eventType, 'p', spy);
       child.trigger(eventType);
       assert(spy.called);
@@ -30,6 +26,7 @@ describe('events', function() {
       var element = $('#testFragment');
       var eventType = $helpers.getRndStr();
       var eventData = { a: 1 };
+      var spy = sinon.spy();
       element.on(eventType, spy);
       element.trigger(eventType, eventData);
       assert(spy.called);
@@ -40,6 +37,7 @@ describe('events', function() {
     it('should be able to send non-bubbling events', function() {
       var element = $(document.body);
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       element.on(eventType, spy);
       $('.two').trigger(eventType, null, { bubbles: false });
       assert(spy.called === false);
@@ -63,9 +61,9 @@ describe('events', function() {
     it('should call direct methods blur() and focus() for these events', function() {
       var element = $('#testFragment input');
       ['blur', 'focus'].forEach(function(eventType) {
-        spy = sinon.spy(element[0], eventType);
+        var stub = sinon.stub(element[0], eventType);
         element.trigger(eventType, null, { cancelable: false });
-        assert(spy.called);
+        assert(stub.called);
         element[0][eventType].restore();
       });
     });
@@ -73,23 +71,24 @@ describe('events', function() {
     it('should call direct methods submit() for this event', function() {
       var element = $('#testFragment form');
       var eventType = 'submit';
-      spy = sinon.spy(element[0], eventType);
+      var stub = sinon.stub(element[0], eventType);
       element.trigger(eventType, null, { cancelable: false });
-      assert(spy.called);
+      assert(stub.called);
       element[0][eventType].restore();
     });
 
     it('should not call direct methods for other event types that do have same name', function() {
       var element = $('#testFragment input');
       var eventType = 'getAttribute';
-      var spy = sinon.spy(element[0], eventType);
+      var stub = sinon.stub(element[0], eventType);
       element.trigger(eventType);
-      assert(spy.called === false);
+      assert(stub.called === false);
       element[0][eventType].restore();
     });
 
     it('should be able to trigger event on document', function() {
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       $(window).on(eventType, spy);
       $(document).trigger(eventType);
       assert(spy.called);
@@ -98,6 +97,7 @@ describe('events', function() {
     it('should be able to trigger event on window', function() {
       var element = $(window);
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       element.on(eventType, spy);
       element.trigger(eventType);
       assert(spy.called);
@@ -110,6 +110,7 @@ describe('events', function() {
     it('should execute handler', function() {
       var element = $('<div></div>');
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       element.on(eventType, spy);
       element.triggerHandler(eventType);
       assert(spy.called);
@@ -118,6 +119,7 @@ describe('events', function() {
     it('should not bubble', function() {
       var element = $('<div><span></span></div>');
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       element.on(eventType, spy);
       element.find('span').triggerHandler(eventType);
       assert(spy.called === false);
@@ -135,6 +137,7 @@ describe('events', function() {
     it('should execute handler for first element only', function() {
       var element = $('<p></p><p></p>');
       var eventType = $helpers.getRndStr();
+      var spy = sinon.spy();
       $(element[0]).on(eventType, spy);
       $(element[1]).on(eventType, spy);
       element.triggerHandler(eventType);
