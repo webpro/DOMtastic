@@ -2,7 +2,7 @@
  * @module Selector
  */
 
-import { win, each } from '../util';
+import {win, each} from '../util';
 
 let isPrototypeSet = false;
 
@@ -31,25 +31,31 @@ export const $ = (selector, context = document) => {
 
   let collection;
 
-  if(!selector) {
+  if (!selector) {
 
     collection = document.querySelectorAll(null);
 
-  } else if(selector instanceof Wrapper) {
+  } else if (selector instanceof Wrapper) {
 
     return selector;
 
-  } else if(typeof selector !== 'string') {
+  } else if (typeof selector !== 'string') {
 
-    collection = selector.nodeType || selector === window ? [selector] : selector;
+    collection = selector.nodeType || selector === window
+      ? [selector]
+      : selector;
 
-  } else if(reFragment.test(selector)) {
+  } else if (reFragment.test(selector)) {
 
     collection = createFragment(selector);
 
   } else {
 
-    context = typeof context === 'string' ? document.querySelector(context) : context.length ? context[0] : context;
+    context = typeof context === 'string'
+      ? document.querySelector(context)
+      : context.length
+        ? context[0]
+        : context;
 
     collection = querySelector(selector, context);
 
@@ -71,7 +77,7 @@ export const $ = (selector, context = document) => {
 export const find = function(selector) {
   const nodes = [];
   each(this, node => each(querySelector(selector, node), child => {
-    if(nodes.indexOf(child) === -1) {
+    if (nodes.indexOf(child) === -1) {
       nodes.push(child);
     }
   }));
@@ -90,7 +96,9 @@ export const find = function(selector) {
  */
 
 export const matches = (() => {
-  const context = typeof Element !== 'undefined' ? Element.prototype : win;
+  const context = typeof Element !== 'undefined'
+    ? Element.prototype
+    : win;
   const _matches = context.matches || context.matchesSelector || context.mozMatchesSelector || context.msMatchesSelector || context.oMatchesSelector || context.webkitMatchesSelector;
   return (element, selector) => _matches.call(element, selector);
 })();
@@ -104,23 +112,28 @@ export const matches = (() => {
  * @return {Object} NodeList, HTMLCollection, or Array of matching elements (depending on method used).
  */
 
-const querySelector = (selector, context) => {
+const querySelector = (selector, context = document) => {
+  if (selector !== null) {
+    const isSimpleSelector = reSimpleSelector.test(selector);
 
-  const isSimpleSelector = reSimpleSelector.test(selector);
-
-  if(isSimpleSelector) {
-    if(selector[0] === '#') {
-      const element = (context.getElementById ? context : document).getElementById(selector.slice(1));
-      return element ? [element] : [];
+    if (isSimpleSelector) {
+      if (selector[0] === '#') {
+        context = context.getElementById
+          ? context
+          : document;
+        const element = context.getElementById(selector.slice(1));
+        return element
+          ? [element]
+          : [];
+      }
+      if (selector[0] === '.') {
+        return context.getElementsByClassName(selector.slice(1));
+      }
+      return context.getElementsByTagName(selector);
     }
-    if(selector[0] === '.') {
-      return context.getElementsByClassName(selector.slice(1));
-    }
-    return context.getElementsByTagName(selector);
   }
 
   return context.querySelectorAll(selector);
-
 };
 
 /*
@@ -133,7 +146,7 @@ const querySelector = (selector, context) => {
 
 const createFragment = html => {
 
-  if(reSingleTag.test(html)) {
+  if (reSingleTag.test(html)) {
     return [document.createElement(RegExp.$1)];
   }
 
@@ -143,7 +156,7 @@ const createFragment = html => {
 
   container.innerHTML = html;
 
-  for(let i = 0, l = children.length; i < l; i++) {
+  for (let i = 0, l = children.length; i < l; i++) {
     elements.push(children[i]);
   }
 
@@ -160,7 +173,7 @@ const createFragment = html => {
 
 const wrap = collection => {
 
-  if(!isPrototypeSet) {
+  if (!isPrototypeSet) {
     Wrapper.prototype = $.fn;
     Wrapper.prototype.constructor = Wrapper;
     isPrototypeSet = true;
@@ -180,7 +193,7 @@ const wrap = collection => {
 export const Wrapper = function(collection) {
   let i = 0;
   const length = collection.length;
-  for(; i < length;) {
+  for (; i < length;) {
     this[i] = collection[i++];
   }
   this.length = length;
