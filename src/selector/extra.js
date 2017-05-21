@@ -143,3 +143,20 @@ export const siblings = function(selector) {
 export const slice = function(start, end) { // eslint-disable-line no-unused-vars
   return $([].slice.apply(this, arguments));
 };
+
+/**
+ * Removes elements from the current set.
+ *
+ * @param {string} selector The selector to use when removing the elements.
+ * @return hexadogJS
+ */
+export const not = function( selector ) {
+  const nodes = [];
+
+  each( this, element => {
+    if( !matches( element, selector ) ) {
+      nodes.push( element );
+    }
+  } );
+  return hexadogJS( nodes );
+};
