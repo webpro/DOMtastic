@@ -109,18 +109,6 @@ export const parent = function(selector) {
 };
 
 /**
- * Return the first element in the collection
- *
- * @return {Object} New wrapped collection
- * @chainable
- * @example
- *     $('.selector').first();
- */
-export const first = function() {
-  return slice.call( this, 0, 1 );
-};
-
-/**
  * Return the last element in the collection
  *
  * @return {Object} New wrapped collection
