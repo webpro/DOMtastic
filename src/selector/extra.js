@@ -143,3 +143,48 @@ export const siblings = function(selector) {
 export const slice = function(start, end) { // eslint-disable-line no-unused-vars
   return $([].slice.apply(this, arguments));
 };
+
+export const is = function( selector ) {
+  const nodes = [];
+  let check;
+
+  // assume a dom element
+  if ( typeof selector !== 'string' ) {
+    if ( selector.length && selector[ 0 ] ) {
+      check = selector;
+    } else {
+      check = [ selector ];
+    }
+    each( this, element => {
+      let j = 0;
+
+      while( j < check.length ){
+        if ( element === check[ j ] ){
+          nodes.push( element );
+        }
+
+        j++;
+      }
+    } );
+  } else {
+    each( this, element => {
+      const newSelector = selector.replace( /(.*):visible|:hidden(.*)/i , '$1$2' );
+      if ( ( selector && matches(element, newSelector) ) ) {
+        nodes.push( element );
+      }
+    } );
+  }
+  let res = $( nodes );
+
+  if ( /:visible/.test( selector ) ) {
+    filter.call( res, function( el ) {
+      return !!( el.offsetWidth || el.offsetHeight || el.getClientRects().length );
+    } );
+  }
+  if ( /:hidden/.test( selector ) ) {
+    filter.call( res, function( el ) {
+      return !( el.offsetWidth || el.offsetHeight || el.getClientRects().length );
+    } );
+  }
+  return res;
+};
