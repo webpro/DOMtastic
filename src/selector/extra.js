@@ -143,3 +143,12 @@ export const siblings = function(selector) {
 export const slice = function(start, end) { // eslint-disable-line no-unused-vars
   return $([].slice.apply(this, arguments));
 };
+
+export const concat = function( elements ) {
+  each( elements, element => {
+    if( [].indexOf.call( this, element ) === -1 ) {
+      [].push.call( this, element );
+    }
+  } );
+  return this;
+};

@@ -77,7 +77,6 @@ describe('selectors', function() {
       assert(actual.length === 5);
       assert.deepEqual(actual, expected);
     });
-
   });
 
   describe('closest', function() {
