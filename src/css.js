@@ -62,3 +62,82 @@ export const css = function(key, value) {
 
   return this;
 };
+
+export const show = function() {
+  each( this, element => {
+    element.style.display = '';
+  } );
+};
+
+export const hide = function() {
+  each( this, element => {
+    element.style.display = 'none';
+  } );
+};
+
+/**
+ * gets/sets css height
+ *
+ * @param {value} optional: set height if given
+ * @returns esQuery object.
+ */
+export const height = function(value) {
+  if ( typeof value !== 'undefined' ) {
+    each( this, element => {
+      element.style.height = typeof value === 'string' ? value : value + 'px';
+    } );
+  } else {
+    return parseInt(document.defaultView.getComputedStyle(this[0], null).getPropertyValue('height'));
+  }
+};
+
+/**
+ * gets/sets css width
+ *
+ * @param {value} optional: set width if given
+ * @returns esQuery object.
+ */
+export const width = function(value) {
+  if ( typeof value !== 'undefined' ) {
+    each( this, element => {
+      element.style.width = typeof value === 'string' ? value : value + 'px';
+    } );
+  } else {
+    return parseInt(document.defaultView.getComputedStyle(this[0], null).getPropertyValue('width'));
+  }
+};
+
+export const offset = function() {
+  const rect = this[ 0 ].getBoundingClientRect();
+  return {
+    top: rect.top + document.body.scrollTop,
+    left: rect.left + document.body.scrollLeft
+  };
+};
+
+export const outerHeight = function( withMargin = false ) {
+  let height = this[ 0 ].offsetHeight;
+  if ( withMargin ) {
+    var style = getComputedStyle( [ 0 ] );
+    height += parseInt( style.marginTop ) + parseInt( style.marginBottom );
+  }
+  return height;
+};
+
+export const outerWidth = function( withMargin = false ) {
+  let width = this[ 0 ].offsetWidth;
+  if ( withMargin ) {
+    var style = getComputedStyle( [ 0 ] );
+    width += parseInt( style.marginLeft ) + parseInt( style.marginRight );
+  }
+  return width;
+};
+
+export const position = function() {
+  const position = {
+    left: this[ 0 ].offsetLeft,
+    top: this[ 0 ].offsetTop
+  };
+
+  return position;
+};
