@@ -144,15 +144,10 @@ export const slice = function(start, end) { // eslint-disable-line no-unused-var
   return $([].slice.apply(this, arguments));
 };
 
-export const add = function( elements ) {
-  const nodes = this.nodeType ? [ this ] : this;
-  if ( typeof elements === 'string' ) {
-    elements = querySelector( elements );
-  } else {
-    elements = Array.isArray( elements ) ? elements : [ elements ];
-  }
+export const concat = function( elements ) {
+  const nodes = this;
   each( elements, element => {
-    if ( nodes.indexOf( element ) === -1 ) {
+    if( nodes.indexOf( element ) === -1 ) {
       nodes.push( element );
     }
   } );
