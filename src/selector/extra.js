@@ -117,7 +117,7 @@ export const parent = function(selector) {
  *     $('.selector').last();
  */
 export const last = function() {
-  return this[ this.length - 1 ];
+  return $( this[ this.length - 1 ] );
 };
 
 /**
