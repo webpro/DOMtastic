@@ -133,16 +133,6 @@ describe('selectors', function() {
 
   });
 
-  describe('concat', function() {
-    it('should return second instance\'s elements concatenated to the first one\'s', function() {
-      var first = $('#testFragment li.two');
-      var second = $('#testFragment li.three');
-      var expected = $('#testFragment li.two, #testFragment li.three');
-      first.concat(second);
-      assert.deepEqual(first, expected);
-    });
-  });
-
   it('should provide a chainable API', function() {
     var element = $('body').find('#testFragment').find('.two');
     assert(element[0] === $('.two')[0]);
