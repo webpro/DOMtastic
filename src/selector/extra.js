@@ -145,11 +145,10 @@ export const slice = function(start, end) { // eslint-disable-line no-unused-var
 };
 
 export const concat = function( elements ) {
-  const nodes = this;
   each( elements, element => {
-    if( nodes.indexOf( element ) === -1 ) {
-      nodes.push( element );
+    if( [].indexOf.call( this, element ) === -1 ) {
+      [].push.call( this, element );
     }
   } );
-  return $( nodes );
+  return this;
 };
