@@ -151,7 +151,7 @@ export const slice = function(start, end) { // eslint-disable-line no-unused-var
  * @return hexadogJS
  */
 export const not = function( selector ) {
-  return [].filter.call( this, function( element ) {
+  return $( [].filter.call( this, function( element ) {
     return !matches( element, selector );
-  } );
+  } ) );
 };

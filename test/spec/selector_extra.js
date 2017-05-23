@@ -162,6 +162,16 @@ describe('selectors (extra)', function() {
 
   });
 
+  describe('not', function() {
+
+    it('should return collection without element\'s matching to the selector', function() {
+      var actual = $('#testFragment li').not( ':last-child' );
+      var expected = $('#testFragment li:not(:last-child)');
+      assert.deepEqual(actual, expected);
+    });
+
+  });
+
   it('should provide a chainable API', function() {
     var expected = $('.two span');
     var actual = $('#testFragment ul').children('[class]').slice().children();
