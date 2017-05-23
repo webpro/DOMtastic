@@ -151,12 +151,7 @@ export const slice = function(start, end) { // eslint-disable-line no-unused-var
  * @return hexadogJS
  */
 export const not = function( selector ) {
-  const nodes = [];
-
-  each( this, element => {
-    if( !matches( element, selector ) ) {
-      nodes.push( element );
-    }
+  return [].filter.call( this, function( element ) {
+    return !matches( element, selector );
   } );
-  return hexadogJS( nodes );
 };
