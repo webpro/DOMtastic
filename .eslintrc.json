@@ -29,7 +29,8 @@
         "for": {"after": false},
         "while": {"after": false}
       }
-    }]
+    }],
+    "space-in-parens": [2, "never"]
   },
   "globals": {}
 }
