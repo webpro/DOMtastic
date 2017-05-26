@@ -55,11 +55,9 @@ export const each = (collection, callback, thisArg) => {
  * @param {Object} [source] Object to extend from
  * @return {Object} Extended object
  * @example
- *     $.extend({a: 1}, {b: 2});
- *     // {a: 1, b: 2}
+ *     $.extend({a: 1}, {b: 2}); // {a: 1, b: 2}
  * @example
- *     $.extend({a: 1}, {b: 2}, {a: 3});
- *     // {a: 3, b: 2}
+ *     $.extend({a: 1}, {b: 2}, {a: 3}); // {a: 3, b: 2}
  */
 
 export const extend = (target, ...sources) => {

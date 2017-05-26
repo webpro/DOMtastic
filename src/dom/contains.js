@@ -9,8 +9,7 @@
  * @param {Element} element The element that may be a descendant of the other element.
  * @return {Boolean} Whether the `container` element contains the `element`.
  * @example
- *     $.contains(parentElement, childElement);
- *     // true/false
+ *     $.contains(parentElement, childElement); // true/false
  */
 
 export const contains = (container, element) => {

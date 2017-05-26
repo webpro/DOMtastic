@@ -14,10 +14,10 @@ const ArrayProto = Array.prototype;
  * @param {Object} [thisArg] Value to use as `this` when executing `callback`.
  * @return {Boolean} Whether each element passed the callback check.
  * @example
+ *     // Test whether every element in the collection has the "active" attribute
  *     $('.items').every(function(element) {
  *         return element.hasAttribute('active')
  *     });
- *     // true/false
  */
 
 export const every = ArrayProto.every;
@@ -67,8 +67,7 @@ export const each = forEach;
  * @param {Node} element
  * @return {Number} The zero-based index, -1 if not found.
  * @example
- *     $('.items').indexOf(element);
- *     // 2
+ *     $('.items').indexOf(element); // 2
  */
 
 export const indexOf = ArrayProto.indexOf;
@@ -80,10 +79,9 @@ export const indexOf = ArrayProto.indexOf;
  * @param {Object} [thisArg] Value to use as `this` when executing `callback`.
  * @return {Array} Collection with the return value of the executed callback for each element.
  * @example
+ *     // Create a new array with the attribute value of each element:
  *     $('.items').map(function(element) {
  *         return element.getAttribute('name')
- *     });
- *     // ['ever', 'green']
  */
 
 export const map = ArrayProto.map;
@@ -116,10 +114,10 @@ export const push = ArrayProto.push;
  * @param {Function} callback Function to execute on each value in the array, taking four arguments (see example).
  * @param {Mixed} initialValue Object to use as the first argument to the first call of the callback.
  * @example
+ *     // Calculate the combined height of elements:
  *     $('.items').reduce(function(previousValue, element, index, collection) {
  *         return previousValue + element.clientHeight;
  *     }, 0);
- *     // [total height of elements]
  */
 
 export const reduce = ArrayProto.reduce;
@@ -131,10 +129,10 @@ export const reduce = ArrayProto.reduce;
  * @param {Function} callback Function to execute on each value in the array, taking four arguments (see example).
  * @param {Mixed} initialValue Object to use as the first argument to the first call of the callback.
  * @example
+ *     // Concatenate the text of elements in reversed order:
  *     $('.items').reduceRight(function(previousValue, element, index, collection) {
  *         return previousValue + element.textContent;
- *     }, '')
- *     // [reversed text of elements]
+ *     }, '');
  */
 
 export const reduceRight = ArrayProto.reduceRight;
@@ -170,8 +168,7 @@ export const shift = ArrayProto.shift;
  * @example
  *     $('.items').some(function(element) {
  *         return element.hasAttribute('active')
- *     });
- *     // true/false
+ *     }); // true/false
  */
 
 export const some = ArrayProto.some;

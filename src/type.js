@@ -8,11 +8,9 @@
  * @param {Object} [obj] Object to test whether or not it is a function.
  * @return {boolean}
  * @example
- *     $.isFunction(function(){});
- *     // true
+ *     $.isFunction(function(){}); // true
  * @example
- *     $.isFunction({});
- *     // false
+ *     $.isFunction({}); // false
  */
 
 export const isFunction = obj => typeof obj === 'function';
@@ -23,11 +21,9 @@ export const isFunction = obj => typeof obj === 'function';
  * @param {Object} [obj] Object to test whether or not it is an array.
  * @return {boolean}
  * @example
- *     $.isArray([]);
- *     // true
+ *     $.isArray([]); // true
  * @example
- *     $.isArray({});
- *     // false
+ *     $.isArray({}); // false
  */
 
 export const isArray = Array.isArray;
