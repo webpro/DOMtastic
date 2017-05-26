@@ -31,6 +31,26 @@ export const children = function(selector) {
 };
 
 /**
+ * Add the elements of a wrapped collection to another.
+ *
+ * @param {String|Node|NodeList|Array} selector Query selector, `Node`, `NodeList`, array of elements, or HTML fragment string.
+ * @return {Object} The extended wrapped collection
+ * @example
+ *     $('.items').concat($('.more-items));
+ *     $('.items').concat('.more-items);
+ *     $('.items').concat('<div>more</div>');
+ */
+
+export const concat = function(selector) {
+  each($(selector), element => {
+    if([].indexOf.call(this, element) === -1) {
+      [].push.call(this, element);
+    }
+  });
+  return this;
+};
+
+/**
  * Return child nodes of each element in the collection, including text and comment nodes.
  *
  * @return {Object} New wrapped collection
@@ -142,13 +162,4 @@ export const siblings = function(selector) {
 
 export const slice = function(start, end) { // eslint-disable-line no-unused-vars
   return $([].slice.apply(this, arguments));
-};
-
-export const concat = function( elements ) {
-  each( elements, element => {
-    if( [].indexOf.call( this, element ) === -1 ) {
-      [].push.call( this, element );
-    }
-  } );
-  return this;
 };

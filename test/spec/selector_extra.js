@@ -30,6 +30,28 @@ describe('selectors (extra)', function() {
 
   });
 
+  describe('concat', function() {
+    it('should add elements of the second to the first instance', function() {
+      var actual = $('#testFragment li.two').concat($('#testFragment li.three'));
+      var expected = $('#testFragment li.two, #testFragment li.three');
+      assert.deepEqual(actual, expected);
+    });
+
+    it('should add elements matching the selector to the first instance', function() {
+      var actual = $('#testFragment li.two').concat('#testFragment li.three');
+      var expected = $('#testFragment li.two, #testFragment li.three');
+      assert.deepEqual(actual, expected);
+    });
+
+    it('should add the html fragment to the first instance', function() {
+      var actual = $('<div>foo</div>').concat('<div>bar</div>');
+      var expected = $('<div>foo</div><div>bar</div>');
+      assert(actual.length === expected.length);
+      assert(actual[0].innerHTML === expected[0].innerHTML);
+      assert(actual[1].innerHTML === expected[1].innerHTML);
+    });
+  });
+
   describe('contents', function() {
 
     it('should return child nodes', function() {
@@ -160,16 +182,6 @@ describe('selectors (extra)', function() {
       assert(actual[1] === expected[3]);
     });
 
-  });
-
-  describe('concat', function() {
-    it('should return second instance\'s elements concatenated to the first one\'s', function() {
-      var first = $('#testFragment li.two');
-      var second = $('#testFragment li.three');
-      var expected = $('#testFragment li.two, #testFragment li.three');
-      first.concat(second);
-      assert.deepEqual(first, expected);
-    });
   });
 
   it('should provide a chainable API', function() {
