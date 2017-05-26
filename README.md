@@ -12,7 +12,7 @@
 
 ## Quicklinks
 
-* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/domtastic/0.13/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/domtastic/0.13/domtastic.min.js)
+* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/npm/domtastic@latest/dist/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/npm/domtastic@latest/dist/domtastic.min.js)
 * [API documentation](https://domtastic.js.org/doc/)
 * [Run tests](https://domtastic.js.org/test/)
 * Coverage: [Istanbul](https://domtastic.js.org/coverage/), [Coveralls](https://coveralls.io/github/webpro/DOMtastic)
@@ -68,7 +68,7 @@ require(['domtastic'], function($) {
 ### Browser Global
 
 ```html
-<script src="//cdn.jsdelivr.net/domtastic/0.13/domtastic.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/domtastic"></script>
 ```
 
 ```javascript
@@ -188,6 +188,7 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
 ### [Selector/extra](https://domtastic.js.org/doc#selector/extra)
 
     children
+    concat
     contents
     eq
     first
@@ -284,7 +285,7 @@ Many thanks to these sources of inspiration:
 * [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
 * [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
 
-Thanks to [jsDelivr](http://www.jsdelivr.com/) for [hosting DOMtastic](http://www.jsdelivr.com/projects/domtastic).
+Thanks to [jsDelivr](https://www.jsdelivr.com/) for [hosting DOMtastic](https://www.jsdelivr.com/projects/domtastic).
 
 ## License
 
