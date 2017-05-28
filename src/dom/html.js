@@ -24,3 +24,15 @@ export const html = function(fragment) {
 
   return each(this, element => element.innerHTML = fragment);
 };
+
+export const outerHtml = function() {
+  const element = this.nodeType ? this : this[ 0 ];
+  return element ? element.outerHTML : undefined;
+};
+
+export const parseHTML = function( string ) {
+  let tmp = document.implementation.createHTMLDocument();
+  tmp.body.innerHTML = string;
+
+  return tmp.body.children;
+};
