@@ -129,6 +129,56 @@ export const parent = function(selector) {
 };
 
 /**
+ * Return the last element in the collection
+ *
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').last();
+ */
+export const last = function() {
+  return $( this[ this.length - 1 ] );
+};
+
+/**
+ * Return the next element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').next();
+ */
+export const next = function( selector ) {
+  const nodes = [];
+  each( this, element => each( element.nextElementSibling, sibling => {
+    if ( sibling !== element && ( !selector || ( selector && matches( sibling, selector ) ) ) ) {
+      nodes.push( sibling );
+    }
+  } ) );
+  return $( nodes );
+};
+
+/**
+ * Return the previous element in the collection, optionally filtered by a selector.
+ *
+ * @param {String} [selector] Filter
+ * @return {Object} New wrapped collection
+ * @chainable
+ * @example
+ *     $('.selector').prev();
+ */
+export const prev = function( selector ) {
+  const nodes = [];
+  each( this, element => each( element.previousElementSibling, sibling => {
+    if ( sibling !== element && ( !selector || ( selector && matches( sibling, selector ) ) ) ) {
+      nodes.push( sibling );
+    }
+  } ) );
+  return $( nodes );
+};
+
+/**
  * Return the sibling elements of each element in the collection, optionally filtered by a selector.
  *
  * @param {String} [selector] Filter
@@ -162,4 +212,19 @@ export const siblings = function(selector) {
 
 export const slice = function(start, end) { // eslint-disable-line no-unused-vars
   return $([].slice.apply(this, arguments));
+};
+
+export const add = function( elements ) {
+  const nodes = this.nodeType ? [ this ] : this;
+  if ( typeof elements === 'string' ) {
+    elements = querySelector( elements );
+  } else {
+    elements = Array.isArray( elements ) ? elements : [ elements ];
+  }
+  each( elements, element => {
+    if ( nodes.indexOf( element ) === -1 ) {
+      nodes.push( element );
+    }
+  } );
+  return $( nodes );
 };
