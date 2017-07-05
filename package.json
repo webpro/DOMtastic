@@ -28,7 +28,7 @@
     "url": "https://github.com/webpro/DOMtastic/issues"
   },
   "main": "dist/domtastic.js",
-  "module": "src/index.js",
+  "jsnext:main": "src/index.js",
   "files": [
     "dist",
     "src",
