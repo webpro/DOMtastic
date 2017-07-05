@@ -37,9 +37,28 @@ export const every = ArrayProto.every;
  *     });
  */
 
-export const filter = function(selector, thisArg) {
-  const callback = typeof selector === 'function' ? selector : element => matches(element, selector);
-  return $(ArrayProto.filter.call(this, callback, thisArg));
+export const filter = function( selector, thisArg ) {
+  let callback;
+
+  if ( typeof selector === 'function' ) {
+    callback = selector;
+  } else {
+    const newSelector = selector.replace( /(.*):visible|:hidden(.*)/i , '$1$2' );
+    callback = element => matches( element, newSelector );
+  }
+  let result = ArrayProto.filter.call( this, callback, thisArg );
+
+  if ( /:visible/.test( selector ) ) {
+    ArrayProto.filter.call( result, function( el ) {
+      return !!( el.offsetWidth || el.offsetHeight || el.getClientRects().length );
+    } );
+  }
+  if ( /:hidden/.test( selector ) ) {
+    ArrayProto.filter.call( result, function( el ) {
+      return !( el.offsetWidth || el.offsetHeight || el.getClientRects().length );
+    } );
+  }
+  return $( result );
 };
 
 /**
