@@ -34,7 +34,7 @@ export default {
     }),
     minify ? uglify({
       mangle: {
-        except: ['domtastic', 'DOMtastic']
+        reserved: ['domtastic', 'DOMtastic']
       }
     }) : {}
   ]
