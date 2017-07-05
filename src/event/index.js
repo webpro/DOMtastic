@@ -107,10 +107,11 @@ export const off = function(eventNames = '', selector, handler, useCapture) {
 
       each(handlers.filter(item => {
         return (
-        (!eventName || item.eventName === eventName) &&
-        (!namespace || item.namespace === namespace) &&
-        (!handler || item.handler === handler) &&
-        (!selector || item.selector === selector));
+          (!eventName || item.eventName === eventName) &&
+          (!namespace || item.namespace === namespace) &&
+          (!handler || item.handler === handler) &&
+          (!selector || item.selector === selector)
+        );
       }), item => {
         element.removeEventListener(item.eventName, item.eventListener, useCapture || false);
         handlers.splice(handlers.indexOf(item), 1);
