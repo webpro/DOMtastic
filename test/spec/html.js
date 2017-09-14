@@ -36,6 +36,11 @@ describe('html', function() {
       assert.deepEqual(actual, element);
     });
 
+    it('should set html if content is number', function () {
+      emptyContainer.html(20);
+      assert(emptyContainer[0].innerHTML === '20');
+    })
+
   });
 
   describe('set (magic)', function() {

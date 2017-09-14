@@ -17,7 +17,7 @@ import { each } from '../util';
 
 export const html = function(fragment) {
 
-  if(typeof fragment !== 'string') {
+  if(['string', 'number'].indexOf(typeof fragment) >= 0) {
     const element = this.nodeType ? this : this[0];
     return element ? element.innerHTML : undefined;
   }
