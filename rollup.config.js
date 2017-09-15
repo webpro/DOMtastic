@@ -14,11 +14,13 @@ var minify = argv.minify;
 var pkg = require('./package.json');
 
 export default {
-  entry: 'src/index.js',
-  dest: minify ? 'dist/domtastic.min.js' : 'dist/domtastic.js',
-  format: 'umd',
-  moduleName: '$',
-  sourceMap: true,
+  input: 'src/index.js',
+  output: {
+    file: minify ? 'dist/domtastic.min.js' : 'dist/domtastic.js',
+    format: 'umd'
+  },
+  name: '$',
+  sourcemap: true,
   plugins: [
     excludeModules({
       exclude: exclude,
