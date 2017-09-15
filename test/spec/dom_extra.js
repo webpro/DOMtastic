@@ -162,6 +162,11 @@ describe('dom (extra)', function() {
       assert(element.val('smt') === element);
     });
 
+    it('should return undefined if collection is empty', function() {
+      var element = $('foo#bar');
+      assert(element.val() === undefined);
+    });
+
   });
 
 });
