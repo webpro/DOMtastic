@@ -93,7 +93,7 @@ export const text = function(value) {
 export const val = function(value) {
 
   if(value === undefined) {
-    return this[0] ? this[0].value : undefined;
+    return this.length > 0 ? this[0].value : undefined;
   }
 
   return each(this, element => element.value = value);
