@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "babel-core": "6.26.0",
-    "babel-eslint": "8.0.0",
+    "babel-eslint": "8.0.1",
     "babel-plugin-istanbul": "4.1.5",
     "babel-plugin-transform-es2015-arrow-functions": "6.22.0",
     "babel-plugin-transform-es2015-block-scoping": "6.26.0",
