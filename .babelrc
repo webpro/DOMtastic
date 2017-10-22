@@ -1,13 +1,12 @@
 {
-  "plugins": [
-    "transform-es2015-arrow-functions",
-    ["transform-es2015-classes", {"loose": true}],
-    "transform-es2015-shorthand-properties",
-    ["transform-es2015-spread", {"loose": true}],
-    "transform-es2015-parameters",
-    ["transform-es2015-destructuring", {"loose": true}],
-    "transform-es2015-block-scoping",
-    "transform-object-rest-spread"
+  "presets": [
+    ["env", {
+      "modules": false,
+      "loose": true,
+      "targets": {
+        "ie": 9
+      }
+    }]
   ],
   "env": {
     "test": {
