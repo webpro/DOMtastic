@@ -1,6 +1,6 @@
 {
   "name": "domtastic",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "Small, fast, and modular DOM and event library for modern browsers.",
   "keywords": [
     "attr",
@@ -29,6 +29,7 @@
   },
   "main": "dist/domtastic.js",
   "jsnext:main": "src/index.js",
+  "module": "src/index.js",
   "files": [
     "dist",
     "src",
