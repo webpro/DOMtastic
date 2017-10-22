@@ -68,7 +68,7 @@
     "glob": "7.1.2",
     "jsdom": "11.3.0",
     "jsdom-global": "3.0.2",
-    "just-extend": "1.1.22",
+    "just-extend": "1.1.25",
     "minimist": "1.2.0",
     "mocha": "4.0.0",
     "nyc": "11.2.1",
