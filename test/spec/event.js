@@ -7,6 +7,16 @@ describe('events', function() {
     }
   }
 
+  function assertCustomEvent(evt) {
+    assert(evt instanceof CustomEvent);
+  }  
+  function assertMouseEvent(evt) {
+    assert(evt instanceof MouseEvent);
+  }
+  function assertKeyboardEvent(evt) {
+    assert(evt instanceof KeyboardEvent);
+  }
+
   var spy;
 
   beforeEach(function() {
@@ -63,6 +73,16 @@ describe('events', function() {
       trigger(element, eventTypes[1]);
       trigger(element, eventTypes[2]);
       assert(spy.calledThrice);
+    });
+
+    it('should dispatch correct event type', function() {
+      var element = $(document.body);
+      element.on('click', assertMouseEvent).trigger('click');
+      element.on('dblclick', assertMouseEvent).trigger('dblclick');
+      element.on('keyup', assertKeyboardEvent).trigger('keyup');
+      element.on('mouseleave', assertMouseEvent).trigger('mouseleave');
+      element.on('test_click', assertCustomEvent).trigger('test_click');
+      element.on('keymove', assertCustomEvent).trigger('keymove');
     });
 
     describe('delegated', function() {
@@ -222,10 +242,9 @@ describe('events', function() {
 
       var element = $('#testFragment a');
       var eventType = 'click';
-      var event = new CustomEvent(eventType, {
+      var event = new MouseEvent(eventType, {
         bubbles: true,
-        cancelable: true,
-        detail: undefined
+        cancelable: true
       });
       var eventSpy = sinon.spy(event, 'preventDefault');
       var hash = '#' + $helpers.getRndStr();

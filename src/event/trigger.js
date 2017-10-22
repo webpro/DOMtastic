@@ -5,8 +5,8 @@
 import { win, each } from '../util';
 import { contains } from '../dom/contains';
 
-const reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/;
-const reKeyEvent = /^key/;
+const reMouseEvent = /^(mouse(down|up|over|out|enter|leave|move)|contextmenu|(dbl)?click)$/;
+const reKeyEvent = /^key(down|press|up)/;
 
 /**
  * Trigger event at element(s)
