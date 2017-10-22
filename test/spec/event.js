@@ -224,8 +224,7 @@ describe('events', function() {
       var eventType = 'click';
       var event = new CustomEvent(eventType, {
         bubbles: true,
-        cancelable: true,
-        detail: undefined
+        cancelable: true
       });
       var eventSpy = sinon.spy(event, 'preventDefault');
       var hash = '#' + $helpers.getRndStr();

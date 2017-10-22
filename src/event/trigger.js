@@ -5,8 +5,8 @@
 import { win, each } from '../util';
 import { contains } from '../dom/contains';
 
-const reMouseEvent = /^(?:mouse|pointer|contextmenu)|click/;
-const reKeyEvent = /^key/;
+const reMouseEvent = /^(mouse(down|up|over|out|enter|leave|move)|contextmenu|(dbl)?click)$/;
+const reKeyEvent = /^key(down|press|up)$/;
 
 /**
  * Trigger event at element(s)
@@ -49,7 +49,7 @@ export const trigger = function(type, data, {bubbles = true, cancelable = true, 
   });
 };
 
-const getEventConstructor = type => supportsOtherEventConstructors ? (reMouseEvent.test(type) ? MouseEvent : (reKeyEvent.test(type) ? KeyboardEvent : CustomEvent)) : CustomEvent;
+const getEventConstructor = type => isSupportsOtherEventConstructors ? (reMouseEvent.test(type) ? MouseEvent : (reKeyEvent.test(type) ? KeyboardEvent : CustomEvent)) : CustomEvent;
 
 /**
  * Trigger event at first element in the collection. Similar to `trigger()`, except:
@@ -171,7 +171,7 @@ const isEventBubblingInDetachedTree = (() =>{
   return isBubbling;
 })();
 
-const supportsOtherEventConstructors = (() => {
+const isSupportsOtherEventConstructors = (() => {
   try {
     new MouseEvent('click');
   } catch(e) {

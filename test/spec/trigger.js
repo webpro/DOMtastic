@@ -1,5 +1,17 @@
 describe('events', function() {
 
+  var isSupportsOtherEventConstructors = (() => { try { new MouseEvent('click'); } catch(e) { return false; } return true; })();
+
+  function assertCustomEvent(evt) {
+    assert(evt instanceof CustomEvent);
+  }  
+  function assertMouseEvent(evt) {
+    assert(evt instanceof (isSupportsOtherEventConstructors ? MouseEvent : CustomEvent));
+  }
+  function assertKeyboardEvent(evt) {
+    assert(evt instanceof (isSupportsOtherEventConstructors ? KeyboardEvent : CustomEvent));
+  }  
+
   describe('trigger', function() {
 
     it('should execute handler for detached node', function() {
@@ -86,6 +98,16 @@ describe('events', function() {
       element.on(eventType, spy);
       element.trigger(eventType);
       assert(spy.called);
+    });
+
+    it('should dispatch correct event type', function() {
+      var element = $(document.body);
+      element.on('click', assertMouseEvent).trigger('click');
+      element.on('dblclick', assertMouseEvent).trigger('dblclick');
+      element.on('keyup', assertKeyboardEvent).trigger('keyup');
+      element.on('mouseleave', assertMouseEvent).trigger('mouseleave');
+      element.on('test_click', assertCustomEvent).trigger('test_click');
+      element.on('keymove', assertCustomEvent).trigger('keymove');
     });
 
     describe('non-cancelable', function() {
