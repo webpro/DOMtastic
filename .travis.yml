@@ -8,6 +8,7 @@ env:
     - secure: "NGCnYXwPfpdiu7ssBpjnhtB8Wvwlsnue2b/qdCsMZ6z8KDehvGUYCWAXrJPrWFbIKm05ksweju9tXLWA0xYwrG+bJFhwJoABNsImXtrZepwMiZAElXzMc8TZdH2MPmIa5BVgEyil4Ju94eUrRL/yXq7Qpw484OIdXIRnjELDgHM="
     - secure: "fkhmxG0s3ap2VbG1mePVv4ItRRMPLbrY7gMaNA2xmPvyaOWEktSwAiNJ/HvnTfjcSE1IBmVveKSFIM7sFHLSYacgZbjzTlHu3hxEsOGO2z9qERr2zFzlkSiMapUBnf1zETJue3Umjwtz6I7hSLFhedVVXdX4T9uf2Ylino8i0tg="
     - secure: "izsncjal7Ygk0xja8rGQEC/N4mkjuppxrqFG19w/EoMhy0eHiHki1WZ0Nsd/2SjPekTJz3d3p5hNCyskV9b1+ATJyjsAUqsrVXE/jt9juzo3eG5UAG0xxkBRbl55P1nl1OtV3bwRruy9UMqLT33QOwHd/YU2akV3PzcVaLbjA0I="
+    - secure: "N+QsY2V8g8E2kZwhzpnUpg2m88yjTs50tC9Z8svBnlTEtoYH0/boopf6xqK7ld5Ylx1Ldemb8WZsAph9CDEniqNds9zNdikaTTo9yY2CoRlBY9+b6eP0tb3BgJBAcRlkijcJirINeyFvNIXX+DwxYj5trYA5//qvba+HAiyuYDk="
 branches:
   except:
     - dev
