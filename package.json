@@ -64,7 +64,7 @@
     "coveralls": "2.13.2",
     "doxstrap": "0.0.7",
     "eslint": "4.9.0",
-    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-import": "2.8.0",
     "glob": "7.1.2",
     "jsdom": "11.3.0",
     "jsdom-global": "3.0.2",
