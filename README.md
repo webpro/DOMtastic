@@ -23,6 +23,7 @@
 ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=MUcvSm9ES1VaYlpTMnk0NytOVDdML3FxRlJNM0VNR2RQdnBPMGduNUowZz0tLUNHWkJ4V2t0SXNqUkRRQUJjTWVnekE9PQ==--c64c417a0144336c1f174ecbe35b4801f82b74e0)
 [![Code Climate](https://codeclimate.com/github/webpro/DOMtastic/badges/gpa.svg)](https://codeclimate.com/github/webpro/DOMtastic)
 [![Greenkeeper Badge](https://badges.greenkeeper.io/webpro/DOMtastic.svg)](https://greenkeeper.io)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/domtastic/dist/domtastic.min.js?compression=gzip)](https://unpkg.com/domtastic/dist/domtastic.min.js)
 
 ## Usage
 
