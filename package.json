@@ -59,7 +59,7 @@
     "bundlesize": "0.15.3",
     "coveralls": "2.13.2",
     "doxstrap": "0.0.7",
-    "eslint": "4.10.0",
+    "eslint": "4.11.0",
     "eslint-plugin-import": "2.8.0",
     "glob": "7.1.2",
     "jsdom": "11.3.0",
