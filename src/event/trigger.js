@@ -136,11 +136,11 @@ const dispatchEvent = (element, event) => {
  */
 
 (() => {
-  const CustomEvent = (event, params = {
+  const CustomEvent = function(event, params = {
     bubbles: false,
     cancelable: false,
     detail: undefined
-  }) => {
+  }) {
     let customEvent = document.createEvent('CustomEvent');
     customEvent.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
     return customEvent;
