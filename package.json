@@ -1,6 +1,6 @@
 {
   "name": "domtastic",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "description": "Small, fast, and modular DOM and event library for modern browsers.",
   "keywords": [
     "attr",
@@ -65,14 +65,14 @@
     "jsdom": "11.3.0",
     "jsdom-global": "3.0.2",
     "minimist": "1.2.0",
-    "mocha": "4.0.0",
+    "mocha": "4.0.1",
     "nyc": "11.3.0",
     "onchange": "3.2.1",
-    "rollup": "0.51.3",
+    "rollup": "0.51.7",
     "rollup-plugin-babel": "3.0.2",
     "rollup-plugin-replace": "2.0.0",
     "rollup-plugin-uglify": "2.0.1",
-    "sinon": "4.0.2"
+    "sinon": "4.1.2"
   },
   "license": "MIT"
 }
