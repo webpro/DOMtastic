@@ -13,6 +13,13 @@ describe('data', function() {
         assert(actual === expected);
       });
 
+      it('should set data on element (dasherized)', function() {
+        $(document.body).data('my-other-attribute', 'myValue2');
+        var expected = 'myValue2';
+        var actual = document.body[DATAKEYPROP]['myOtherAttribute'];
+        assert(actual === expected);
+      });
+
       it('should set data on elements', function() {
         $('#testFragment li').data('myAttribute', 'myValue');
         var expected = 'myValue';
@@ -34,6 +41,13 @@ describe('data', function() {
         $('#testFragment .two').data('secondAttr', 'secondValue');
         var actual = $('#testFragment [class]').data('secondAttr');
         var expected = 'secondValue';
+        assert(actual === expected);
+      });
+
+      it('should get/set more data from first/same element (dasherized)', function() {
+        $('#testFragment .two').data('third-attr', 'thirdValue');
+        var actual = $('#testFragment [class]').data('third-attr');
+        var expected = 'thirdValue';
         assert(actual === expected);
       });
 
@@ -62,7 +76,7 @@ describe('data', function() {
         assert(actual === expected);
       });
 
-      it('should get data from first element (by attr))', function() {
+      it('should get data from first element (by attr)', function() {
         $('#testFragment .two').data('firstAttr', 'firstValue');
         var actual = $('#testFragment [class]')[0].getAttribute('data-first-attr');
         var expected = 'firstValue';

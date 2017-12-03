@@ -7,6 +7,8 @@ import { each } from '../util';
 const isSupportsDataSet = typeof document !== 'undefined' && 'dataset' in document.documentElement;
 const DATAKEYPROP = isSupportsDataSet ? 'dataset' : '__DOMTASTIC_DATA__';
 
+const camelize = str => str.replace(/-+(.)?/g, (match, char) => char ? char.toUpperCase() : '');
+
 /**
  * Get data from first element, or set data for each element in the collection.
  *
@@ -23,14 +25,15 @@ export const data = function(key, value) {
 
   if(typeof key === 'string' && typeof value === 'undefined') {
     const element = this.nodeType ? this : this[0];
-    return element && DATAKEYPROP in element ? element[DATAKEYPROP][key] : undefined;
+    return element && DATAKEYPROP in element ? element[DATAKEYPROP][camelize(key)] : undefined;
   }
 
   return each(this, element => {
     if(!isSupportsDataSet) {
       element[DATAKEYPROP] = element[DATAKEYPROP] || {};
     }
-    element[DATAKEYPROP][key] = value;
+
+    element[DATAKEYPROP][camelize(key)] = value;
   });
 };
 
