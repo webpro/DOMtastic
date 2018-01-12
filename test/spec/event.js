@@ -308,7 +308,7 @@ describe('events', function() {
       trigger(element, eventTypes[0]);
       trigger(element, eventTypes[1]);
       assert(spy.calledOnce);
-      spy.reset();
+      spy.resetHistory();
       element.off(eventTypes.join(' '));
       trigger(element, eventTypes[2]);
       assert(spy.called === false);
