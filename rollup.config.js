@@ -17,10 +17,10 @@ export default {
   input: 'src/index.js',
   output: {
     file: minify ? 'dist/domtastic.min.js' : 'dist/domtastic.js',
-    format: 'umd'
+    format: 'umd',
+    name: '$',
+    sourcemap: true
   },
-  name: '$',
-  sourcemap: true,
   plugins: [
     excludeModules({
       exclude: exclude,
