@@ -62,7 +62,7 @@
     "eslint": "4.15.0",
     "eslint-plugin-import": "2.8.0",
     "glob": "7.1.2",
-    "jsdom": "11.5.1",
+    "jsdom": "11.6.0",
     "jsdom-global": "3.0.2",
     "minimist": "1.2.0",
     "mocha": "4.1.0",
