@@ -66,7 +66,7 @@
     "jsdom-global": "3.0.2",
     "minimist": "1.2.0",
     "mocha": "4.1.0",
-    "nyc": "11.4.1",
+    "nyc": "11.6.0",
     "onchange": "3.3.0",
     "rollup": "0.54.0",
     "rollup-plugin-babel": "3.0.3",
