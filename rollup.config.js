@@ -8,8 +8,8 @@ import redirectModules from './build/rollup.plugin.redirectModules.js';
 var argv = minimist(process.argv.slice(2));
 var exclude = argv.exclude ? argv.exclude.split(',') : [];
 var include = argv.include ? argv.include.split(',') : [];
-var jQueryCompat = argv['jquery-compat'];
-var minify = argv.minify;
+var jQueryCompat = argv['config:jquery-compat'];
+var minify = argv['config:minify'];
 
 var pkg = require('./package.json');
 
