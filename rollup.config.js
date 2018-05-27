@@ -1,6 +1,6 @@
 import minimist from 'minimist';
 import babel from 'rollup-plugin-babel';
-import uglify from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
 import replace from 'rollup-plugin-replace';
 import excludeModules from './build/rollup.plugin.excludeModules.js';
 import redirectModules from './build/rollup.plugin.redirectModules.js';
@@ -34,7 +34,7 @@ export default {
     replace({
       __VERSION__: pkg.version
     }),
-    minify ? uglify({
+    minify ? terser({
       mangle: {
         reserved: ['domtastic', 'DOMtastic']
       }
