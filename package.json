@@ -71,7 +71,7 @@
     "rollup-plugin-babel": "3.0.4",
     "rollup-plugin-replace": "2.0.0",
     "rollup-plugin-terser": "1.0.1",
-    "sinon": "5.0.10",
+    "sinon": "5.1.0",
     "size-limit": "0.18.1"
   },
   "license": "MIT"
