@@ -58,7 +58,7 @@
     "browserstack-runner": "0.7.0",
     "coveralls": "3.0.1",
     "doxstrap": "0.0.7",
-    "eslint": "4.19.1",
+    "eslint": "5.0.0",
     "eslint-plugin-import": "2.12.0",
     "glob": "7.1.2",
     "jsdom": "11.11.0",
