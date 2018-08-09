@@ -55,7 +55,7 @@
     "babel-eslint": "8.2.3",
     "babel-plugin-istanbul": "4.1.6",
     "babel-preset-env": "1.7.0",
-    "browserstack-runner": "0.7.0",
+    "browserstack-runner": "0.8.0",
     "coveralls": "3.0.1",
     "doxstrap": "0.0.7",
     "eslint": "4.19.1",
