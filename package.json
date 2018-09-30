@@ -66,7 +66,7 @@
     "minimist": "1.2.0",
     "mocha": "5.2.0",
     "nyc": "12.0.2",
-    "onchange": "4.1.0",
+    "onchange": "5.0.0",
     "rollup": "0.64.1",
     "rollup-plugin-babel": "3.0.7",
     "rollup-plugin-replace": "2.0.0",
