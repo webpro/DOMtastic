@@ -17,33 +17,38 @@
     "edge_latest",
     {
       "os": "android",
-      "os_version": "4.0",
-      "browser": "android",
-      "device": "HTC One X"
+      "os_version": "8.0",
+      "browser": "Android",
+      "device": "Google Pixel",
+      "real_mobile": true
     },
     {
       "os": "android",
-      "os_version": "4.4",
-      "browser": "android",
-      "device": "Samsung Galaxy S5"
+      "os_version": "6.0",
+      "browser": "Android",
+      "device": "Samsung Galaxy S7",
+      "real_mobile": true
     },
     {
       "os": "ios",
-      "os_version": "7.0",
-      "browser": "iphone",
-      "device": "iPhone 5S"
+      "os_version": "10.3",
+      "browser": "iPhone",
+      "device": "iPhone 7 Plus",
+      "real_mobile": true
     },
     {
       "os": "ios",
-      "os_version": "8.3",
-      "browser": "iphone",
-      "device": "iPhone 6"
+      "os_version": "11.2",
+      "browser": "iPad",
+      "device": "iPad Pro",
+      "real_mobile": true
     },
     {
       "os": "ios",
-      "os_version": "9.1",
-      "browser": "ipad",
-      "device": "iPad Pro"
+      "os_version": "12.0",
+      "browser": "iPhone",
+      "device": "iPhone XS",
+      "real_mobile": true
     }
   ]
 }
