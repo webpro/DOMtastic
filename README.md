@@ -24,6 +24,7 @@
 [![Code Climate](https://codeclimate.com/github/webpro/DOMtastic/badges/gpa.svg)](https://codeclimate.com/github/webpro/DOMtastic)
 [![Greenkeeper Badge](https://badges.greenkeeper.io/webpro/DOMtastic.svg)](https://greenkeeper.io)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/domtastic/dist/domtastic.min.js?compression=gzip)](https://unpkg.com/domtastic/dist/domtastic.min.js)
+[![](https://data.jsdelivr.com/v1/package/npm/domtastic/badge)](https://www.jsdelivr.com/package/npm/domtastic)
 
 ## Usage
 
@@ -275,7 +276,7 @@ This way, you don't have the slight overhead of the UMD boilerplate in a custom 
 
 ## Tests
 
-Run the hosted [test suite](https://domtastic.js.org/test/) in your browser. You can also clone this repo, and run the tests locally with [jsdom](https://github.com/tmpvar/jsdom) (using `npm test`).
+Run the hosted [test suite](https://domtastic.js.org/test/) in your browser. You can also clone this repo, and run the tests locally with [jsdom](https://github.com/tmpvar/jsdom) (using `npm test`). Run `npm run test:bs` to run the tests in real browsers using BrowserStack.
 
 ## Credits
 
@@ -287,7 +288,13 @@ Many thanks to these sources of inspiration:
 * [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
 * [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
 
-Thanks to [jsDelivr](https://www.jsdelivr.com/) for [hosting DOMtastic](https://www.jsdelivr.com/projects/domtastic).
+Thanks to the [jsDelivr Open Source CDN](https://www.jsdelivr.com/) for [hosting DOMtastic](https://www.jsdelivr.com/projects/domtastic).
+
+[<img src="https://www.jsdelivr.com/img/logo@2x.png" width="300">](https://www.jsdelivr.com)
+
+Thanks to [BrowserStack](https://www.browserstack.com) for their real device cloud.
+
+[<img src="https://cloud.githubusercontent.com/assets/7864462/12837037/452a17c6-cb73-11e5-9f39-fc96893bc9bf.png" width="300">](https://www.browserstack.com)
 
 ## License
 
