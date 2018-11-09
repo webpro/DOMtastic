@@ -13,7 +13,8 @@
     "ie_9",
     "ie_10",
     "ie_11",
-    "edge_14",
+    "edge_previous",
+    "edge_latest",
     {
       "os": "android",
       "os_version": "4.0",
