@@ -51,7 +51,7 @@
     "watch": "onchange 'src/**/*.js' -- npm run bundle"
   },
   "devDependencies": {
-    "@babel/core": "7.1.6",
+    "@babel/core": "7.2.2",
     "@babel/preset-env": "7.1.6",
     "@babel/register": "7.0.0",
     "babel-eslint": "10.0.1",
