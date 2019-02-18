@@ -65,7 +65,7 @@
     "jsdom": "13.0.0",
     "jsdom-global": "3.0.2",
     "minimist": "1.2.0",
-    "mocha": "5.2.0",
+    "mocha": "6.0.0",
     "nyc": "13.1.0",
     "onchange": "5.1.0",
     "rollup": "0.67.3",
