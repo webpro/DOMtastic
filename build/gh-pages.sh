@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
 cat index.yml ../README.md > index.md
-npm run build
-npm run coverage
-npm run doc
 rsync --recursive --delete ../dist/ dist
 rsync --recursive --delete ../test/ test
 rsync --recursive --delete ../coverage/ coverage
