@@ -51,6 +51,47 @@ describe('css', function() {
       assert.doesNotThrow(fn, TypeError);
     });
 
+    it('should set style property with important priority on elements', function() {
+      var expected = '15px';
+      $('#testFragment').css('paddingRight', expected + ' !important');
+      var element = $('#testFragment')[0];
+      var actualValue = element.style.getPropertyValue('padding-right');
+      var actualPriority = element.style.getPropertyPriority('padding-right');
+      assert(actualValue === expected);
+      assert(actualPriority === 'important');
+    });
+
+    it('should set style property without important priority on elements', function() {
+      var expected = '20px';
+      $('#testFragment').css('paddingRight', '20px');
+      var element = $('#testFragment')[0];
+      var actualValue = element.style.getPropertyValue('padding-right');
+      var actualPriority = element.style.getPropertyPriority('padding-right');
+      assert(actualValue === expected);
+      assert(actualPriority === '');
+    });
+
+    it('should set multiple style property with important priority on elements', function() {
+      var element = $('#testFragment');
+      var expected = ['400', 'normal'];
+      element.css({
+        'font-weight': expected[0] + ' !important',
+        'font-style': expected[1]
+      });
+      var actualValue = [
+        element[0].style.getPropertyValue('font-weight'),
+        element[0].style.getPropertyValue('font-style')
+      ];
+      var actualPriority = [
+        element[0].style.getPropertyPriority('font-weight'),
+        element[0].style.getPropertyPriority('font-style')
+      ];
+      assert(actualValue[0] === expected[0]);
+      assert(actualPriority[0] === 'important');
+      assert(actualValue[1] === expected[1]);
+      assert(actualPriority[1] === '');
+    });
+
   });
 
   describe('get', function() {
