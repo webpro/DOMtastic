@@ -6,8 +6,6 @@ import { each } from './util';
 
 const isNumeric = value => !isNaN(parseFloat(value)) && isFinite(value);
 
-const camelize = value => value.replace(/-([\da-z])/gi, (matches, letter) => letter.toUpperCase());
-
 const dasherize = value => value.replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
@@ -28,12 +26,12 @@ export const css = function(key, value) {
   let styleProps, prop, val;
 
   if(typeof key === 'string') {
-    key = camelize(key);
+    key = dasherize(key);
 
     if(typeof value === 'undefined') {
       let element = this.nodeType ? this : this[0];
       if(element) {
-        val = element.style[key];
+        val = element.style.getPropertyValue(key);
         return isNumeric(val) ? parseFloat(val) : val;
       }
       return undefined;
@@ -46,16 +44,21 @@ export const css = function(key, value) {
     for(prop in styleProps) {
       val = styleProps[prop];
       delete styleProps[prop];
-      styleProps[camelize(prop)] = val;
+      styleProps[dasherize(prop)] = val;
     }
   }
 
   each(this, element => {
     for(prop in styleProps) {
+      let important = undefined;
+      if(typeof styleProps[prop] === 'string' && styleProps[prop].match(/!important$/)) {
+        styleProps[prop] = styleProps[prop].replace(/\s*!important$/, '');
+        important = 'important';
+      }
       if(styleProps[prop] || styleProps[prop] === 0) {
-        element.style[prop] = styleProps[prop];
+        element.style.setProperty(prop, styleProps[prop], important);
       } else {
-        element.style.removeProperty(dasherize(prop));
+        element.style.removeProperty(prop);
       }
     }
   });
