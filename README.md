@@ -1,28 +1,27 @@
 # DOMtastic
 
-* Small, fast, and modular **DOM & Event** library for modern browsers.
-* Same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`).
-* Dependency-free. Weighs in at only 1KB to 12KB (minified), depending on included modules. Full bundle is about 4KB gzipped.
-* Works great stand-alone or paired up with e.g. Backbone or Angular.
-* The [source](https://github.com/webpro/DOMtastic) is written in ES6 format.
-* [Rollup](http://rollupjs.org) and [babel](https://babeljs.io) are used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
-* Supercharge your components and extend from the [base class](#es6-class).
-* Easy to create a [custom build](#custom-build) to include or exclude parts.
-* DOMtastic also serves as a starting point for your own application-specific DOM API ([read more](#build-a-custom-api-for-your-application)).
+- Small, fast, and modular **DOM & Event** library for modern browsers.
+- Same familiar API as jQuery (but without the extra "weight" of modules like `$.ajax`, `$.animate`, and `$.Deferred`).
+- Dependency-free. Weighs in at only 1KB to 12KB (minified), depending on included modules. Full bundle is about 4KB gzipped.
+- Works great stand-alone or paired up with e.g. Backbone or Angular.
+- The [source](https://github.com/webpro/DOMtastic) is written in ES6 format.
+- [Rollup](http://rollupjs.org) and [babel](https://babeljs.io) are used to create a [UMD](https://github.com/umdjs/umd) bundle (supporting AMD, CommonJS, and fallback to browser global).
+- Supercharge your components and extend from the [base class](#es6-class).
+- Easy to create a [custom build](#custom-build) to include or exclude parts.
+- DOMtastic also serves as a starting point for your own application-specific DOM API ([read more](#build-a-custom-api-for-your-application)).
 
 ## Quicklinks
 
-* Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/npm/domtastic@latest/dist/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/npm/domtastic@latest/dist/domtastic.min.js)
-* [API documentation](https://domtastic.js.org/doc/)
-* [Run tests](https://domtastic.js.org/test/)
-* Coverage: [Istanbul](https://domtastic.js.org/coverage/), [Coveralls](https://coveralls.io/github/webpro/DOMtastic)
-* [Run benchmarks](https://domtastic.js.org/benchmark/)
+- Bundled sources: [domtastic.js](https://cdn.jsdelivr.net/npm/domtastic@latest/dist/domtastic.js), [domtastic.min.js](https://cdn.jsdelivr.net/npm/domtastic@latest/dist/domtastic.min.js)
+- [API documentation](https://domtastic.js.org/doc/)
+- [Run tests](https://domtastic.js.org/test/)
+- Coverage: [Istanbul](https://domtastic.js.org/coverage/), [Coveralls](https://coveralls.io/github/webpro/DOMtastic)
+- [Run benchmarks](https://domtastic.js.org/benchmark/)
 
 [![Build Status](https://travis-ci.org/webpro/DOMtastic.png?branch=master)](https://travis-ci.org/webpro/DOMtastic)
 [![Coverage Status](https://coveralls.io/repos/github/webpro/DOMtastic/badge.svg)](https://coveralls.io/github/webpro/DOMtastic)
 ![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=MUcvSm9ES1VaYlpTMnk0NytOVDdML3FxRlJNM0VNR2RQdnBPMGduNUowZz0tLUNHWkJ4V2t0SXNqUkRRQUJjTWVnekE9PQ==--c64c417a0144336c1f174ecbe35b4801f82b74e0)
 [![Code Climate](https://codeclimate.com/github/webpro/DOMtastic/badges/gpa.svg)](https://codeclimate.com/github/webpro/DOMtastic)
-[![Greenkeeper Badge](https://badges.greenkeeper.io/webpro/DOMtastic.svg)](https://greenkeeper.io)
 [![gzip size](http://img.badgesize.io/https://unpkg.com/domtastic/dist/domtastic.min.js?compression=gzip)](https://unpkg.com/domtastic/dist/domtastic.min.js)
 [![](https://data.jsdelivr.com/v1/package/npm/domtastic/badge)](https://www.jsdelivr.com/package/npm/domtastic)
 
@@ -56,15 +55,17 @@ bower install domtastic
 
 ```javascript
 requirejs.config({
-    baseUrl: 'bower_components',
-    packages: [{
-        name: 'domtastic',
-        main: 'domtastic'
-    }]
+  baseUrl: 'bower_components',
+  packages: [
+    {
+      name: 'domtastic',
+      main: 'domtastic'
+    }
+  ]
 });
 
 require(['domtastic'], function($) {
-    $('.earth').addClass('evergreen').on('sunrise', '.people', awake);
+  $('.earth').addClass('evergreen').on('sunrise', '.people', awake);
 });
 ```
 
@@ -84,9 +85,9 @@ $('.planet').addClass('evergreen').on('sunrise', '.grass', grow);
 import $ from 'domtastic';
 
 class MyComponent extends $.BaseClass {
-    progress(value) {
-        return this.attr('data-progress', value);
-    }
+  progress(value) {
+    return this.attr('data-progress', value);
+  }
 }
 
 let component = new MyComponent('.my-anchor');
@@ -213,9 +214,9 @@ Read more in the [baseClass article](https://medium.com/@webprolific/domtastic-s
 
 As mentioned in the introduction, DOMtastic doesn't feature methods for Ajax, Animation, Promise, etc. Please find your own libraries to fill in the gaps as needed. Here are just some examples:
 
-* Ajax: [microjs#ajax](http://microjs.com/#ajax), [rest.js](https://github.com/cujojs/rest)
-* Animation: [microjs#animation](http://microjs.com/#animation), [Move.js](http://visionmedia.github.io/move.js/), [Animate.css](https://daneden.me/animate/)
-* Promises: [when.js](https://github.com/cujojs/when), [RSVP.js](https://github.com/tildeio/rsvp.js)
+- Ajax: [microjs#ajax](http://microjs.com/#ajax), [rest.js](https://github.com/cujojs/rest)
+- Animation: [microjs#animation](http://microjs.com/#animation), [Move.js](http://visionmedia.github.io/move.js/), [Animate.css](https://daneden.me/animate/)
+- Promises: [when.js](https://github.com/cujojs/when), [RSVP.js](https://github.com/tildeio/rsvp.js)
 
 Please note that you can extend the `$.fn` object, just like [jQuery Plugins](http://learn.jquery.com/plugins/basic-plugin-creation/).
 
@@ -262,7 +263,7 @@ You can also build a custom API from the ground up. By default, DOMtastic [does 
 
 ```javascript
 var selector = require('domtastic/commonjs/selector'),
-    dom = require('domtastic/commonjs/dom');
+  dom = require('domtastic/commonjs/dom');
 
 var $ = selector.$;
 $.fn = {};
@@ -282,11 +283,11 @@ Run the hosted [test suite](https://domtastic.js.org/test/) in your browser. You
 
 Many thanks to these sources of inspiration:
 
-* [jQuery](http://jquery.com/)
-* [madrobby/zepto](https://github.com/madrobby/zepto/)
-* [remy/min.js](https://github.com/remy/min.js)
-* [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
-* [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
+- [jQuery](http://jquery.com/)
+- [madrobby/zepto](https://github.com/madrobby/zepto/)
+- [remy/min.js](https://github.com/remy/min.js)
+- [Knockout](https://github.com/knockout/knockout/blob/master/src/utils.js)
+- [inkling/Backbone.Native](https://github.com/inkling/backbone.native/blob/master/backbone.native.js)
 
 Thanks to the [jsDelivr Open Source CDN](https://www.jsdelivr.com/) for [hosting DOMtastic](https://www.jsdelivr.com/projects/domtastic).
 
