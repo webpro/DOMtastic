@@ -50,12 +50,11 @@ export const css = function(key, value) {
 
   each(this, element => {
     for(prop in styleProps) {
-      let important = undefined;
-      if(typeof styleProps[prop] === 'string' && styleProps[prop].match(/!important$/)) {
-        styleProps[prop] = styleProps[prop].replace(/\s*!important$/, '');
-        important = 'important';
-      }
       if(styleProps[prop] || styleProps[prop] === 0) {
+        const important = /!important$/.test(styleProps[prop]) ? 'important' : undefined;
+        if(typeof styleProps[prop] === 'string') {
+          styleProps[prop] = styleProps[prop].replace(/\s*!important$/, '');
+        }
         element.style.setProperty(prop, styleProps[prop], important);
       } else {
         element.style.removeProperty(prop);

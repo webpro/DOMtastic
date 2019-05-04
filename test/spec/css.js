@@ -57,6 +57,7 @@ describe('css', function() {
       var element = $('#testFragment')[0];
       var actualValue = element.style.getPropertyValue('padding-right');
       var actualPriority = element.style.getPropertyPriority('padding-right');
+      console.log('actual/expected', actualValue, expected);
       assert(actualValue === expected);
       assert(actualPriority === 'important');
     });
