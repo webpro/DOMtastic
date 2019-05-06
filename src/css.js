@@ -51,10 +51,8 @@ export const css = function(key, value) {
   each(this, element => {
     for(prop in styleProps) {
       if(styleProps[prop] || styleProps[prop] === 0) {
-        const important = /!important$/.test(styleProps[prop]) ? 'important' : undefined;
-        if(typeof styleProps[prop] === 'string') {
-          styleProps[prop] = styleProps[prop].replace(/\s*!important$/, '');
-        }
+        const important = /!important$/.test(styleProps[prop]) ? 'important' : '';
+        styleProps[prop] = important ? styleProps[prop].replace(/\s*!important$/, '') : styleProps[prop];
         element.style.setProperty(prop, styleProps[prop], important);
       } else {
         element.style.removeProperty(prop);
