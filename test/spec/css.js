@@ -53,21 +53,20 @@ describe('css', function() {
 
     it('should set style property with important priority on elements', function() {
       var expected = '15px';
-      $('#testFragment').css('paddingRight', expected + ' !important');
-      var element = $('#testFragment')[0];
-      var actualValue = element.style.getPropertyValue('padding-right');
-      var actualPriority = element.style.getPropertyPriority('padding-right');
-      console.log('actual/expected', actualValue, expected);
+      var element = $('#testFragment');
+      element.css('paddingRight', expected + ' !important');
+      var actualValue = element[0].style.getPropertyValue('padding-right');
+      var actualPriority = element[0].style.getPropertyPriority('padding-right');
       assert(actualValue === expected);
       assert(actualPriority === 'important');
     });
 
     it('should set style property without important priority on elements', function() {
       var expected = '20px';
-      $('#testFragment').css('paddingRight', '20px');
-      var element = $('#testFragment')[0];
-      var actualValue = element.style.getPropertyValue('padding-right');
-      var actualPriority = element.style.getPropertyPriority('padding-right');
+      var element = $('#testFragment');
+      element.css('paddingRight', '20px');
+      var actualValue = element[0].style.getPropertyValue('padding-right');
+      var actualPriority = element[0].style.getPropertyPriority('padding-right');
       assert(actualValue === expected);
       assert(actualPriority === '');
     });
@@ -79,18 +78,10 @@ describe('css', function() {
         'font-weight': expected[0] + ' !important',
         'font-style': expected[1]
       });
-      var actualValue = [
-        element[0].style.getPropertyValue('font-weight'),
-        element[0].style.getPropertyValue('font-style')
-      ];
-      var actualPriority = [
-        element[0].style.getPropertyPriority('font-weight'),
-        element[0].style.getPropertyPriority('font-style')
-      ];
-      assert(actualValue[0] === expected[0]);
-      assert(actualPriority[0] === 'important');
-      assert(actualValue[1] === expected[1]);
-      assert(actualPriority[1] === '');
+      assert(element[0].style.getPropertyValue('font-weight') === expected[0]);
+      assert(element[0].style.getPropertyPriority('font-weight') === 'important');
+      assert(element[0].style.getPropertyValue('font-style') === expected[1]);
+      assert(element[0].style.getPropertyPriority('font-style') === '');
     });
 
   });
