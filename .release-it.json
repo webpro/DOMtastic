@@ -1,16 +1,7 @@
 {
   "scripts": {
-    "beforeStart": [
-      "npm run lint",
-      "npm run coverage",
-      "npm run test:jquery",
-      "git clone git@github.com:webpro/DOMtastic.git -b gh-pages .stage"
-    ],
-    "beforeStage": ["npm run build", "npm run doc"],
-    "afterRelease": [
-      "cd .stage && ../build/gh-pages.sh && git add . --all && git commit -m 'Release ${version}' && git push && cd -",
-      "rm -rf .stage"
-    ]
+    "beforeStart": ["npm run lint", "npm run coverage", "npm run test:jquery"],
+    "beforeStage": ["npm run build"]
   },
   "github": {
     "release": true
